@@ -1,0 +1,36 @@
+<div id="container" class="row" style="clear: both">
+  <div id="content" class="">
+    <div style="min-width: 350px; max-width: 1400px;">
+      <div class="main-form-body main-message-body" [style.height.px]="BodyHeight">
+        <div class="alert-image">
+          <img width="15px" height="15px" src="assets/icons/Alert.png" />
+        </div>
+        <div class="header-message">
+          <p style="white-space: pre-line; text-align: justify;">
+            {{ InputMessageBox.message }}
+          </p>
+        </div>
+      </div>
+      <div class="buttons-place">
+        <button (click)="onClick('OK')" id="btn2" *ngIf="InputMessageBox.HaveOkBtn" class="btn btn-primary btnGreen">
+          <img width="15px" height="15px" src="assets/Icons/ok.png" />
+          تایید
+        </button>
+
+        <button (click)="onClick('YES')" id="btnYes" *ngIf="InputMessageBox.HaveYesBtn"
+          class="btn btn-primary btnGreen">
+          <img width="15px" height="15px" src="assets/Icons/ok.png" />
+          بله
+        </button>
+        <button (click)="onClick('NO')" id="btnNo" *ngIf="InputMessageBox.HaveNoBtn" class="btn btn-primary btnGreen">
+          <img width="15px" height="15px" src="assets/Icons/cancel.png" />
+          خیر
+        </button>
+        <button *ngIf="InputMessageBox.HaveExitBtn" (click)="close()" id="btn4" class="btn btn-primary btnGreen">
+          <img width="15px" height="15px" src="assets/Icons/exit.png" />
+          خروج
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

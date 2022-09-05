@@ -1,0 +1,73 @@
+<div id="container" class="row" style="clear: both">
+  <div id="content" class="" style="height: 100%; width: 100%;">
+    <div class="main-form-body" style="margin: 5px;text-align: center;">
+      <span style="color: red;font-weight: bold;">توجه: مدارک ارسالی باید دارای امضا و مهر و موم الکترونیک باشد جهت
+        دریافت نرم افزار مهر و موم الکترونیک </span>
+      <span style="text-decoration: underline;font-weight: bold;cursor: pointer;"
+        (click)="onDownloadSignApp()">اینجا</span>
+      <span style="color: red;font-weight: bold;"> را کلیک کنید</span>
+    </div>
+    <div class="main-form-body" style="margin: 5px;">
+      <fieldset class="feild-set" style="display: inherit">
+        <table style="width: 100%;">
+          <tr>
+            <td width="100%">
+              <span style="vertical-align: top;" class="table-cell-Lable">شرح آگهی</span>
+              <textarea style="display: inline-block;width: 85%; font-size: 11px;" rows="2" class="form-control"
+                type="text" [(ngModel)]="Note" [disabled]="true"></textarea>
+            </td>
+          </tr>
+          <tr>
+            <td width="100%">
+              <span class="table-cell-Lable">موضوع</span>
+              <input style="width: 85% " class="form-control input-style" type="text" [(ngModel)]="Subject" readonly />
+            </td>
+          </tr>
+          <tr>
+            <td width="100%">
+              <span class="table-cell-Lable" style="vertical-align: top;">جزییات آگهی</span>
+              <textarea [(ngModel)]="AdvertisingDetails" name="TextDown" class="form-control" rows="10"
+                style="display: inline-block;width: 85%; font-size: 11px;" id="indicator-text_note"
+                [disabled]="true"></textarea>
+            </td>
+          </tr>
+        </table>
+      </fieldset>
+      <div class="main-form-body" style="margin: 5px;height: 125px;">
+        <table style="width: 80%;margin: auto;">
+          <tr>
+            <td *ngIf="HaveAenvelope" style="text-align: center;">
+              <img (click)="onbtnDocumentUpload(170)"
+                [src]="!IsLock ? 'assets/Images/Aenvelope.png':'assets/Images/Alenvelope.png'"
+                [ngStyle]="{'cursor': !IsLock ? 'pointer':'default'}" />
+            </td>
+            <td *ngIf="HaveBenvelope" style="text-align: center;">
+              <img (click)="onbtnDocumentUpload(171)"
+                [src]="!IsLock ? 'assets/Images/Benvelope.png':'assets/Images/Blenvelope.png'"
+                [ngStyle]="{'cursor': !IsLock ? 'pointer':'default'}" />
+            </td>
+            <td *ngIf="HaveCenvelope" style="text-align: center;">
+              <img (click)="onbtnDocumentUpload(172)"
+                [src]="!IsLock ? 'assets/Images/Cenvelope.png':'assets/Images/Clenvelope.png'"
+                [ngStyle]="{'cursor': !IsLock ? 'pointer':'default'}" />
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="buttons-place" style=" margin: 5px">
+      <button [disabled]="!ProposalID || !IsActive" (click)="FinalConfirmClick()" class="btn btn-primary btnGreen">
+        <img width="15px" height="15px" src="assets/Icons/ok.png" />
+        {{FinalConfirmBtnName}}</button>
+        <!--RFC 64234-->
+      <button (click)="close()" class="btn btn-primary btnGreen">
+        <img width="15px" height="15px" src="assets/Icons/exit.png" />
+        خروج</button>
+    </div>
+  </div>
+</div>
+<app-over-popup *ngIf="btnclicked" [PopupType]="PopupType" [HaveMaxBtn]="false" [PixelHeight]="OverPixelHeight"
+  [PixelWidth]="OverPixelWidth" [startLeftPosition]="overStartLeftPosition" [startTopPosition]="OverStartTopPosition"
+  [HaveHeader]="true" [PopupParam]="PopupType === 'message-box' ? alertMessageParams : ArchiveParams"
+  (popupclosed)="popupclosed($event)">
+</app-over-popup>

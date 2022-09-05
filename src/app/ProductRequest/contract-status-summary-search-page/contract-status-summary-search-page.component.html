@@ -1,0 +1,90 @@
+<div class="main-form-body" style="margin-top: 5px; height:95%;">
+  <div class="main-form-body">
+    <table style="width: 100%;">
+      <tr>
+        <td colspan="2" width="50%">
+          <span class="table-cell-Lable">واحد اجرايي</span>
+          <app-ng-select-virtual-scroll style="display: inline-block;width: 80%;"
+            [NgSelectParams]="NgSelectRegionParams" (selectedChange)="onChangeReigonObj($event)" [Items]="ReigonListSet"
+            [multiple]="true">
+          </app-ng-select-virtual-scroll>
+        </td>
+        <td width="15%">
+          <span class="table-cell-Lable">انتخاب همه</span>
+          <app-custom-check-box style="vertical-align: sub;" [isSelected]="SelectAll"
+            [configurationInfo]="CustomCheckBoxConfig" (PrettyCheckBoxChange)="OnChangeCheckBoxValue($event)">
+          </app-custom-check-box>
+        </td>
+        <td width="35%"></td>
+      </tr>
+      <tr>
+        <td style="width: 25%;">
+          <span class="table-cell-Lable">محل هزینه </span>
+          <app-ng-select-virtual-scroll style="display: inline-block;width: 60%;" [NgSelectParams]="VWExeUnitParams"
+            (selectedChange)="onChangeExeUnit($event)" [Items]="ExeUnitItems" (Open)="OnOpen('ExeUnit')">
+          </app-ng-select-virtual-scroll>
+        </td>
+        <td style="width: 25%;">
+          <span class="table-cell-Lable">کسب و کار</span>
+          <app-ng-select-virtual-scroll style="display: inline-block;width: 60%;" class=""
+            [NgSelectParams]="BusinessPatternParams" (selectedChange)="onChangeBusinessPattern($event)"
+            [Items]="BusinessPatternItems" (Open)="OnOpen('BusinessPattern')">
+          </app-ng-select-virtual-scroll>
+        </td>
+        <td style="width: 25%;">
+          <span class="table-cell-Lable">رشته</span>
+          <app-ng-select-virtual-scroll style="display: inline-block;width: 60%;" class=""
+            [NgSelectParams]="PriceListTopicParams" [Items]="PriceListTopicItems" (Open)="OnOpen('PriceListTopic')">
+          </app-ng-select-virtual-scroll>
+        </td>
+        <td style="width: 25%;">
+          <span class="table-cell-Lable">رتبه</span>
+          <input style="width: 60%; " class="form-control input-style" type="text" name="Grade"
+            [(ngModel)]="Grade" />
+        </td>
+      </tr>
+    </table>
+  </div>
+  <table>
+    <tr>
+      <td wdith="25%" colspan="2">
+        <button type="submit" (click)="Search('InGeneral')" style="width: 150px;height: 30px;"
+        class="select-general-for-lable btn-gray-border btn btn-primary btnGreen">
+        <img width="15px" height="15px" src="assets/Icons/Search.png" />
+        جستجو
+      </button>
+        <button type="submit" (click)="Search('InDetail')" style="width: 150px;height: 30px;"
+          class="select-general-for-lable btn-gray-border btn btn-primary btnGreen">
+          <img width="15px" height="15px" src="assets/Icons/Search.png" />
+          جستجو به ریز
+        </button>
+      </td>
+    </tr>
+  </table>
+  <div class="box-dev" style="clear: both;padding-bottom: 5px; height: 72%;">
+    <div class="box-dev" style=" width: 100%;" [style.height.%]="92">
+      <app-grid (GridReady)="onGridReady($event)" [columns]="MaincolumnDef" [rowsData]="rowData" [gridHeight]="90"
+        (FilterChanged)="OnFilterChanged()" (RowDataChanged)="OnRowDataChanged()" (RowDataUpdated)="OnRowDataUpdated()">
+      </app-grid>
+    </div>
+    <div class="main-form-body" style=" margin-top: 2px;color: red;height: 32px;padding: 3px;">
+      <div style="min-width: 100px;font-weight: bold;display: inline-block">
+        <span id="sum-final-estimate-amount" class="table-cell-Lable">جمع کل تعداد قرارداد: </span>
+        <label for="sum-final-estimate-amount" style="margin:2px"> {{SumFinalCountStr}} </label>
+      </div>
+      <div style="min-width: 100px;font-weight: bold;display: inline-block">
+        <span id="sum-final-contract-amount" class="table-cell-Lable">جمع کل مبلغ قرارداد: </span>
+        <label for="sum-final-contract-amount" style="margin:2px"> {{SumFinalAmountStr}} </label>
+      </div>
+    </div>
+  </div>
+  <div class="buttons-place" style="margin: unset;">
+    <button (click)="closeModal()" id="btn4" class="btn btn-primary btnGreen">
+      <img width="15px" height="15px" src="assets/Icons/exit.png" />
+      خروج</button>
+  </div>
+</div>
+<app-over-popup *ngIf="btnclicked" [HaveMaxBtn]="false" [startLeftPosition]="startLeftPosition"
+  [startTopPosition]="startTopPosition" [minHeightPixel]="''" [PopupType]="PopupType" [HeightPercentWithMaxBtn]="''"
+  [PixelWidth]="''" [MainMaxwidthPixel]="''" (popupclosed)="popupclosed($event)" [HaveHeader]="HaveHeader">
+</app-over-popup>

@@ -1,0 +1,289 @@
+<div [ngClass]="{'disable-parent': !IsDown}" class="main-form-body for-append-date" style="margin: 5px;height: 87.5%;">
+  <form>
+    <div class="main-form-body" style="display: inherit">
+      <table style="width: 100%;">
+        <tr>
+          <td width="25%">
+            <span style="color: red;">*</span>
+            <span class="table-cell-Lable">واحد اجرایی</span>
+            <app-ng-select-virtual-scroll
+              [Disabled]="DisableControlles === false ? (RequestedPersonDisable || CheckRegionWritable || (!IsEditable && ProductRequestObject)) && ModuleCode != 2773 : true"
+              style="display: inline-block;width: 60%;" class="" [NgSelectParams]="RegionParams"
+              [CheckValidate]="CheckValidate" (selectedChange)="onChangeRegion($event)" [Items]="RegionItems"
+              (Open)="OnOpenNgSelect('Region', false)">
+            </app-ng-select-virtual-scroll>
+          </td>
+          <td width="25%">
+            <span style="color: red;">*</span>
+            <span class="table-cell-Lable">محل هزینه</span>
+            <app-ng-select-virtual-scroll style="display: inline-block;width: 68%;" class=""
+              [NgSelectParams]="VWExeUnitParams" [Disabled]="RequestedPersonDisable || !IsEditable"
+              [CheckValidate]="CheckValidate" [Items]="VWExeUnitItems" (Open)="OnOpenNgSelect('VWExeUnit', false)">
+            </app-ng-select-virtual-scroll>
+          </td>
+          <td width="25%">
+            <span style="color: red;">*</span>
+            <span class="table-cell-Lable">نوع درخواست</span>
+            <app-ng-select-virtual-scroll style="display: inline-block;width: 60%;" class=""
+              [NgSelectParams]="INVVoucherGroupParams" [Disabled]="!IsEditable" [CheckValidate]="CheckValidate"
+              [Items]="INVVoucherGroupItems" (Open)="OnOpenNgSelect('INVVoucherGroup', false)"
+              (selectedChange)="INVVoucherGroupChange($event)">
+            </app-ng-select-virtual-scroll>
+          </td>
+          <td width="25%">
+            <span style="color: red;">*</span>
+            <span class="table-cell-Lable">رسید / حواله</span>
+            <app-ng-select-virtual-scroll style="display: inline-block;width: 66%;" class=""
+              [NgSelectParams]="IncrementTypeParams" [Disabled]="!IsEditable || IncrementTypeDisable"
+              [CheckValidate]="CheckValidate" [Items]="IncrementTypeItems">
+            </app-ng-select-virtual-scroll>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div class="main-form-body" style="display: inherit">
+      <table style="width: 100%;">
+        <tr>
+          <td width="25%">
+            <span class="table-cell-Lable">کد درخواست</span><input style="width: 60% " class="form-control input-style"
+              type="text" value="{{ProductRequestNo}}" readonly />
+          </td>
+          <td width="25%">
+            <span style="color: red;">*</span>
+            <span class="table-cell-Lable">تاریخ درخواست</span>
+            <app-jalali-datepicker
+              [Disabled]="DisableControlles === false ? !IsEditable && ModuleCode !== 2773 && !HasProvisionContractID : true"
+              [WidthPC]="68" [CheckValidate]="CheckValidate" [CurrMiladiDateValue]="ProductRequestDate"
+              [Required]="true" (Change)="OnProductRequestDateChange($event)">
+            </app-jalali-datepicker>
+          </td>
+          <td width="25%">
+            <span class="table-cell-Lable">مهلت تامین</span>
+            <app-jalali-datepicker [Disabled]="!IsEditable" [WidthPC]="60" [Required]="CheckValidate"
+              [CurrMiladiDateValue]="DeadLineDate" (Change)="OnDeadLineDateChange($event)">
+            </app-jalali-datepicker>
+          </td>
+          <td width="25%">
+            <span class="table-cell-Lable">سفارش مشتری</span>
+            <app-ng-select-virtual-scroll [Disabled]="!IsEditable || DisableCustomerOrder" style="display: inline-block;width: 66%;" class=""
+              [NgSelectParams]="CustomerOrderParams" [Items]="CustomerOrderItems"
+              (Open)="OnOpenNgSelect('CustomerOrder', false)" (FetchMore)="FetchMoreCustomerOrder($event)"
+              (doSearch)="doCustomerOrderSearch($event)">
+            </app-ng-select-virtual-scroll>
+          </td>
+        </tr>
+        <tr>
+          <td width="25%">
+            <span class="table-cell-Lable">واحد تحویل گیرنده</span>
+            <app-ng-select-virtual-scroll [Disabled]="!IsEditable || DisableFilterRegion" style="display: inline-block;width: 60%;" class=""
+              [NgSelectParams]="OnFilterRegionParams" [Items]="OnFilterRegionItems"
+              (selectedChange)="onChangeFilterRegion($event)" (Open)="OnOpenNgSelect('FilterRegion', false)">
+            </app-ng-select-virtual-scroll>
+          </td>
+          <td width="25%">
+            <span style="color: red;">*</span>
+            <span class="table-cell-Lable">مرکز هزینه</span>
+            <app-ng-select-virtual-scroll [Disabled]="!IsEditable || DisableCostCenter" style="display: inline-block;width: 68%;"
+              [NgSelectParams]="CostCenterParams" (selectedChange)="onChangeCostCenter($event)"
+              [Items]="CostCenterItems" (Open)="OnOpenNgSelect('CostCenter', false)" [CheckValidate]="CheckValidate">
+            </app-ng-select-virtual-scroll>
+          </td>
+          <td width="25%">
+            <span style="color: red;">*</span>
+            <span class="table-cell-Lable">مرکز هزینه فرعی</span>
+            <app-ng-select-virtual-scroll [Disabled]="!IsEditable || DisableCostCenter" style="display: inline-block;width: 60%;"
+              [NgSelectParams]="SubCostCenterParams" [CheckValidate]="CheckValidate" [Items]="SubCostCenterItems"
+              (Open)="OnOpenNgSelect('SubCostCenter', false)" (selectedChange)="onSubCostCenterSelectedChange($event)">
+            </app-ng-select-virtual-scroll>
+          </td>
+          <td width="25%">
+            <span style="color: red;">*</span>
+            <span class="table-cell-Lable">درخواست کننده</span>
+            <app-ng-select-virtual-scroll
+              [Disabled]="!IsEditable || DisableRequestedPerson"
+              style="display: inline-block;width: 66%;" [CheckValidate]="CheckValidate"
+              [NgSelectParams]="RequestedPersonParams" [Items]="RequestedPersonItems"
+              (Open)="OnOpenNgSelect('RequestedPerson', false)"
+              (selectedChange)="onRequestedPersonSelectedchanged($event)">
+            </app-ng-select-virtual-scroll>
+          </td>
+        </tr>
+        <tr>
+          <td width="25%">
+            <!-- <span style="color: red;">*</span> -->
+            <span class="table-cell-Lable">محصول</span>
+            <app-ng-select-virtual-scroll [Disabled]="!IsEditable" style="display: inline-block;width: 60%;" class=""
+              [NgSelectParams]="CostProductParams" [Items]="CostProductItems"
+              (Open)="OnOpenNgSelect('CostProduct', false)" (FetchMore)="FetchMoreCostProduct($event)"
+              (doSearch)="doCostProductSearch($event)">
+            </app-ng-select-virtual-scroll>
+          </td>
+          <td width="25%">
+            <!-- <span style="color: red;">*</span> -->
+            <span class="table-cell-Lable">انبار</span>
+            <app-ng-select-virtual-scroll [Disabled]="!IsEditable || DisableWarehouse" style="display: inline-block;width: 68%;"
+              [NgSelectParams]="WarehouseParams" [Items]="WarehouseItems" (Open)="OnOpenNgSelect('Warehouse', false)">
+            </app-ng-select-virtual-scroll>
+          </td>
+          <td colspan="2" width="50%">
+            <span style="color: red;">*</span>
+            <span class="table-cell-Lable">موضوع</span>
+            <input [readonly]="!IsEditable && IsDisabledType106"
+              [ngStyle]="{'border-color': CheckValidate && !Subject ? 'red':''}"
+              placeholder="{{CheckValidate && !Subject ? 'پر کردن مقدار این فیلد الزامیست': ''}}" style="width: 80%"
+              class="form-control input-style" type="text" name="Subject" [(ngModel)]="Subject" />
+          </td>
+        </tr>
+        <tr>
+          <td width="25%" style="vertical-align: initial;">
+            <span class="table-cell-Lable">شماره درخواست </span><input style="width: 60% "
+              class="form-control input-style" type="text" value="{{ProductRequestCode}}" readonly />
+          </td>
+
+          <td width="25%">
+            <span class="table-cell-Lable">نوع طرف قرارداد</span>
+            <div class="redio-div" style="width: 62%; text-align: center; margin-left: 10px;">
+              <div class="custom-control custom-radio custom-control-inline">
+                <input [checked]="ContractorType" type="radio" class="custom-control-input" [disabled]="!IsEditable || DisableContractor"
+                  id="rdoPersonContractor" name="ChoosenContractorType" (click)="rdoContractorTypeClick(true)">
+                <label style="margin: auto;" class="custom-control-label redio-label" for="rdoPersonContractor">حقيقي
+                </label>
+              </div>
+              <div class="custom-control custom-radio custom-control-inline">
+                <input [checked]="!ContractorType" type="radio" class="custom-control-input" [disabled]="!IsEditable || DisableContractor"
+                  id="rdoCorporateContractor" name="ChoosenContractorType">
+                <label style="margin: auto;" class="custom-control-label redio-label" for="rdoCorporateContractor"
+                  (click)="rdoContractorTypeClick(false)">حقوقي</label>
+              </div>
+            </div>
+          </td>
+
+          <td width="25%">
+            <!-- <span style="color: red;">*</span> -->
+            <span class="table-cell-Lable">تحویل گیرنده خارجی</span>
+            <app-ng-select-virtual-scroll [PageCount]="ContractorPageCount" [TotalItemCount]="ContractorTotalItemCount"
+              style="display: inline-block;width: 60% !important;" class="select-general-for-lable"
+              [Disabled]="!IsEditable || DisableContractor" [NgSelectParams]="NgSelectContractorParams" [Items]="ContractorItems"
+              (FetchMore)="FetchMoreContractor($event)" (Open)="OnOpenNgSelect('Contractor', false)"
+              (doSearch)="doContractorSearch($event)">
+            </app-ng-select-virtual-scroll>
+          </td>
+
+          <td width="25%" style="vertical-align: initial;">
+            <span class="table-cell-Lable">وضعیت درخواست</span>
+            <input style="width: 66%" class="form-control input-style" type="text" value="{{ProductRequestStatusName}}"
+              readonly />
+          </td>
+        </tr>
+        <tr>
+          <td width="25%">
+            <span class="table-cell-Lable">قرارداد</span>
+            <app-ng-select-virtual-scroll style="display: inline-block;width: 60%;"
+              [TotalItemCount]="ContractTotalItemCount" [PageCount]="ContractPageCount"
+              (Open)="OnOpenNgSelect('Contract', false)" [NgSelectParams]="ContractParams" [Items]="ContractItems"
+              (selectedChange)="onChangeContract($event)" (FetchMore)="FetchMoreContract($event)"
+              (doSearch)="doContractSearch($event)" [Disabled]="!IsEditable">
+            </app-ng-select-virtual-scroll>
+          </td>
+          <td width="25%">
+            <span class="table-cell-Lable">دستور کار</span>
+            <app-ng-select-virtual-scroll style="display: inline-block;width: 68%;" [Disabled]="!IsEditable"
+              [NgSelectParams]="ContractWorkOrderParams" [Items]="ContractWorkOrderItems">
+            </app-ng-select-virtual-scroll>
+          </td>
+          <td width="25%">
+
+          </td>
+          <td width="25%">
+
+          </td>
+        </tr>
+      </table>
+    </div>
+
+
+  </form>
+  <ul style="margin-top: 5px" class="nav nav-tabs" role="tablist">
+    <li class="nav-item">
+      <a class="nav-link active" href="#request-item" role="tab" data-toggle="tab">اقلام درخواست</a>
+    </li>
+  </ul>
+  <div class="tab-content box-dev" style="margin-top: 5px;padding: 5px;" [style.height.%]="gridHeight">
+    <div role="tabpanel" class="tab-pane fade show active" id="request-item" style="margin-bottom: 5px;"
+      [style.height.%]="tabpanelHeight">
+      <app-grid [HaveBorder]="true" [columns]="columnDef" [rowsData]="rowsData" (GridReady)="onGridReady($event)"
+        [IsEditable]="IsEditable" (cellEditingStarted)="oncellEditingStarted($event)"
+        (CellValueChanged)="onCellValueChanged($event)" (FilterChanged)="OnFilterChanged()"
+        (RowDataChanged)="OnRowDataChanged()" (RowDataUpdated)="OnRowDataUpdated()" [gridHeight]="PRIgridHeight"
+        (ImportFromExcelClick)="OnImportFromExcelBtnClick()" [IsNeedImportBtn]="true">
+      </app-grid>
+    </div>
+
+    <div *ngIf="HaveAlertToFinance" style="float: right;color: red;margin-top: 10px;">
+      <span>لطفا جهت تامین اعتبار به سیستم جامع مالی مراجعه نمایید</span>
+    </div>
+  </div>
+</div>
+<div [ngClass]="{'disable-parent': !IsDown}" style="margin: 5px;">
+  <div class="buttons-place" style="float: right;margin: auto;" [style.width.%]="ButtonsPlaceWidthPercent">
+    <button *ngIf="(HaveSave && IsEditable) || HasCompleteSave" (click)="onSave()" id="btnSave"
+      class="btn btn-primary btnGreen">
+      <img width="15px" height="15px" src="assets/Icons/save.png" />
+      ثبت
+    </button>
+    <button *ngIf="(WfSaveDetailsShow && IsEditConfirm)" (click)="onWFSave()" id="btnSave"
+      class="btn btn-primary btnGreen">
+      <img width="15px" height="15px" src="assets/Icons/save.png" />
+      ثبت
+    </button>
+    <button *ngIf="HaveCompleteInfo" id="btnShowRequestDetailsPage" class="btn btn-primary btnGreen"
+      (click)="ShowRequestDetailsDialog()">
+      <img width="15px" height="15px" src="assets/Icons/Suggestion.png" />
+      {{HasCompleteInfoBtnText}}
+    </button>
+    <button *ngIf="HasBtnAutomationLetter" id="btnClose" class="btn btn-primary btnGreen" (click)="onAutomationClick()">
+      <img width="15px" height="15px" src="assets/Icons/ok.png" />
+      {{AutomationLetterBtnText}}
+    </button>
+    <button *ngIf="HaveProvision" id="btnTenderRep" class="btn btn-primary btnGreen"
+      (click)="onProvisionClick('Suggestion')">
+      <img width="15px" height="15px" src="assets/Icons/Suggestion.png" />
+      {{btnProvisionName}}
+    </button>
+    <button id="btnClose" class="btn btn-primary btnGreen" (click)="Close()">
+      <img width="15px" height="15px" src="assets/Icons/exit.png" />
+      خروج
+    </button>
+  </div>
+  <!-- --------------------------- -->
+  <div *ngIf="ShowWorkflowButtons" class="buttons-place" style="float: left;margin: auto;"
+    [style.width.%]="WorkflowButtonsWidth">
+    <button *ngIf="!CheckRegionWritable" [disabled]="IsDisable || ISSendAndConfirm" (click)="onConfirm()" id="btn2"
+      class="btn btn-primary btnGreen" style="margin: 2px;">
+      <img width="15px" height="15px" src="assets/Icons/{{btnConfirmIcon}}.png" />
+      {{btnConfirmName}} </button>
+    <button *ngIf="!CheckRegionWritable" [disabled]="IsDisable || IsEndFlow || ISSendAndConfirm"
+      (click)="onConfirmAndSend()" id="btn2" class="btn btn-primary btnGreen" style="margin: 2px;">
+      <img width="15px" height="15px" src="assets/Icons/Approve.png" />
+      تایید و ارسال </button>
+    <button *ngIf="!CheckRegionWritable" [disabled]="IsDisable || ISDisabledConfirmAndReturnBtn || ISSendAndConfirm"
+      (click)="onUnConfirmAndReturn()" id="btn2" class="btn btn-primary btnGreen" style="margin: 2px;">
+      <img width="15px" height="15px" src="assets/Icons/DisApprove.png" />
+      {{btnConfirmAndReturnName}} </button>
+    <button (click)="OnClickPrintFlow()" [disabled]="IsDisable" class="btn btn-primary btnGreen">
+      <img width="15px" height="15px" src="assets/Icons/print.png" />
+      گردش
+    </button>
+  </div>
+</div>
+
+
+<app-over-popup *ngIf="isClicked" [PopupType]="PopUpType" [HaveMaxBtn]="HaveMaxBtn"
+  [HeightPercentWithMaxBtn]="HeightPercentWithMaxBtn" [startLeftPosition]="startLeftPosition"
+  [startTopPosition]="startTopPosition" [PopupParam]="PopUpType === 'message-box' ?alertMessageParams:PopupParam"
+  [HaveHeader]="HaveHeader" [PercentWidth]="PopUpType === 'message-box' ? '' : PercentWidth"
+  [MainMaxwidthPixel]="MainMaxwidthPixel" [minHeightPixel]="MinHeightPixel"
+  (PopupOutPutParam)="PopUpType ==='message-box' ? MessageBoxAction($event) : getOutPutParam($event)"
+  (popupclosed)="PopUpType === 'app-product-request-page-proposal' ?  popupProposalClosed($event) : popupclosed($event)"
+  [MainMinwidthPixel]="PopUpType === 'message-box' ? '' : OverMainMinwidthPixel">
+</app-over-popup>

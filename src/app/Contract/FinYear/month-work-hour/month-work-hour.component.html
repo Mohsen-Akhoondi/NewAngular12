@@ -1,0 +1,64 @@
+<div class="main-form-body" style="margin-top: 5px; height: 85%;">
+ <fieldset align="right" class="feild-set" style="display: inherit">
+  <table style="line-height: 12px; width: 100%;">
+    <tr style="text-align: right;" >
+      <td width="33%">
+        <span style="margin: 0" class="table-cell-Lable"
+          >سال مالی </span>     
+        <app-ng-select-virtual-scroll style="display: inline-block;width: 70%; min-width: 85px" class="select-general-for-lable"
+          [NgSelectParams]="FinYearParams" [Items]="FinYearSet" (selectedChange)="onFinYearChange($event)">
+        </app-ng-select-virtual-scroll>
+      </td>      
+      <td width="33%">
+        <span style="margin: 0" class="table-cell-Lable"
+          >حداقل حقوق </span>
+          <input style=" width: 60%;"
+          class="form-control input-style"
+          type="text"
+          name="first"
+          [(ngModel)] = "MinSalary"
+        />
+      </td>
+      <td width="33%">
+        <span style="margin: 0" class="table-cell-Lable"
+          >ضریب تطبیق </span>
+          <input style=" width: 60%;"
+          class="form-control input-style"
+          type="text"
+          name="first"
+          [(ngModel)] = "MatchCoef"
+        />
+      </td>
+    </tr>
+  </table>
+</fieldset>
+    <div class="box-dev" style=" width: 100%;">
+      <app-grid
+      [columns]="columnDef"
+      [rowsData]="MonthWorkHourList"
+      [gridHeightPxel]="370"
+      (GridReady)="onGridReady($event)"
+   
+      >
+    </app-grid>
+    </div>
+</div>
+<div class="buttons-place" style="margin: auto; height: 44px; padding: 10px; padding-bottom: 7px;">
+    <button (click)="onSave()" id="btn1" class="btn btn-primary btnGreen">
+        <img width="15px" height="15px" src="assets/Icons/save.png" />
+       ثبت
+      </button>
+      <button (click)="close()" id="btn4" class="btn btn-primary btnGreen">
+        <img width="15px" height="15px" src="assets/Icons/exit.png" />
+        خروج
+      </button>
+</div>
+<app-over-popup 
+*ngIf="btnclicked"
+[PopupType]="PopupType"
+[startLeftPosition]="470"
+[startTopPosition]="200"
+[PopupParam]="alertMessageParams"
+(popupclosed)="popupclosed($event)"
+[HaveHeader] = "true"
+></app-over-popup>

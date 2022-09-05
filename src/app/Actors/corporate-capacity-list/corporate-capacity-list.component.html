@@ -1,0 +1,40 @@
+<div class="main-form-body" style="margin-top: 5px; height: 83%;">
+  <fieldset class="feild-set" style="display: inherit;">
+    <legend style="width: 10%;"> فهرست بها </legend>
+       <div style="text-align: right;">
+          <span class="table-cell-Lable">فهرست بها</span>
+            <app-ng-select-virtual-scroll style="display: inline-block;width:20%;" [NgSelectParams]="NgSelectParams" [Items] = "PriceListTopicItems"
+            (selectedChange)="onChangePriceListTopic($event)">
+          </app-ng-select-virtual-scroll>
+        </div>
+
+  </fieldset>
+    <div class="box-dev" style=" width: 100%;" [style.height.%]="BoxDevHeight">
+      <app-grid (RowClick)="RowClick($event)" (GridReady)="onGridReady($event)" [columns]="columnDef" [rows]="rowData" [gridHeight]=90.7>
+      </app-grid>
+  </div>
+</div>
+<div class="buttons-place" style="margin: unset;">
+  <button (click)="Btnclick('insert')" id="btn2" class="btn btn-primary btnGreen">
+    <img width="15px" height="15px" src="assets/Icons/add.png" />
+    ایجاد</button>
+  <button (click)="Btnclick('update')" id="btn2" class="btn btn-primary btnGreen">
+    <img width="15px" height="15px" src="assets/Icons/show.png" />
+    اصلاح</button>
+  <button  id="btnTenderRep" class="btn btn-primary btnGreen" (click)="onDeleteclick()">
+    <img width="15px" height="15px" src="assets/Icons/delete.png" />
+    حذف
+  </button>
+  <button (click)="close()" id="btn4" class="btn btn-primary btnGreen">
+    <img width="15px" height="15px" src="assets/Icons/exit.png" />
+    خروج
+  </button>
+</div>
+
+<app-over-popup *ngIf="btnclicked" [HaveMaxBtn]="HaveMaxBtn" [startLeftPosition]="startLeftPosition"
+  [startTopPosition]="startTopPosition" [minHeightPixel]="MinHeightPixel" [PercentWidth]="PercentWidth"
+  [MainMaxwidthPixel]="MainMaxwidthPixel" [PopupType]="type" [HeightPercentWithMaxBtn]="HeightPercentWithMaxBtn"
+  [PopupParam]="type === 'message-box' ? alertMessageParams : paramObj" [HaveHeader]="HaveHeader"
+  (popupclosed)="popupclosed($event)"
+  (PopupOutPutParam)="type ==='message-box' ? MessageBoxAction($event) : getOutPutParam($event)">
+</app-over-popup>

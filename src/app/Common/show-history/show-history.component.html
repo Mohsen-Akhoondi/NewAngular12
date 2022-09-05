@@ -1,0 +1,107 @@
+<div class="main-form-body" style="margin-top: 5px; height: 94%;">
+  <fieldset align="right" class="feild-set" style="display: inherit">
+    <legend style="width: 5%;"></legend>
+    <table style="margin-bottom: 10px; width: 100%;">
+      <tr>
+        <td width="25%">
+          <span class="table-cell-Lable">عملیات</span>
+          <div class="redio-div" style="width: 70% !important;">
+            <div class="custom-control custom-radio custom-control-inline">
+              <input [checked]="IsUpdate" type="radio" class="custom-control-input" id="IsUpdateRadio"
+                name="ChoosenIsUpdateRadioName" (click)="RedioClick(true)">
+              <label style="margin: auto;" class="custom-control-label redio-label" for="IsUpdateRadio">
+                ویرایش
+              </label>
+            </div>
+            <div class="custom-control custom-radio custom-control-inline">
+              <input [checked]="!IsUpdate" type="radio" class="custom-control-input" id="IsNotUpdateRadio"
+                name="ChoosenIsNotUpdateRadioName" (click)="RedioClick(false)">
+              <label style="margin: auto;" class="custom-control-label redio-label" for="IsNotUpdateRadio">
+                حذف
+              </label>
+            </div>
+          </div>
+        </td>
+        <td width="25%"></td>
+        <td width="25%"></td>
+        <td width="25%"></td>
+      </tr>
+      <tr>
+        <td width="25%">
+          <span class="table-cell-Lable">تاریخ از</span>
+          <app-jalali-datepicker [WidthPC]="75" [Required]="true" (Change)="OnFromDateChange($event)">
+          </app-jalali-datepicker>
+        </td>
+        <td width="25%">
+          <span class="table-cell-Lable">تا</span>
+          <app-jalali-datepicker [WidthPC]="75" [Required]="true" (Change)="OnToDateChange($event)">
+          </app-jalali-datepicker>
+        </td>
+        <td width="25%">
+          <span class="table-cell-Lable">نوع</span>
+          <div class="redio-div" style=" padding-right: 15px; padding-bottom: 7px; width: 70%; display: inline-block;">
+            <div class="custom-control custom-radio custom-control-inline">
+              <input [checked]="!IsCorporate" type="radio" class="custom-control-input" id="IsNotCorporateRadio"
+                name="ChoosenIsCorporateRadioName" style="padding-left: 0px;" (click)="RadioIsCorporateClick(false)">
+              <label style="margin: auto;" class="custom-control-label redio-label" for="IsNotCorporateRadio">
+                حقیقی
+              </label>
+            </div>
+            <div class="custom-control custom-radio custom-control-inline">
+              <input [checked]="IsCorporate" type="radio" class="custom-control-input" id="IsCorporateRadio"
+                name="ChoosenIsCorporateRadioName" (click)="RadioIsCorporateClick(true)">
+              <label style="margin: auto;" class="custom-control-label redio-label" for="IsCorporateRadio">
+                حقوقی
+              </label>
+            </div>
+          </div>
+        </td>
+        <td width="25%">
+          <span class="table-cell-Lable">شخص</span>
+          <app-ng-select-virtual-scroll style="display: inline-block;width: 75%;"
+            [NgSelectParams]="NgSelectPersonReqParams" [Items]="PersonReqItems"
+            (FetchMore)="PersonReq_FetchMore($event)" (Open)="PersonReqOpened()"
+            (doSearch)="Person_Req_DoSearch($event)">
+          </app-ng-select-virtual-scroll>
+        </td>
+      </tr>
+      <tr>
+        <td width="25%">
+          <span class="table-cell-Lable">جدول</span>
+          <app-ng-select-virtual-scroll style="display: inline-block;min-width: 75%" [NgSelectParams]="TablesParams"
+            [Items]="TablesDataList">
+          </app-ng-select-virtual-scroll>
+        </td>
+        <td width="25%">
+          <span class="table-cell-Lable">شی</span>
+          <input style="width: 75%; " class="form-control input-style" type="text" name="RegisterLetterNo"
+            [(ngModel)]="ObjectCode" />
+        </td>
+        <td width="25%">
+        </td>
+        <td width="25%">
+        </td>
+      </tr>
+    </table>
+  </fieldset>
+  <div style="margin: unset; text-align: center; display: grid;">
+    <button type="submit" (click)="Btnclick()" style="width: 150px;height: 30px; margin: auto auto 5px auto !important"
+      class="select-general-for-lable btn-gray-border btn btn-primary btnGreen">
+      <img width="15px" height="15px" src="assets/Icons/Search.png" />
+      جستجو
+    </button>
+  </div>
+  <div id="container" style="clear: both;padding-bottom: 5px;">
+    <div class="box-dev" style=" width: 100%;" [style.height.%]="72">
+      <app-grid [columns]="columnDef" [rowsData]="rowData" [gridHeight]=90>
+      </app-grid>
+    </div>
+  </div>
+</div>
+
+<!-- <app-over-popup *ngIf="btnclicked" [HaveMaxBtn]="HaveMaxBtn" [startLeftPosition]="startLeftPosition"
+  [startTopPosition]="startTopPosition" [minHeightPixel]="MinHeightPixel" [MainMaxwidthPixel]="MainMaxwidthPixel"
+  [PopupType]="type" [HeightPercentWithMaxBtn]="HeightPercentWithMaxBtn"
+  [PopupParam]="type === 'message-box' ? alertMessageParams : paramObj" [HaveHeader]="HaveHeader"
+  (popupclosed)="popupclosed($event)" (PopupOutPutParam)="getOutPutParam($event)">
+</app-over-popup> -->

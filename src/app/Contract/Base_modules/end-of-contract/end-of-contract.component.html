@@ -1,0 +1,88 @@
+<div id="container" style="clear: both;padding: 5px">
+  <div id="content" style="width:100%;">
+   <div class="main-form-body" style="width:98%;padding: 10px;margin:5px;">
+    <table style="width: 100%;">
+      <tr>
+        <td style="width: 100%;">
+          <span class="table-cell-Lable">واحد اجرایی</span>
+          <app-ng-select-virtual-scroll style="display: inline-block; width: 87%; min-height: 25;"
+                                        [NgSelectParams]="NgSelectRegionParams" 
+                                        (selectedChange)="onChangeReigonObj($event)"
+                                        [Items]="ReigonListSet">
+          </app-ng-select-virtual-scroll></td>
+      </tr>
+      <tr>
+        <td style="width: 100%;">
+          <span class="table-cell-Lable">قرارداد</span>
+          <app-ng-select-virtual-scroll style="display: inline-block;width: 87%;"  
+                                        [TotalItemCount]="ContractTotalItemCount" 
+                                        [PageCount]="ContractPageCount"
+                                        (Open)="OnOpenNgSelect()" 
+                                        [NgSelectParams]="ContractParams" 
+                                        [Items]="ContractItems" 
+                                        (selectedChange)="onChangeContractObj($event)" 
+                                        (FetchMore)="FetchMoreContract($event)" 
+                                        (doSearch)="doContractSearch($event)">   
+          </app-ng-select-virtual-scroll>
+        </td>
+      </tr>
+
+      <tr>
+        <td style="width: 100%;">
+          <span class="table-cell-Lable">پیمانکار</span><input style="display: inline-block;width: 87%;"
+            class="form-control input-style" type="text" name="ContractorName" value="{{ContractorName}}" readonly />
+        </td>
+      </tr>
+      <tr>
+        <td width="25%">
+          <span class="table-cell-Lablle">وضعیت قرارداد</span>
+          <div class="redio-div">
+              <div class="custom-control custom-radio custom-control-inline">
+                  <input [checked]="IsContractStatus" type="radio" class="custom-control-input" id="ContractStatus6"
+                      name="ChoosenIsContractStatusRadioName" (click)="RedioClick(true, 6)">
+                  <label style="margin: auto;" class="custom-control-label redio-label"
+                      for="ContractStatus6">تحویل موقت</label>
+              </div>
+              <div class="custom-control custom-radio custom-control-inline">
+                  <input [checked]="!IsContractStatus" type="radio" class="custom-control-input" id="ContractStatus7"
+                      name="ChoosenIsContractStatusRadioName">
+                  <label style="margin: auto;" class="custom-control-label redio-label" for="ContractStatus7"
+                      (click)="RedioClick(false, 7)">تحویل قطعی</label>
+              </div>
+              <div class="custom-control custom-radio custom-control-inline">
+                <input [checked]="!IsContractStatus" type="radio" class="custom-control-input" id="ContractStatus3"
+                    name="ChoosenIsContractStatusRadioName">
+                <label style="margin: auto;" class="custom-control-label redio-label" for="ContractStatus3"
+                    (click)="RedioClick(false, 3)">خاتمه یافته</label>
+            </div>
+          </div>
+      </td>
+      </tr>
+    </table>
+
+  </div>
+
+  <div class="buttons-place" style="width: 98%;">
+    <button (click)="onSaveClick()" 
+    class="btn btn-primary btnGreen">
+      <img width="15px" height="15px" src="assets/Icons/save.png" />
+       ثبت وضعیت
+    </button>
+
+    <button (click)="onClose()" id="btn4" class="btn btn-primary btnGreen">
+      <img width="15px" height="15px" src="assets/Icons/exit.png" />
+      خروج</button>
+  </div>
+
+</div>
+</div>
+
+<app-over-popup
+*ngIf= "btnclicked"
+[PopupType]= "PopupType" 
+[startLeftPosition] = "OverstartLeftPosition"
+[startTopPosition] = "OverstartTopPosition"
+[PopupParam]= "alertMessageParams"
+(popupclosed)= "popupclosed($event)"
+(PopupOutPutParam)="PopupType ==='message-box' ? MessageBoxAction($event) : ''">
+</app-over-popup>

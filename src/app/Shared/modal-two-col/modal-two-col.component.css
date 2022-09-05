@@ -1,0 +1,160 @@
+#header
+{
+    background-color: #2188fc;
+    width: 100%;
+    height: 23px;
+    cursor: move;
+}
+.modal-container {
+  border: solid steelblue;
+  min-height: 200px;
+  height: 90%;
+}
+.modal-container.full {
+    max-width: 100% !important;
+    overflow: hidden;
+    height: 100% !important;
+    width: 100% !important; 
+    left: 0 !important;
+    top: 0 !important;
+}
+
+.modal-container.full #modal-container,
+.modal-container.full #sidebar,
+.modal-container.full #content {
+    height: 100%;
+}
+
+span
+{
+font-size: 12px;
+text-align: right;
+float: right;
+margin-right: 1%;
+color: white;
+}
+.btnControlBox
+{
+    border: 0px none;
+    float: left;
+    margin:1px 5px;
+    background-color: transparent;
+    width: 10px;
+    height: 15px;
+    color: white;
+}
+/* ----------------------------------------------------------------------------- */
+
+
+.modal-trigger {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: all ease 0.4s;
+
+}
+
+.modal,
+.modal-box {
+    z-index: 900;
+}
+
+.modal-sandbox {
+    position: fixed;
+    height: 100%;
+    left: 0;
+    top: 0;
+    background: transparent;
+}
+
+.modal {
+    display: block;
+    position: fixed;
+    height: 100%;
+    left: 0;
+    width: 100%;
+    top: 0;
+    overflow: hidden;
+}
+
+.modal.full {
+    top: 0 !important;
+    right: 0  !important;
+    left: 0 !important;
+    bottom: 0 !important;
+}
+
+.modal-box {
+    position: relative;
+    animation-name: modalbox;
+    animation-duration: 0.5s;
+    animation-timing-function: cubic-bezier(0, 0, 0.3, 1.5);
+}
+
+@-webkit-keyframes modalbox {
+    0% {
+        top: -250px;
+        opacity: 0;
+    }
+
+    100% {
+        top: 0;
+        opacity: 1;
+    }
+}
+
+@keyframes modalbox {
+    0% {
+        top: -250px;
+        opacity: 0;
+    }
+
+    100% {
+        top: 0;
+        opacity: 1;
+    }
+}
+
+.modal-header {
+    padding: 20px 40px;
+    color: #fff;
+}
+
+.modal-body {
+    background: #eceff1;
+    padding: 60px 40px;
+}
+
+.close-modal{
+    text-align: right;
+    cursor: pointer;
+}
+
+.modal-trigger,.Modalbutton{
+    top: 50%;
+    left: 50%;
+    padding: 20px 40px;
+    background: transparent;
+    color: #ffffff;
+    border: 1px solid #ffffff;
+    text-decoration: none;
+}
+
+.Modalbutton{
+    border: 1px solid #333333;
+    color: #333333;
+}
+
+.modal-trigger:hover{
+    padding: 20px 60px;
+    text-decoration: none;
+}
+
+.modal-container {
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+}

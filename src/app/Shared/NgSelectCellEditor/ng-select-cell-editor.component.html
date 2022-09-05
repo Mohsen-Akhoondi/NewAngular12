@@ -1,0 +1,8 @@
+<ng-select #NgSelectRef [items]="Items"
+      bindLabel= {{bindLabelProp}}
+      bindValue= {{bindValueProp}}
+      [(ngModel)]="NgSelectedObj"
+      (ngModelChange)="selectedchange($event)"
+      [appendTo] = "'.for-append-ngselect'"
+      [ngStyle]="{'min-width': minwidth }"
+></ng-select>

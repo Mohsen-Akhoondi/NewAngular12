@@ -1,0 +1,39 @@
+<div id="container" class="row" style="clear: both">
+  <div id="content" style="height: 100%;width: 100%;">
+    <div class="main-form-body" style="margin: 5px; height:86%;">
+      <div class="box-dev" style=" width: 100%; margin-top: 5px;" [style.height.%]="99">
+        <app-grid [columns]="columnDef" [rowsData]="rowData" [gridHeight]=93 (RowClick)="RowClick($event)">
+        </app-grid>
+      </div>
+    </div>
+    <div class="buttons-place">
+
+      <button (click)="onShowProductRequest()" class="btn btn-primary btnGreen">
+        <img width="15px" height="15px" src="assets/Icons/Suggestion.png" />
+        درخواست معامله
+      </button>
+      <button (click)="onShowContract()" class="btn btn-primary btnGreen">
+        <img width="15px" height="15px" src="assets/Icons/Suggestion.png" />
+        پرونده قرارداد
+      </button>
+
+      <button (click)="onShowInquiryList()" class="btn btn-primary btnGreen">
+        <img width="15px" height="15px" src="assets/Icons/Suggestion.png" />
+        سابقه کمیسیون
+      </button>
+      <button (click)="closeModal()" id="btn4" class="btn btn-primary btnGreen">
+        <img width="15px" height="15px" src="assets/Icons/exit.png" />
+        خروج</button>
+    </div>
+  </div>
+</div>
+
+<app-over-popup *ngIf="btnclicked" [HaveMaxBtn]="HaveMaxBtn" [startLeftPosition]="startLeftPosition"
+  [startTopPosition]="startTopPosition" [minHeightPixel]="MinHeightPixel" [PopupType]="type"
+  [HeightPercentWithMaxBtn]="HeightPercentWithMaxBtn"
+  [PopupParam]="type === 'message-box' ? alertMessageParams : paramObj" [HaveHeader]="HaveHeader"
+  (popupclosed)="popupclosed($event)" [PercentWidth]="PercentWidth" [MainMaxwidthPixel]="MainMaxwidthPixel"
+  [HaveMaxBtn]="HaveMaxBtn">
+</app-over-popup>
+
+<!-- [PixelWidth]="1140" -->

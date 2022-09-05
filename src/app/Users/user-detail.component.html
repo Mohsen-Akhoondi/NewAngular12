@@ -1,0 +1,39 @@
+<div [style.marginTop.px]="IsAdvertising ? 13: IsLogin? 4:15"
+  [ngClass]="!IsAdvertising ? 'UserDetails row' : 'AdvertisingUserDetails row'">
+  <div *ngIf="!IsIRVersion && !IsAdvertising && IsLogin" class="notification">
+    <a (click)="ShowNotificatioList()" style="cursor: pointer">
+      <img *ngIf="IsLogin" class="img_bell" [src]="'assets/Icons/bell.svg'" />
+    </a>
+    <img *ngIf=" HasNewNotif" class="badge" [src]="'assets/Icons/circle.svg'" />
+    &nbsp; <span style="color: white;">|</span> &nbsp;
+  </div>
+  <div style="float: right;color: white">
+    <div class="" style="text-align: center;">
+      <span>{{FullPersianUserName}}</span>
+      <div *ngIf="IsLogin" style="display: inline-block;">
+        &nbsp; <span style="color: white;">|</span> &nbsp;
+      </div>
+      <div *ngIf="IsAdvertising || IsLogin" style="display: inline-block;">
+        <a (click)="LogOut()" style="cursor: pointer">
+          <img *ngIf="IsLogin" [src]="'assets/Icons/LogOut.png'" />
+          <!-- <img *ngIf="!IsLogin" height="20px" title="ورود به سامانه" width="20px" [src]="'assets/Icons/Login.png'" /> -->
+          <span *ngIf="IsAdvertising && !IsLogin" style="color: #FFF;line-height: 12px;">ورود به سامانه</span>
+        </a>
+      </div>
+    </div>
+    <div style="text-align: center;">
+      <span>{{SCurrentDate}}</span>
+    </div>
+  </div>
+  <div class="">
+    <img *ngIf="IsLogin" src="data:image/JPEG;base64,{{UserImage}}"
+      onError="this.src='assets/images/user-img-not-found.png';" class="" alt=""
+      style="height: 42px;margin-right: 5px;" />
+  </div>
+</div>
+<app-over-popup *ngIf="btnclicked" [PopupType]="PopupType" [HaveMaxBtn]="false" [PixelHeight]="OverPixelHeight"
+  [PixelWidth]="OverPixelWidth" [startLeftPosition]="overStartLeftPosition" [startTopPosition]="OverStartTopPosition"
+  [HaveHeader]="true" [PopupParam]="LoginParam" (popupclosed)="popupclosed($event)"
+  [minWidthPixel]="PopupType === 'application-link' ? MinWidthPixel : ''"
+  [PercentWidth]="PopupType === 'application-link'? PercentWidth : ''">
+</app-over-popup>

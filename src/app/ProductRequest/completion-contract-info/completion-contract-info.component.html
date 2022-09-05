@@ -1,0 +1,240 @@
+<div class="main-form-body for-append-date" style="margin: 5px;height: 86%;">
+  <form>
+    <div class="main-form-body" style="display: inherit">
+      <table style="width: 100%;">
+        <tr>
+          <td width="26%">
+            <span style="color: red;">*</span>
+            <span class="table-cell-Lable">نوع قرارداد</span>
+            <app-ng-select-virtual-scroll style="display: inline-block;" [style.width.%]="80"
+              class="select-general-for-lable" [NgSelectParams]="ContractTypeParams" [Items]="ContractTypeItems"
+              [Disabled]="!IsEditable" [CheckValidate]="CheckValidate">
+            </app-ng-select-virtual-scroll>
+          </td>
+          <td width="25%">
+            <span class="table-cell-Lable">روش انجام معامله</span>
+            <app-ng-select-virtual-scroll style="display: inline-block;width: 80%;" class="select-general-for-lable"
+              [NgSelectParams]="DealMethodParams" [Items]="DealMethodItems"
+              (selectedChange)="onChangeDealMethod($event)" [Disabled]="true">
+            </app-ng-select-virtual-scroll>
+          </td>
+          <td width="25%">
+            <span class="table-cell-Lable">تاريخ نامه</span>
+            <app-jalali-datepicker [WidthPC]="66" [CurrMiladiDateValue]="LetterDate"
+              (Change)="OnLetterDateChange($event)" [Disabled]="true">
+            </app-jalali-datepicker>
+          </td>
+          <td width="24%">
+            <span class="table-cell-Lable">وضعيت قرارداد</span>
+            <app-ng-select-virtual-scroll style="display: inline-block;width: 66% !important;"
+              class="select-general-for-lable" [NgSelectParams]="ContractStatusParams" [Items]="ContractStatusItems"
+              [Disabled]="true">
+            </app-ng-select-virtual-scroll>
+          </td>
+        </tr>
+        <tr>
+          <td width="26%">
+            <span style="color: red;">*</span>
+            <span class="table-cell-Lable">روش تعیین برنده</span>
+            <app-ng-select-virtual-scroll style="display: inline-block;" [style.width.%]="80"
+              class="select-general-for-lable" [NgSelectParams]="ReviewMethodParams" [Items]="ReviewMethodItems"
+              [Disabled]="!IsEditable" [CheckValidate]="CheckValidate">
+            </app-ng-select-virtual-scroll>
+          </td>
+          <td style="width: 25%">
+            <span style="color: red;">*</span>
+            <span class="table-cell-Lable">ناظر قرارداد</span>
+            <app-ng-select-virtual-scroll [PageCount]="SuperVisor1PageCount"
+              [TotalItemCount]="SuperVisor1TotalItemCount" style="display: inline-block;width: 80%;"
+              class="select-general-for-lable" [style.width.%]="80" [NgSelectParams]="NgSelectSuperVisor1Params"
+              [Items]="SuperVisor1Items" (FetchMore)="FetchMoreSuperVisor1($event)" (Open)="OpenSuperVisor1($event)"
+              (doSearch)="doSuperVisor1Search($event)" (selectedChange)="SuperVisor1Changed($event)"
+              [Disabled]="!IsEditable" [CheckValidate]="CheckValidate">
+            </app-ng-select-virtual-scroll>
+          </td>
+          <td style="width: 25%">
+            <!-- <span class="table-cell-Lable">ناظر دوم قرارداد </span>
+            <app-ng-select-virtual-scroll [PageCount]="SuperVisor1PageCount"
+              [TotalItemCount]="SuperVisor1TotalItemCount" style="display: inline-block;width: 66%;"
+              [NgSelectParams]="NgSelectSuperVisor2Params" [Items]="SuperVisor1Items"
+              (FetchMore)="FetchMoreSuperVisor2($event)" (Open)="OpenSuperVisor2($event)"
+              (doSearch)="doSuperVisor1Search($event)" (selectedChange)="SuperVisor2Changed($event)"
+              [Disabled]="!IsEditable">
+            </app-ng-select-virtual-scroll> -->
+            <span class="table-cell-Lable">تاريخ شروع</span>
+            <app-jalali-datepicker [WidthPC]="66" [CurrMiladiDateValue]="FromContractDate"
+              (Change)="OnStartDateChange($event)" [Disabled]="true">
+            </app-jalali-datepicker>
+          </td>
+          <td width="24%">
+            <span class="table-cell-Lable">تاريخ پایان</span>
+            <app-jalali-datepicker [WidthPC]="66" [CurrMiladiDateValue]="ToContractDate"
+              (Change)="OnEndDateChange($event)" [Disabled]="true">
+            </app-jalali-datepicker>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2" width="51%">
+            <span style="color: red;" *ngIf="Article31Disabled">*</span>
+            <span class="table-cell-Lable">علت ترک تشريفات</span>
+            <app-ng-select-virtual-scroll style="display: inline-block;" [style.width.%]="78.8"
+              class="select-general-for-lable" [NgSelectParams]="Article31Params" [Items]="Article31Items"
+              [Disabled]="!IsEditable"
+              [CheckValidate]="CheckValidate && OrginalModuleCode === 2939 && Article31Disabled">
+            </app-ng-select-virtual-scroll>
+          </td>
+          <td width="25%">
+            <span style="color: red;">*</span>
+            <span style="margin: 0;margin-left: 10px" class="table-cell-Lable">ماليات بر ارزش افزوده</span>
+            <app-custom-check-box style="display: inline-block; width: 65%; text-align: right;"
+              [isSelected]="IsTaxValue" [configurationInfo]="CustomCheckBoxConfig"
+              (PrettyCheckBoxChange)="OnChTaxValueChange($event)" [Disabled]="!IsEditable">
+            </app-custom-check-box>
+          </td>
+          <td width="24%">
+          </td>
+        </tr>
+        <tr>
+          <td colspan="3" width="76%">
+            <span style="color: red;">*</span>
+            <span class="table-cell-Lable">موضوع درخواست معامله</span>
+            <input style="width: 86%" class="form-control input-style" type="text" name="ProductRequestSubject"
+              [(ngModel)]="ProductRequestSubject"
+              [ngStyle]="{'border-color': CheckValidate && !ProductRequestSubject ? 'red':''}" />
+          </td>
+          <td *ngIf="false" width="25%">
+            <span class="table-cell-Lable">مدت انجام کار</span>
+            <div style="display: inline-block;width: 67%;">
+              <div style="display: inline-block;width: 34%;">
+                <app-number-input-component [id]="'indicator-label-Duration'" [Value]="DurationYear" [IsFloat]="false"
+                  [MaxLength]="1" [FloatMaxLength]="0" [PerCentWidth]="60" [PixelHeight]="25"
+                  (ValueChange)="getDurationYear($event)" class="col-form-label" [HaveThousand]="false"
+                  [ReadOnly]="true">
+                </app-number-input-component>
+                <span style="margin-right: 5px;margin-left: 5px;" class="table-cell-Lable">سال</span>
+              </div>
+              <div style="display: inline-block;width: 33%;">
+                <app-number-input-component [id]="'indicator-label-Duration'" [Value]="DurationMonth" [IsFloat]="false"
+                  [MaxLength]="2" [FloatMaxLength]="0" [PerCentWidth]="60" [PixelHeight]="25"
+                  (ValueChange)="getDurationMonth($event)" class="col-form-label" [HaveThousand]="false"
+                  [ReadOnly]="true">
+                </app-number-input-component>
+                <span style="margin-right: 5px;margin-left: 5px;" class="table-cell-Lable">ماه</span>
+              </div>
+              <div style="display: inline-block;width: 33%;">
+                <app-number-input-component [id]="'indicator-label-Duration'" [Value]="DurationDay" [IsFloat]="false"
+                  [MaxLength]="2" [FloatMaxLength]="0" [PerCentWidth]="60" [PixelHeight]="25"
+                  (ValueChange)="getDurationDay($event)" class="col-form-label" [HaveThousand]="false"
+                  [ReadOnly]="true">
+                </app-number-input-component>
+                <span style="margin-right: 5px;margin-left: 5px;" class="table-cell-Lable">روز</span>
+              </div>
+            </div>
+          </td>
+          <td width="24%"></td>
+        </tr>
+        <tr>
+          <td colspan="3" width="76%">
+            <span style="color: red;">*</span>
+            <span class="table-cell-Lable">موضوع قرارداد</span>
+            <input style="width: 86%" class="form-control input-style" type="text" name="ContractSubject"
+              [(ngModel)]="ContractSubject"
+              [ngStyle]="{'border-color': CheckValidate && !ContractSubject ? 'red':''}" />
+          </td>
+          <td width="24%"></td>
+        </tr>
+      </table>
+    </div>
+
+
+
+    <fieldset class="feild-set" style="display: inherit; padding-top: 0px;">
+      <legend style="width: 5%;" class="legend">محل انجام</legend>
+      <table style="width: 100%;">
+        <tr>
+          <td width="26%">
+            <span class="table-cell-Lable">واحد اجرايي</span>
+            <app-ng-select-virtual-scroll style="display: inline-block;" [style.width.%]="58.6"
+              class="select-general-for-lable" [NgSelectParams]="OnFilterRegionParams" [Items]="OnFilterRegionItems"
+              (selectedChange)="onChangeFilterRegion($event)" [Disabled]="!IsEditable">
+            </app-ng-select-virtual-scroll>
+          </td>
+          <td width="13%">
+            <span class="table-cell-Lable">ناحيه</span>
+            <app-ng-select-virtual-scroll style="display: inline-block;width: 36%;" class=""
+              [NgSelectParams]="RegionAreaParams" [Items]="RegionAreaItems" (selectedChange)="onChangeRegionArea($event)"
+              [Disabled]="!IsEditable">
+            </app-ng-select-virtual-scroll>
+          </td>
+          <td width="12%">
+            <span class="table-cell-Lable">محله</span>
+            <app-ng-select-virtual-scroll style="display: inline-block;width: 60%;" class=""
+              [NgSelectParams]="RegionAreaDistrictParams" [Items]="RegionAreaDistrictItems" [Disabled]="!IsEditable">
+            </app-ng-select-virtual-scroll>
+          </td>
+          <td width="49%">
+            <span class="table-cell-Lable">آدرس</span>
+            <input [style.width.%]="83" class="form-control input-style" type="text" name="Address"
+              [(ngModel)]="Address" [disabled]="!IsEditable" />
+          </td>
+        </tr>
+      </table>
+    </fieldset>
+  </form>
+  <ul style="margin-top: 5px" class="nav nav-tabs" role="tablist">
+    <li class="nav-item">
+      <a class="nav-link active" href="#ContractSign" role="tab" data-toggle="tab">امضاکنندگان</a>
+    </li>
+  </ul>
+  <div class="tab-content" style="margin-top: 5px;" [style.height.%]="40">
+    <div role="tabpanel" class="tab-pane fade show active" id="ContractSign" [style.height.%]="98"
+      style="margin-bottom: 5px;">
+      <div [style.height.%]="98" style="width: 100%; border-radius: 5px; border: 1px solid rgb(204, 204, 204);">
+        <app-grid [columns]="ContractsignColDef" [rowsData]="ContractsignRowsData" [gridHeight]="80"
+          [IsEditable]="IsEditable" [NewItemTemp]="NewItemTemp" (GridReady)="onGridReadyRequestContractsign($event)"
+          (cellEditingStarted)="onContractSigncellEditingStarted($event)"
+          (CellValueChanged)="onCellValueChanged($event)"></app-grid>
+      </div>
+    </div>
+  </div>
+  <fieldset class="feild-set" style="display: inherit; padding-top: 0px;margin-top: 3px;">
+    <div style="float: right;width: 70%;text-align: right;margin-top: 11px;">
+      <span class="table-cell-Lable">گروه مستند</span>
+      <app-ng-select-virtual-scroll style="display: inline-block;width: 30%;" class=""
+        [NgSelectParams]="ParentDocumentTypeParam" [Items]="DocTypeItems">
+      </app-ng-select-virtual-scroll>
+    </div>
+  </fieldset>
+</div>
+<div style="overflow: auto; padding: 0px 5px;" [style.width.%]="100">
+  <div class="buttons-place" [style.width.%]="100" style="float: right; margin: auto;">
+    <button (click)="onSave()" id="btn2" class="btn btn-primary btnGreen">
+      <img width="15px" height="15px" src="assets/Icons/save.png" />
+      ثبت</button>
+    <button (click)="BtnArchiveClick()" id="btn2" class="btn btn-primary btnGreen">
+      <img width="15px" height="15px" src="assets/Icons/TechnicalArchive.png" />
+      مستندات
+    </button>
+    <button id="btnRequestSuggestion" class="btn btn-primary btnGreen" (click)="onCommitionClick()">
+      <img width="15px" height="15px" src="assets/Icons/Suggestion.png" />
+      اعضای کمیسیون
+    </button>
+    <button *ngIf="HasAssetEstaeBtn" (click)="onEstateClick()" [disabled]="IsDisable" class="btn btn-primary btnGreen">
+      <img width="15px" height="15px" src="assets/Icons/Estate.png" />
+      اطلاعات ملک
+    </button>
+    <button (click)="Close()" id="btn4" class="btn btn-primary btnGreen">
+      <img width="15px" height="15px" src="assets/Icons/exit.png" />
+      خروج</button>
+  </div>
+</div>
+<ng-template #IsSelected let-row>
+  <img width="16px" height="16px" [src]="row.IsSelected ? 'assets/Icons/TrueCheckBox.png':'assets/Icons/uncheck.png'" />
+</ng-template>
+<app-over-popup *ngIf="isClicked" [HaveMaxBtn]="HaveMaxBtn" [startLeftPosition]="startLeftPosition"
+  [startTopPosition]="startTopPosition" [minHeightPixel]="MinHeightPixel" [PercentWidth]="PercentWidth"
+  [MainMaxwidthPixel]="MainMaxwidthPixel" [PopupType]="type" [HeightPercentWithMaxBtn]="HeightPercentWithMaxBtn"
+  [PopupParam]="type === 'message-box' ? alertMessageParams : PopupParam " [HaveHeader]="HaveHeader"
+  (popupclosed)="popupclosed($event)" [MainMinwidthPixel]="type === 'message-box' ? '' : OverMainMinwidthPixel"
+  (PopupOutPutParam)="getOutPutParam($event)">
+</app-over-popup>

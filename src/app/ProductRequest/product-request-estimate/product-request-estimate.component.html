@@ -1,0 +1,105 @@
+<div id="container" style="clear: both;padding: 5px">
+  <div class="main-form-body" style="margin: 5px;height: 85%;">
+    <form>
+      <fieldset class="feild-set" style="display: inherit">
+        <legend class="legend">اطلاعات درخواست</legend>
+        <table style="width: 100%;">
+          <tr>
+            <td width="25%">
+              <span class="table-cell-Lable">شماره درخواست</span><input style="width: 60% "
+                class="form-control input-style" type="text" value="{{ProductRequestCode}}" readonly />
+            </td>
+            <td width="25%">
+              <span class="table-cell-Lable">تاریخ درخواست</span>
+              <app-jalali-datepicker [WidthPC]="60" 
+              [CurrMiladiDateValue]="ProductRequestDate" >
+            </app-jalali-datepicker>
+              </td>
+            <td width="50%">
+              <span class="table-cell-Lable">موضوع</span><input style="width: 80% " class="form-control input-style"
+                type="text" name="Subject" [(ngModel)]="Subject" readonly />
+            </td>
+          </tr>
+        </table>
+      </fieldset>
+    </form>
+    <div class="tab-content box-dev" style="margin-top: 5px;padding: 5px;" [style.height.%]="88">
+      <!-- <div  style="margin-bottom: 5px;height: 95%;"> -->
+        <table style="width: 80%; margin-bottom: 3px; text-align: right;">
+          <tr>
+            <td style="width: 50%;">
+              <span class="table-cell-Lable">سال مبنا</span>
+              <app-ng-select-virtual-scroll style="display: inline-block;width: 70%; min-width: 118px;"
+                class="select-general-for-lable" 
+                [NgSelectParams]="PriceListTopicParams"
+                [Items]="PriceListTopicItems"
+                (selectedChange)="onChangePriceListTopic($event)">
+              </app-ng-select-virtual-scroll>
+            </td>
+            <td style="width: 50%">
+              <span class="table-cell-Lable">نوع فهرست بها</span>
+              <app-ng-select-virtual-scroll style="display: inline-block;width: 70%; min-width: 118px;"
+                class="select-general-for-lable" 
+                 [NgSelectParams]="PriceListTypeParams"
+                 [Items]="PriceListTypeItems"
+                 (selectedChange)="onChangePriceListType($event)">
+              </app-ng-select-virtual-scroll>
+            </td>
+          </tr>
+        </table>
+        <div id="div1" class="box-dev left-dev" style="height: 92%;">
+          <app-grid style="width: 100%;" 
+             [defaultSelectedRowIndex]="0"
+             [columns]="ProdReqItemColDef"
+             [rowsData]="ProdReqItemrowData"
+             (GridReady)="ProdReqItemGridready($event)"
+             [gridHeight]="90"
+             (RowClick)="onProdReqItemRowClick($event)">
+          </app-grid>
+        </div>
+
+        <div id="div2" class="box-dev right-dev" style="height: 92%;">
+          <app-grid style="width: 100%;"
+            [columns]="ProdReqEstColDef" 
+            [rowsData]="ProdReqEstList" 
+            [IsEditable]="true"
+            [IsDisable]="!IsEstimateEditable"
+            [gridHeight]="90" 
+            [IsNeedImportBtn]="true"
+            [IsNeedAddPopUp]="true"
+            [IsNeedGroupBtn]="true"
+            (AddPopUp)="onAddPopUpBtnClick()" 
+            (ImportFromExcelClick)="btnClick('app-excel-load-data')"
+            (GroupBtnClick)="OnGroupBtnClick($event)"   
+            (GridReady)="onProdReqEstGridReady($event)"
+            (CellValueChanged)="onProdReqEstCellValueChanged($event)"
+            (RowClick)="onProdReqEstRowClick($event)">
+          </app-grid>
+        </div>
+      <!-- </div> -->
+
+    </div>
+  </div>
+  <div class="buttons-place" style="margin: unset; margin: 5px;">
+    <button *ngIf=" HaveSave" (click)="onSave()" id="btnSave" class="btn btn-primary btnGreen">
+      <img width="15px" height="15px" src="assets/Icons/save.png" />
+      ثبت
+    </button>
+
+    <button id="btnClose" class="btn btn-primary btnGreen" (click)="Close()">
+      <img width="15px" height="15px" src="assets/Icons/exit.png" />
+      خروج
+    </button>
+  </div>
+</div>
+
+<app-over-popup 
+*ngIf="isClicked"
+[PopupType]="PopUpType"
+[startLeftPosition]="startLeftPosition" 
+[startTopPosition]="startTopPosition"
+(popupclosed)="popupclosed($event)"
+[PopupParam]="alertMessageParams"
+(PopupOutPutParam)="PopUpType ==='message-box' ? MessageBoxAction($event) : getOutPutParam($event)">
+</app-over-popup>
+

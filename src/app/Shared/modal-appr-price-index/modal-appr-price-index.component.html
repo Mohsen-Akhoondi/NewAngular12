@@ -1,0 +1,64 @@
+<div id="container" class="" style="clear: both">
+  <div class="main-form-body" style="display: inherit; height: 85%; margin: 5px;">
+    <table style="width: 100%;">
+      <tr>
+        <td style="width: 25%;">
+          <span class="table-cell-Lable">فهرست بها</span>
+          <app-ng-select-virtual-scroll style="display: inline-block;width: 70%;" class=""
+            [NgSelectParams]="PriceListTopicParams" [Items]="PriceListTopicItems"
+            (selectedChange)="onChangeYear($event)">
+          </app-ng-select-virtual-scroll>
+        </td>
+        <td style="width: 25%;">
+          <span class="table-cell-Lable">شاخص ها</span>
+          <app-ng-select-virtual-scroll style="display: inline-block;width: 60%;" class=""
+            [NgSelectParams]="IndiactorParams" [Items]="IndicatorData" (selectedChange)="onChangeLevelCode($event)">
+          </app-ng-select-virtual-scroll>
+        </td>
+        <td style="width: 25%;">
+          <span class="table-cell-Lable">نوع فهرست بها</span>
+          <app-ng-select-virtual-scroll style="display: inline-block;width: 60%;" class=""
+            [NgSelectParams]="PriceListTypeParams" [Items]="PriceListTypeItems"
+            (selectedChange)="onChangePriceListType($event)">
+          </app-ng-select-virtual-scroll>
+        </td>
+        <td style="width: 25%;">
+          <span class="table-cell-Lable">پیوست</span>
+          <app-ng-select-virtual-scroll style="display: inline-block;width: 60%;" class=""
+            [NgSelectParams]="AttachmentParams" [Items]="AttachmentData" (selectedChange)="onChangeAttachment($event)">
+          </app-ng-select-virtual-scroll>
+        </td>
+      </tr>
+    </table>
+
+    <div style="height: 90%; margin-top: 5px;">
+      <app-grid [columns]="columnDefs" [rows]="rowData" [gridHeight]="95" (GridReady)="onGridReady($event)"
+        [IsEditable]="IsEditable" [defaultCol]="defaultColDef" (cellEditingStarted)="oncellEditingStarted($event)"
+        [HaveBorder]='true'>
+      </app-grid>
+    </div>
+  </div>
+  <div class="buttons-place" style="margin: 2; width: 99%;">
+    <button *ngIf="true" (click)="onSave()" id="btn2" class="btn btn-primary btnGreen">
+      <img width="15px" height="15px" src="assets/Icons/save.png" />
+      ثبت
+    </button>
+    <button id="btnExit" class="btn btn-primary btnGreen" (click)="onShowReport()">
+      <img width="15px" height="15px" src="assets/Icons/print.png" />
+      چاپ لیست
+    </button>
+    <button id="btnExit" class="btn btn-primary btnGreen" (click)="closeModal()">
+      <img width="15px" height="15px" src="assets/Icons/exit.png" />
+      خروج
+    </button>
+  </div>
+</div>
+
+<ng-template #IsDefinite let-row>
+  <img width="16px" height="16px" [src]="row.IsDefinite ? 'assets/Icons/TrueCheckBox.png':'assets/Icons/uncheck.png'" />
+</ng-template>
+
+<app-over-popup *ngIf="isClicked" [PopupType]="type" [HaveMaxBtn]="HaveMaxBtn" [startLeftPosition]="startLeftPosition"
+  [startTopPosition]="startTopPosition" [HeightPercentWithMaxBtn]="95" [PopupParam]="alertMessageParams"
+  (popupclosed)="popupclosed($event)">
+</app-over-popup>

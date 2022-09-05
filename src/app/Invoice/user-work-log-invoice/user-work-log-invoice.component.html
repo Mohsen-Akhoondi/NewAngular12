@@ -1,0 +1,154 @@
+<div class="main-form-body" style="margin-top: 5px; height: 85%;">
+  <fieldset class="feild-set" style="display: inherit">
+    <table style="margin-bottom: 5px;margin-top: 5px; width: 100%;">
+      <tr>
+        <td width="25%">
+          <span class="table-cell-Lable">واحد اجرایی</span>
+          <app-ng-select-virtual-scroll style="display: inline-block;width: 60%; min-height: 25;"
+            [NgSelectParams]="RegionParams" [Items]="ReigonListSet" (selectedChange)="onChangeRegion($event)">
+          </app-ng-select-virtual-scroll>
+        </td>
+        <td width="25%">
+          <span class="table-cell-Lable"> سال مالی</span>
+          <app-ng-select-virtual-scroll style="display: inline-block;width: 60%; min-height: 25;"
+            [NgSelectParams]="FinYearParams" [Items]="FinYearItems" (selectedChange)="onChangeFinYear($event)">
+          </app-ng-select-virtual-scroll>
+        </td>
+        <td width="25%">
+          <span class="table-cell-Lable">شماره پیش فاکتور</span>
+          <input style="display: inline-block;width: 60%; min-height: 25;" class="form-control input-style" type="text"
+            name="InvoiceCode" [(ngModel)]="InvoiceCode" />
+        </td>
+        <td width="25%">
+          <span class="table-cell-Lable">شماره فاکتور</span>
+          <input style="display: inline-block;width: 60%; min-height: 25;" class="form-control input-style" type="text"
+            name="RegisterInvoiceCode" [(ngModel)]="RegisterInvoiceCode" />
+        </td>
+        <td width="25%">
+
+        </td>
+      </tr>
+      <tr>
+        <td width="25%">
+          <span class="table-cell-Lable">تاریخ فاکتور</span>
+          <app-jalali-datepicker [WidthPC]="60" (Change)="OnRegisterInvoiceDateChange($event)">
+          </app-jalali-datepicker>
+        </td>
+
+        <td width="25%">
+          <span class="table-cell-Lable">معاونت مجری</span>
+          <app-ng-select-virtual-scroll style="display: inline-block;width: 60%;" [NgSelectParams]="CostCenterParams"
+            (selectedChange)="onChangeCostCenter($event)" [Items]="CostCenterItems">
+          </app-ng-select-virtual-scroll>
+        </td>
+        <td width="25%">
+          <span class="table-cell-Lable">اداره مجری</span>
+          <app-ng-select-virtual-scroll style="display: inline-block;width: 60%;" [NgSelectParams]="SubCostCenterParams"
+            [Items]="SubCostCenterItems" (selectedChange)="onSubCostCenterSelectedChange($event)">
+          </app-ng-select-virtual-scroll>
+        </td>
+        <td width="25%">
+          <span class="table-cell-Lable">مدیر اجرایی</span>
+          <app-ng-select-virtual-scroll style="display: inline-block;" [style.width.%]="60"
+            [NgSelectParams]="AdministratorActorParams" [Items]="AdministratorActorItems"
+            (Open)="onOpenAdministratorActor()">
+          </app-ng-select-virtual-scroll>
+        </td>
+      </tr>
+      <tr>
+        <td width="25%">
+          <span class="table-cell-Lable">نوع پیمانکار</span>
+          <div class="redio-div" style="width: 56%; text-align: center; margin-left: 15px;">
+            <div class="custom-control custom-radio custom-control-inline">
+              <input [checked]="ContractorType" type="radio" class="custom-control-input" id="rdoPersonContractor"
+                name="ChoosenContractorType" (click)="rdoContractorTypeClick(true)">
+              <label style="margin: auto;" class="custom-control-label redio-label" for="rdoPersonContractor">حقيقي
+              </label>
+            </div>
+            <div class="custom-control custom-radio custom-control-inline">
+              <input [checked]="!ContractorType" type="radio" class="custom-control-input" id="rdoCorporateContractor"
+                name="ChoosenContractorType">
+              <label style="margin: auto;" class="custom-control-label redio-label" for="rdoCorporateContractor"
+                (click)="rdoContractorTypeClick(false)">حقوقي</label>
+            </div>
+          </div>
+        </td>
+        <td style="width: 25%">
+          <span class="table-cell-Lable" style="margin-left: 5px;">پیمانکار </span>
+          <app-ng-select-virtual-scroll [PageCount]="ContractorPageCount" [TotalItemCount]="ContractorTotalItemCount"
+            style="display: inline-block;width: 60%;" class="select-general-for-lable"
+            [NgSelectParams]="NgSelectContractorParams" [Items]="ContractorItems"
+            (FetchMore)="FetchMoreContractor($event)" (Open)="OpenContractor($event)"
+            (doSearch)="doContractorSearch($event)">
+          </app-ng-select-virtual-scroll>
+        </td>
+        <td width="25%">
+          <span class="table-cell-Lable" style="margin: 0 ;margin-left: 5px"> وضعیت گردش کار </span>
+          <app-ng-select-virtual-scroll style="display: inline-block;width: 60%;" [NgSelectParams]="EndWFParams"
+            [Items]="EndWFItems"> </app-ng-select-virtual-scroll>
+        </td>
+        <td width="25%">
+          <span class="table-cell-Lable" style="margin: 0 ;margin-left: 5px">درخواست کننده</span>
+          <app-ng-select-virtual-scroll style="display: inline-block;" [style.width.%]="60"
+            [NgSelectParams]="RequestedPersonParams" [Items]="RequestedPersonItems" (Open)="onOpenRequestedPerson()">
+          </app-ng-select-virtual-scroll>
+        </td>
+        <td colspan="2" width="50%"></td>
+      </tr>
+    </table>
+  </fieldset>
+  <div _ngcontent-c215="" style="width: 100%; display: flex; justify-content: center; padding: 10px; ">
+    <button (click)="Search()" style="width: 150px;height: 30px;"
+      class="select-general-for-lable btn-gray-border btn btn-primary btnGreen">
+      <img width="15px" height="15px" src="assets/Icons/Search.png" />
+      جستجو
+    </button>
+  </div>
+  <div id="container" style="clear: both;padding-bottom: 5px;">
+    <div class="box-dev" style=" width: 100%;" [style.height.%]="70">
+      <app-grid (RowClick)="RowClick($event)" [columns]="columnDef" [rowsData]="rowData" [gridHeight]="89"
+        (GridReady)="onGridReady($event)">
+      </app-grid>
+    </div>
+
+
+
+    <!-- <div *ngIf="!ISIRVersion && (ModuleCode === 2645 || ModuleCode === 2516) " class="box-dev"
+    style=" width: 100%; height: 10%; margin:5px 0px;text-align: right;color:blue; padding: 5px;">
+    <span>
+      کاربران مکلفند ردیف های فهارس بهای مندرج در این سامانه را با فهارس بهای ابلاغی سازمان برنامه و بودجه تطبیق
+      داده و در صورت وجود هرگونه مغایرت موضوع را کتبا به اداره کل هماهنگی فنی و عمرانی سازمان ها و مناطق اطلاع و تا
+      اصلاح سامانه از ارسال صورت وضعیت خودداری نمایند.
+    </span>
+  </div> -->
+  </div>
+</div>
+
+
+
+<div class="buttons-place" style="margin: unset;">
+  <button (click)="Btnclick()" id="btn2" class="btn btn-primary btnGreen">
+    <img width="15px" height="15px" src="assets/Icons/show.png" />
+    {{BtnName}}</button>
+  <button *ngIf="deleteClick" id="btnTenderRep" class="btn btn-primary btnGreen" (click)="onDeleteclick()">
+    <img width="15px" height="15px" src="assets/Icons/delete.png" />
+    حذف
+  </button>
+  <button [disabled]="ClearedToViewFlow" (click)="DetailsBtnClick()" id="btn4" class="btn btn-primary btnGreen">
+    <img width="15px" height="15px" src="assets/Icons/show.png" />
+    جزئیات گردش
+  </button>
+  <button (click)="closeModal()" id="btn4" class="btn btn-primary btnGreen">
+    <img width="15px" height="15px" src="assets/Icons/exit.png" />
+    خروج</button>
+
+
+</div>
+<app-over-popup *ngIf="btnclicked" [HaveMaxBtn]="HaveMaxBtn" [startLeftPosition]="startLeftPosition"
+  [startTopPosition]="startTopPosition" [minHeightPixel]="MinHeightPixel" [PopupType]="type"
+  [HeightPercentWithMaxBtn]="HeightPercentWithMaxBtn"
+  [PopupParam]="type === 'message-box' ? alertMessageParams : paramObj" [HaveHeader]="HaveHeader"
+  (popupclosed)="popupclosed($event)" [MainMaxwidthPixel]="PixelWidth" [PixelWidth]="PixelWidth"
+  [PercentWidth]="PercentWidth"
+  (PopupOutPutParam)="type ==='message-box' ? MessageBoxAction($event) : getOutPutParam($event)">
+</app-over-popup>

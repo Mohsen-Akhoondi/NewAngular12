@@ -1,0 +1,223 @@
+<div id="container" style="clear: both;">
+  <div class="main-form-body" style="margin: 5px;height: 87%; width: 100%">
+    <form>
+      <div class="main-form-body" style="display: inherit">
+        <table style="width: 100%;">
+          <tr>
+            <td width="25%">
+              <span class="table-cell-Lable">واحد اجرایی</span>
+              <input style="width: 60% " class="form-control input-style" type="text" value="{{RegionName}}" readonly />
+            </td>
+            <td width="25%">
+              <span class="table-cell-Lable">سال مالی</span>
+              <app-ng-select-virtual-scroll style="display: inline-block;width: 60%;" class="select-general-for-lable"
+                [NgSelectParams]="FinYearParams" [CheckValidate]="CheckValidate" [Items]="FinYearItems">
+              </app-ng-select-virtual-scroll>
+            </td>
+            <td width="25%">
+              <span class="table-cell-Lable">شماره قرارداد</span>
+              <input style="width: 60% " class="form-control input-style" type="text" value="" readonly />
+            </td>
+            <td width="25%">
+              <span class="table-cell-Lable">نوع قراداد </span>
+              <app-ng-select-virtual-scroll style="display: inline-block;width: 75%;" class="select-general-for-lable"
+                [NgSelectParams]="ContractTypeParams" [CheckValidate]="CheckValidate" [Items]="ContractTypeItems">
+              </app-ng-select-virtual-scroll>
+            </td>
+          </tr>
+
+          <tr>
+            <td width="25%">
+              <span class="table-cell-Lable">تاریخ شروع</span>
+              <app-jalali-datepicker [WidthPC]="60" [CheckValidate]="CheckValidate" [Required]="true"
+                [CurrMiladiDateValue]="StartDate" (Change)="OnStartDateChange($event)">
+              </app-jalali-datepicker>
+            </td>
+            <td width="25%">
+              <span class="table-cell-Lable"> تاریخ پایان</span>
+              <app-jalali-datepicker [WidthPC]="60" [Required]="CheckValidate" [CurrMiladiDateValue]="EndDate"
+                (Change)="OnEndDateChange($event)">
+              </app-jalali-datepicker>
+            </td>
+            <td width="25%">
+              <span class="table-cell-Lable">وضعیت قرارداد </span>
+              <app-ng-select-virtual-scroll style="display: inline-block;width: 60%;" class="select-general-for-lable"
+                [NgSelectParams]="ContractStatusParams" [CheckValidate]="CheckValidate" [Items]="ContractStatusItems">
+              </app-ng-select-virtual-scroll>
+            </td>
+            <td width="25%">
+              <span class="table-cell-Lable">نوع شروع</span>
+              <div class="redio-div" style="width: 75%;">
+                <div class="custom-control custom-radio custom-control-inline">
+                  <input [checked]="true" type="radio" class="custom-control-input" id="ISContractRadio"
+                    name="rdoStartType" (click)="rdoStartTypeClick(1)">
+                  <label style="margin: auto;" class="custom-control-label redio-label" for="ISContractRadio">از زمان
+                    انعقاد
+                  </label>
+                </div>
+                <div class="custom-control custom-radio custom-control-inline">
+                  <input type="radio" class="custom-control-input" id="ISDateRadio" name="rdoStartType">
+                  <label style="margin: auto;" class="custom-control-label redio-label" for="ISDateRadio"
+                    (click)="rdoStartTypeClick(2)">از تاریخ دلخواه</label>
+                </div>
+              </div>
+            </td>
+
+          </tr>
+
+          <tr>
+            <td style="width: 25%">
+              <span class="table-cell-Lable">مدت انجام کار: روز</span>
+              <app-number-input-component [id]="'indicator-label-Duration'" [Value]="DurationDay" [IsFloat]="false"
+                [MaxLength]="2" [FloatMaxLength]="0" [PerCentWidth]="60" [PixelHeight]="25"
+                (ValueChange)="getDurationDay($event)" class="col-form-label" [HaveThousand]="false">
+              </app-number-input-component>
+            </td>
+            <td style="width: 25%">
+              <span class="table-cell-Lable">ماه</span>
+              <app-number-input-component [id]="'indicator-label-Duration'" [Value]="DurationMonth" [IsFloat]="false"
+                [MaxLength]="2" [FloatMaxLength]="0" [PerCentWidth]="60" [PixelHeight]="25"
+                (ValueChange)="getDurationMonth($event)" class="col-form-label" [HaveThousand]="false">
+              </app-number-input-component>
+            </td>
+            <td colspan="2" style="width: 50%">
+              <span class="table-cell-Lable" style="margin: 8px">سال</span>
+              <app-number-input-component [id]="'indicator-label-Duration'" [Value]="DurationYear" [IsFloat]="false"
+                [MaxLength]="2" [FloatMaxLength]="0" [PerCentWidth]="80" [PixelHeight]="25"
+                (ValueChange)="getDurationYear($event)" class="col-form-label" [HaveThousand]="false">
+              </app-number-input-component>
+            </td>
+          </tr>
+
+          <tr>
+            <td width="25%">
+              <span class="table-cell-Lable">مرکز هزینه اصلی </span>
+              <app-ng-select-virtual-scroll style="display: inline-block;width: 60%;" class="select-general-for-lable"
+                [NgSelectParams]="CostCenterParams" [CheckValidate]="CheckValidate" [Items]="CostCenterItems"
+                (selectedChange)="onCostCenterChange($event)">
+              </app-ng-select-virtual-scroll>
+            </td>
+            <td width="25%">
+              <span class="table-cell-Lable"> مرکز هزینه فرعی </span>
+              <app-ng-select-virtual-scroll style="display: inline-block;width: 60%;" class="select-general-for-lable"
+                [NgSelectParams]="SubCostCenterParams" [CheckValidate]="CheckValidate" [Items]="SubCostCenterItems">
+              </app-ng-select-virtual-scroll>
+            </td>
+            <td colspan="2" width="50%">
+              <span class="table-cell-Lable">ناظر اول </span>
+              <app-ng-select-virtual-scroll style="display: inline-block;width: 80%;" class="select-general-for-lable"
+                [NgSelectParams]="NgSelectObserverParams" [CheckValidate]="CheckValidate" [Items]="ObserverItems"
+                (FetchMore)="FetchMoreObserver($event)" (doSearch)="doObserverSearch($event)">
+              </app-ng-select-virtual-scroll>
+            </td>
+          </tr>
+
+          <tr>
+            <td width="25%">
+              <span class="table-cell-Lable"> تاریخ شروع کار</span>
+              <app-jalali-datepicker [WidthPC]="60" [CheckValidate]="CheckValidate" [Required]="true"
+                [CurrMiladiDateValue]="WorkStartDate" (Change)="OnWorkStartDateChange($event)">
+              </app-jalali-datepicker>
+            </td>
+            <td width="25%">
+              <span class="table-cell-Lable"> تاریخ پایان گارانتی</span>
+              <app-jalali-datepicker [WidthPC]="60" [Required]="CheckValidate" [CurrMiladiDateValue]="WarrantyDate"
+                (Change)="OnWarrantyDateChange($event)">
+              </app-jalali-datepicker>
+            </td>
+            <td colspan="2" width="50%">
+              <span class="table-cell-Lable">ناظر دوم </span>
+              <app-ng-select-virtual-scroll style="display: inline-block;width: 80%;" class="select-general-for-lable"
+                [NgSelectParams]="NgSelectSecondObserverParams" [CheckValidate]="CheckValidate"
+                [Items]="SecondObserverItems" (FetchMore)="FetchMoreSecondObserver($event)"
+                (doSearch)="doSecondObserverSearch($event)">
+              </app-ng-select-virtual-scroll>
+            </td>
+          </tr>
+          <tr>
+            <td width="25%">
+              <span class="table-cell-Lable">نوع مبلغ</span>
+              <div class="redio-div">
+                <div class="custom-control custom-radio custom-control-inline">
+                  <input [checked]="true" type="radio" class="custom-control-input" id="rdoFinalAmount"
+                    name="ChoosenrdoAmount" (click)="rdoAmountClick(true)">
+                  <label style="margin: auto;" class="custom-control-label redio-label" for="rdoFinalAmount">قطعی
+                  </label>
+                </div>
+                <div class="custom-control custom-radio custom-control-inline">
+                  <input type="radio" class="custom-control-input" id="rdoCeilAmount" name="ChoosenrdoAmount">
+                  <label style="margin: auto;" class="custom-control-label redio-label" for="rdoCeilAmount"
+                    (click)="rdoAmountClick(false)">تا سقف مبلغ</label>
+                </div>
+              </div>
+            </td>
+            <td style="width: 25%">
+              <span class="table-cell-Lable">نیاز بر ارزش افزوده </span>
+              <app-custom-check-box style="vertical-align: sub; margin-left: 55%;"
+                [configurationInfo]="CustomCheckBoxConfig" [isSelected]="CheckBoxStatus"
+                (PrettyCheckBoxChange)="OnChTaxvalueChange($event)"></app-custom-check-box>
+            </td>
+            <td style="width: 25%">
+              <span *ngIf="RegionCode === 200" class="table-cell-Lable">دارای محرمانگی </span>
+              <app-custom-check-box *ngIf="RegionCode === 200" style="vertical-align: sub; margin-left: 55%;"
+                [isSelected]="CheckBoxStatus" [configurationInfo]="CustomCheckBoxConfig"
+                (PrettyCheckBoxChange)="OnChSecretChange($event)"></app-custom-check-box>
+            </td>
+          </tr>
+
+        </table>
+      </div>
+    </form>
+
+    <ul style="margin-top: 5px" class="nav nav-tabs" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link active" href="#ContractSign" role="tab" data-toggle="tab">امضاکنندگان</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#ComitionMember" role="tab" data-toggle="tab">اعضای کمیسیون</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#RDoc" role="tab" data-toggle="tab">ضمانت نامه</a>
+      </li>
+    </ul>
+
+    <div class="tab-content box-dev" style="margin-top: 5px;padding: 5px;">
+      <div role="tabpanel" class="tab-pane fade show active" id="ContractSign" style="margin-bottom: 5px;height: 99%;">
+        <app-grid [columns]="ContractsignColDef" [rowsData]="ContractsignRowsData" [IsEditable]="true" [gridHeight]="92"
+          (cellEditingStarted)="onContractSigncellEditingStarted($event)"
+          (GridReady)="onGridReadyRequestContractsign($event)"></app-grid>
+      </div>
+
+      <div role="tabpanel" class="tab-pane fade" id="ComitionMember" style="margin-bottom: 5px;height: 99%;">
+        <app-grid [columns]="ComitionMemberColDef" [rowsData]="ComitionMemberRowsData" [IsEditable]="true"
+          [gridHeight]="92" (cellEditingStarted)="onComitionMembercellEditingStarted($event)"
+          (GridReady)="onGridReadyComitionMember($event)">
+        </app-grid>
+      </div>
+
+      <div role="tabpanel" class="tab-pane fade" id="RDoc" style="margin-bottom: 5px;height: 99%;">
+        <app-grid [columns]="ReceiveDoccolumnDef" [rowsData]="ReceiveDocrowsData" [IsEditable]="true" [gridHeight]="92"
+          (GridReady)="onGridReadyReceiveDoc($event)"></app-grid>
+      </div>
+    </div>
+
+  </div>
+  <div class="buttons-place" style="width: 100%;">
+    <button (click)="onSave()" id="btnSave" class="btn btn-primary btnGreen">
+      <img width="15px" height="15px" src="assets/Icons/save.png" />
+      ثبت
+    </button>
+
+    <button id="btnClose" class="btn btn-primary btnGreen" (click)="Close()">
+      <img width="15px" height="15px" src="assets/Icons/exit.png" />
+      خروج
+    </button>
+  </div>
+</div>
+
+<app-over-popup *ngIf="isClicked" [PopupType]="PopUpType" [HaveMaxBtn]="HaveMaxBtn" [HeightPercentWithMaxBtn]="95"
+  (popupclosed)="popupclosed($event)" [startLeftPosition]="startLeftPosition" [startTopPosition]="startTopPosition"
+  [PopupParam]="PopUpType === 'message-box' ?alertMessageParams:PopupParam" [HaveHeader]="HaveHeader"
+  (PopupOutPutParam)="type ==='message-box' ? MessageBoxAction($event) : getOutPutParam($event)"
+  [PercentWidth]="PercentWidth" [MainMaxwidthPixel]="MainMaxwidthPixel" [minHeightPixel]="MinHeightPixel">
+</app-over-popup>

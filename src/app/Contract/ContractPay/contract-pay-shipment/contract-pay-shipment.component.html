@@ -1,0 +1,42 @@
+<div class="main-form-body" style="margin-top: 5px;">
+  <table style="line-height: 12px; width: 100%;">
+    <tr style="text-align: right;">
+      <td>
+        <span style="margin: 0;margin-left: 5px" class="table-cell-Lable">محصول </span>
+        <app-ng-select-virtual-scroll style="display: inline-block;width: 77% ; min-width: 150px;"
+          class="select-general-for-lable" [NgSelectParams]="ProductParams" [Items]="ProductSet"
+          (selectedChange)="onChangeProduct($event)">
+        </app-ng-select-virtual-scroll>
+      </td>
+
+      <td>
+        <span style="margin: 0;margin-left: 5px" class="table-cell-Lable">ردیف درخواست پرداخت </span>
+        <input style=" width: 80%;" class="form-control input-style" type="text" name="first" value="{{ ProductName }}"
+          readonly />
+      </td>
+    </tr>
+  </table>
+  <div id="container" style="clear: both;padding-bottom: 5px;">
+    <div class="box-dev" style="margin-top: 5px; width: 100%;">
+      <app-grid [columns]="columnDef" [rowsData]="ContractPayShipmentRows" [gridHeightPxel]="375"
+        (GridReady)="onGridReady($event)" (RowClick)="RowClick($event)"></app-grid>
+    </div>
+  </div>
+  <div class="main-form-body" style="margin-top: 4px;color: red;font-weight: bold;">
+    <div style="min-width: 100px"><span id="sum-final-estimate-amount" class="table-cell-Lable">جمع کل: </span>
+      <label for="sum-final-estimate-amount" style="margin:2px"> {{SumFinalAmount}} </label></div>
+  </div>
+</div>
+<div class="buttons-place" style="margin: auto; height: 44px; padding: 10px; padding-bottom: 7px;">
+  <button (click)="onSave()" id="btn1" class="btn btn-primary btnGreen">
+    <img width="15px" height="15px" src="assets/Icons/add.png" />
+    ورود حمل
+  </button>
+  <button (click)="close()" id="btn4" class="btn btn-primary btnGreen">
+    <img width="15px" height="15px" src="assets/Icons/exit.png" />
+    خروج
+  </button>
+</div>
+<app-over-popup *ngIf="btnclicked" [PopupType]="PopupType" [startLeftPosition]="startLeftPosition"
+  [startTopPosition]="startTopPosition" [PopupParam]="PopupType =='message-box' ? alertMessageParams : ParamObj"
+  (popupclosed)="popupclosed($event)"></app-over-popup>

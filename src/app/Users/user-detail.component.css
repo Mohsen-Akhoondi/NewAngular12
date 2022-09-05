@@ -1,0 +1,36 @@
+.UserDetails{
+  min-width: 184px;
+  font-size: 0.71rem;
+  margin-top: 4px;
+  margin-left: 37px;
+  margin-right: 0px;
+}
+.AdvertisingUserDetails{
+  min-width: 184px;
+  font-size: 0.71rem;
+  margin-top: 13px;
+  margin-left: 14px;
+  margin-right: 0px;
+}
+.notification {
+  text-decoration: none;
+  position: relative;
+  display: inline-block;
+  border-radius: 2px;
+  color: white
+}
+.badge {
+  position: absolute;
+  top: 12px;
+  right: -1px;
+  display: inline-block;
+  background-color: red;
+  height: 6px; width: 6px
+}
+#blink {
+  transition: 0.1s;
+}
+.img_bell {
+  height: 40px;
+  width: 15px;
+}

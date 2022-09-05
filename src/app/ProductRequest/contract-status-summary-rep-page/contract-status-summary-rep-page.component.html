@@ -1,0 +1,80 @@
+<div class="main-form-body"
+  style="margin-top: 5px; height:55%; padding-top: 3px !important; padding-bottom: 3px !important;">
+  <table style="width: 100%;">
+    <tr>
+      <td style="width: 50%;">
+        <span class="table-cell-Lable">واحد اجرایی</span>
+        <app-ng-select-virtual-scroll style="display: inline-block;width: 70%;" [NgSelectParams]="NgSelectRegionParams"
+          (selectedChange)="onChangeReigonObj($event)" [Items]="ReigonListSet">
+        </app-ng-select-virtual-scroll>
+      </td>
+      <td style="width: 50%;">
+        <span class="table-cell-Lable">شماره آگهی</span>
+        <div style="width: 75%;display: inline-block;text-align: right">
+          <div style="width: 70%;display: inline-block; text-align: left;">
+            <input type="text" class="form-control input-style" style="width: 100%" name="AdvertisingNo" maxlength="10"
+              size="10" value={{AdvertisingNo}} readonly />
+          </div>
+          <div style="width: 15%;display: inline-block; text-align: left;">
+            <img width="15px" height="15px" src="assets/Icons/search.png" style="cursor: pointer;margin-right: 5px;"
+              (click)="onAdvertisingSearchClick()" />
+          </div>
+          <div style="width: 10%;display: inline-block; text-align: left;">
+            <img *ngIf="AdvertisingNo !== ''" width="10px" height="10px" src="assets/Icons/uncheck.png" style="cursor: pointer;margin-right: 5px;"
+              (click)="onClearAdvertisingClick()"
+              title="حذف شماره آگهی" />
+          </div>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 50%;">
+        <span class="table-cell-Lable">از درخواست</span>
+        <app-ng-select-virtual-scroll [TotalItemCount]="FromRequestTotalItemCount" [PageCount]="FromRequestPageCount"
+          (Open)="OnOpenNgSelect('FromRequest')" style="display: inline-block; width: 70%;"
+          [NgSelectParams]="FromRequestParams" (FetchMore)="FetchMoreRequest($event,'From')"
+          (doSearch)="doRequestSearch($event,'From')" (selectedChange)="onChangeNgSelect($event,'FromRequest')"
+          [Items]="FromRequestItems">
+        </app-ng-select-virtual-scroll>
+      </td>
+      <td style="width: 50%;">
+        <span class="table-cell-Lable">تا</span>
+        <app-ng-select-virtual-scroll [TotalItemCount]="ToRequestTotalItemCount" [PageCount]="ToRequestPageCount"
+          (Open)="OnOpenNgSelect('ToRequest')" style="display: inline-block;width: 75%;"
+          [NgSelectParams]="ToRequestParams " (FetchMore)="FetchMoreRequest($event,'TO')"
+          (doSearch)="doRequestSearch($event,'TO')" [Items]="ToRequestItems">
+        </app-ng-select-virtual-scroll>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 50%;">
+        <span class="table-cell-Lable"> تاریخ آگهی از</span>
+        <app-jalali-datepicker [WidthPC]="70" (Change)="OnAdvertisingDateChange($event, 'From')">
+        </app-jalali-datepicker>
+      </td>
+      <td style="width: 50%;">
+        <span class="table-cell-Lable">تا</span>
+        <app-jalali-datepicker [WidthPC]="75" (Change)="OnAdvertisingDateChange($event, 'To')"
+        [CurrMiladiDateValue]="ToAdvrtisingtDate">
+        </app-jalali-datepicker>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<div class="buttons-place" style="margin: unset;">
+  <button (click)="report()" id="btn4" class="btn btn-primary btnGreen">
+    <img width="15px" height="15px" src="assets/Icons/print.png" />
+    چاپ</button>
+  <button (click)="closeModal()" id="btn4" class="btn btn-primary btnGreen">
+    <img width="15px" height="15px" src="assets/Icons/exit.png" />
+    خروج
+  </button>
+</div>
+
+<app-over-popup *ngIf="btnclicked" [HaveMaxBtn]="false" [startLeftPosition]="startLeftPosition"
+  [startTopPosition]="startTopPosition" [minHeightPixel]="''" [PopupType]="type" [HeightPercentWithMaxBtn]="''"
+  [PopupParam]="type === 'message-box' ? alertMessageParams : ParamObj" [HaveHeader]="HaveHeader" [PixelWidth]="''"
+  (popupclosed)="popupclosed($event)" [MainMinwidthPixel]="type === 'message-box' ? '' : MainMinwidthPixel"
+  (PopupOutPutParam)="getOutPutParam($event)">
+</app-over-popup>

@@ -1,0 +1,19 @@
+<app-ng-graph id="table" [nodes]="nodes" [links]="links" [viewsize]="viewsize" [HasImage]="false" [HasActorName]="false"
+  [HeightPercent]="86" ></app-ng-graph>
+
+<div class="buttons-place" style="margin: unset;">
+  <button (click)="Pdfdownload()" id="btn4" class="btn btn-primary btnGreen">
+    <img width="15px" height="15px" src="assets/Icons/Download.png" />
+    مشاهده Pdf
+  </button>
+
+  <button (click)="closeModal()" id="btn4" class="btn btn-primary btnGreen">
+    <img width="15px" height="15px" src="assets/Icons/exit.png" />
+    خروج
+  </button>
+</div>
+
+<app-shared-over-popup *ngIf="HoverNode" [PopupType]="type" [startLeftPosition]="OverstartLeftPosition"
+  [startTopPosition]="OverstartTopPosition" [minHeightPixel]="MinHeightPixel" [PixelHeight]="PixelHeight "
+  [PopupParam]="paramObj">
+</app-shared-over-popup>

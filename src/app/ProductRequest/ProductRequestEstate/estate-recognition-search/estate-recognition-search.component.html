@@ -1,0 +1,76 @@
+<div class="main-form-body" style="margin: 5px; height: 100%">
+  <form>
+    <div class="main-form-body" style="display: inherit">
+      <table style="width: 100%;">
+          <tr>
+            <td width="25%" style="display: inline-block">
+              <span  class="table-cell-Lable">شماره بلوک</span>
+              <input class="form-control input-style" style="width: 60%; display: inline-block" type="text" name="BlockNo"  [(ngModel)]="BlockNo" />
+            </td>
+            <td width="25%" style="display: inline-block">
+              <span  class="table-cell-Lable">شماره ملک</span>
+              <input class="form-control input-style" style="width: 60%; display: inline-block " type="text" name="LandNo" [(ngModel)]="LandNo" />            
+              </td>  
+             <td width="25%" style="display: inline-block">
+              <span  class="table-cell-Lable">شماره آپارتمان</span>
+              <input class="form-control input-style" style="width: 60%; display: inline-block "type="text" name="ApartmentNo" [(ngModel)]="ApartmentNo"  />
+            </td>
+            <td width="25%" style="display: inline-block">
+              <span  class="table-cell-Lable">شماره پیشه ور</span>
+              <input class="form-control input-style" style="width: 60%; display: inline-block "type="text" name="BusinessNo" [(ngModel)]="BusinessNo" />
+            </td>
+          </tr>
+          <tr>
+            <td width="25%" style="display: inline-block">
+                  <span  class="table-cell-Lable">منطقه ثبتی</span>
+                  <input class="form-control input-style" style="width:60%; display: inline-block"type="text" name="RegRegion" [(ngModel)]="RegRegion" />
+                </td>
+            <td width="25%" style="display: inline-block">
+                  <span  class="table-cell-Lable">پلاک اصلی</span>
+                  <input class="form-control input-style" style="width:60%;display: inline-block "type="text" name="MajorRegNo" [(ngModel)]="MajorRegNo" />
+                </td>
+            <td width="25%" style="display: inline-block">
+              <span  class="table-cell-Lable"> پلاک فرعی</span>
+              <input class="form-control input-style" style="width:60%; display: inline-block" type="text" name="MinorRegNo"  [(ngModel)]="MinorRegNo" />
+            </td>
+             <td width="25%" style="display: inline-block">
+              <span  class="table-cell-Lable">قطعه</span>
+              <input class="form-control input-style" style="width:60%; display: inline-block" type="text" name="DivisionSeq" [(ngModel)]="DivisionSeq" />            
+              </td>
+          </tr>
+          <tr>
+              <td colspan="2" width="100%">
+                  <button style="width: 100%" class="btn btn-primary btnGreen" (click)="onSearch()">
+                      <img width="15px" height="15px" src="assets/Icons/exit.png" />
+                      جستجو
+                  </button>
+              </td>
+          </tr>
+        </table>
+      </div>
+    </form>
+      <div class="box-dev" style=" width: 100%;">   
+      <app-grid style="width: 90%;"
+              (GridReady)="onEstateGridReady($event)" 
+              [columns]="EstateColDef" 
+              [IsEditable]="false"
+              [rowsData]="EstateRowData" 
+              (RowClick)="onEstateRowClick($event)"
+              [gridHeight]="87">
+      </app-grid>   
+    </div>
+
+    </div>
+    <div class="buttons-place" style="margin: unset; margin: 5px;">
+      <button (click)="onAdd()" id="btnSave" class="btn btn-primary btnGreen">
+        <img width="15px" height="15px" src="assets/Icons/Add.png" />
+      تایید
+      </button>
+  
+      <button class="btn btn-primary btnGreen" (click)="onClose()">
+        <img width="15px" height="15px" src="assets/Icons/exit.png" />
+        خروج
+      </button>
+    </div>
+
+    

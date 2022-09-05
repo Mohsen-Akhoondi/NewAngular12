@@ -1,0 +1,54 @@
+<div id="container" style="clear: both;padding: 5px">
+  <div class="main-form-body" style="margin: 5px;height: 86%;">
+    <form>
+      <fieldset class="feild-set" style="display: inherit">
+        <legend class="legend" styl="width: 15%;">اطلاعات درخواست</legend>
+        <table style="width: 100%;">
+          <tr>
+            <td width="25%">
+              <span class="table-cell-Lable">شماره درخواست</span><input style="width: 50% "
+                class="form-control input-style" type="text" value="{{ProductRequestCode}}" readonly />
+            </td>
+            <td width="25%">
+              <span class="table-cell-Lable">تاریخ درخواست</span>
+              <app-jalali-datepicker [WidthPC]="50" [CurrMiladiDateValue]="ProductRequestDate" [Disabled]="true">
+              </app-jalali-datepicker>
+            </td>
+            <td width="50%">
+              <span class="table-cell-Lable">موضوع</span><input style="width: 80% " class="form-control input-style"
+                type="text" name="Subject" [(ngModel)]="Subject" readonly />
+            </td>
+          </tr>
+        </table>
+      </fieldset>
+    </form>
+    <div class="tab-content box-dev" style="margin-top: 5px;padding: 5px;" [style.height.%]="86">
+      <div style="margin-bottom: 5px;height: 95%;">
+        <!-- عوامل اجرایی  -->
+        <!-- (CellValueChanged)="onPRPersonCellValueChanged($event)"   -->
+        <app-grid [columns]="ProductRequestPersoncolDef" [rowsData]="PRPersonItemRowData" [IsEditable]="IsEditable"
+          [gridHeightPxel]="350" [HaveDelete]="PRPersonHaveDelete" (RowClick)="onRowClick($event)"
+          (GridReady)="onPRPersonGridReady($event)" (CellValueChanged)="onPRPersonCellValueChanged($event)"
+          (cellEditingStarted)="oncellEditingStarted($event)">
+        </app-grid>
+      </div>
+    </div>
+  </div>
+  <div class="buttons-place" style="margin: unset; margin: 5px;">
+    <button *ngIf="HaveSave && HaveUpdate && HaveSaveEditable" (click)="onSave()" id="btnSave"
+      class="btn btn-primary btnGreen">
+      <img width="15px" height="15px" src="assets/Icons/save.png" />
+      ثبت
+    </button>
+    <button id="btnClose" class="btn btn-primary btnGreen" (click)="Close()">
+      <img width="15px" height="15px" src="assets/Icons/exit.png" />
+      خروج
+    </button>
+  </div>
+</div>
+
+<app-over-popup *ngIf="btnclicked" [PopupType]="PopUpType" [startLeftPosition]="startLeftPosition"
+  [startTopPosition]="startTopPosition" [HeightPercentWithMaxBtn]="95" [HaveMaxBtn]="HaveMaxBtn"
+  [PercentWidth]="PercentWidth" [MainMaxwidthPixel]="MainMaxwidthPixel" (popupclosed)="popupclosed($event)"
+  [PopupParam]="PopUpType === 'message-box' ?alertMessageParams:PopupParam">
+</app-over-popup>

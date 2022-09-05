@@ -1,0 +1,87 @@
+<div class="main-form-body for-append-date" style="margin-top: 5px; height: 87%;">
+  <fieldset class="feild-set" style="display: inherit; height: 12%;">
+    <legend style="width: 7%; font-size: 10px;">اطلاعات شخص</legend>
+    <table style="margin-bottom: 10px;width: 100%">
+      <tr>
+        <td style="width: 33%; text-align: right;">
+          <span style="color: red;">*</span>
+          <span class="table-cell-Lable">نام مشتری</span>
+          <app-ng-select-virtual-scroll style="display: inline-block;width: 62%;" [CheckValidate]="CheckValidate"
+            [NgSelectParams]="NgSelectPersonReqParams" [Items]="PersonReqItems"
+            [Disabled]="DisablePerson"
+            (FetchMore)="PersonReq_FetchMore($event)" (Open)="PersonReqOpened()"
+            (doSearch)="Person_Req_DoSearch($event)" (selectedChange)="onChangePerson($event)">
+          </app-ng-select-virtual-scroll>
+        </td>
+        <td style="width: 32%; text-align: right;">
+          <span class="table-cell-Lable">آدرس</span>
+          <input class="form-control input-style" style="width: 61%" type="text" name="first"
+          value="{{Address}}" readonly />
+        </td>
+      </tr>
+    </table>
+  </fieldset>
+  <fieldset class="feild-set" style="display: inherit; height: 12%;">
+    <legend style="width: 7%; font-size: 10px;">اطلاعات مالی</legend>
+    <table style="margin-bottom: 10px;width: 100%">
+      <tr>
+
+        <td style="width: 33%; text-align: right;">
+          <span class="table-cell-Lable">پیش پرداخت</span>
+          <input class="form-control input-style" style="width: 61%" type="text" name="first"
+            value="{{SumCreditAmount}}" readonly />
+        </td>
+
+        <td style="width: 33%; text-align: right;">
+          <span class="table-cell-Lable" style="margin-right: 20px;">بدهی</span>
+          <input style="width: 60%; " class="form-control input-style" type="text" name="first"
+            value="{{SumDebitAmount}}" readonly />
+        </td>
+
+      </tr>
+
+    </table>
+  </fieldset>
+  <div id="container" style="clear: both;padding-bottom: 5px; height: 5% !important;">
+    <ul style="margin-top: 5px; padding: 0px;" class="nav nav-tabs" role="tablist">
+
+      <li class="nav-item">
+        <a class="nav-link active" href="#PrepayHistory" role="tab" data-toggle="tab">پیش پرداخت</a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" href="#DebtHistory" role="tab" data-toggle="tab">بدهی</a>
+      </li>
+
+    </ul>
+  </div>
+
+  <div style="clear: both;padding-bottom: 5px; height: 99% !important;" [style.height.%]="99">
+
+    <div class="tab-content box-dev" style="margin-top: 5px; height: 100%;">
+
+      <div role="tabpanel" id="PrepayHistory" class="tab-pane fade show active"
+        style="height: 100%;margin-bottom: 1px; padding: 2px 2px;">
+        <app-grid [columns]="columnDef" [rowsData]="rowData" [gridHeight]="63" (GridReady)="onGridReady($event)">
+        </app-grid>
+      </div>
+
+      <div role="tabpanel" id="DebtHistory" class="tab-pane fade show"
+        style="height: 100%;margin-bottom: 1px; padding: 2px 2px;">
+        <app-grid [columns]="DeptcolumnDef" [rowsData]="DeptrowData" [gridHeight]="63"
+          (GridReady)="onDeptGridReady($event)">
+        </app-grid>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+  <div style="margin: 0;">
+  <div class="buttons-place" style="margin: unset;">
+    <button (click)="close()" id="btn4" class="btn btn-primary btnGreen">
+      <img width="15px" height="15px" src="assets/Icons/exit.png" />
+      خروج</button>
+  </div>
+</div>

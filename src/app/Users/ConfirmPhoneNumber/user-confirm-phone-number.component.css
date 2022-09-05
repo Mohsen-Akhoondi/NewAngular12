@@ -1,0 +1,36 @@
+#header-user-confirm-phone
+{
+    background-color: #2188fc;
+    width: 100%;
+    height: 23px;
+    cursor: move;
+}
+.modal-user-confirm-phone {
+    display: block;
+    min-width: 500px;
+    max-width: 500px;
+    position: fixed;
+    left: 400px;
+    top: 400px;
+    overflow: hidden;
+}
+span
+{
+font-size: 12px;
+text-align: right;
+float: right;
+margin-right: 1%;
+color: white;
+}
+.modal-header-user-confirm-phone {
+  padding: 20px 40px;
+  color: #fff;
+}
+.modal-user-confirm-phone-container {
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+  border: solid steelblue;
+  min-height: 150px;
+}

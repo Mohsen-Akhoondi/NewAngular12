@@ -1,0 +1,32 @@
+.box-dev{
+    border: 5px;
+    border: 1px solid rgb(218, 218, 218);
+    height:185px;
+
+}
+
+.custom-file-input ~ .custom-file-label::after {
+    content: "انتخاب عکس";
+    padding-top: 7px;
+    height: auto;
+}
+
+.feild-set{
+    border: 1px solid rgb(218, 218, 218);
+    min-height: 20px;
+    margin-bottom: 2px;
+    padding: 2px;
+}
+
+.custom-file-label:after {
+    left: 0;
+    right: auto;
+    border-left-width: 0;
+    border-right: inherit;
+    opacity: unset;
+}
+
+ 
+  
+
+

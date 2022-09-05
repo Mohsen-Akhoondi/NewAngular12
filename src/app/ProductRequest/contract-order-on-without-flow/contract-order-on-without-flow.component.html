@@ -1,0 +1,59 @@
+<div id="container" class="row" style="clear: both ; ">
+  <div id="content" style="width: 100%;height: 99%;">
+    <div id="mainformbody" class="main-form-body" [style.height.%]="67" style="margin: 5px; padding:2px 10px">
+      <div id="tabcontent" class="tab-content" style="margin-top: 5px;" [style.height.%]="100">
+        <div role="tabpanel" id="shenasnameh" class="tab-pane fade show active"
+          style="height: 100%; margin-bottom: 5px;">
+          <div class="main-form-body" style="display: inherit">
+            <table style="width: 100%;margin-bottom: 3px;">
+              <tr>
+                <td style="width: 50%">
+                  <span class="table-cell-Lable">تاريخ الحاقيه</span>
+                  <app-jalali-datepicker [WidthPC]="60" [CurrMiladiDateValue]="ContractLetterDate"
+                    (Change)="OnContractLetterDateChange($event)" >
+                  </app-jalali-datepicker>
+                </td>
+                <td style="width: 50%">
+                  <span class="table-cell-Lable">شماره الحاقيه</span>
+                  <input style="width: 60%; " class="form-control input-style" type="text" name="ContractLetterNo"
+                  [disabled]="Disabled" [(ngModel)]="ContractLetterNo" />
+                </td>
+              </tr>
+              <tr>
+                <td colspan="2" style="width: 100%">
+                  <span class="table-cell-Lable">امضا کنندگان الحاقيه</span>
+                  <app-ng-select-virtual-scroll (Open)="onSignersOpen()" style="display: inline-block;width: 80%;"
+                    [NgSelectParams]="ContractSignParams" (FetchMore)="FetchMoreSigners($event)"  [Disabled]="Disabled"
+                    (doSearch)="doSignersSearch($event)" [Items]="ContractSignItems" [multiple]="true">
+                  </app-ng-select-virtual-scroll>
+                </td>
+              </tr>             
+            </table>
+          </div>        
+        </div>
+      </div>
+    </div>
+
+    <div style="margin: 5px;">
+      <div class="buttons-place" style="float: right;margin: auto;margin-bottom: 5px;width: 100%;">
+        <button [disabled]="Disabled" (click)="onSave()" id="btn2" class="btn btn-primary btnGreen">
+          <img width="15px" height="15px" src="assets/Icons/save.png" />
+          ثبت
+        </button>
+        <button (click)="onClose()" class="btn btn-primary btnGreen">
+          <img width="15px" height="15px" src="assets/Icons/exit.png" />
+          خروج
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-over-popup *ngIf="isClicked" 
+  [PopupType]="PopUpType"
+  [startLeftPosition]="startLeftPosition"
+  [startTopPosition]="startTopPosition"
+  [PopupParam]="PopUpType === 'message-box' ?alertMessageParams:PopupParam"
+  [HaveHeader]="HaveHeader" 
+  (popupclosed)="popupclosed($event)">
+</app-over-popup>

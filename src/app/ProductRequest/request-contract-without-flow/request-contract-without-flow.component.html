@@ -1,0 +1,816 @@
+<div [ngClass]="{'disable-parent': !IsDown}" id="container" class="row for-append-date" style="clear: both ; ">
+  <div id="content" style="width: 100%;height: 99%;">
+    <div id="mainformbody" class="main-form-body for-append-date" [style.height.%]="88"
+      style="margin: 5px; padding:2px 10px">
+
+      <div id="tabcontent" class="tab-content" style="margin-top: 5px;" [style.height.%]="100">
+        <div role="tabpanel" id="shenasnameh" class="tab-pane fade show active"
+          style="height: 100%; margin-bottom: 5px;">
+          <fieldset class="feild-set" style="display: inherit">
+            <legend class="legend">اطلاعات درخواست</legend>
+            <table style="width: 100%;">
+              <tr>
+                <!-- <td style="width: 33%">
+                      <span class="table-cell-Lable">نياز به انعقاد قرارداد</span>
+                      <app-custom-check-box 
+                      style="vertical-align: sub;"
+                      [configurationInfo] = "CustomCheckBoxConfig"
+                      [isSelected] = "CheckBoxStatus"
+                      (PrettyCheckBoxChange)="OnCheckBoxChange($event)"></app-custom-check-box>
+                    </td> -->
+                <td style="width: 40%">
+                  <span style="color: red;">*</span>
+                  <span class="table-cell-Lable">نوع قرارداد</span>
+                  <div style="display: inline-block; width: 79%;">
+                    <div style="display: inline-block; width: 40%;">
+                      <app-ng-select-virtual-scroll style="display: inline-block;width: 100%;"
+                        class="select-general-for-lable" [CheckValidate]="CheckValidate"
+                        [Disabled]="!IsEditable || HasRelContract" [NgSelectParams]="ContractTypeParams"
+                        [Items]="ContractTypeItems" (selectedChange)="onChangeContractType($event)">
+                      </app-ng-select-virtual-scroll>
+                    </div>
+                    <div style="display: inline-block; width: 60%;">
+                      <!--RFC 51021-->
+                      <span class="table-cell-Lable">نوع انتخاب مشاور</span>
+                      <app-ng-select-virtual-scroll style="display: inline-block;width: 50%;"
+                        class="select-general-for-lable" [Disabled]=" (!IsEditable || HasRelContract) || !IsConsultant"
+                        [NgSelectParams]="ConsultantSelectTypeParams" [Items]="ConsultantSelectTypeItems">
+                      </app-ng-select-virtual-scroll>
+                    </div>
+                  </div>
+                </td>
+                <td style="width: 26%">
+                  <span class="table-cell-Lable">مبلغ پيشنهادي</span><input style="width: 68%; "
+                    class="form-control input-style" type="text" name="first" value="{{SumAmountCOEFPact}}" readonly />
+                </td>
+                <td style="width: 34%">
+                  <span class="table-cell-Lable">حد معاملات</span><input style="width: 70%; "
+                    class="form-control input-style" type="text" name="first" value="{{DealTypeName}}" readonly />
+                </td>
+              </tr>
+              <tr>
+                <td style="width: 40%">
+                  <span style="color: red;">*</span>
+                  <span class="table-cell-Lable">روش انجام معامله</span>
+                  <div style="display: inline-block; width: 79%;">
+                    <div style="display: inline-block; width: 40%;">
+                      <app-ng-select-virtual-scroll style="display: inline-block;width: 100%;"
+                        (selectedChange)="onChangeDealMethod($event)" class="select-general-for-lable"
+                        [Disabled]="IsNotNew || HasRelContract || RahbariShow" [CheckValidate]="CheckValidate"
+                        [NgSelectParams]="DealMethodParams" [Items]="DealMethodItems">
+                      </app-ng-select-virtual-scroll>
+                    </div>
+                    <div style="display: inline-block; width: 60%;">
+                      <span class="table-cell-Lable">روش انتخاب مشاور</span>
+                      <app-ng-select-virtual-scroll style="display: inline-block;width: 50%;"
+                        class="select-general-for-lable" [Disabled]=" (!IsEditable || HasRelContract) || !IsConsultant"
+                        [NgSelectParams]="ConsultantSelectedWayParams" [Items]="ConsultantSelectWayItems">
+                      </app-ng-select-virtual-scroll>
+                    </div>
+                  </div>
+                </td>
+                <td style="width: 26%">
+                  <span *ngIf="IsForce" style="color: red;">*</span>
+                  <span class="table-cell-Lable">علت ترک تشريفات</span>
+                  <app-ng-select-virtual-scroll style="display: inline-block;width: 68%;"
+                    class="select-general-for-lable" [NgSelectParams]="Article31Params" [Items]="Article31Items"
+                    [Disabled]="!IsArticle31Selected || IsNotNew || HasRelContract"
+                    [CheckValidate]="CheckValidate && IsForce">
+                  </app-ng-select-virtual-scroll>
+                </td>
+                <td style="width: 34%">
+                  <span class="table-cell-Lable">مدت انجام کار</span>
+                  <div style="width: 70%;display: inline-block;">
+                    <div style="display: inline-block;width: 33%;">
+                      <app-number-input-component [id]="'indicator-label-Duration'" [Value]="DurationYear"
+                        [ReadOnly]="!IsEditable || HasRelContract" [IsFloat]="false" [MaxLength]="1"
+                        [FloatMaxLength]="0" [PerCentWidth]="55" [PixelHeight]="25"
+                        (ValueChange)="getDurationYear($event)" class="col-form-label" [HaveThousand]="false">
+                      </app-number-input-component>
+                      <span class="table-cell-Lable" style="margin: 8px">سال</span>
+                    </div>
+                    <div style="display: inline-block;width: 33%;">
+                      <app-number-input-component [id]="'indicator-label-Duration'" [Value]="DurationMonth"
+                        [ReadOnly]="!IsEditable || HasRelContract" [IsFloat]="false" [MaxLength]="2"
+                        [FloatMaxLength]="0" [PerCentWidth]="55" [PixelHeight]="25"
+                        (ValueChange)="getDurationMonth($event)" class="col-form-label" [HaveThousand]="false">
+                      </app-number-input-component>
+                      <span class="table-cell-Lable">ماه</span>
+                    </div>
+                    <div style="display: inline-block;width: 33%;">
+                      <app-number-input-component [id]="'indicator-label-Duration'" [Value]="DurationDay"
+                        [ReadOnly]="!IsEditable" [IsFloat]="false" [MaxLength]="2" [FloatMaxLength]="0"
+                        [PerCentWidth]="55" [PixelHeight]="25" (ValueChange)="getDurationDay($event)"
+                        class="col-form-label" [HaveThousand]="false">
+                      </app-number-input-component>
+                      <span class="table-cell-Lable">روز</span>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </table>
+          </fieldset>
+          <fieldset class="feild-set" style="display: inherit">
+            <legend class="legend">اطلاعات قرارداد</legend>
+            <table style="width: 100%;">
+              <tr>
+                <td width="25%">
+                  <span class="table-cell-Lable">واحد اجرايي</span>
+                  <input style="width: 66% " class="form-control input-style" type="text" value="{{RegionName}}"
+                    readonly />
+                </td>
+                <td width="25%">
+                  <!-- <span style="color: red;">*</span> -->
+                  <span class="table-cell-Lable">سال مالي</span>
+                  <app-ng-select-virtual-scroll style="display: inline-block;width: 60%;"
+                    [Disabled]="!IsEditable || HasRelContract" class="select-general-for-lable"
+                    [NgSelectParams]="FinYearParams" [Items]="FinYearItems">
+                  </app-ng-select-virtual-scroll>
+                </td>
+                <td width="25%">
+                  <span class="table-cell-Lable">شناسه مالي قرارداد</span>
+                  <input style="width: 60% " class="form-control input-style" type="text" value="{{ContractCode}}"
+                    readonly />
+                </td>
+                <td width="25%">
+                  <span class="table-cell-Lable">نوع مبلغ</span>
+                  <div class="redio-div" style="width: 68%;">
+                    <div class="custom-control custom-radio custom-control-inline">
+                      <input [disabled]="!IsEditable || HasRelContract" [checked]="AmountType" type="radio"
+                        class="custom-control-input" id="rdoFinalAmount" name="ChoosenrdoAmount"
+                        (click)="rdoAmountClick(true)">
+                      <label style="margin: auto;" class="custom-control-label redio-label" for="rdoFinalAmount">قطعي
+                      </label>
+                    </div>
+                    <div class="custom-control custom-radio custom-control-inline">
+                      <input [disabled]="!IsEditable || HasRelContract" [checked]="!AmountType" type="radio"
+                        class="custom-control-input" id="rdoCeilAmount" name="ChoosenrdoAmount">
+                      <label style="margin: auto;" class="custom-control-label redio-label" for="rdoCeilAmount"
+                        (click)="rdoAmountClick(false)">تا سقف مبلغ</label>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+
+              <tr>
+                <td width="25%">
+                  <span style="color: red;">*</span>
+                  <span class="table-cell-Lable">تاريخ شروع</span>
+                  <app-jalali-datepicker [WidthPC]="66" [Required]="true" [CheckValidate]="CheckValidate"
+                    [Disabled]="!IsEditable || HasRelContract" [CurrMiladiDateValue]="StartDate"
+                    (Change)="OnStartDateChange($event)">
+                  </app-jalali-datepicker>
+                </td>
+                <td width="25%">
+                  <span style="color: red;">*</span>
+                  <span class="table-cell-Lable"> تاريخ پايان</span>
+                  <app-jalali-datepicker [WidthPC]="60" [Required]="true" [CheckValidate]="CheckValidate"
+                    [Disabled]="!IsEditable || HasRelContract" [CurrMiladiDateValue]="EndDate"
+                    (Change)="OnEndDateChange($event)">
+                  </app-jalali-datepicker>
+                </td>
+                <td width="25%">
+                  <span class="table-cell-Lable">وضعيت قرارداد </span>
+                  <app-ng-select-virtual-scroll style="display: inline-block;width: 60%;"
+                    class="select-general-for-lable" [NgSelectParams]="ContractStatusParams"
+                    [Items]="ContractStatusItems" [Disabled]="true">
+                  </app-ng-select-virtual-scroll>
+                </td>
+                <td width="25%">
+                  <span class="table-cell-Lable">نوع شروع</span>
+                  <div class="redio-div" style="width: 69%;">
+                    <div class="custom-control custom-radio custom-control-inline">
+                      <input [disabled]="!IsEditable || HasRelContract" [checked]="StartType === 1" type="radio"
+                        class="custom-control-input" id="ISContractRadio" name="rdoStartType"
+                        (click)="rdoStartTypeClick(1)">
+                      <label style="margin: auto;" class="custom-control-label redio-label" for="ISContractRadio">از
+                        زمان انعقاد
+                      </label>
+                    </div>
+                    <div class="custom-control custom-radio custom-control-inline">
+                      <input [disabled]="!IsEditable || HasRelContract" [checked]="StartType === 2" type="radio"
+                        class="custom-control-input" id="ISDateRadio" name="rdoStartType">
+                      <label style="margin: auto;" class="custom-control-label redio-label" for="ISDateRadio"
+                        (click)="rdoStartTypeClick(2)">از تاريخ دلخواه</label>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+
+              <tr>
+                <td width="25%">
+                  <span class="table-cell-Lable"> تاريخ شروع کار</span>
+                  <app-jalali-datepicker [WidthPC]="66" [CurrMiladiDateValue]="WorkStartDate"
+                    [Disabled]="!IsEditable || HasRelContract" (Change)="OnWorkStartDateChange($event)">
+                  </app-jalali-datepicker>
+                </td>
+                <td width="25%">
+                  <span class="table-cell-Lable"> تاريخ پايان گارانتي</span>
+                  <app-jalali-datepicker [WidthPC]="60" [Required]="CheckValidate" [CurrMiladiDateValue]="WarrantyDate"
+                    [Disabled]="!IsEditable || HasRelContract" (Change)="OnWarrantyDateChange($event)">
+                  </app-jalali-datepicker>
+                </td>
+
+                <td width="25%">
+                  <span class="table-cell-Lable">ارزش افزوده قرارداد</span>
+                  <div style="width: 60%;display: inline-block;">
+                    <div style="width: 30%;display: inline-block; text-align: right; ">
+                      <app-custom-check-box style="vertical-align: sub; " [configurationInfo]="CustomCheckBoxConfig"
+                        [isSelected]="IsTaxValue" (PrettyCheckBoxChange)="OnChTaxvalueChange($event)"
+                        [Disabled]="HasRelContract">
+                      </app-custom-check-box>
+                    </div>
+                    <div style="width: 70%;display: inline-block;">
+                      <span class="table-cell-Lable">ارزش افزوده درخواست</span>
+                      <!--RFC 55234-->
+                      <app-custom-check-box style="vertical-align: sub; display: inline-block;font-size: 9px;"
+                        [configurationInfo]="CustomCheckBoxConfig" [isSelected]="PRIsTaxValue"
+                        (PrettyCheckBoxChange)="OnChPRTaxvalueChange($event)" [Disabled]="false">
+                      </app-custom-check-box>
+                    </div>
+                  </div>
+                </td>
+                <td width="25%">
+                  <span *ngIf="IsRequire" style="color: red;">*</span>
+                  <span class="table-cell-Lable">شماره قرارداد</span>
+                  <input [disabled]="HasRelContract || IsConInfoDisable" style="width:  68%"
+                    class="form-control input-style" type="text" name="LetterNo" [(ngModel)]="LetterNo"
+                    [ngStyle]="{'border-color': CheckValidate && !LetterNo && IsRequire ? 'red':''}"
+                    placeholder="{{CheckValidate && !LetterNo && IsRequire ? 'پر کردن مقدار این فیلد الزامیست': ''}}" />
+                </td>
+              </tr>
+
+              <tr>
+                <td width="25%">
+                  <span class="table-cell-Lable">نوع طرف قرارداد</span>
+                  <div class="redio-div" style="width: 62%; text-align: center; margin-left: 10px;">
+                    <div class="custom-control custom-radio custom-control-inline">
+                      <input [checked]="ContractorType" type="radio" class="custom-control-input"
+                        [disabled]="!IsEditable || HasRelContract" id="rdoPersonContractor" name="ChoosenContractorType"
+                        (click)="rdoContractorTypeClick(true)">
+                      <label style="margin: auto;" class="custom-control-label redio-label"
+                        for="rdoPersonContractor">حقيقي
+                      </label>
+                    </div>
+                    <div class="custom-control custom-radio custom-control-inline">
+                      <input [checked]="!ContractorType" type="radio" class="custom-control-input"
+                        [disabled]="!IsEditable || HasRelContract" id="rdoCorporateContractor"
+                        name="ChoosenContractorType">
+                      <label style="margin: auto;" class="custom-control-label redio-label" for="rdoCorporateContractor"
+                        (click)="rdoContractorTypeClick(false)">حقوقي</label>
+                    </div>
+                  </div>
+                </td>
+
+                <td colspan="2" style="width: 50%">
+                  <!-- <span style="color: red;">*</span> -->
+                  <span class="table-cell-Lable">{{ContractorName}}</span>
+                  <app-ng-select-virtual-scroll [PageCount]="ContractorPageCount" [style.width.%]="ContractorWidth"
+                    [TotalItemCount]="ContractorTotalItemCount" style="display: inline-block;"
+                    class="select-general-for-lable" [Disabled]="!IsEditable || HasRelContract"
+                    [NgSelectParams]="NgSelectContractorParams" [Items]="ContractorItems"
+                    (FetchMore)="FetchMoreContractor($event)" (Open)="OpenContractor($event)"
+                    (doSearch)="doContractorSearch($event)">
+                  </app-ng-select-virtual-scroll>
+                  <img *ngIf="!IsUseProviders" width="15px" height="15px" src="assets/Icons/add.png"
+                    style="cursor: pointer;margin-right: 10px;" (click)="onAddActorClick()" />
+                </td>
+                <td width="25%">
+                  <span *ngIf="IsRequire" style="color: red;">*</span>
+                  <span class="table-cell-Lable" style="margin-left:9px">تاريخ انعقاد قرارداد</span>
+                  <app-jalali-datepicker [WidthPC]="68" [CurrMiladiDateValue]="LetterDate" [Required]="IsRequire"
+                    (Change)="OnLetterDateChange($event)" [Disabled]="HasRelContract || IsConInfoDisable"
+                    [CheckValidate]="CheckValidate && IsRequire">
+                  </app-jalali-datepicker>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="2" style="width: 100%">
+                  <span class="table-cell-Lable">موضوع</span>
+                  <input style="width:  83%" class="form-control input-style" type="text" name="Contractsubject"
+                    [(ngModel)]="Contractsubject" [disabled]="(!IsEditable && !IsShow) || HasRelContract" />
+                </td>
+                <td *ngIf="ShowActLocation" width="25%">
+                  <span style="color: red;">*</span>
+                  <span class="table-cell-Lable">محدوده انجام</span>
+                  <app-ng-select-virtual-scroll [Disabled]="!IsEditable || HasRelContract"
+                    style="display: inline-block;width: 60%;" [NgSelectParams]="ActLocationParams"
+                    [Items]="ActLocationItems" [CheckValidate]="CheckValidate">
+                  </app-ng-select-virtual-scroll>
+                </td>
+                <td width="25%">
+                  <span *ngIf="RegionCode === 200" class="table-cell-Lable">داراي محرمانگي</span>
+                  <div style="width: 68%;display: inline-block; text-align: right;">
+                    <app-custom-check-box *ngIf="RegionCode === 200" style="vertical-align: sub; display: inline-block;"
+                      [isSelected]="IsSecret" [configurationInfo]="CustomCheckBoxConfig" [Disabled]="true"
+                      (PrettyCheckBoxChange)="OnChSecretChange($event)">
+                    </app-custom-check-box>
+                  </div>
+                </td>
+              </tr>
+            </table>
+          </fieldset>
+
+          <ul style="margin-top: 5px" class="nav nav-tabs" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link" [ngClass]="{'active': IsEditable}" href="#relation" role="tab"
+                data-toggle="tab">قراردادهاي مرتبط</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#supplier" role="tab" data-toggle="tab">طرف قرارداد</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#ContractSign" role="tab" data-toggle="tab">امضاکنندگان</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#ComitionMember" role="tab" data-toggle="tab">اعضاي کميسيون</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#estiamte" role="tab" data-toggle="tab">برآورد</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#RDoc" role="tab" data-toggle="tab">ضمانت نامه</a>
+            </li>
+            <li class="nav-item" *ngIf="HaveAdviceTab">
+              <a class="nav-link" href="#consultation" role="tab" data-toggle="tab">مشاوره</a>
+            </li>
+            <li class="nav-item" *ngIf="TabRahbari">
+              <a class="nav-link" href="#questions" role="tab" data-toggle="tab">راهبری</a>
+            </li>
+            <li class="nav-item" *ngIf="this.PopupParam.ModuleCode  === 2840">
+              <a class="nav-link" href="#request-person-item" role="tab" data-toggle="tab"> واحد اجرایی های مرتبط</a>
+            </li>
+          </ul>
+          <div class="tab-content" style="margin-top: 5px;" [style.height.%]="50">
+
+            <div role="tabpanel" class="tab-pane fade show active" id="relation" [style.height.%]="100"
+              style="margin-bottom: 5px;">
+              <div [style.height.%]="75" style="width: 100%; border-radius: 5px; border: 1px solid rgb(204, 204, 204);">
+                <!-- قرارداد مرتبط  -->
+                <app-grid [IsEditable]="IsEditable" (GridReady)="onGridReadyProdReqRel($event)"
+                  [columns]="ProdReqRelColDef" [rowsData]="ProdReqRelList" [gridHeight]="85"
+                  (cellEditingStarted)="onContractcellEditingStarted($event)">
+                </app-grid>
+                <button id="btnShowContractRelation" class="btn btn-primary btn-gray-border small-btn btnGreen"
+                  style="margin-top: 7px !important;" (click)="onShowContractRelationClick()">
+                  <img width="15px" height="15px" src="assets/Icons/Suggestion.png" />
+                  مشاهده اقلام مرتبط با قرارداد
+                </button>
+              </div>
+            </div>
+
+            <div role="tabpanel" class="tab-pane fade" id="supplier" [style.height.%]="100" style="margin-bottom: 5px;">
+              <div style="width: 100%; border-radius: 5px; border: 1px solid rgb(204, 204, 204);" [style.height.%]="87">
+                <!--طرف قرارداد-->
+                <app-grid [columns]="RequestSupplierColDef" [IsEditable]="IsEditable" [defaultSelectedRowIndex]="0"
+                  [rowsData]="RSupplierList" (GridReady)="onGridReadyRequestSupplier($event)" [gridHeight]="87"
+                  (cellEditingStarted)="onSupplierCellEditingStarted($event)"
+                  (CellValueChanged)="onSupplierCellvaluechanged($event)">
+                </app-grid>
+              </div>
+            </div>
+
+            <div role="tabpanel" class="tab-pane fade" id="ContractSign" [style.height.%]="100"
+              style="margin-bottom: 5px;">
+              <div [style.height.%]="87" style="width: 100%; border-radius: 5px; border: 1px solid rgb(204, 204, 204);">
+                <app-grid [columns]="ContractsignColDef" [rowsData]="ContractsignRowsData" [gridHeight]="87"
+                  [IsEditable]="IsEditable || IsNotNew" [NewItemTemp]="NewItemTemp"
+                  (GridReady)="onGridReadyRequestContractsign($event)"
+                  (cellEditingStarted)="onContractSigncellEditingStarted($event)"
+                  (CellValueChanged)="onCellValueChanged($event,'contract-sign')"></app-grid>
+              </div>
+            </div>
+
+            <div role="tabpanel" class="tab-pane fade" id="ComitionMember" [style.height.%]="100"
+              style="margin-bottom: 5px;">
+              <div [style.height.%]="87" style="width: 100%; border-radius: 5px; border: 1px solid rgb(204, 204, 204);">
+                <app-grid [columns]="ComitionMemberColDef" [IsEditable]="false" [rowsData]="ComitionMemberRowsData"
+                  [gridHeight]="70">
+                </app-grid>
+              </div>
+            </div>
+
+            <div role="tabpanel" class="tab-pane fade" id="estiamte" [style.height.%]="100" style="margin-bottom: 5px;">
+              <!-- متره  -->
+              <div [style.height.%]="87" style="width: 100%; border-radius: 5px; border: 1px solid rgb(204, 204, 204);">
+                <table style="width: 100%; margin: 3px 0px; text-align: right;">
+                  <tr>
+                    <td style="width: 20%;">
+                      <span class="table-cell-Lable">سال مبنا</span>
+                      <app-ng-select-virtual-scroll style="display: inline-block;width: 75%; min-width: 80px;"
+                        class="select-general-for-lable" [NgSelectParams]="PriceListTopicParams"
+                        [Disabled]="DisablePriceListType" [Items]="PriceListTopicItems"
+                        (selectedChange)="onChangePriceListTopic($event)">
+                      </app-ng-select-virtual-scroll>
+                    </td>
+
+                    <td style="width: 20%;">
+                      <span class="table-cell-Lable">نوع فهرست بها</span>
+                      <app-ng-select-virtual-scroll style="display: inline-block;width: 65%; min-width: 118px;"
+                        class="select-general-for-lable" [NgSelectParams]="PriceListTypeParams"
+                        [Disabled]="DisablePriceListType" [Items]="PriceListTypeItems"
+                        (selectedChange)="onChangePriceListType($event)">
+                      </app-ng-select-virtual-scroll>
+                    </td>
+
+                    <td width="20%" style="padding-right: 40px;">
+                      <span class="table-cell-Lable">تعدیل</span>
+                      <div class="redio-div" style="width: 65%">
+                        <div class="custom-control custom-radio custom-control-inline">
+                          <input [disabled]="PriceListTypeParams.selectedObject === '02' || DisablePriceListType"
+                            [checked]="IsBalancing" type="radio" class="custom-control-input" id="IsBalancingRadio"
+                            name="rdoIsBalancing" (click)="rdoIsBalancingClick(true)">
+                          <label style="margin: auto;" class="custom-control-label redio-label" for="IsBalancingRadio">
+                            دارد
+                          </label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                          <input [disabled]="PriceListTypeParams.selectedObject === '02' || DisablePriceListType"
+                            [checked]="!IsBalancing" type="radio" class="custom-control-input" id="ISNotBalancingRadio"
+                            name="rdoIsBalancing" (click)="rdoIsBalancingClick(false)">
+                          <label style="margin: auto;" class="custom-control-label redio-label"
+                            for="ISNotBalancingRadio">
+                            ندارد</label>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td style="width: 20%;">
+                      <span class="table-cell-Lable">سه ماهه مبنا</span>
+                      <app-ng-select-virtual-scroll
+                        [Disabled]="PriceListTypeParams.selectedObject === '02' || !IsBalancing || DisablePriceListType"
+                        style="display: inline-block;width: 65%; min-width: 118px;" class="select-general-for-lable"
+                        [NgSelectParams]="SeasonListParams" [Items]="SeasonListItems">
+                      </app-ng-select-virtual-scroll>
+                    </td>
+
+                    <td width="20%">
+                      <span class="table-cell-Lable">مابه التفاوت مصالح</span>
+                      <div class="redio-div" style="width: 58%">
+                        <div class="custom-control custom-radio custom-control-inline">
+                          <input [checked]="IsMaterialsDifference" type="radio" class="custom-control-input"
+                            [disabled]="DisablePriceListType" id="IsMaterialsRadio" name="rdoIsMaterials"
+                            (click)="rdoIsMaterialsDifferenceClick(true)">
+                          <label style="margin: auto;" class="custom-control-label redio-label" for="IsMaterialsRadio">
+                            دارد
+                          </label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                          <input [checked]="!IsMaterialsDifference" type="radio" class="custom-control-input"
+                            id="ISNotMaterialsRadio" name="rdoIsMaterials" [disabled]="DisablePriceListType"
+                            (click)="rdoIsMaterialsDifferenceClick(false)">
+                          <label style="margin: auto;" class="custom-control-label redio-label"
+                            for="ISNotMaterialsRadio">
+                            ندارد</label>
+                        </div>
+                      </div>
+                    </td>
+
+                  </tr>
+                </table>
+
+                <div id="div1" class="box-dev left-dev" style="height: 70%;">
+                  <div style="height: 86%;">
+                    <app-grid style="width: 100%;" [defaultSelectedRowIndex]="0" [columns]="ProdReqItemColDef"
+                      [rowsData]="ProdReqItemrowData" [gridHeight]="85" (GridReady)="ProdReqItemGridready($event)"
+                      (RowClick)="onProdReqItemRowClick($event)">
+                    </app-grid>
+                  </div>
+                  <div class="ButtonItemDiv">
+                    <button id="btnCoef" (click)="onContractOrderItemCoefClick()" class="btn btn-primary btnGreen">
+                      <img width="15px" height="8px" src="assets/Icons/coef1.png" />
+                      ضرایب ردیف
+                    </button>
+                    <button id="btnCoef" (click)="onCoefByProdreqItemClick()" class="btn btn-primary btnGreen">
+                      <img width="15px" height="8px" src="assets/Icons/coef1.png" />
+                      ضرایب فعالیت
+                    </button>
+                  </div>
+                </div>
+                <div id="div2" class="box-dev right-dev" style="height: 70%;">
+                  <app-grid style="width: 100%;" [columns]="ProdReqEstColDef" [rowsData]="ProdReqEstList"
+                    [IsEditable]="IsEstimateEditable" [IsDisable]="!IsEstimateEditable" [gridHeight]="85"
+                    [IsNeedImportBtn]="true" [IsNeedAddPopUp]="true" [IsNeedGroupBtn]="true"
+                    (AddPopUp)="onAddPopUpBtnClick()" (ImportFromExcelClick)="btnClick('app-excel-load-data')"
+                    (GroupBtnClick)="OnGroupBtnClick($event)" (GridReady)="onProdReqEstGridReady($event)"
+                    (CellValueChanged)="onProdReqEstCellValueChanged($event)" (RowClick)="onProdReqEstRowClick($event)"
+                    (FilterChanged)="OnFilterChanged()" (RowDataChanged)="OnRowDataChanged()"
+                    (RowDataUpdated)="OnRowDataUpdated()" (cellEditingStarted)="oncellEstimateEditingStarted($event)">
+                  </app-grid>
+
+                </div>
+                <div class="main-form-body" style=" margin: 2px 1px;color: red;height: 38px; overflow: auto;">
+                  <button id="btn3" (click)="btnClick('Related')" class="btn btn-primary btnGreen">
+                    <img width="15px" height="15px" src="assets/Icons/relation_s.png" />
+                    ردیف های مرتبط
+                  </button>
+                  <button (click)="btnClick('archive-order-item')" class="btn btn-primary btnGreen">
+                    <img width="15px" height="15px" src="assets/Icons/TechnicalArchive.png" />
+                    مستندات فعالیت
+                  </button>
+                  <button (click)="btnClick('archive-contract-estimate')" class="btn btn-primary btnGreen">
+                    <img width="15px" height="15px" src="assets/Icons/TechnicalArchive.png" />
+                    مستندات متره
+                  </button>
+                  <button id="btnPrint" (click)="btnClick('choose-report')" class="btn btn-primary btnGreen">
+                    <img width="15px" height="15px" src="assets/Icons/print.png" />
+                    چاپ برآورد
+                  </button>
+                  <tr>
+                    <td width="33%" style="padding-right: 5px;">
+                      <div style="min-width: 80px;font-weight: bold; float: right; margin: 2px;">
+                        <span id="sum-final-estimate-amount" class="table-cell-Lable">جمع کل با احتساب ضرایب:</span>
+                        <label for="sum-final-estimate-amount" style="margin:2px"> {{SumFinalItemAmount}} </label>
+                      </div>
+                    </td>
+                    <td width="31%">
+                      <div style="min-width: 80px; font-weight: bold; float: right; margin-right: 16px;">
+                        <span id="sum-final-estimate-amount" class="table-cell-Lable">جمع ردیف های فهرست بها:</span>
+                        <label for="sum-final-estimate-amount" style="margin:2px"> {{SumFinalEstimateFAmount}} </label>
+                      </div>
+                    </td>
+                    <td width="35%">
+                      <div style="min-width: 80px;font-weight: bold; float: right; margin: 2px;">
+                        <span id="sum-final-estimate-amount" class="table-cell-Lable">جمع ردیف های ستاره دار:</span>
+                        <label for="sum-final-estimate-amount" style="margin:2px"> {{SumFinalEstimateSAmount}} </label>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td width="33%" style="padding-right: 5px;">
+                      <div style="min-width: 80px;font-weight: bold; float: right; margin-right: 20px;">
+                        <span id="sum-final-estimate-amount" class="table-cell-Lable">جمع ردیف های مقدمه:</span>
+                        <label for="sum-final-estimate-amount" style="margin:2px"> {{SumFinalEstimateMAmount}} </label>
+                      </div>
+                    </td>
+                    <td width="31%">
+                      <div style="min-width: 80px;font-weight: bold; float: right; margin: 2px;">
+                        <span id="sum-final-estimate-amount" class="table-cell-Lable">جمع کل بدون احتساب ضرایب:</span>
+                        <label for="sum-final-estimate-amount" style="margin:2px"> {{SumFinalEstimateAmount}} </label>
+                      </div>
+                    </td>
+                    <td width="35%">
+                      <div style="min-width: 80px;font-weight: bold; float: right; margin-right: 7px;">
+                        <span id="sum-final-estimate-amount" class="table-cell-Lable">جمع کل با ضرایب ردیف(بدون تجهیز
+                          کارگاه):</span>
+                        <label for="sum-final-estimate-amount" style="margin:2px"> {{ SumFinalItemAmountCOEF}} </label>
+                      </div>
+                    </td>
+                  </tr>
+                </div>
+              </div>
+            </div>
+
+            <div role="tabpanel" class="tab-pane fade" id="RDoc" [style.height.%]="100" style="margin-bottom: 5px;">
+              <div [style.height.%]="87" style="width: 100%; border-radius: 5px; border: 1px solid rgb(204, 204, 204);">
+                <div [style.height.%]="RDDivGridHeight"
+                  style="width: 100%; border-radius: 5px; border: 1px solid rgb(204, 204, 204);">
+                  <app-grid [columns]="ReceiveDoccolumnDef" [rowsData]="ReceiveDocrowsData" [IsEditable]="IsEditable"
+                    [gridHeight]="RDGridheight" (GridReady)="onGridReadyReceiveDoc($event)"
+                    (RowClick)="onReceiveDocRowClick($event)">
+                  </app-grid>
+                </div>
+                <div *ngIf="ShowDiv"
+                  style=" margin: 3px 1px; padding: 5px; height: 15%; overflow: auto; width: 100%; border-radius: 5px; border: 1px solid rgb(204, 204, 204);">
+                  <table style="width: 100%;">
+                    <tr>
+                      <td style="width: 15%">
+                        <span class="table-cell-Lable">شماره ثبت نامه</span>
+                        <input style="width: 45%; " class="form-control input-style" type="text" name="RegisterLetterNo"
+                          [(ngModel)]="RegisterLetterNo" readonly />
+                      </td>
+                      <td style="width: 15%">
+                        <span class="table-cell-Lable">شماره سند نامه</span>
+                        <input style="width: 45%; " class="form-control input-style" type="text" name="DocumentLetterNo"
+                          [(ngModel)]="DocumentLetterNo" readonly />
+                      </td>
+                      <td style="width: 20%">
+                        <span class="table-cell-Lable">تاریخ ثبت دبیرخانه/ثبت نامه</span>
+                        <app-jalali-datepicker [Disabled]="true" [WidthPC]="40"
+                          [CurrShamsiDateValue]="RegisterLetterDate" (Change)="OnRegiserLetterDateChange($event)">
+                        </app-jalali-datepicker>
+                      </td>
+                      <td style="width: 35%">
+                        <button *ngIf="DisplayLetter" [disabled]="Disabled" id="btnClose"
+                          class="btn btn-primary btn-gray-border small-btn btnGreen" (click)="onAutomationClick()">
+                          <img width="15px" height="15px" src="assets/Icons/ok.png" />
+                          اتصال نامه
+                        </button>
+                        <button *ngIf="DisplayLetter" [disabled]="Disabled" id="btnClose"
+                          class="btn btn-primary btn-gray-border small-btn btnGreen" (click)="onDeleteLetterClick()">
+                          <img width="15px" height="15px" src="assets/Icons/DisApprove.png" />
+                          حذف نامه
+                        </button>
+                        <button id="btnShowLetter" class="btn btn-primary btn-gray-border small-btn btnGreen"
+                          (click)="onShowLetterClick()">
+                          <img width="15px" height="15px" src="assets/Icons/Approve.png" />
+                          مشاهده نامه
+                        </button>
+                        <button id="btnShowLetter" class="btn btn-primary btn-gray-border small-btn btnGreen"
+                          (click)="onCreateNewLetter()">
+                          <img width="15px" height="15px" src="assets/Icons/CreateLetter.png" />
+                          نامه جدید
+                        </button>
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <div role="tabpanel" class="tab-pane fade" id="consultation" [style.height.%]="100"
+              style="margin-bottom: 5px;">
+              <!-- مشاوره  -->
+              <div [style.height.%]="87" style="width: 100%; border-radius: 5px; border: 1px solid rgb(204, 204, 204);">
+                <div id="div3" class="box-dev left-dev-g" style="height: 98%; margin: 2px;" [style.width.px]="GWidth"
+                  [style.max-width.px]="GMaxWidth">
+                  <app-grid style="width: 100%;" [columns]="WeightProdReqItemColDef" [rowsData]="ProdReqItemrowData"
+                    (RowClick)="onPRItemRowClick($event)" (GridReady)="onPRItemGridready($event)" [gridHeight]="87">
+                  </app-grid>
+                </div>
+
+                <div *ngIf="IsShowTwoGrid" id="div4" class="box-dev right-dev" style="height: 98%; margin: 2px;">
+                  <app-grid style="width: 100%;" [columns]="ProdReqPersonColDef" [rowsData]="ProdReqPersonrowData"
+                    [gridHeight]="87" [IsEditable]="IsEditable" [IsDisable]="!IsPersonEditable"
+                    (GridReady)="onProdReqPersonGridReady($event)">
+                  </app-grid>
+                </div>
+              </div>
+            </div>
+
+            <div class="tab-pane fade" id="request-person-item" [style.height.%]="100" style="margin-bottom: 5px;">
+              <div [style.height.%]="87" style="width: 100%; border-radius: 5px; border: 1px solid rgb(204, 204, 204);">
+                <!-- نام نقش نوع نقش  -->
+                <app-grid (GridReady)="onGridReady($event)" [columns]="adContractPersoncol" [IsEditable]="IsEditable"
+                  [rowsData]="ContractPersonListData" [gridHeight]="87"
+                  (cellEditingStarted)="onContractPersoncellEditingStarted($event)"></app-grid>
+              </div>
+            </div>
+
+
+            <div role="tabpanel" class="tab-pane fade" id="questions" [style.height.%]="87" style="margin-bottom: 5px;">
+              <div [style.height.%]="100"
+                style="width: 100%; border-radius: 5px; border: 1px solid rgb(204, 204, 204);">
+
+                <div [style.height.%]="72"
+                  style="width: 98%;margin:10px;  border-radius: 5px; border: 1px solid rgb(204, 204, 204);">
+                  <table class="table-cell-Lable" style="width: 30%;">
+                    <tr>
+                      <td style="width: 12%; ">
+                        <div style="color: blue;text-align: right;font-weight: bold;margin-top: 10px; ">
+                          <span style="font-size: 13px;">{{QuestionLabel}}</span>
+                        </div>
+                        <div style="color: blue;text-align: right;font-weight: bold;margin-top: 10px;">
+                          <span style="font-size: 13px;">{{WinnerQuestion}}</span>
+                        </div>
+                        <div style="color: blue;text-align: right;font-weight: bold;margin-top: 10px;">
+                          <span style="font-size: 13px;">{{ReNewQuestion}}</span>
+                        </div>
+                      </td>
+                      <td style="font-size: 12px; width: 10%;text-align: right;">
+                        <div>
+                          <div class="redio-div" style="margin-top: 8px;width: 70%;">
+                            <div class="custom-control custom-radio custom-control-inline">
+                              <input [disabled]="RahbariShow" [checked]="IsLawful" type="radio"
+                                class="custom-control-input" id="IsLawful" name="IsLawful"
+                                (click)="IsLawfulRedioClick(true)">
+                              <label style="margin: auto;" class="custom-control-label redio-label"
+                                for="IsLawful">بله</label>
+                            </div>
+                            <div class="custom-control custom-radio custom-control-inline">
+                              <input [disabled]="RahbariShow" [checked]="!IsLawful" type="radio"
+                                class="custom-control-input" id="IsNotLawful" name="IsLawful">
+                              <label style="margin: auto;" class="custom-control-label redio-label" for="IsNotLawful"
+                                (click)="IsLawfulRedioClick(false)">خیر</label>
+                            </div>
+                          </div>
+                        </div>
+                        <div>
+                          <div class="redio-div" style="margin-top:8px;width: 70%;">
+                            <div class="custom-control custom-radio custom-control-inline">
+                              <input [disabled]="RahbariShow" [checked]="IsYes" type="radio"
+                                class="custom-control-input" id="IsYesRadio" name="ChoosenIsYesRadioName"
+                                (click)="IsYesRedioClick(true)">
+                              <label style="margin: auto;" class="custom-control-label redio-label" for="IsYesRadio">بله
+                              </label>
+                            </div>
+                            <div class="custom-control custom-radio custom-control-inline">
+                              <input [disabled]="RahbariShow" [checked]="!IsYes" type="radio"
+                                class="custom-control-input" id="ISNoRadio" name="ChoosenIsYesRadioName">
+                              <label style="margin: auto;" class="custom-control-label redio-label" for="ISNoRadio"
+                                (click)="IsYesRedioClick(false)">خیر</label>
+                            </div>
+                          </div>
+                        </div>
+                        <div>
+                          <div class="redio-div" style="margin-top:8px;width: 70%;">
+                            <div class="custom-control custom-radio custom-control-inline">
+                              <input [disabled]="RahbariShow" [checked]="IsRenewal" type="radio"
+                                class="custom-control-input" id="IsRenewal" name="IsRenewal"
+                                (click)="IsRenewalRadioClick('true')">
+                              <label style="margin: auto;" class="custom-control-label redio-label"
+                                for="IsRenewal">بله</label>
+                            </div>
+                            <div class="custom-control custom-radio custom-control-inline">
+                              <input [disabled]="RahbariShow" [checked]="!IsRenewal" type="radio"
+                                class="custom-control-input" id="IsNotRenewal" name="IsRenewal">
+                              <label style="margin: auto;" class="custom-control-label redio-label" for="IsNotRenewal"
+                                (click)="IsRenewalRadioClick('false')">خیر</label>
+                            </div>
+                          </div>
+                        </div>
+
+                      </td>
+                    </tr>
+
+                  </table>
+                </div>
+
+                <div
+                  *ngIf="PopupParam.OrginalModuleCode  === 2793 || PopupParam.OrginalModuleCode  === 2824 || PopupParam.OrginalModuleCode  === 2739"
+                  class="buttons-place" style="margin: 10px;width: 98%;">
+                  <button type="submit" (click)="SaveRenewalIsReturnHaveWinner()" style="width: 100px;height: 30px;"
+                    class="select-general-for-lable btn-gray-border btn btn-primary btnGreen">
+                    <img width="15px" height="15px" src="assets/Icons/save.png" />
+                    ثبت
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin: 5px;">
+      <div class="buttons-place" style="float: right;margin: auto;width: 67.8%;">
+
+        <button *ngIf="(HaveSave || HaveUpdate) && HaveSaveEditable" (click)="onSave()" id="btn2"
+          class="btn btn-primary btnGreen">
+          <img width="15px" height="15px" src="assets/Icons/save.png" />
+          ثبت
+        </button>
+        <button [disabled]="false" id="BtnProxyContract" (click)="onProxyContractClick()"
+          class="btn btn-primary btnGreen">
+          <img width="15px" height="15px" src="assets/Icons/Suggestion.png" />
+          قرارداد نیابتی
+        </button>
+        <button *ngIf="(HaveSave || HaveUpdate) && HaveSaveEditable" (click)="onSaveProductRequest()" id="btn2"
+          class="btn btn-primary btnGreen">
+          <img width="15px" height="15px" src="assets/Icons/save.png" />
+          ثبت اطلاعات درخواست
+        </button>
+
+        <button [disabled]="!HaveSaveEditable" id="btnCoef" (click)="onCoefClick()" class="btn btn-primary btnGreen">
+          <img width="15px" height="15px" src="assets/Icons/coef1.png" />
+          ضرايب درخواست
+        </button>
+        <!-- <button [disabled]="!IsValidContract" (click)="BtnArchiveClick()" id="btn1" class="btn btn-primary btnGreen">
+          <img width="15px" height="15px" src="assets/Icons/TechnicalArchive.png" />
+          مستندات
+        </button> -->
+        <!-- <button *ngIf="IsDisplay && ProposalShow" id="btnRequestSuggestion" class="btn btn-primary btnGreen"
+          (click)="onProposalClick()">
+          <img width="15px" height="15px" src="assets/Icons/Suggestion.png" />
+          {{btnRequestSuggestionName}}
+        </button>
+        <button *ngIf="ProposalShow" id="btnRequestSuggestion" class="btn btn-primary btnGreen"
+          (click)="onCommitionClick()">
+          <img width="15px" height="15px" src="assets/Icons/Suggestion.png" />
+          کمیسیون
+         </button>  62010 -  و طبق صحبت با خانم احمدی -->
+        <button id="btnPrint" class="btn btn-primary btnGreen" (click)="PRProvisionRepShow()">
+          <img width="15px" height="15px" src="assets/Icons/print.png" />
+          چاپ
+        </button>
+        <button (click)="onClose()" class="btn btn-primary btnGreen">
+          <img width="15px" height="15px" src="assets/Icons/exit.png" />
+          خروج
+        </button>
+
+      </div>
+
+      <app-automation-button [Disabled]="!IsValidContract" (AutomationOutputParam)="getOutPutParam($event)"
+        [InputParam]="LetterParam"></app-automation-button>
+    </div>
+  </div>
+</div>
+
+<ng-template #IsCheck let-row>
+  <img width="16px" height="16px" [src]="row.IsCheck ? 'assets/Icons/TrueCheckBox.png':'assets/Icons/uncheck.png'" />
+</ng-template>
+<ng-template #IsSelected let-row>
+  <img width="16px" height="16px" [src]="row.IsSelected ? 'assets/Icons/TrueCheckBox.png':'assets/Icons/uncheck.png'" />
+</ng-template>
+<ng-template #ShowReceiveDocProperty let-row>
+  <img [ngClass]="'img-def'" style="cursor: pointer;" width="16px" height="16px" src="assets/Icons/TechnicalArchive.png"
+    (click)="onReceiveDocArchiveClick()" />
+</ng-template>
+
+<app-over-popup *ngIf="isClicked" [PopupType]="PopUpType" [HaveMaxBtn]="HaveMaxBtn" [HeightPercentWithMaxBtn]="95"
+  [startLeftPosition]="startLeftPosition" [startTopPosition]="startTopPosition" [PercentWidth]="PercentWidth"
+  [MainMaxwidthPixel]="MainMaxwidthPixel" [minHeightPixel]="MinHeightPixel" [MainMinwidthPixel]="MainMinwidthPixel"
+  [PopupParam]="PopUpType === 'message-box' ? alertMessageParams : PopUpType ==='archive-details' ? ArchiveParam :PopupParam"
+  (popupclosed)="popupclosed($event)"
+  (PopupOutPutParam)="PopUpType ==='message-box' ? MessageBoxAction($event) : getOutPutParam($event)">
+</app-over-popup>

@@ -1,0 +1,38 @@
+<div class="for-append-ngselect" [ngClass]="!IsAdvertising ? 'skin_header' : 'advertising_skin_header'">
+  <div class="user-detail">
+    <app-user-detail style="float: left;"></app-user-detail>
+  </div>
+  <div [ngClass]="!IsAdvertising ? 'system-info' : 'advertising-system-info'">
+    <img src="assets/Images/Tehran-Municipality-Logo.png" />
+    <span style="margin-right: 8px;font-style: italic;">{{title}}</span>
+    <div style="display: inline-block;">
+      <span *ngIf="IsShowVersion" style="margin-right: 8px;font-size: 10px;font-style: italic;">نسخه
+        5.02.20</span>
+    </div>
+    <div *ngIf="IsTestMode" style="display: inline-block;margin-right: 5px;color: red;font-size: 15px;">
+      <span>نسخه آزمایشی</span>
+    </div>
+  </div>
+  <div *ngIf="IsAdvertising" class="panel panel-default" style="float: right;margin-top: 5px;">
+    <ul style="text-align:justify; font-size:12px;margin-bottom: 2px;">
+      <li style="color: white; margin:5px;">
+        <a (click)="onDownloadHellpFiles(782)" style="color: white;"> فیلم
+          آموزشی
+          شرکت در مناقصات الکترونیک شهرداری تهران</a>
+      </li>
+
+    </ul>
+    <ul style="text-align:justify; font-size:12px;margin-bottom: 2px;">
+      <li style="color: white; margin:5px;">
+        <a (click)="onDownloadHellpFiles(783)" style="color: white;">
+          راهنمای مراحل مهر و موم اسناد و بارگذاری اسناد مهر و موم شده </a>
+      </li>
+
+    </ul>
+  </div>
+</div>
+<router-outlet></router-outlet>
+<router-outlet name="PopUp"></router-outlet>
+<app-loading *ngIf="IsShow"></app-loading>
+<app-over-popup *ngIf="ShowMessage" [PopupType]="'message-box'" [startLeftPosition]="449" [startTopPosition]="87"
+  [zIndex]="5000000" [PopupParam]="alertMessageParams" (popupclosed)="popupclosed($event)"></app-over-popup>

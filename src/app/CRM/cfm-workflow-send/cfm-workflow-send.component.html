@@ -1,0 +1,41 @@
+<div id="container" class="row" style="clear: both;min-width:800px;">
+  <div id="content" style="width: 100%;">
+    <fieldset align="right" class="feild-set" style="display: inherit; padding: 5px">
+      <legend class="legend" style="margin: 0;">{{LegendName}}</legend>
+      <div id="div1" class="box-dev left-dev" [style.height.px]="gridHeightPxel ? gridHeightPxel : ''">
+        <app-grid [defaultSelectedRowIndex]="0" [columns]="columnDef" [rowsData]="rowData" (RowClick)="RowClick($event)"
+          (GridReady)="onWFSendGridReady($event)" [gridHeight]=82 [RowHeightFunc]="getRowHeight"
+          [GridMaxHeight]="'152px'" [defaultSelectedRowIndex]="0" (cellEditingStarted)="onCellEditingStarted($event)" ></app-grid>
+      </div>
+      <div class="input-with-lable" style="display: flex;margin-top: 5px;">
+        <label for="indicator-text_note" class="">توضیحات</label>
+        <textarea (blur)="onBlurMethod()" [(ngModel)]="Note" class="form-control" rows="5" style="width: 100%;"
+          id="indicator-text_note"></textarea>
+      </div>
+    </fieldset>
+    <div class="buttons-place" style="margin: unset; margin: 5px;">
+      <button [disabled]="IsDisable" (click)="onOkClick()" id="btn2" class="btn btn-primary btnGreen">
+        <img width="15px" height="15px" src="assets/Icons/ok.png" />
+        {{btnConfirmName}}
+      </button>
+      <button (click)="close()" id="btn4" class="btn btn-primary btnGreen">
+        <img width="15px" height="15px" src="assets/Icons/exit.png" />
+        خروج
+      </button>
+    </div>
+
+  </div>
+</div>
+<ng-template #UserImageCell let-row>
+  <img width="40px" onError="this.src='assets/images/user-img-not-found.png';" height="40px"
+    src="data:image/JPEG;base64,{{row.UserImage}}" />
+</ng-template>
+<ng-template #IsCheck let-row>
+  <img width="16px" height="16px" [src]="row.Check ? 'assets/Icons/TrueCheckBox.png':'assets/Icons/uncheck.png'" />
+</ng-template>
+<app-cfm-over-popup *ngIf="isClicked" [PopupType]="PopUptype"
+  [PopupParam]="PopUptype === 'message-box' ? alertMessageParams : PopUpParams" (popupclosed)="popupclosed($event)"
+  [startLeftPosition]="startLeftPosition" [startTopPosition]="startTopPosition" [HaveHeader]="true"
+  [HaveMaxBtn]="PopUptype !== 'message-box'" [HeightPercentWithMaxBtn]="HeightPercentWithMaxBtn" [minHeightPixel]="MinHeightPixel" 
+  [MainMinwidthPixel]="type === 'message-box' ? '' : MainMinwidthPixel">
+</app-cfm-over-popup>

@@ -1,0 +1,37 @@
+<div [ngClass]="{'disable-parent': !IsDown}" class="main-form-body" style="margin-top: 5px; height: 85%;">
+  <fieldset class="feild-set">
+    <table style="margin-bottom: 10px;width: 100%">
+      <tr style="text-align: right">
+        <span class="table-cell-Lable">واحد اجرایی</span>
+        <app-ng-select-virtual-scroll (selectedChange)="onChangeRegion($event)"
+          style="display: inline-block;width: 30%;" class="select-general-for-lable" [NgSelectParams]="RegionParams"
+          [Items]="RegionItems">
+        </app-ng-select-virtual-scroll>
+      </tr>
+    </table>
+  </fieldset>
+  <div class="box-dev" style=" width: 100%;" [style.height.%]="90">
+    <app-grid (RowClick)="RowClick($event)"  [columns]="columnDef" [rowsData]="rowData" [gridHeight]=92>
+    </app-grid>
+  </div>
+</div>
+<div [ngClass]="{'disable-parent': !IsDown}" class="buttons-place" style="margin: unset;">
+  <button (click)="Btnclick('insert')" id="btn2" class="btn btn-primary btnGreen">
+    <img width="15px" height="15px" src="assets/Icons/add.png" />
+    درج پیشنهاد جدید</button>
+  <button (click)="Btnclick('update')" id="btn2" class="btn btn-primary btnGreen">
+    <img width="15px" height="15px" src="assets/Icons/update.png" />
+    اصلاح</button>
+  <button (click)="Btnclick('view')" id="btn2" class="btn btn-primary btnGreen">
+    <img width="15px" height="15px" src="assets/Icons/print.png" />
+    مشاهده</button>
+  <button (click)="Btnclick('close')" id="btn4" class="btn btn-primary btnGreen">
+    <img width="15px" height="15px" src="assets/Icons/exit.png" />
+    خروج</button>
+</div>
+<app-over-popup *ngIf="btnclicked" [HaveMaxBtn]="HaveMaxBtn" [startLeftPosition]="startLeftPosition"
+  [startTopPosition]="startTopPosition" [MainMaxwidthPixel]="OverMainMaxwidthPixel" [PercentWidth]="OverPercentWidth"
+  [minHeightPixel]="MinHeightPixel" [PopupType]="type" [HeightPercentWithMaxBtn]="HeightPercentWithMaxBtn"
+  [PopupParam]="type === 'message-box' ? alertMessageParams : paramObj" [HaveHeader]="HaveHeader"
+  (popupclosed)="popupclosed($event)">
+</app-over-popup>

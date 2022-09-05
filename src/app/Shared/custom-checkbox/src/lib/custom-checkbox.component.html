@@ -1,0 +1,9 @@
+<div [style.width.%] = "configuration.AriaWidth" style="width: 40%;display: inline-table;">
+<div style="float: right;" (click)="toggleCheckbox()" [class]="styleCheckBox">
+    <input [value]="isSelected" type="checkbox" [checked]="isSelected" [disabled]="disabled" />
+    <div [class]="styleColor">
+      <i [class]="styleIcon" [style.background]="configuration.colorHex" [style.color]="configuration.colorInside"></i>
+      <label></label>
+    </div>
+</div>
+</div>

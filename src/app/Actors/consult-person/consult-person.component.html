@@ -1,0 +1,99 @@
+<div id="container" style="clear: both;padding: 5px">
+  <div id="content" style="width:100%;">
+   <div class="main-form-body" style="width:98%;padding: 10px;margin:5px;">
+    <form>
+      <fieldset align="right" class="feild-set">
+        <legend class="legend">اطلاعات پایه</legend> 
+        <table style="width: 100%; text-align: left;">
+          <tr>
+            <td style="width: 95%;">
+              <span class="table-cell-Lable">کدملی</span>
+              <input type="text"  class="form-control input-style" style="width: 57%" 
+              [(ngModel)] = "inputIdentityNo"  name="inputIdentityNo" maxlength="10" size="10"/></td>
+            <td style="width: 5%; text-align: center;"><img  width="15px" height="15px" src="assets/Icons/search.png" (click)= "onClick()" style="cursor: pointer" /></td>
+          </tr>
+          <tr>
+            <td style="width: 100%;" colspan= "2">
+              <span class="table-cell-Lable">نام</span>
+              <input class="form-control input-style" type="text" readonly style="width:  60%"
+              [(ngModel)]="FirstName"  name="first" /></td>
+          </tr> 
+          <tr>
+            <td style="width: 100%;" colspan= "2">
+              <span class="table-cell-Lable">نام خانوادگی</span>
+              <input class="form-control input-style" type="text" readonly style="width:  60%"
+              [(ngModel)]="LastName"  name="last" /></td>  
+          </tr>
+          <tr>
+              <td style="width: 100%;" colspan= "2">
+              <span class="table-cell-Lable">تاریخ تولد</span>
+              <input class="form-control input-style" type="text" readonly style="width:  60%"
+              [(ngModel)]="PersianBirthDate"  name="BirthDate"/></td>
+          </tr>
+        </table>          
+      </fieldset>
+  <fieldset align="right" class="feild-set">
+        <legend class="legend">اطلاعات تکمیلی</legend>
+        <table style="width: 100%; text-align: left;">
+          <tr>
+            <td style="width: 70%;">
+              <span class="table-cell-Lable">سال تحصیلات</span>
+              <app-number-input-component  [id]="'indicator-label-education'"  [Value]="EducationYear"
+              [IsFloat] = "true" [MaxLength]="5" [FloatMaxLength] = "2" [PerCentWidth]=" 60" [PixelHeight]= "25" (ValueChange)="getEducationYear($event)"
+              class="col-form-label" [HaveThousand] = "false">
+              </app-number-input-component>
+            </td>
+            <tr>
+                <td style="width: 100%;">
+                  <span class="table-cell-Lable">سال تجربیات</span>
+                  <app-number-input-component  [id]="'indicator-label-experiencen'"  [Value]="ExperienceYear"
+                    [IsFloat] = "true" [MaxLength]="5" [FloatMaxLength] = "2" [PerCentWidth]=" 60" [PixelHeight]= "25" (ValueChange)="getExperienceYear($event)"
+                    class="col-form-label" [HaveThousand] = "false">
+                  </app-number-input-component>
+                </td>
+                <tr>
+                    <td style="width: 100%;">
+                      <span class="table-cell-Lable">ضریب سر پرستی</span>
+                      <app-number-input-component  [id]="'indicator-label-education'"  [Value]="ManagementCoef"
+                        [IsFloat] = "true" [MaxLength]="5" [FloatMaxLength] = "2" [PerCentWidth]=" 60" [PixelHeight]= "25" (ValueChange)="getManagementCoef($event)"
+                        class="col-form-label" [HaveThousand] = "false">
+                      </app-number-input-component>
+                    </td>
+                    <tr>
+                        <td style="width: 100%;">
+                          <span class="table-cell-Lable">فارغ التحصیل ممتاز</span>
+                          <app-number-input-component  [id]="'indicator-label-education'"  [Value]="TopGraduated"
+                          [IsFloat] = "true" [MaxLength]="5" [FloatMaxLength] = "2" [PerCentWidth]=" 60" [PixelHeight]= "25" (ValueChange)="getTopGraduated($event)"
+                          class="col-form-label" [HaveThousand] = "false">
+                          </app-number-input-component>
+                        </td>
+                    </tr>
+        </table>          
+      </fieldset> 
+    </form>
+  </div>
+  <div class="buttons-place">
+
+    <button  *ngIf="HaveSave" (click)="onSave()" 
+    class="btn btn-primary btnGreen"
+    [disabled]= "isClicked">
+      <img width="15px" height="15px" src="assets/Icons/save.png" />
+       ثبت
+    </button>
+
+    <button (click)="onClose()" id="btn4" class="btn btn-primary btnGreen">
+      <img width="15px" height="15px" src="assets/Icons/exit.png" />
+      خروج</button>
+  </div>
+
+</div>
+</div>
+
+<app-over-popup
+*ngIf= "btnclicked"
+[PopupType]= "type" 
+[startLeftPosition] = "OverstartLeftPosition"
+[startTopPosition] = "OverstartTopPosition"
+[PopupParam]= "alertMessageParams"
+(popupclosed)= "popupclosed($event)">
+</app-over-popup>

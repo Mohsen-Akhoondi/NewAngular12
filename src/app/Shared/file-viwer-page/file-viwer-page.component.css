@@ -1,0 +1,23 @@
+.file-viewer-footer-info {
+    display: inline-block;
+    height: 30px;
+    width: 100%;
+    float: right;
+    left: 0;
+    bottom: 0;
+    line-height: 30px;
+    font-size: 15px;
+    text-align: center;
+    color: white;
+  }
+.prev {
+    cursor: pointer;
+    float: right;
+    transition: linear 0.3s;
+}
+.next {
+    float: left;
+    cursor: pointer;
+    transition: linear 0.3s;
+    margin-top: -2px;
+}

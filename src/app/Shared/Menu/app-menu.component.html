@@ -1,0 +1,24 @@
+<div class="user-menu rtl">
+    <nav class="navbar navbar-expand navbar-light bg-light">
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul class="navbar-nav">
+            <ng-template #recursiveList let-list="list">
+              <li *ngFor="let item of list" class="nav-item dropdown" [className]="item.IsPopUp && item.ParentID === 0 ? 'nav-item dropdown' : (!item.IsPopUp ? '':'dropdown-submenu')">
+                  <a *ngIf="item.IsPopUp && item.ParentID === 0 && item.ModuleCode != 2865 && item.ModuleCode != 3064" class="nav-link dropdown-toggle" id="navbarDropdownMenuLink"
+                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  {{item.MenuName}} </a>
+
+                  <a *ngIf="!item.IsPopUp && item.ModuleCode != 2865 && item.ModuleCode != 3064" class="dropdown-item" skipLocationChange = "true" [routerLink]="['',{ outlets: { PopUp: ['PopUp',item.ModuleCode,item.MenuName] } }]">{{item.MenuName}}</a>
+                  <a *ngIf="item.IsPopUp && item.ParentID !== 0 && item.ModuleCode != 2865 && item.ModuleCode != 3064" (mouseover)= "OnMouseOver($event)" class="dropdown-item dropdown-toggle">{{item.MenuName}}</a>
+                  <a *ngIf="item.ModuleCode === 2865" (click)="On2865Click()" class="dropdown-item">{{item.MenuName}}</a>
+                  <a *ngIf="item.ModuleCode === 3064" (click)="On3064Click()" class="dropdown-item">{{item.MenuName}}</a>
+                <ul *ngIf="item.children.length > 0" [className]="!item.IsPopUp || item.ParentID === 0 ? 'dropdown-menu custom-menu':'dropdown-menu'" aria-labelledby="navbarDropdownMenuLink">
+                  <ng-container *ngTemplateOutlet="recursiveList; context:{ list: item.children}"></ng-container>
+                </ul>
+              </li>
+            </ng-template>
+            <ng-container *ngTemplateOutlet="recursiveList; context:{ list: Menudata}"></ng-container>
+          </ul>
+        </div>
+      </nav>
+</div>

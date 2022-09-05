@@ -1,0 +1,71 @@
+<div id="container" style="clear: both;padding: 5px">
+  <div [ngClass]="{'disable-parent': !IsDown}" class="main-form-body" style="margin: 5px;height: 87%;">
+    <form>
+      <div class="main-form-body">
+        <table style="width: 100%;">
+          <tr>
+            <td width="25%">
+              <span class="table-cell-Lable">واحد اجرایی</span>
+              <app-ng-select-virtual-scroll style="display: inline-block;width: 60%;" class="select-general-for-lable"
+                [NgSelectParams]="RegionParams" [CheckValidate]="CheckValidate"
+                (selectedChange)="onChangeRegion($event)" [Items]="RegionItems">
+              </app-ng-select-virtual-scroll>
+            </td>
+            <td width="25%">
+              <span style="margin: 0;margin-left: 5px" class="table-cell-Lable">سال مالی</span>
+              <app-ng-select-virtual-scroll style="display: inline-block;width: 60%;" class="select-general-for-lable"
+                [NgSelectParams]="FinYearParams" [CheckValidate]="CheckValidate" [Items]="FinYearItems">
+              </app-ng-select-virtual-scroll>
+            </td>
+            <td width="25%">
+              <span class="table-cell-Lable">شماره سفارش</span>
+              <input style="width: 60% " class="form-control input-style" type="text" value="{{OrderCode}}" readonly />
+            </td>
+            <td width="25%">
+              <span class="table-cell-Lable">تاریخ سفارش</span>
+              <app-jalali-datepicker [WidthPC]="60" [CheckValidate]="CheckValidate" [Required]="true"
+                [CurrMiladiDateValue]="OrderDate" (Change)="OnOrderDateChange($event)">
+              </app-jalali-datepicker>
+            </td>
+          </tr>
+          <tr>
+            <td width="25%">
+              <span class="table-cell-Lable">واحد درخواست</span>
+              <app-ng-select-virtual-scroll style="display: inline-block;width: 60%;" class="select-general-for-lable"
+                [NgSelectParams]="RegionBuyerParams" [CheckValidate]="CheckValidate"
+                (selectedChange)="onChangeRegionBuyer($event)" [Items]="RegionBuyerItems">
+              </app-ng-select-virtual-scroll>
+            </td>
+            <td width="25%">
+              <span class="table-cell-Lable">درخواست معامله</span>
+              <app-ng-select-virtual-scroll style="display: inline-block;width: 60%;" class="select-general-for-lable"
+                [NgSelectParams]="ProductRequestParams" [CheckValidate]="CheckValidate" [Items]="ProductRequestItems">
+              </app-ng-select-virtual-scroll>
+            </td>
+            <td style="width: 25%">
+              <span class="table-cell-Lable">حد معامله</span>
+              <input style="width: 60%; " class="form-control input-style" type="text" name="first"
+                value="{{DealTypeName}}" readonly />
+            </td>
+            <td width="25%">
+                <span class="table-cell-Lable">کارپرداز</span>
+                <app-ng-select-virtual-scroll style="display: inline-block;width: 60%;" class="select-general-for-lable"
+                  [NgSelectParams]="OrderPersonParams" [CheckValidate]="CheckValidate" [Items]="OrderPersonItems">
+                </app-ng-select-virtual-scroll>
+              </td>
+          </tr>
+        </table>
+      </div>
+    </form>
+  </div>
+  <div class="buttons-place" style="margin: unset; margin: 5px;">
+    <button *ngIf=" HaveSave" (click)="onSave()" id="btnSave" class="btn btn-primary btnGreen">
+      <img width="15px" height="15px" src="assets/Icons/save.png" />
+      ثبت
+    </button>
+    <button id="btnClose" class="btn btn-primary btnGreen">
+      <img width="15px" height="15px" src="assets/Icons/exit.png" />
+      خروج
+    </button>
+  </div>
+</div>

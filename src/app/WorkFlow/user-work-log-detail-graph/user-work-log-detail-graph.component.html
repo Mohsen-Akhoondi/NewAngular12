@@ -1,0 +1,24 @@
+<div class="main-form-body" style="margin-top: 5px; text-align: right;">
+  <div style="margin-right: 5px;">
+    <span class="table-cell-Lable" style="margin: 0 ; margin-left: 5px">نمایش خطی گراف</span>
+    <app-custom-check-box style="vertical-align: sub;" [configurationInfo]="CustomCheckBoxConfig"
+      (PrettyCheckBoxChange)="OnChangeCheckBoxValue($event)" title="نمایش" [isSelected]="IsLine">
+    </app-custom-check-box>
+  </div>
+</div>
+
+<app-ng-graph [nodes]="nodes" [links]="links" [viewsize] ="viewsize" [HasImage] = "true" [HasActorName] = "true" [DimensionWidth] = "20"></app-ng-graph>
+
+<div class="buttons-place" style="margin: unset;">
+  <button (click)="closeModal()" id="btn4" class="btn btn-primary btnGreen">
+    <img width="15px" height="15px" src="assets/Icons/exit.png" />
+    خروج
+  </button>
+</div>
+
+<app-shared-over-popup *ngIf="btnclicked" [HaveMaxBtn]="HaveMaxBtn" [startLeftPosition]="startLeftPosition"
+  [startTopPosition]="startTopPosition" [minHeightPixel]="MinHeightPixel" [PopupType]="type" [PixelHeight]="PixelHeight"
+  [PopupParam]="type === 'message-box' ? alertMessageParams : paramObj" [HaveHeader]="HaveHeader"
+  (PopupOutPutParam)="type ==='message-box' ? MessageBoxAction($event) : 'user-work-log-detail-graph-line'"
+  (popupclosed)="popupclosed($event)">
+</app-shared-over-popup>

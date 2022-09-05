@@ -1,0 +1,40 @@
+.redio-div{
+    width: 100%;
+    text-align: right;
+}
+.digital-sign {
+    cursor: pointer;
+    text-align: right;
+    padding: 10px;
+    padding-right: 3px;
+}
+[data-toggle="collapse"].collapsed::after {
+    content: "\f067";
+}
+[data-toggle="collapse"]::after {
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: 14px;
+    font-family: FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    content: "\f068";
+    float: right;
+    margin-top: 7px;
+    margin-left: 2px;
+}
+.sign-detail {
+    padding: 10px;
+    background-color:#3f97fb;
+    font-weight: bold;
+    color: white;
+}
+.collapsing {
+    -webkit-transition: none !important;
+    transition: none !important;
+    display: none !important;
+}
+.collapse:not(.show) {
+    -webkit-transition: none !important;
+    transition: none !important;
+    display: none !important;
+}

@@ -1,0 +1,60 @@
+<div class="main-form-body" style="margin-top: 5px; height: 87%;">
+  <fieldset align="right" class="feild-set" style="display: inherit">
+    <table style="margin-bottom: 10px">
+      <tr>
+        <td style="width: 35%; text-align: right;">
+          <span class="table-cell-Lable">گروه واحد اجرایی</span>
+          <app-ng-select-virtual-scroll style="display: inline-block;width: 70%;"
+            [NgSelectParams]="NgSelectRegionGroupParams" (selectedChange)="onChangeRegionGroupObj($event)"
+            [Items]="RegionGroupListSet">
+          </app-ng-select-virtual-scroll>
+        </td>
+        <td style="width: 35%; text-align: right;">
+          <span class="table-cell-Lable">نوع گردش کار</span>
+          <app-ng-select-virtual-scroll style="display: inline-block;width: 70%;"
+            [NgSelectParams]="NgSelectWorkflowTypeParams" (selectedChange)="onChangeWorkflowTypeObj($event)"
+            [Items]="WorkflowTypeListSet">
+          </app-ng-select-virtual-scroll>
+        </td>
+        <td style="width: 30%"></td>
+        <td  style="width: 10%;">
+          <button  *ngIf="!Is1578  && CModuleCode !==3088" (click)="addWorkflowType()" id="btn1"
+            class="select-general-for-lable btn-gray-border btn btn-primary btnGreen">
+            <img width="15px" height="15px" src="assets/Icons/add.png" />
+            افزودن نوع گردش کار
+          </button>
+        </td>
+      </tr>
+    </table>
+  </fieldset>
+  <div class="box-dev" style=" width: 100%; border: 1px solid rgb(214, 214, 214); height: 92%; border-radius: 5px;">
+    <app-grid [columns]="columnDef" [rowsData]="RowData" [gridHeight]="93" [IsEditable]="!Is1578"
+      (GridReady)="onGridReady($event)" (RowClick)="TransitionRowClick($event)"
+      (CellValueChanged)="onCellValueChanged($event)" (cellEditingStarted)="oncellEditingStarted($event)">
+    </app-grid>
+  </div>
+</div>
+<div class="buttons-place" style="margin: 0px;">
+
+  <button *ngIf="HaveSave && !Is1578" (click)="onSave()" id="btn1" class="btn btn-primary btnGreen">
+    <img width="15px" height="15px" src="assets/Icons/save.png" />
+    ثبت
+  </button>
+
+  <button (click)="Btnclick()"  class="btn btn-primary btnGreen">
+    <img width="15px" height="15px" src="assets/Icons/show.png" />
+    مشاهده گردش کار
+  </button>
+
+  <button (click)="closeModal()" id="btn4" class="btn btn-primary btnGreen">
+    <img width="15px" height="15px" src="assets/Icons/exit.png" />
+    خروج
+  </button>
+</div>
+
+<app-over-popup *ngIf="btnclicked" [PopupType]="type" [startLeftPosition]="OverstartLeftPosition"
+  [startTopPosition]="OverstartTopPosition" 
+  [PopupParam]="type === 'message-box' ? alertMessageParams : paramObj"
+  (PopupOutPutParam)="type === 'workflow-type'? Refresh($event):''" (popupclosed)="popupclosed($event)"
+  [HaveMaxBtn]="HaveMaxBtn"  [minHeightPixel]="MinHeightPixel" [PixelHeight]="PixelHeight ">
+</app-over-popup>

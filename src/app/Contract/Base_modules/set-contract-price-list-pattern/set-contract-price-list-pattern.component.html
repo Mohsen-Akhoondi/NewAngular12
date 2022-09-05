@@ -1,0 +1,38 @@
+<div id="container" class="row" style="clear: both">
+  <div id="myContent" class="data-grid">
+    <div id="mainformbody" class="main-form-body" style="margin: 5px; padding:2px 10px">
+      <table>
+        <tr>
+          <td>
+            <label style="margin-right: 5px" for="s-1" class="col-form-label FontSize12">سال مبنا</label></td>
+          <td>
+            <div class="col-md-2">
+              <ng-select style="min-width: 180px;" [items]="PriceListTopicsSet" bindLabel="PriceListTopicCodeName"
+                bindValue="PriceListTopicCode" [(ngModel)]="selectedPriceListTopicCode"
+                (ngModelChange)="onChangePriceListTopicObj($event)">
+              </ng-select>
+            </div>
+          </td>
+          <td>
+            <label style="margin-right: 5px" for="s-1" class="col-form-label FontSize12">نوع فهرست بها</label></td>
+          <td>
+            <div class="col-md-2">
+              <ng-select style="min-width: 180px;" [items]="PriceListTypeSet" bindLabel="PriceListTypeCodeName"
+                bindValue="PriceListTypeCode" [(ngModel)]="selectedPriceListTypeCode">
+              </ng-select>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div class="buttons-place" style="margin: unset; margin: 5px;">
+      <button *ngIf="this.PopupParam.HaveSave" (click)="onSave()" id="btn2" class="btn btn-primary btnGreen">
+        <img width="15px" height="15px" src="assets/Icons/save.png" />
+        ثبت
+      </button>
+    </div>
+  </div>
+</div>
+<app-over-popup *ngIf="isClicked" [PopupType]="type" [PopupParam]="alertMessageParams"
+  (popupclosed)="popupclosed($event)" [startLeftPosition]="521" [startTopPosition]="207" [HaveMaxBtn] = "false" [HaveHeader]="HaveHeader">
+</app-over-popup>

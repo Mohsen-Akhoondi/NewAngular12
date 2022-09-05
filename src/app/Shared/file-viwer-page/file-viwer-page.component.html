@@ -1,0 +1,50 @@
+<div *ngIf="InputParam.FileList && InputParam.FileList.length > 0" style="height: 96%;">
+  <div id="price-list-sidebar" class="sidebar" style="margin-top: 8px;height: 98%;width: 75px;">
+    <div id="tree" style="white-space: nowrap;overflow: hidden;">
+      <div malihu-scrollbar [scrollbarOptions]="scrollbarOptions" class="tree">
+        <tree-root #tree [nodes]="InputParam.nodes" [options]="options" (toggleExpanded)="event($event)"
+          (activate)="event($event)">
+          <ng-template #loadingTemplate>
+            <span style="text-align: right"> درحال بارگذاری...</span>
+          </ng-template>
+          <ng-template #treeNodeWrapperTemplate let-node let-index="index">
+            <div class="node-wrapper" [style.padding-left]="node.getNodePadding()">
+              <tree-node-expander [node]="node"></tree-node-expander>
+              <div class="node-content-wrapper" [class.node-content-wrapper-active]="node.isActive"
+                [class.node-content-wrapper-focused]="node.isFocused" (click)="node.mouseAction('click', $event)">
+                <img *ngIf="!node.children" src="assets\Icons\Leaf.png" />
+                <img *ngIf="node.children" src="assets\Icons\Branch.png" />
+                <span> {{node.data.name}}</span>
+
+              </div>
+            </div>
+          </ng-template>
+        </tree-root>
+      </div>
+    </div>
+  </div>
+  <div style="height: 100%;overflow: hidden;">
+    <app-image-viewer [showPDFOnlyOption]="false" (onPrevious)="onPreviousFile()" (onNext)="onNextFile()"
+      [images]="InputParam.FileList" [idContainer]="'idOnHTML'" [loadOnInit]="true">
+    </app-image-viewer>
+    <div _ngcontent-c262="" class="file-viewer-footer-info" style="background-color: rgb(1, 118, 189);">
+      <div (click)="onPreviousFile()" class="prev">
+        <img style="margin-right: 3px;" width="15px" height="15px" src="assets/Icons/Previous.png" />
+        <span style="margin-right: 5px;" class="NextPrev">قبلی</span>
+      </div>
+      <div (click)="onNextFile()" class="next">
+        <span class="NextPrev" style="margin-left: 5px;margin-top: -2px;">بعدی</span>
+        <img style="margin-left: 3px;margin-top: 7px;" width="15px" height="15px" src="assets/Icons/Next.png" />
+      </div>
+      <span _ngcontent-c262="" id="current">{{LeafIndex + 1}}</span>/<span _ngcontent-c262=""
+        class="total">{{LeafNodes.length}}</span>
+    </div>
+  </div>
+</div>
+<div *ngIf="!InputParam.FileList || InputParam.FileList.length <= 0" class="main-form-body"
+  style="height: 85%;margin-top: 5px;">
+  <div style="height: 100%;width: 100%;text-align: center;">
+    <span style="color: red;margin-top: 200px;font-weight: bold;display: inline-block;">فایلی جهت مشاهده وجود
+      ندارد</span>
+  </div>
+</div>

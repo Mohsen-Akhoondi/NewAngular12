@@ -1,0 +1,36 @@
+<div class="main-form-body" style="margin-top: 5px; height: 85%;">
+  <fieldset *ngIf="HasRegion" align="right" class="feild-set" style="display: inherit">
+    <legend style="width: 5%;"> واحد اجرایی </legend>
+    <table style="margin-bottom: 10px">
+      <tr>
+        <td style="padding: 10px;">واحد اجرایی</td>
+        <td>
+          <app-ng-select-virtual-scroll style="display: inline-block;width: 60%;"
+              class="" [NgSelectParams]="RegionParams" 
+              (selectedChange)="onChangeRegion($event)" [Items]="RegionItems" >
+            </app-ng-select-virtual-scroll>
+        </td>
+        <td></td>
+      </tr>
+    </table>
+  </fieldset>
+  <div id="container" style="clear: both;padding-bottom: 5px;">
+    <div class="box-dev" style=" width: 100%;" [style.height.%]="BoxDevHeight">
+      <app-grid (GridReady)="onGridReady($event)" [columns]="ColumnDef" [rows]="rowData" [gridHeight]=92>
+      </app-grid>
+    </div>
+  </div>
+</div>
+<div class="buttons-place" style="margin: unset;">
+  <button (click)="close()" id="btn4" class="btn btn-primary btnGreen">
+    <img width="15px" height="15px" src="assets/Icons/exit.png" />
+    خروج</button>
+</div>
+
+<app-over-popup *ngIf="btnclicked" [HaveMaxBtn]="HaveMaxBtn" [startLeftPosition]="startLeftPosition"
+  [startTopPosition]="startTopPosition" 
+   [PopupType]="type" 
+  [PopupParam]="type === 'message-box' ? alertMessageParams : ''" [HaveHeader]="HaveHeader"
+  (popupclosed)="popupclosed($event)"
+  >
+</app-over-popup>

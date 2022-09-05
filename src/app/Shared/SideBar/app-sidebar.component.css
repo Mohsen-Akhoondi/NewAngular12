@@ -1,0 +1,44 @@
+.sidebar {
+  min-height: 520px;
+  max-height: 520px;
+  -webkit-box-shadow:#e3ebf5 0 1px 0px 0 inset, #e3ebf5 0 -1px 0px 0 inset, #e3ebf5 -1px 0 0px 0 inset, #e3ebf5 1px 0 0px 0 inset;
+  display: inline-block;
+  min-width: 125px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  width: 235px;
+}
+div.sidebar .card-bady {
+  margin: 5px;
+  padding: 5px;
+}
+div.sidebar .row {
+  margin: 0px;
+}
+.right-side{
+  float: right;
+  margin-left: 5px;
+  font-size: 10pt;
+}
+div.fast-item {
+  text-align: center;
+}
+img {
+  background-color: grey;
+}
+.caption {
+  display: block;
+}
+.card {
+  background-color: #f9f9ff  !important;
+  max-width: 100px;
+  min-width: 100px;
+}
+.card:hover {
+  background-color: #ececff  !important;
+  text-decoration: none;
+}
+a:hover {
+  color: #0606f0;
+  text-decoration: none;
+}

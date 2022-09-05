@@ -1,0 +1,125 @@
+<div id="container" class="row" style="clear: both">
+  <div id="content" class="" style="height: 100%;width: 100%;">
+    <div class="main-form-body" style=" margin: 5px;min-width: 1130px; height: 85%;">
+      <table style="width: 100%;">
+        <tr>
+          <td width="50%" colspan="2">
+            <span class="table-cell-Lable">قرارداد</span><input style="width: 88%" class="form-control input-style"
+              type="text" name="first" value="{{ ContractSubLetter }}" readonly />
+          </td>
+          <td>
+            <span class="table-cell-Lable">شماره نظارت</span>
+            <input style="width: 80%" class="form-control input-style" type="text" name="first"
+              value="{{ ContractSupervisionCode }}" readonly />
+          </td>
+        </tr>
+
+        <tr>
+          <td colspan="2">
+            <span style="margin: 0px; margin-left: 5px" class="table-cell-Lable">عامل قرارداد</span>
+            <app-ng-select-virtual-scroll [Disabled]="true" style="display: inline-block;width: 88%; min-width: 150px"
+              [NgSelectParams]="ContractAgentParams" class="select-general-for-lable" [Items]="ContractAgentSet"
+              (selectedChange)="onChangeContractAgentObj($event)">
+            </app-ng-select-virtual-scroll>
+          </td>
+          <td colspan="2">
+            <span class="table-cell-Lable">تاریخ نظارت</span>
+            <app-jalali-datepicker [WidthPC]="80" style="width: 100%;" [Required]="true"
+              [CurrMiladiDateValue]="ContractSupervisionDate" (Change)="OnContractMinutesDateChange($event)" [Disabled]="!IsEditable">
+            </app-jalali-datepicker>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="4">
+            <span style="margin: 0;margin-left: 5px" class="table-cell-Lable">توضیحات</span>
+            <input style="width: 94%;" class="form-control input-style" type="text" name="first" [(ngModel)]="Note"
+              value="{{ Note }}"  [disabled]="!IsEditable" />
+          </td>
+        </tr>
+      </table>
+
+      <div class="box-grid grid" *ngIf="!IsGreenSpaceDevAndMaint">
+        <app-grid style="width: 100%" [IsEditable]="IsEditable" [columns]="columnDef1" [rowsData]="ContractPayItemList"
+          (GridReady)="onContractPayItemGridReady($event)" (CellValueChanged)="onCellValueChanged($event)"
+          (RowClick)="RowClick($event)" [gridHeight]="dgCPHeight" (cellEditingStarted)="oncellEditingStarted($event)">
+        </app-grid>
+      </div>
+
+      <!--نگهداشت فضای سبز-->
+      <div *ngIf="IsGreenSpaceDevAndMaint" style="overflow: auto; height: 84%; margin: 10px auto;">
+        <div id="div1" class="box-dev" style="height: 96%; width: 50%; float: right; margin: 1px;">
+          <app-grid style="width: 100%" [IsEditable]="false" [columns]="columnDef1" [rowsData]="ContractPayItemList"
+            (GridReady)="onContractPayItemGridReady($event)" (RowClick)="RowClick($event)" [gridHeight]="92"
+            [defaultSelectedRowIndex]="0" [GridOptionsRowStyle]="GreenSpaceGridOptionsRowStyle">
+          </app-grid>
+        </div>
+        <div id="div2" class="box-dev" style="height: 96%; width: 49%; float: left; margin: 1px;">
+          <div class = "ent-div">
+            <app-grid style="width: 100%;" [columns]="ProdReqEntColDef" [rowsData]="ProdReqEntList" [IsEditable]="false"
+            [gridHeight]="89" (GridReady)="onProdReqEntGridReady($event)"
+            (CellValueChanged)="onProdReqEntCellValueChanged($event)" (FilterChanged)="OnFilterChanged()"
+            (RowDataChanged)="OnRowDataChanged()" (RowDataUpdated)="OnRowDataUpdated()"
+            (cellEditingStarted)="onPREntcellEditingStarted($event)" [GridOptionsRowStyle]="GridOptionsRowStyle">
+          </app-grid>
+          </div>
+          <div class="avg-div">
+            <table style="width: 100%">
+              <tr>
+                <td style="width: 50%; text-align: right;">
+                  <span id="sum-final-estimate-amount" class="table-cell-Lable">میانگین وزنی:</span>
+                  <label for="sum-final-estimate-amount" style="margin:2px"> {{WeightedAverage}} </label>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div style="margin: 5px;">
+      <div class="buttons-place" style="float: right;margin: auto; width: 54%;">
+        <button *ngIf="ModuleViewTypeCode !== 2" (click)="onSave()" id="btn2" class="btn btn-primary btnGreen" style="margin: 2px">
+          <img width="15px" height="15px" src="assets/Icons/save.png" />
+          ثبت
+        </button>
+
+        <button (click)="BtnArchiveClick()" id="btn1" class="btn btn-primary btnGreen">
+          <img width="15px" height="15px" src="assets/Icons/TechnicalArchive.png" />
+          مستندات
+        </button>
+        
+        <button (click)="close()" id="btn4" class="btn btn-primary btnGreen">
+          <img width="15px" height="15px" src="assets/Icons/exit.png" />
+          خروج
+        </button>
+      </div>
+  
+      <div *ngIf="true" class="buttons-place" style="float:left;margin: auto;" [style.width.%]="45.5">
+        <button [disabled]="BTNsShow" (click)="onConfirm()" id="btn2" class="btn btn-primary btnGreen"
+          style="margin: 2px;">
+          <img width="15px" height="15px" src="assets/Icons/{{btnConfirmIcon}}.png" />
+          {{btnConfirmName}}
+        </button>
+        <button [disabled]="BTNsShow" (click)="onConfirmAndSend()" id="btn2" class="btn btn-primary btnGreen"
+          style="margin: 2px;">
+          <img width="15px" height="15px" src="assets/Icons/Approve.png" />
+          تایید و ارسال </button>
+        <button [disabled]="BTNsShow" (click)="onUnConfirmAndReturn()" id="btn2" class="btn btn-primary btnGreen"
+          style="margin: 2px;">
+          <img width="15px" height="15px" src="assets/Icons/DisApprove.png" />
+          {{btnConfirmAndReturnName}} </button>
+        <button [disabled]="BTNsShow" (click)="OnClickPrintFlow()" class="btn btn-primary btnGreen">
+          <img width="15px" height="15px" src="assets/Icons/print.png" />
+          گردش
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-over-popup *ngIf="btnclicked" [PopupType]="type" [startLeftPosition]="startLeftPosition" [HaveMaxBtn]="HaveMaxBtn"
+  [startTopPosition]="startTopPosition" [PopupParam]="ParamObj" (popupclosed)="popupclosed($event)"
+  (PopupOutPutParam)="type ==='message-box' ? MessageBoxAction($event) : getOutPutParam($event)"
+  [HeightPercentWithMaxBtn]="HeightPercentWithMaxBtn">
+</app-over-popup>

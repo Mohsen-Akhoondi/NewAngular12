@@ -1,0 +1,77 @@
+
+<div class="main-form-body" style="margin-top: 3px; height:80%; width: 400px;">
+
+  <table style="width: 100%;">
+
+    <tr>
+
+      <td width="68%">
+        <span class="table-cell-Lable"> فعالیت</span>
+        <app-ng-select-virtual-scroll    style="display:inline-block; width: 75%;"
+        [NgSelectParams]="ModuleParams" [Items]="ModuleItems" (Open)="OnOpenNgSelect('Module')">
+      </app-ng-select-virtual-scroll>
+      </td>
+    </tr>
+
+    <tr>
+      <td width="68%">
+        <span class="table-cell-Lable"> تاریخ اعمال</span>
+        <app-jalali-datepicker  [Required]="true"  [WidthPC]="75"
+        (Change)="HistoryDateChange($event)" [CurrMiladiDateValue]="HistoryDate">
+      </app-jalali-datepicker>
+      </td>
+    </tr>
+
+
+    <tr>
+      <td width="68%">
+        <span class="table-cell-Lable"> تاریخ نمایش از</span>
+        <app-jalali-datepicker  [Required]="true" [WidthPC]="75"
+        (Change)="FromDateChange($event)" [CurrMiladiDateValue]="FromDate">
+      </app-jalali-datepicker>
+      </td>
+    </tr>
+
+    <tr>
+      <td width="68%">
+        <span class="table-cell-Lable"> تا</span>
+         <app-jalali-datepicker  [CurrMiladiDateValue]="ToDate" [Required]="true"
+         [WidthPC]="75"
+        (Change)="ToDateChange($event)">
+      </app-jalali-datepicker>
+      </td>
+    </tr>
+
+    <tr>
+      <td width="68%">
+        <span class="table-cell-Lable" style="vertical-align: top;"> توضیحات</span>
+        <textarea [(ngModel)]="Note" name="Note" style="display: inline-block;width: 75%; height:200px; font-size: 13px;"
+        class="form-control input-style">
+       </textarea>
+      </td>
+    </tr>
+
+  </table>
+
+</div>
+
+<div class="buttons-place" style="margin: unset ;">
+
+  <button *ngIf="true" (click)="onSave()" id="btn1" class="btn btn-primary btnGreen">
+    <img width="15px" height="15px" src="assets/Icons/save.png" />
+    ثبت
+  </button>
+
+  <button (click)="closeModal()" id="btn4" class="btn btn-primary btnGreen">
+    <img width="15px" height="15px" src="assets/Icons/exit.png" />
+    خروج
+  </button>
+
+</div>
+
+<app-over-popup *ngIf="btnclicked" [PopupType]="PopUpType" [startLeftPosition]="startLeftPosition"
+  [startTopPosition]="startTopPosition" [minHeightPixel]="MinHeightPixel" [PercentWidth]="PercentWidth"
+  [MainMaxwidthPixel]="MainMaxwidthPixel" [HeightPercentWithMaxBtn]="HeightPercentWithMaxBtn"
+  [PopupParam]="PopUpType === 'message-box' ? alertMessageParams : paramObj" (popupclosed)="popupclosed($event)"
+  (PopupOutPutParam)="PopUpType ==='message-box' ? MessageBoxAction($event) : getOutPutParam($event)">
+</app-over-popup>

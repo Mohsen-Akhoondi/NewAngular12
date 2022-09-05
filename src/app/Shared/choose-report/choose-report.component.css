@@ -1,0 +1,23 @@
+.header-message{
+    text-align: right ;
+    margin-right: 10px;
+    margin-top: 4px;
+}
+
+.main-message-body{
+    margin: 4px 6px 8px 5px;
+    display: flex;
+}
+
+.custom-control-label::before{
+    top:0px;
+    right: -1.5rem;
+}
+.custom-control-label::after{
+    top:0px;
+    right: -1.5rem;
+}
+.secondLine {
+    margin-top: 10px;
+    margin-right: 28px;
+}

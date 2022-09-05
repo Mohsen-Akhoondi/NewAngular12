@@ -1,0 +1,98 @@
+.feild-set{
+    border: 1px solid rgb(218, 218, 218);
+    min-height: 50px;
+    margin-bottom: 5px;
+    padding: 5px;
+    text-align: right;
+}
+.table-cell-Lable {
+    margin-left: 5px;
+    margin-right: 5px;
+    font-size: 10px;
+  }
+
+  .input-style{
+    border-radius:3px;
+     height: 25px;
+     width: 150px;
+     display: inline-block;
+}
+.box-dev{
+    border-radius: 5px;
+    border: 1px solid rgb(218, 218, 218);
+    height: 350px;
+}
+
+/* ------------------ */
+
+
+.legend
+{
+    width: 10%;
+}
+#subject-style{
+    border-radius:3px;
+     height: 25px;
+}
+
+.box-dev{
+    border-radius: 5px;
+    border: 1px solid rgb(218, 218, 218);  
+    padding-top: 5px;
+    height: 60%;
+}
+.bntBox{
+    border-radius: 5px;
+    border: 1px solid rgb(218, 218, 218);
+    height: 80px;
+    margin: 5px;
+    padding-top: 5px;
+    padding-right: 1%;
+    margin-top: 10px;
+}
+.fontsize
+{
+    font-size: larger;
+}
+
+.btn{
+    margin-right: 2px !important;
+}
+.select-general-for-lable {
+    margin: 0 !important;
+    width: auto !important;
+}
+.redio-div{
+    display: inline-block;
+    width: 61%;
+    text-align: right;
+    padding-right: 9px;
+}
+.custom-control-label::before{
+    top:0px;
+    right: -1.5rem;
+}
+.custom-control-label::after{
+    top:0px;
+    right: -1.5rem;
+}
+.box-dev{
+    border-radius: 5px;
+    border: 1px solid rgb(218, 218, 218);
+}
+.img-big {
+    height: 24px;
+    width: 28px;
+}
+.img-big-SignImage {
+    height: 24px;
+    width: 28px;
+}
+.img-def {
+    height: 16px;
+    width: 16px;
+}
+.img-big-SignImage:hover {
+    height: 28px;
+    width: 50px;
+}

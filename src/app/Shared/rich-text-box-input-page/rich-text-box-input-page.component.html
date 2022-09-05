@@ -1,0 +1,48 @@
+<div class="main-form-body" style="margin-top: 5px; height: 70%;">
+  <div id="container" style="clear: both;padding-bottom: 5px;">
+    <form>
+      <fieldset class="feild-set" style="display: inherit;">
+        <legend style="width: auto" class="legend">علت عدم تصویب</legend>
+        <table style="width: 100%;">
+          <tr>
+            <td style="width: 10%">
+              <span class="table-cell-Lable">درج در چاپ</span>
+              <app-custom-check-box style="vertical-align: sub;" [configurationInfo]="CustomCheckBoxConfig"
+                style="margin-left: 8%; width: 50px;" [isSelected]="ShowNoteInReport" (PrettyCheckBoxChange)="OnCheckBoxChange($event)"
+                [Disabled] ="IsDisableInput">
+              </app-custom-check-box>
+            </td>
+            <td style="width: 90%"></td>
+          </tr>
+          <tr>
+            <td colspan="2" style="width: 100%;">
+              <textarea [(ngModel)]="DisApprovalArticle18Note" name="DisApprovalArticle18Note"
+                class="form-control input-style" rows="5"
+                style="display: inline-block;height: 50%; width: 100%; text-align: justify; white-space: pre-line; font-size: 12px;"
+                id="indicator-text_note" [disabled]="IsDisableInput">
+                </textarea>
+            </td>
+          </tr>
+        </table>
+      </fieldset>
+    </form>
+  </div>
+</div>
+<div class="buttons-place" style="float: left;margin: auto;" [style.width.%]="100">
+  <button (click)="OnPrint()" id="btn2" class="btn btn-primary btnGreen" style="margin: 2px;">
+    <img width="15px" height="15px" src="assets/Icons/print.png" />
+    چاپ عدم تصویب
+  </button>
+  <button id="btnClose" class="btn btn-primary btnGreen" (click)="Close()">
+    <img width="15px" height="15px" src="assets/Icons/exit.png" />
+    خروج
+  </button>
+</div>
+<app-over-popup *ngIf="isClicked" [PopupType]="PopUpType" [HaveMaxBtn]="HaveMaxBtn"
+  [HeightPercentWithMaxBtn]="HeightPercentWithMaxBtn" [startLeftPosition]="startLeftPosition"
+  [startTopPosition]="startTopPosition" [PopupParam]="PopUpType === 'message-box' ? alertMessageParams: PopupParam"
+  [HaveHeader]="HaveHeader" [PercentWidth]="PopUpType === 'message-box' ? '' : PercentWidth"
+  [MainMaxwidthPixel]="MainMaxwidthPixel" [minHeightPixel]="MinHeightPixel"
+  (PopupOutPutParam)="PopUpType ==='message-box' ? MessageBoxAction($event) : getOutPutParam($event)"
+  (popupclosed)="popupclosed($event)" [MainMinwidthPixel]="PopUpType === 'message-box' ? '' : OverMainMinwidthPixel">
+</app-over-popup>

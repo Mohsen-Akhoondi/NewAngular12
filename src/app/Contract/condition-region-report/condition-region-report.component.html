@@ -1,0 +1,86 @@
+<div class="main-form-body" style="margin-top: 3px; height:87%;">
+  <fieldset class="feild-set" style="display: inherit">
+    <table style="margin-bottom: 10px;margin-top: 7px; width: 100%; text-align: center;">
+      
+      <tr>
+      <td style="width: 33%;padding-left: 5px;">
+        <span class="table-cell-Lable" >واحد اجرایی</span>
+        <app-ng-select-virtual-scroll style="display: inline-block;width: 80%; padding-right: 18px;" [NgSelectParams]="RegionParams"
+          [Items]="RegionItems" (Open)="OnOpenNgSelect('Region')">
+        </app-ng-select-virtual-scroll>
+      </td>
+
+      <td width="33%">
+        <span class="table-cell-Lable">
+        سیستم
+        </span>
+        <app-ng-select-virtual-scroll  style="display: inline-block;width: 81%; padding-right: 22px;" [NgSelectParams]="WorkflowParams"
+          [Items]="WorkflowItems"  (selectedChange)="onChangeWorkflowItems($event)">
+        </app-ng-select-virtual-scroll>
+      </td>
+
+      <td width="33%">
+        <span class="table-cell-Lable">
+        انواع درخواست
+        </span>
+        <app-ng-select-virtual-scroll style="display: inline-block;width: 70%;" [NgSelectParams]="WorkflowObjectParams"
+          [Items]="WorkflowObjectItems"  (Open)="OnOpenNgSelect('WorkflowObject')"
+          [Disabled]="!IsEditable && WorkflowParams.selectedObject!== 1">
+        </app-ng-select-virtual-scroll>
+      </td>
+
+    </tr>
+    <tr>
+      <td  style="width: 33%;padding-left: 5px;">
+      <span class="table-cell-Lable">معاونت تخصصی</span>
+      <app-ng-select-virtual-scroll style="display: inline-block;width: 75%;"
+     [NgSelectParams]="CostCenterParams" (Open)="OnOpenNgSelect('CostCenter')" (selectedChange)="onChangeCostCenterObj($event)" [Items]="CostCenterItems">
+      </app-ng-select-virtual-scroll>
+      </td>
+
+      <td width="33%">
+        <span class="table-cell-Lable">اداره تخصصی</span>
+        <app-ng-select-virtual-scroll style="display: inline-block;width: 75%;"
+         [NgSelectParams]="SubCostCenterParams"  [Items]="SubCostCenterItems"   >
+        </app-ng-select-virtual-scroll>
+      </td>
+
+     
+    </tr>
+
+    </table>
+  </fieldset>
+    <table style="margin-top: 10px;">
+      <tr>
+        <td wdith="25%" colspan="2">
+          <button type="submit" (click)="SearchRegion()" style="width: 150px;height: 30px;"
+            class="select-general-for-lable btn-gray-border btn btn-primary btnGreen">
+            <img width="15px" height="15px" src="assets/Icons/Search.png" />
+            به تفکیک واحدها
+          </button>
+        </td>
+
+        <td wdith="25%" colspan="2">
+          <button type="submit" (click)="SearchCostCenter()" style="width: 150px;height: 30px;"
+            class="select-general-for-lable btn-gray-border btn btn-primary btnGreen">
+            <img width="15px" height="15px" src="assets/Icons/Search.png" />
+            به تفکیک معاونت ها
+          </button>
+        </td>
+      </tr>
+    </table>
+
+    <div class="box-dev" style=" width: 100%; margin-top: 10px;" [style.height.%]="55.5">
+      <app-grid [columns]="columnDef" [rowsData]="rowData" [gridHeight]=90 (RowClick)="RowClick($event)"
+        (GridReady)="onGridReady($event)">
+      </app-grid>
+    </div>
+
+</div>
+
+<app-over-popup *ngIf="btnclicked" [HaveMaxBtn]="HaveMaxBtn" [startLeftPosition]="startLeftPosition"
+  [startTopPosition]="startTopPosition" [minHeightPixel]="MinHeightPixel" [PopupType]="type"
+  [PopupParam]="type === 'message-box' ? alertMessageParams : paramObj" [PixelHeight]="PixelHeight"
+  [MainMaxwidthPixel]="MainMaxwidthPixel" [minWidthPixel]="minWidthPixel" [PixelWidth]="PixelWidth"
+  [PercentWidth]="PercentWidth" (popupclosed)="popupclosed($event)">
+</app-over-popup>

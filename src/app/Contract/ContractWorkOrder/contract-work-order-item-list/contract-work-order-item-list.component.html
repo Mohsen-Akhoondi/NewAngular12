@@ -1,0 +1,109 @@
+<div id="container" class="row" style="clear: both">
+  <div id="content" class="" style="height: 100%;width: 100%;">
+    <div class="main-form-body" style=" margin: 5px;min-width: 1130px; height: 85%;">
+      <table style="width: 100%;">
+        <tr>
+          <td width="50%" colspan="2">
+            <span class="table-cell-Lable">قرارداد</span><input style="width: 88%" class="form-control input-style"
+              type="text" name="first" value="{{ ContractSubLetter }}" readonly />
+          </td>
+          <td>
+            <span class="table-cell-Lable">شماره دستور کار</span>
+            <input style="width: 80%" class="form-control input-style" type="text" name="first"
+              value="{{ ContractWorkOrderCode }}" readonly />
+          </td>
+        </tr>
+
+        <tr>
+          <td colspan="2">
+            <span style="margin: 0px; margin-left: 5px" class="table-cell-Lable">عامل قرارداد</span>
+            <app-ng-select-virtual-scroll style="width: 88% ; min-width: 150px; display: inline-block" [Disabled]="true"
+              class="select-general-for-lable" [NgSelectParams]="ContractAgentParams" [Items]="ContractAgentSet"
+              (selectedChange)="onChangeContractAgentObj($event)">
+            </app-ng-select-virtual-scroll>
+          </td>
+          <td colspan="2">
+            <span class="table-cell-Lable">تاریخ دستور کار</span>
+            <app-jalali-datepicker [WidthPx]="445" style="width: 100%;" [Required]="true"
+              [CurrMiladiDateValue]="ContractWorkOrderDate" (Change)="OnContractMinutesDateChange($event)">
+            </app-jalali-datepicker>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="4">
+            <span style="margin: 0;margin-left: 5px" class="table-cell-Lable">توضیحات</span>
+            <input style="width: 94%;" class="form-control input-style" type="text" name="first" [(ngModel)]="Note"
+              value="{{ Note }}" />
+          </td>
+        </tr>
+      </table>
+
+      <div style="padding-bottom: 5px; margin-top: 5px;" [style.height.%]="84">
+        <div id="div1" class="box-dev left-dev" style="height: 99%;">
+          <app-grid style="width: 100%;" [IsEditable]="IsEditable" [columns]="columnDef1" [defaultSelectedRowIndex]="0"
+            [rowsData]="ContractPayItemList" (RowClick)="dgContractPayItemRowClick($event)"
+            (CellValueChanged)="onCellValueChanged($event)" (GridReady)="onContractPayItemGridReady($event)"
+            [gridHeight]="dgCPHeight"></app-grid>
+        </div>
+        <div id="div2" class="box-dev right-dev" style="height: 99%;">
+          <div style="height: 88.5%;">
+            <app-grid style="width: 100%;" [columns]="columnDef2" [IsEditable]="IsEditable" [IsDisable]="IsDisable"
+              [rowsData]="ContractWorkOrderItemList" [IsNeedGroupBtn]="true" [IsNeedRowBtn]="true"
+              [IsNeedImportBtn]="true" [IsNeedAddPopUp]="true" (GroupBtnClick)="OnGroupBtnClick($event)"
+              (ImportFromExcelClick)="OnImportFromExcelBtnClick()" (AddPopUp)="onAddPopUpBtnClick()"
+              (RowBtnClick)="OnRowBtnClick($event)" (GridReady)="onContractPayItemListGridReady($event)"
+              (CellValueChanged)="onContractPayItemListCellValueChanged($event)"
+              (RowClick)="dgContractPayItemListRowClick($event)" [gridHeight]="dgCPEHeight"></app-grid>
+          </div>
+          <div class="PriceListDiv">
+            <span class="spanStyle">
+              شرح :
+            </span>
+            <span style="margin: 5px;">
+              {{PriceListTopicName}}
+            </span>
+            <span class="spanStyle">
+              واحد :
+            </span>
+            <span style="margin: 5px;">
+              {{PriceListTopicUnit}}
+            </span>
+            <span class="spanStyle">
+              مبلغ واحد :
+            </span>
+            <span style="margin: 5px;">
+              {{PriceListTopicUnitAmount}}
+            </span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="buttons-place" style=" margin: 5px">
+      <button *ngIf="HaveSave" (click)="onSave()" id="btn2" class="btn btn-primary btnGreen" style="margin: 2px">
+        <img width="15px" height="15px" src="assets/Icons/save.png" />
+        ثبت
+      </button>
+
+      <button (click)="BtnArchiveClick()" id="btn1" class="btn btn-primary btnGreen">
+        <img width="15px" height="15px" src="assets/Icons/TechnicalArchive.png" />
+        {{ArchiveBtnText}}
+      </button>
+
+      <button (click)="BtnDetailArchiveClick()" id="btn1" class="btn btn-primary btnGreen">
+        <img width="15px" height="15px" src="assets/Icons/TechnicalArchive.png" />
+        {{DetailArchiveBtnText}}
+      </button>
+      
+      <button (click)="close()" id="btn4" class="btn btn-primary btnGreen">
+        <img width="15px" height="15px" src="assets/Icons/exit.png" />
+        خروج
+      </button>
+    </div>
+  </div>
+</div>
+<app-over-popup *ngIf="btnclicked" [PopupType]="type" [HaveMaxBtn]="HaveMaxBtn" [startLeftPosition]="startLeftPosition"
+  [startTopPosition]="startTopPosition" [MainMinwidthPixel]="type === 'editor-select-price-list'? 1240:''"
+  [MainMaxwidthPixel]="type === 'editor-select-price-list'? 1240:''"
+  [PopupParam]="type ==='message-box' ?alertMessageParams  : ParamObj" (popupclosed)="popupclosed($event)"
+  (PopupOutPutParam)="type ==='message-box' ? MessageBoxAction($event) : getOutPutParam($event)"></app-over-popup>

@@ -1,0 +1,124 @@
+<div class="main-form-body" style="margin-top:5px;">
+  <fieldset class="feild-set">
+    <table style="width: 100%;">
+      <tr>
+        <td width="50%" style="text-align: right;">
+          <span class="table-cell-Lable">واحد اجرایی</span>
+          <app-ng-select-virtual-scroll style="display: inline-block;width: 68%;"
+            [NgSelectParams]="RegionParams" (selectedChange)="onChangeReigonObj($event)"
+            [Items]="RegionListSet">
+          </app-ng-select-virtual-scroll>
+        </td>
+          <td style="width: 50%;" style="text-align: right;">
+            <span class="table-cell-Lable">سال مالی</span>
+            <app-ng-select-virtual-scroll  style="display: inline-block;width: 71%;"
+            [NgSelectParams]="FinYearParams" (selectedChange)="onChangeFinYear($event)" 
+            [Items]="FinYearListSet">
+            </app-ng-select-virtual-scroll>
+          </td>
+      </tr>
+    </table> 
+  </fieldset>
+  <fieldset class="feild-set">
+    <table style="width: 100%;">
+      <tr>
+        <td style="width: 100%;" colspan="4">
+          <span class="table-cell-Lable">اسناد با وضعیت</span>
+          <app-ng-select-virtual-scroll  style="display: inline-block;width: 78.5%;"
+          [NgSelectParams]="VoucherStatusParams" (selectedChange)="onChangeVoucherStatus($event)" 
+          [Items]="VoucherStatusListSet">
+          </app-ng-select-virtual-scroll>
+        </td>
+      </tr>
+      <tr style="text-align: left;">
+          <td colspan="2" width="57%">
+            <span class="table-cell-Lable">حساب کل از</span>
+            <app-ng-select-virtual-scroll style="display: inline-block;width: 68%;" 
+            [NgSelectParams]="LedgerAccFromParams" (selectedChange)="onChangeLedgerAcc($event,'From')"
+            [Items]="LedgerAccFromSet" (Open)="OnOpenNgSelectLedger()">
+          </app-ng-select-virtual-scroll>
+          </td>
+            <td colspan="2" style="width: 43%;text-align: right;">
+              <span class="table-cell-Lable">تا</span>
+              <app-ng-select-virtual-scroll style="display: inline-block;width: 80%;" [PageCount] = "LedgerAccToPageCount"
+              [NgSelectParams]="LedgerAccToParams" (selectedChange)="onChangeLedgerAcc($event,'To')" 
+              [Items]="LedgerAccToSet" (Open)="OnOpenNgSelectLedger()" >
+              </app-ng-select-virtual-scroll>
+            </td>
+      </tr>
+      <tr style="text-align: left;">
+        <td colspan="2" style="width:57%">
+          <span class="table-cell-Lable">شماره ثبت از</span>
+          <app-number-input-component 
+          [id]="'FromVoucherCode'" [Value]="FromVoucherCode" [IsFloat]="false" [MaxLength]="9"
+          [FloatMaxLength]="0" [PerCentWidth]="68" [PixelHeight]="25" [ReadOnly] = "FromToVoucherCodeDisabled"
+          (ValueChange)="getVoucherCode($event,'From')"  [HaveThousand]="false">
+          </app-number-input-component> 
+        </td>
+        <td colspan="2" style="width: 43%;text-align: right;">
+          <span class="table-cell-Lable">تا</span>
+          <app-number-input-component 
+          [id]="'ToVoucherCode'" [Value]="ToVoucherCode" [IsFloat]="false" [MaxLength]="9"
+          [FloatMaxLength]="0" [PerCentWidth]="80" [PixelHeight]="25" [ReadOnly] = "FromToVoucherCodeDisabled"
+          (ValueChange)="getVoucherCode($event,'To')"  [HaveThousand]="false">
+          </app-number-input-component> 
+        </td>
+      </tr>
+      <tr style="text-align: left;">
+        <td colspan="2" width="57%" >
+          <span class="table-cell-Lable">تاریخ ثبت از</span>
+          <app-jalali-datepicker [WidthPC]="68" [Required]="true" (Change)="OnDateChange($event,'From')">
+          </app-jalali-datepicker>
+        </td>
+        <td colspan="2" width="43%" style="text-align: right;" >
+          <span class="table-cell-Lable">تا</span>
+          <app-jalali-datepicker [WidthPC]="80" [Required]="true" (Change)="OnDateChange($event,'To')">
+          </app-jalali-datepicker>
+        </td>
+      </tr>
+    </table>
+
+  </fieldset>
+    <div>
+      <app-radio-box-component [Mode]="'Box'" [BoxWidth]="100" [Bordered]="true" [Title]="'نوع گزارش'" 
+      [Params]="VoucherStatusRadioTypes" [Display]="'inline'" [TableAlign]="true"[Bordered]="false" 
+      [CenterBox] = "true" [QuestionStyle]="false" [Title_Width]="70" (SelectedOption)="VoucherStatusRadioClick($event)">
+      </app-radio-box-component>
+    </div>
+    <fieldset class="feild-set">
+      <legend style="width:15%">اقلام چاپی</legend>
+      <div class="CenterDiv">
+        <span class="table-cell-Lable">سند افتتاحیه</span>
+        <app-custom-check-box style="vertical-align: sub; " [configurationInfo]="CustomCheckBoxConfig"
+        [isSelected]="cb1Selected" (PrettyCheckBoxChange)="OnChangeCheckBoxValue($event,1)" [Disabled] = "cb1Disabled" >
+        </app-custom-check-box>
+        <span class="table-cell-Lable">به تفکیک ماه</span>
+        <app-custom-check-box style="vertical-align: sub; " [configurationInfo]="CustomCheckBoxConfig"
+        [isSelected]="cb2Selected" (PrettyCheckBoxChange)="OnChangeCheckBoxValue($event,2)" [Disabled] = "cb2Disabled">
+        </app-custom-check-box> 
+      </div>    
+    </fieldset>
+
+    <fieldset>
+      <div class="box-dev" style=" width: 100%;" [style.height.px]="155">
+        <app-grid  
+        [columns]="gridcoldef" [rows]="LedgerAccRows" [IsEditable]="false"
+        [gridHeight]="75">
+        </app-grid>
+      </div>
+    </fieldset>
+
+</div>
+<div class="buttons-place" style="margin: unset;">
+  <button (click)="onShowReport()" id="btnPrint" class="btn btn-primary btnGreen">
+    <img width="16px" height="16px" src="assets/Icons/printer-icon.png" />
+    چاپ 
+  </button>
+<button (click)="closeModal()" id="btn4" class="btn btn-primary btnGreen">
+  <img width="15px" height="15px" src="assets/Icons/exit.png" />
+  خروج
+</button>
+</div>
+
+<app-over-popup *ngIf="ShowMessage" [PopupType]="PopupType" [startLeftPosition]="449" [startTopPosition]="87"
+[PopupParam]="alertMessageParams" (popupclosed)="popupclosed($event)"></app-over-popup>

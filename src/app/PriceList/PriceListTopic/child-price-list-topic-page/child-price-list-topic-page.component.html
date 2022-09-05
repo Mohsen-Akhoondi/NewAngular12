@@ -1,0 +1,33 @@
+<div id="container" class="row" style="clear: both">
+  <div id="content" style="height: 100%;width: 100%;">
+    <div class="main-form-body" style="margin: 5px;">
+      <div id="div1" style="height: 448px;">
+        <app-grid  style="width: 100%;"
+                   [columns]="columnDefPriceList"
+                   [IsEditable]="true"
+                   [rowsData]="rowData"
+                   [AutoNumberField] = "'ItemNo'"
+                   (GridReady)="onGridReady($event)"
+                   (CellValueChanged)="onCellValueChanged($event)"
+                   (cellEditingStarted)="onPriceListCodeEditingStarted($event)" 
+                   [gridHeight]="90">
+        </app-grid>
+      </div>
+
+    </div>
+    <div class="buttons-place" style=" margin: 5px">
+      <button (click)="onSave()" id="btn2" class="btn btn-primary btnGreen" style="margin: 2px">
+        <img width="15px" height="15px" src="assets/Icons/save.png" />
+        ثبت </button>
+
+      <button (click)="close()" id="btn4" class="btn btn-primary btnGreen">
+        <img width="15px" height="15px" src="assets/Icons/exit.png" />
+        خروج</button>
+
+    </div>
+  </div>
+</div>
+
+<app-over-popup *ngIf="btnclicked" [PopupType]="type" [startLeftPosition]="startLeftPosition"
+  [startTopPosition]="startTopPosition" [PopupParam]="alertMessageParams" (popupclosed)="popupclosed($event)"
+  (PopupOutPutParam)="type ==='message-box' ? MessageBoxAction($event) :''"></app-over-popup>

@@ -1,0 +1,62 @@
+<div id="container" class="row" style="clear: both">
+  <div id="content" class="">
+    <div style="min-width: 350px;">
+      <div class="main-form-body main-message-body">
+        <div class="header-message">
+
+          <div class="custom-control custom-radio custom-control-inline">
+            <input checked="checked" type="radio" (click)="onRedioClick(1)" class="custom-control-input"
+              id="LevelRadio1" name="LevelRadios">
+            <label class="custom-control-label redio-label" for="LevelRadio1">رسته</label>
+          </div>
+          <div class="custom-control custom-radio custom-control-inline">
+            <input type="radio" (click)="onRedioClick(2)" class="custom-control-input" id="LevelRadio2"
+              name="LevelRadios">
+            <label class="custom-control-label redio-label" for="LevelRadio2">رشته</label>
+          </div>
+
+          <div class="custom-control custom-radio custom-control-inline">
+            <input type="radio" (click)="onRedioClick(3)" class="custom-control-input" id="LevelRadio3"
+              name="LevelRadios">
+            <label class="custom-control-label redio-label" for="LevelRadio3">فصل</label>
+          </div>
+
+          <div class="custom-control custom-radio custom-control-inline">
+            <input type="radio" (click)="onRedioClick(4)" class="custom-control-input" id="LevelRadio4"
+              name="LevelRadios">
+            <label class="custom-control-label redio-label" for="LevelRadio4">ریز متره برآورد</label>
+          </div>
+
+
+          <div class="secondLine">
+            <div class="custom-control custom-radio custom-control-inline">
+              <input checked="checked" type="radio" (click)="onRedioClick(5)" class="custom-control-input"
+                id="LevelRadio5" name="LevelGroupby">
+              <label class="custom-control-label redio-label" for="LevelRadio5">به تفکیک قرارداد</label>
+            </div>
+
+            <div class="custom-control custom-radio custom-control-inline">
+              <input type="radio" (click)="onRedioClick(6)" class="custom-control-input" id="LevelRadio6"
+                name="LevelGroupby">
+              <label class="custom-control-label redio-label" for="LevelRadio6">به تفکیک فعالیت</label>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="buttons-place">
+        <button (click)="onPrint()" id="btn2" class="btn btn-primary btnGreen">
+          <img width="15px" height="15px" src="assets/Icons/ok.png" />
+          تایید </button>
+        <button (click)="onClose()" id="btnClose" class="btn btn-primary btnGreen">
+          <img width="15px" height="15px" src="assets/Icons/exit.png" />
+          خروج
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-over-popup *ngIf="btnclicked" [PopupType]="type" [startLeftPosition]="startLeftPosition"
+  [startTopPosition]="startTopPosition" [PopupParam]="alertMessageParams" (popupclosed)="popupclosed($event)">
+</app-over-popup>

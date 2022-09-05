@@ -1,0 +1,174 @@
+<div class="main-form-body" style="margin-top: 5px; height: 85%;">
+  <fieldset *ngIf="HasRegion" class="feild-set" style="display: inherit">
+    <legend style="width: 5%;"> واحد اجرایی </legend>
+    <table style="margin-bottom: 5px; width: 100%;">
+      <tr>
+        <td width="25%">
+          <span class="table-cell-Lablle">واحد اجرایی</span>
+          <app-ng-select-virtual-scroll style="display: inline-block;width: 72%; min-height: 25;"
+            [NgSelectParams]="RegionParams" [Items]="ReigonListSet" (selectedChange)="onChangeRegionObj($event)">
+          </app-ng-select-virtual-scroll>
+        </td>
+
+        <td width="25%">
+          <span class="table-cell-Lablle">از سال مالی</span>
+          <app-ng-select-virtual-scroll style="display: inline-block;width: 72%; min-height: 25;"
+            [NgSelectParams]="FromFinYearParams" [Items]="FinYearItems" (selectedChange)="onChangeFromFinYearObj($event)">
+          </app-ng-select-virtual-scroll>
+        </td>
+        <td width="25%">
+          <span class="table-cell-Lablle">تا</span>
+          <app-ng-select-virtual-scroll style="display: inline-block;width: 64%; min-height: 25;"
+            [NgSelectParams]="ToFinYearParams" [Items]="FinYearItems">
+          </app-ng-select-virtual-scroll>
+        </td>
+        <td *ngIf="ModuleCode === 2501 || ModuleCode === 3096" width="25%">
+          <span class="table-cell-Lablle">ماهیت قرارداد</span>
+          <div class="redio-div">
+            <div class="custom-control custom-radio custom-control-inline">
+              <input [checked]="IsCost"  [disabled]="ModuleCode === 3096" type="radio" class="custom-control-input" id="ISCostRadio"
+                name="ChoosenISCostRadioName" (click)="RedioClick(true)">
+              <label style="margin: auto;" class="custom-control-label redio-label" for="ISCostRadio">هزینه
+                ای</label>
+            </div>
+            <div class="custom-control custom-radio custom-control-inline">
+              <input [checked]="!IsCost" type="radio" class="custom-control-input" id="ISIncomeRadio"
+                name="ChoosenISCostRadioName">
+              <label style="margin: auto;" class="custom-control-label redio-label" for="ISIncomeRadio"
+                (click)="RedioClick(false)">درآمدی</label>
+            </div>
+          </div>
+        </td>
+        <td *ngIf="ModuleCode !== 2501" width="25%"></td>
+      </tr>
+      <tr>
+        <td width="25%">
+          <span class="table-cell-Lablle">از قرارداد </span>
+          <app-ng-select-virtual-scroll style="display: inline-block;width: 72%;"
+            [TotalItemCount]="FromContractTotalItemCount" [PageCount]="FromContractPageCount"
+            [NgSelectParams]="NgSelectContractParamsFrom" [Items]="ContractListSetFrom"
+            (FetchMore)="FetchMoreFromContract($event)" (doSearch)="doFromContractSearch($event)"
+            (selectedChange)="FromContractChanged($event)" (Open)="FromContractOpened()">
+          </app-ng-select-virtual-scroll>
+        </td>
+        <td width="25%">
+          <span class="table-cell-Lablle">تا</span>
+          <app-ng-select-virtual-scroll style="display: inline-block;width: 72%;"
+            [TotalItemCount]="ToContractTotalItemCount" [PageCount]="ToContractPageCount"
+            [NgSelectParams]="NgSelectContractParamsTo" [Items]="ContractListSetTo"
+            (FetchMore)="FetchMoreToContract($event)" (doSearch)="doToContractSearch($event)"
+            (Open)="ToContractOpened()">
+          </app-ng-select-virtual-scroll>
+        </td>
+        <td width="25%">
+          <span class="table-cell-Lablle"> تاريخ انعقاد از</span>
+          <app-jalali-datepicker [WidthPC]="64" (Change)="OnFromContractDateChange($event)">
+          </app-jalali-datepicker>
+        </td>
+        <td width="25%">
+          <span class="table-cell-Lablle">تا</span>
+          <app-jalali-datepicker [WidthPC]="72" (Change)="OnToContractDateChange($event)">
+          </app-jalali-datepicker>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="4" width="100%">
+          <span class="table-cell-Lablle" style="margin-right: 26px; margin-left: 10px;">موضوع</span>
+          <input style="display: inline-block; width: 93%;" class="form-control input-style" type="text" name="Subject"
+            [(ngModel)]="Subject" />
+        </td>
+      </tr>
+    </table>
+    <table *ngIf="ModuleCode === 2875" style="width: 100%;">
+      <tr>
+        <td width="25%">
+          <span class="table-cell-Lable">نوع پیمانکار</span>
+          <div class="redio-div" style="width: 68%; text-align: center; margin-left: 10px;">
+            <div class="custom-control custom-radio custom-control-inline">
+              <input [checked]="ContractorType" type="radio" class="custom-control-input" id="rdoPersonContractor"
+                name="ChoosenContractorType" (click)="rdoContractorTypeClick(true)">
+              <label style="margin: auto;" class="custom-control-label redio-label" for="rdoPersonContractor">حقيقي
+              </label>
+            </div>
+            <div class="custom-control custom-radio custom-control-inline">
+              <input [checked]="!ContractorType" type="radio" class="custom-control-input" id="rdoCorporateContractor"
+                name="ChoosenContractorType">
+              <label style="margin: auto;" class="custom-control-label redio-label" for="rdoCorporateContractor"
+                (click)="rdoContractorTypeClick(false)">حقوقي</label>
+            </div>
+          </div>
+        </td>
+        <td style="width: 25%">
+          <span class="table-cell-Lable" style="margin-left: 5px;">پیمانکار </span>
+          <app-ng-select-virtual-scroll [PageCount]="ContractorPageCount" [TotalItemCount]="ContractorTotalItemCount"
+            style="display: inline-block;width: 73%;" class="select-general-for-lable"
+            [NgSelectParams]="NgSelectContractorParams" [Items]="ContractorItems"
+            (FetchMore)="FetchMoreContractor($event)" (Open)="OpenContractor($event)"
+            (doSearch)="doContractorSearch($event)">
+          </app-ng-select-virtual-scroll>
+        </td>
+        <td width="50%"></td>
+      </tr>
+    </table>
+    <div _ngcontent-c215="" style="width: 100%; display: flex; justify-content: center; padding: 10px; ">
+      <button (click)="Search()" style="width: 150px;height: 30px;"
+        class="select-general-for-lable btn-gray-border btn btn-primary btnGreen">
+        <img width="15px" height="15px" src="assets/Icons/Search.png" />
+        جستجو
+      </button>
+    </div>
+  </fieldset>
+  <div id="container" style="clear: both;padding-bottom: 5px;">
+    <div class="box-dev" style=" width: 100%;" [style.height.%]="BoxDevHeight">
+      <app-grid (RowClick)="RowClick($event)" [columns]="columnDef" [rowsData]="rowData" [gridHeight]="gridHeight"
+      (cellEditingStarted)="onellEditingStarted($event)"
+      (GridReady)="onGridReady($event)">
+      
+      </app-grid>
+    </div>
+    <div *ngIf="!ISIRVersion && (ModuleCode === 2645 || ModuleCode === 2516) " class="box-dev"
+      style=" width: 100%; height: 9%; margin:5px 0px;text-align: right;color:blue; padding: 4px;">
+      <span>
+        کاربران مکلفند ردیف های فهارس بهای مندرج در این سامانه را با فهارس بهای ابلاغی سازمان برنامه و بودجه تطبیق
+        داده و در صورت وجود هرگونه مغایرت موضوع را کتبا به اداره کل هماهنگی فنی و عمرانی سازمان ها و مناطق اطلاع و تا
+        اصلاح سامانه از ارسال صورت وضعیت خودداری نمایند.
+      </span>
+    </div>
+  </div>
+</div>
+
+<div class="buttons-place" style="margin: unset;">
+
+  <button *ngIf="ModuleCode === 2785"  (click)="OnSave()" id="btn2" class="btn btn-primary btnGreen">
+    <img width="15px" height="15px" src="assets/Icons/save.png" />
+    ثبت
+  </button>
+
+  <button *ngIf="ModuleCode !== 2785"  (click)="Btnclick()" id="btn2" class="btn btn-primary btnGreen">
+    <img width="15px" height="15px" src="assets/Icons/show.png" />
+    مشاهده {{ModuleName}}</button>
+
+  <button *ngIf="CanViewContractCase && !ISIRVersion" (click)="BtnOpenPopup('contract-case')" id="btn2"
+    class="btn btn-primary btnGreen">
+    <img width="15px" height="15px" src="assets/Icons/show.png" />
+    مشاهده پرونده قرارداد
+  </button>
+
+
+  <button   (click)="report()" *ngIf="Enabled && ModuleCode !== 2785" id="btn4" class="btn btn-primary btnGreen">
+    <img width="15px" height="15px" src="assets/Icons/print.png" />
+    چاپ</button>
+
+  <button (click)="close()" id="btn4" class="btn btn-primary btnGreen">
+    <img width="15px" height="15px" src="assets/Icons/exit.png" />
+    خروج</button>
+
+
+</div>
+<app-over-popup *ngIf="btnclicked" [HaveMaxBtn]="HaveMaxBtn" [startLeftPosition]="startLeftPosition"
+  [startTopPosition]="startTopPosition" [minHeightPixel]="MinHeightPixel" [PopupType]="type"
+  [HeightPercentWithMaxBtn]="HeightPercentWithMaxBtn" [PixelHeight]="PixelHeight"
+  [PopupParam]="type === 'message-box' ? alertMessageParams : paramObj" [HaveHeader]="HaveHeader"
+  (popupclosed)="popupclosed($event)" [MainMaxwidthPixel]="PixelWidth" [PixelWidth]="PixelWidth"
+  [PercentWidth]="PercentWidth">
+</app-over-popup>

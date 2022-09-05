@@ -1,0 +1,93 @@
+.feild-set{
+    border: 1px solid rgb(218, 218, 218);
+    min-height: 50px;
+    margin-bottom: 3px;
+    padding: 5px;
+    text-align: right;
+}
+.table-cell-Lable {
+    margin-left: 5px;
+    margin-right: 5px;
+    font-size: 10px;
+  }
+
+  .input-style{
+    border-radius:3px;
+     height: 23px;
+     width: 150px;
+     display: inline-block;
+}
+.box-dev{
+    border-radius: 5px;
+    border: 1px solid rgb(218, 218, 218);
+}
+
+/* ------------------ */
+
+
+.legend
+{
+    width: 10%;
+}
+#subject-style{
+    border-radius:3px;
+     height: 25px;
+}
+
+.bntBox{
+    border-radius: 5px;
+    border: 1px solid rgb(218, 218, 218);
+    height: 80px;
+    margin: 5px;
+   ;
+    margin-top: 10px;
+}
+.fontsize
+{
+    font-size: larger;
+}
+
+.btn{
+    margin-right: 1px !important;
+}
+.select-general-for-lable {
+    margin: 0 !important;
+    width: auto !important;
+}
+.redio-div{
+    display: inline-block;
+    width: 61%;
+    text-align: right;
+   
+}
+.custom-control-label::before{
+    top:0px;
+    right: -1.5rem;
+}
+.custom-control-label::after{
+    top:0px;
+    right: -1.5rem;
+}
+.box-dev{
+    border-radius: 5px;
+    border: 1px solid rgb(218, 218, 218);
+}
+.custom-file-input ~ .custom-file-label::after {
+    content: "بارگذاری";
+    height: auto;
+}
+.custom-file-label:after {
+    left: 0;
+    right: auto;
+    border-left-width: 0;
+    border-right: inherit;
+}
+
+.img-big {
+    height: 24px;
+    width: 28px;
+}
+.img-def {
+    height: 16px;
+    width: 16px;
+}

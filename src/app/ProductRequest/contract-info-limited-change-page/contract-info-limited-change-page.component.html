@@ -1,0 +1,101 @@
+<div id="container" class="row" style="clear: both">
+  <div id="content" style="height: 100%;width: 100%;">
+    <div class="main-form-body" style="margin: 5px;" [style.height.%]="85">
+      <form>
+        <fieldset class="feild-set" style="display: inherit">
+          <legend style="width: 6%;margin: 0;"> اطلاعات قرارداد </legend>
+          <table style="width: 100%;">
+            <tr>
+              <td style="width: 20%;">
+                <span class="table-cell-Lable">سال مالی</span>
+                <input class="form-control input-style" style="width: 60%;" type="text" value="{{FinYearCode}}"
+                  readonly />
+              </td>
+              <td style="width: 20%;">
+                <span class="table-cell-Lable">کد قرارداد</span>
+                <input class="form-control input-style" style="width: 60%;" type="text" value="{{ContractCode}}"
+                  readonly />
+              </td>
+              <td style="width: 20%;">
+                <span class="table-cell-Lable">پیمانکار</span>
+                <input class="form-control input-style" style="width: 60%;" type="text" value="{{ContractorName}}"
+                  readonly />
+              </td>
+              <td style="width: 20%;">
+                <span class="table-cell-Lable">شماره نامه</span>
+                <input class="form-control input-style" style="width: 60%;" type="text" value="{{LetterNo}}" readonly />
+              </td>
+              <td style="width: 20%;">
+                <span class="table-cell-Lable">مبلغ</span>
+                <input class="form-control input-style" style="width: 60%;" type="text" value="{{ContractAmountStr}}"
+                  readonly />
+              </td>
+            </tr>
+            <tr>
+              <td style="width: 100%" colspan="5">
+                <span class="table-cell-Lable">موضوع</span>
+                <input class="form-control input-style" id="subject-style" style="width: 92%" type="text"
+                  value="{{Subject}}" readonly />
+              </td>
+            </tr>
+          </table>
+        </fieldset>
+        <fieldset class="feild-set" style="display: inherit">
+          <legend style="width: 6%;margin: 0;">اطلاعات مرحله </legend>
+          <table style="width: 100%;">
+            <tr>
+              <td style="width: 20%;">
+                <span class="table-cell-Lable">شماره</span>
+                <input class="form-control input-style" style="width: 60%;" type="text" value="{{OrderNo}}" readonly />
+              </td>
+              <td style="width: 20%;">
+                <span class="table-cell-Lable">تاریخ</span>
+                <input class="form-control input-style" style="width: 60%;" type="text" value="{{PersianOrderDate}}"
+                  readonly />
+              </td>
+              <td style="width: 60%;">
+                <span class="table-cell-Lable">توضیحات</span>
+                <input class="form-control input-style" id="subject-style" style="width: 87%" type="text" type="text"
+                  name="Subject" [(ngModel)]="Note" />
+              </td>
+            </tr>
+          </table>
+        </fieldset>
+      </form>
+      <div style="padding-bottom: 5px;" [style.height.%]="70">
+
+        <div id="div1" class="box-dev left-dev for-no-estimate-append-date" [style.height.%]="89">
+          <!-- فعالیت تاریخ شروع پایان مبلغ  -->
+          <app-grid style="width: 100%;" [columns]="columnDef" [rowsData]="rowData" (GridReady)="onGridReady1($event)"
+            [IsEditable]="false" (CellValueChanged)="onCellValueChanged($event)" [gridHeight]="87"></app-grid>
+        </div>
+        <div id="div1" class="box-dev left-dev" style="margin-top: 5px;color: red;overflow: auto;"
+          [style.height.%]="10">
+          <div style="min-width: 100px;font-weight: bold; float: right; margin: 3px;">
+            <span id="sum-final-estimate-amount" class="table-cell-Lable">جمع کل با ضرایب ردیف:</span>
+            <label for="sum-final-estimate-amount" style="margin:2px"> {{sumAmountCOEFStr}} </label>
+          </div>
+          <div style="min-width: 80px; font-weight: bold; float: right; margin: 3px;">
+            <span id="sum-final-estimate-amount" class="table-cell-Lable">جمع کل بدون ضرایب ردیف:</span>
+            <label for="sum-final-estimate-amount" style="margin:2px"> {{sumFinalAmountStr}} </label>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+    <div class="buttons-place" style=" margin: 5px">
+
+      <button (click)="onSave()" class="btn btn-primary btnGreen">
+        <img width="15px" height="15px" src="assets/Icons/save.png" />
+        ثبت
+      </button>
+      <button (click)="onClose()" id="btn4" class="btn btn-primary btnGreen">
+        <img width="15px" height="15px" src="assets/Icons/exit.png" />
+        خروج</button>
+    </div>
+  </div>
+</div>
+<app-over-popup *ngIf="btnclicked" [PopupType]="PopupType" [startLeftPosition]="startLeftPosition"
+  [startTopPosition]="startTopPosition" [PopupParam]="alertMessageParams" (popupclosed)="popupclosed($event)">
+</app-over-popup>

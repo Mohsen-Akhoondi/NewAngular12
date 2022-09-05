@@ -1,0 +1,10 @@
+<div class="main-form-body for-append-date" style="margin-top: 5px; height: 86%;">
+  <app-grid [columns]="MovableColumnDef" [rowsData]="MovablerowsData" [IsEditable]="false" [gridHeightPxel] = "200"> <!--RFC 53015-->
+  </app-grid>
+</div>
+<div class="buttons-place" style="margin: 0;">
+  <button (click)="onClose()" id="btn4" class="btn btn-primary btnGreen">
+    <img width="15px" height="15px" src="assets/Icons/exit.png" />
+    خروج
+  </button>
+</div>

@@ -1,0 +1,178 @@
+<div class="main-form-body" style="margin-top: 5px; height: 75%;">
+  <div id="container" style="clear: both;padding-bottom: 5px;">
+    <table style="margin-bottom: 10px;width: 100%">
+      <tr>
+        <td width="33%">
+          <span class="table-cell-Lable">نام</span>
+          <input  style="width: 80%" class="form-control input-style" type="text" name="FirstName" 
+            [(ngModel)]="FirstName" />
+        </td>
+
+        <td width="33%">
+          <span class="table-cell-Lable"> نام خانوادگی</span>
+          <input  style="width: 70%" class="form-control input-style" type="text" name="LastName"
+            [(ngModel)]="LastName" />
+        </td>
+
+
+        <td width="33%">
+          <span class="table-cell-Lable">جنسیت</span>
+          <div class="redio-div">
+            <div class="custom-control custom-radio custom-control-inline">
+              <input  [checked]="IsMale" type="radio" class="custom-control-input" id="IsMaleRadio"
+                name="ChoosenIsMaleName" (click)="RedioClick('false')">
+              <label style="margin: auto;" class="custom-control-label redio-label" for="IsMaleRadio">مرد</label>
+            </div>
+            <div class="custom-control custom-radio custom-control-inline">
+              <input  [checked]="IsFemale" type="radio" class="custom-control-input" id="IsFemaleRadio"
+                name="ChoosenIsFemaleName">
+              <label style="margin: auto;" class="custom-control-label redio-label" for="IsFemaleRadio"
+                (click)="RedioClick('true')">زن</label>
+            </div>
+          </div>
+        </td>
+      </tr>
+      <tr>
+
+        <td width="33%">
+          <span class="table-cell-Lable">تاریخ تولد</span>
+          <app-jalali-datepicker  [WidthPC]="80" [CheckValidate]="false" [Required]="false"
+            [CurrMiladiDateValue]="BirthDate" [(ngModel)]="BirthDate" (Change)="OnBirthDateChange($event)">
+          </app-jalali-datepicker>
+        </td>
+
+        <td width="33%">
+          <span class="table-cell-Lable">کد ملی</span>
+          <input style="width: 70%" class="form-control input-style" type="text" name="IdentityNo"
+            [(ngModel)]="IdentityNo" />
+        </td>
+
+        <td width="33%">
+          <span class="table-cell-Lable">ملیت</span>
+          <input  style="width: 80%" class="form-control input-style" type="text" name="Nationality"
+            [(ngModel)]="Nationality" />
+        </td>
+
+      </tr>
+
+      <tr>
+        <td width="33%">
+          <span class="table-cell-Lable">نام پدر</span>
+          <input style="width: 80%" class="form-control input-style" type="text" name="FatherName"
+            [(ngModel)]="FatherName" />
+        </td>
+        <td width="33%">
+          <span class="table-cell-Lable"> شماره شناسنامه </span>
+          <input style="width: 70%" class="form-control input-style" type="text"
+            name="BirthCertificateNo" [(ngModel)]="BirthCertificateNo" />
+        </td>
+        <td width="33%">
+          <span class="table-cell-Lable"> محل تولد </span>
+          <input style="width: 80%" class="form-control input-style" type="text" name="BirthPlace"
+            [(ngModel)]="BirthPlace" />
+        </td>
+
+      </tr>
+
+      <tr>
+        <td width="33%">
+          <span class="table-cell-Lable">تلفن</span>
+          <input [disabled]="false" style="width: 80%" class="form-control input-style" type="text" name="Tel"
+            [(ngModel)]="Tel" />
+        </td>
+
+        <td width="33%">
+          <span class="table-cell-Lable">موبایل</span>
+          <input [disabled]="false" style="width: 70%" class="form-control input-style" type="text" name="Cell"
+            [(ngModel)]="Cell" />
+        </td>
+
+        <td width="33%">
+          <span class="table-cell-Lable">ایمیل</span>
+          <input [disabled]="!IsEditable" style="width: 80%" class="form-control input-style" type="text" name="Email"
+            [(ngModel)]="Email" />
+        </td>
+
+
+      </tr>
+
+      <tr>
+        <td width="33%">
+          <span class="table-cell-Lable">کد پرسنلی</span>
+          <input [disabled]="!IsEditable" style="width: 80%" class="form-control input-style" type="text"
+            name="PersonelCode" [(ngModel)]="PersonelCode" />
+        </td>
+
+        <td width="33%">
+          <span class="table-cell-Lable">شماره پاسپورت</span>
+          <input [disabled]="!IsEditable" style="width: 70%" class="form-control input-style" type="text"
+            name="PassportNo" [(ngModel)]="PassportNo" />
+        </td>
+
+        <td width="33%">
+          <span class="table-cell-Lable">کد پستی</span>
+          <input [disabled]="!IsEditable" style="width: 80%" class="form-control input-style" type="text"
+            name="PostCode" [(ngModel)]="PostCode" />
+        </td>
+      </tr>
+
+      <tr>
+        <td width="33%" colspan="4">
+          <span class="table-cell-Lable">آدرس</span>
+          <input [disabled]="!IsEditable" style="width: 93.5%" class="form-control input-style" type="text"
+            name="Address" [(ngModel)]="Address" />
+        </td>
+      </tr>
+
+      <tr>
+        <td width="33%">
+          <span class="table-cell-Lable">وب سایت</span>
+          <input [disabled]="!IsEditable" style="width: 80%" class="form-control input-style" type="text" name="Web"
+            [(ngModel)]="Web" />
+        </td>
+        <td width="33%">
+          <span class="table-cell-Lable">واحد اجرایی</span>
+          <input [disabled]="!IsEditable" style="width: 70%" class="form-control input-style" type="text"
+            name="RegionName" [(ngModel)]="RegionName" />
+        </td>
+        <td width="33%">
+          <span class="table-cell-Lable">مستندات</span>
+          <div style="display: inline-block ; width: 81%;text-align: right; ">
+            <button type="submit" (click)="onPersonDocArchiveClick()" style="width: 100%; float: none !important; "
+              class="btn btn-primary btnGreen btn-gray-border">
+              <img width="15px" height="10px" src="assets/Icons/TechnicalArchive.png" />
+              بارگذاری/مشاهده
+            </button>
+          </div>
+        </td>
+      </tr>
+      
+      <tr>
+        <td style="width: 33%;padding-left: 175px">
+          <span class="table-cell-Lable">فعال</span>
+          <app-custom-check-box style="vertical-align: sub;" [configurationInfo]="CustomCheckBoxConfig"
+            [isSelected]="IsValid" (PrettyCheckBoxChange)="OnCheckBoxChange($event)">
+          </app-custom-check-box>
+        </td>        
+      </tr>
+    </table>
+  </div>
+</div>
+
+
+
+<div class="buttons-place" style="margin: unset;">
+  <button (click)="onSave()" [disabled]="false" id="btnSave" class="btn btn-primary btnGreen">
+    <img width="15px" height="15px" src="assets/Icons/save.png" />
+   ثبت
+  </button>
+
+  <button (click)="onClose()" id="btn4" class="btn btn-primary btnGreen">
+    <img width="15px" height="15px" src="assets/Icons/exit.png" />
+    خروج</button>
+</div>
+
+<app-over-popup *ngIf="isClicked" [PopupType]="PopUpType" [HaveMaxBtn]="false" [startLeftPosition]="startLeftPosition"
+  [startTopPosition]="startTopPosition" [PopupParam]="PopUpType === 'message-box' ? alertMessageParams : PopupParam"
+  [HaveHeader]="HaveHeader" (popupclosed)="popupclosed($event)">
+</app-over-popup>

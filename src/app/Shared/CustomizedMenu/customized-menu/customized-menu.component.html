@@ -1,0 +1,41 @@
+<div id="container" class="row">
+  <div id="content" style=" display: flex ; margin: 5px; width:100%; height: 97%;">
+
+    <div class="main-form-body" style=" display: flex ; margin: 5px; padding-bottom:10px;width: 98%; height:85%;">
+      <div class="box-dev" style="margin: auto;">
+        <app-grid style="width:100%;" [columns]="colDefMenu" [rows]="rowDataMenu" (RowClick)="MenuRowClick($event)"
+          [gridHeightPxel]="400" (GridReady)="onGridReadyMenu($event)" [gridHeader]="'منوی کاربر'"></app-grid>
+      </div>
+
+
+      <div class="middleDiv buttons-in-column"
+        style="width: 5%; margin: 0px auto; padding-right:0px; padding-top:120px;">
+
+        <button (click)="addSelectedToFastMenu()" class="btn btnGreen fa fa-angle-left"></button>
+        <button (click)="addSelectedToMenu()" class="btn btnGreen fa fa-angle-right"></button>
+        <button (click)="addAllToFastMenu()" class="btn btnGreen fa fa-angle-double-left"></button>
+        <button (click)="addAllToMenu()" class="btn btnGreen fa fa-angle-double-right"></button>
+
+      </div>
+      <div class="box-dev" style="margin: auto;">
+        <app-grid style="width: 100%;" [columns]="colDefFastMenu" [rows]="rowDataFastMenu"
+          (RowClick)="FastMenuRowClick($event)" (GridReady)="onGridReadyFastMenu($event)" [gridHeightPxel]="400"
+          [gridHeader]="'منوی سفارشی کاربر'"></app-grid>
+      </div>
+    </div>
+
+    <div class="buttons-place" style=" display: flex ; margin: 5px; padding-bottom:10px;width: 98%; height:44px;">
+      <button *ngIf="HaveSave" id="btnSave" class="btn btn-primary btnGreen" (click)="onSave()">
+        <img width="15px" height="15px" src="assets/Icons/save.png" />
+        ثبت
+      </button>
+      <button (click)="closeModal()" id="btn4" class="btn btn-primary btnGreen">
+        <img width="15px" height="15px" src="assets/Icons/exit.png" />
+        خروج
+      </button>
+    </div>
+  </div>
+</div>
+<app-over-popup *ngIf="btnclicked" [PopupType]="type" [startLeftPosition]="449" [startTopPosition]="87"
+  (popupclosed)="popupclosed($event)" [PopupParam]="alertMessageParams">
+</app-over-popup>

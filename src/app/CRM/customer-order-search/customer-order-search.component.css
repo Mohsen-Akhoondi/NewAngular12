@@ -1,0 +1,18 @@
+.custom-control-label::before{
+    top:0px;
+    right: -1.5rem;
+    }
+    .custom-control-label::after{
+    top:0px;
+    right: -1.5rem;
+    }
+    
+    .redio-div{
+        display: inline-block;
+        width: 60%;
+    }
+    .table-cell-Lable {
+        margin-left: 5px;
+        margin-right: 5px;
+        font-size: 10px;
+      }

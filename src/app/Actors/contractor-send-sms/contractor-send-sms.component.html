@@ -1,0 +1,37 @@
+<div class="main-form-body" style="margin-top: 5px; height:82%;">
+  <!-- <fieldset align="right" class="feild-set" style="display: inherit; height: 100%;">
+    <legend style="width: 7%; font-size: 10px;">متن پیامک</legend> -->
+  <table style="width: 100%;">
+    <tr>
+      <td width="100%">
+        <span class="table-cell-Lable">واحد اجرایی</span>
+        <app-ng-select-virtual-scroll style="display: inline-block;width: 93.7%;" class=""
+          [NgSelectParams]="RegionParams" [Items]="RegionItems">
+        </app-ng-select-virtual-scroll>
+      </td>
+    </tr>
+    <tr>
+      <td width="100%">
+        <span class="table-cell-Lable" style="vertical-align: top;">متن پیامک</span>
+        <textarea [(ngModel)]="Note" name="Note" class="form-control input-style" rows="6"
+          style="display: inline-block;height: 375px;width: 93.7%; max-width: 100%; font-size: 12px !important;"
+          id="textnote">
+          </textarea>
+      </td>
+    </tr>
+  </table>
+  <!-- </fieldset> -->
+</div>
+
+<div class="buttons-place" style="float: right;margin: auto;" [style.width.%]="100">
+  <button (click)="onSend()" id="btnSend" class="btn btn-primary btnGreen">
+    <img width="15px" height="15px" src="assets/Icons/send-sms.png" />
+    ارسال
+  </button>
+  <button (click)="close()" id="btn4" class="btn btn-primary btnGreen">
+    <img width="15px" height="15px" src="assets/Icons/exit.png" />
+    خروج</button>
+</div>
+
+<app-over-popup *ngIf="ShowMessage" [PopupType]="'message-box'" [startLeftPosition]="449" [startTopPosition]="87"
+  [zIndex]="5000000" [PopupParam]="alertMessageParams" (popupclosed)="popupclosed($event)"></app-over-popup>

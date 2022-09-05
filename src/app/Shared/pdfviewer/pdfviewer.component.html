@@ -1,0 +1,116 @@
+<div [ngClass]="{'disable-parent': !IsDown}" id="container" style="clear: both;padding: 5px">
+  <div>
+    <div *ngIf="PDFParam.PDFSignersInfo && PDFParam.PDFSignersInfo.length > 0"
+      style="height: 560px;width: 250px;float: right;margin-left: 3px;" class="main-form-body">
+      <div>
+        <div class="card mb-0">
+          <div style="text-align: center;" class="card-header collapsed sign-detail">
+            <span>امضا کنندگان</span>
+          </div>
+        </div>
+        <div class="card mb-0">
+          <div class="card-header collapsed sign-detail">
+            <table style="width: 100%;">
+              <tr>
+                <td style="width: 70%;text-align: right;">
+                  <span>
+                    نام امضا کننده
+                  </span>
+                </td>
+                <td>
+                  <span>
+                    تاییدیه
+                  </span>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div *ngFor="let item of PDFParam.PDFSignersInfo" [attr.id]="'accordion-' + item.ElementID" class="accordion">
+          <div class="card mb-0">
+            <div class="card-header collapsed digital-sign" data-toggle="collapse" [attr.href]="'#' + item.ElementID">
+              <a class="card-title">
+                <div style="display: inline-block;width: 90%;margin-top: 2px;">
+                  <table style="width: 100%;">
+                    <tr>
+                      <td style="width: 85%;">
+                        <span>
+                          {{item.SignatureName}}
+                        </span>
+                      </td>
+                      <td style="text-align: center;">
+                        <img width="16px" height="16px"
+                          [src]="item.IsValidateAll ? 'assets/Icons/TrueCheckBox.png':'assets/Icons/uncheck.png'" />
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+              </a>
+            </div>
+            <div id="{{item.ElementID}}" style="padding: 3px;text-align: right;background-color: #f0f3ff;"
+              class="card-body collapse" [attr.data-parent]="'#accordion-' + item.ElementID">
+              <div *ngIf="item.PostName">
+                <span>
+                  {{item.PostName}}
+                </span>
+                <br>
+              </div>
+              <span>
+                {{item.PersianSignDate}}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="height: 560px;overflow: hidden;"
+      [style.width.px]="PDFParam.PDFSignersInfo && PDFParam.PDFSignersInfo.length > 0 ? 1000:1255"
+      class="main-form-body">
+      <div *ngIf="DastineisNotInstalled" style="margin-bottom: 5px;text-align: center;">
+        <span style="color: red;font-weight: bold;">سیستم شما فاقد افزونه
+          دستینه جهت امضای دیجیتال می باشد جهت دریافت </span>
+        <span style="text-decoration: underline;font-weight: bold;cursor: pointer;"
+          (click)="onDownloadDastineApp()">اینجا</span>
+        <span style="color: red;font-weight: bold;"> را کلیک کنید</span>
+      </div>
+      <div [style.height.%]="DastineisNotInstalled ? 97:100">
+        <ngx-extended-pdf-viewer [showPrintButton]="false" [showOpenFileButton]="false"
+          (pdfLoaded)="OnPDFLoaded($event)" [showUnverifiedSignatures]="true" [base64Src]="PDFParam?.PDFSrc"
+          backgroundColor="#ffffff" [useBrowserLocale]="true" [zoom]="'100%'" [handTool]="false"
+          [showHandToolButton]="true">
+        </ngx-extended-pdf-viewer>
+      </div>
+    </div>
+  </div>
+  <div class="buttons-place" style="margin: unset; margin-bottom: 5px;">
+    <button *ngIf="PDFParam.HaveUpload && !IsAutoGenerate" (click)="fileInput.click()" id="btnTenderRep" class="btn btn-primary btnGreen">
+      <img width="15px" height="15px" src="assets/Icons/Upload.png" />
+      بارگذاری فایل PDF
+      <input #fileInput type="file" accept="application/pdf" (change)="onFileInput($event)" style="display:none;" />
+    </button>
+    <button [disabled]="!PDFParam.PDFSrc" (click)="OnDownload()" id="btnTenderRep" class="btn btn-primary btnGreen">
+      <img width="15px" height="15px" src="assets/Icons/Download.png" />
+      دریافت فایل
+    </button>
+    <button *ngIf="HasDelBtn" [disabled]="!PDFParam.PDFSrc" (click)="OnDelete()" id="btnTenderRep" class="btn btn-primary btnGreen">
+      <img width="15px" height="15px" src="assets/Icons/delete.png" />
+       حذف فایل {{PDFParam.HeaderName}}
+    </button>
+    <button *ngIf="PDFParam.HaveSign" [disabled]="!PDFParam.PDFSrc" (click)="onDigitalSingClick()" id="btnTenderRep"
+      class="btn btn-primary btnGreen">
+      <img width="15px" height="15px" src="assets/Icons/SigneDoc.png" />
+      امضاء
+    </button>
+    <button id="btnClose" class="btn btn-primary btnGreen" (click)="Close()">
+      <img width="15px" height="15px" src="assets/Icons/exit.png" />
+      خروج
+    </button>
+  </div>
+</div>
+<app-shared-over-popup *ngIf="isClicked" [PopupType]="PopUpType" [HaveMaxBtn]="HaveMaxBtn"
+  [startLeftPosition]="startLeftPosition" [startTopPosition]="startTopPosition" [minHeightPixel]="MinHeightPixel" [PercentWidth]="PercentWidth"
+  [MainMaxwidthPixel]="MainMaxwidthPixel" [HeightPercentWithMaxBtn]="HeightPercentWithMaxBtn"
+  [PopupParam]="PopUpType === 'message-box' ? alertMessageParams: PopupParam" 
+  (PopupOutPutParam)="PopUpType ==='message-box' ? MessageBoxAction($event) : getOutPutParam($event)"
+  (popupclosed)="popupclosed($event)">
+</app-shared-over-popup>

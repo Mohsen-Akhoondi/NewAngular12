@@ -1,0 +1,63 @@
+<div id="container" class="row" style="clear: both">
+  <div id="content" class="" style="width: 850px;" [style.height.px]="550">
+    <div class="main-form-body" style="margin: 5px;height: 490px;overflow: auto;padding-left: 0;">
+      <div class="panel panel-default check-style" style="text-align: right;width: 100%;">
+        <div *ngIf="IsWating" style="width: 100%;text-align: center;">
+          <span style="color: green;font-size:12px;">لطفا
+            کمی صبر کنید...</span>
+          <!-- <img style="width: 25%;height: 25px;" src="assets/Icons/ProgressBar.gif" /> -->
+        </div>
+        <fieldset *ngFor="let groupitem of TenderFileNames;" class="feild-set cus-fieldset">
+          <legend>{{groupitem.List[0].DOCUMENT_TYPE_NAME}}</legend>
+          <div *ngFor="let item of groupitem.List; index as i"
+            style="text-align:justify; font-size:12px;margin: 5px;;display: block;color:rgb(18, 0, 151);">
+            <span [id]="item.ARCHIVE_DETAIL_ID" (click)="ShowFile(item)"
+              [ngStyle]="{'cursor': item.Image_Extension === '.pdf' ? 'pointer':'default'}"
+              style="width: 68%;display: inline-block;">
+              {{item.FILE_NAME_WITH_OUT_EXTENSION}}
+            </span>
+
+            <span class="table-cell-Lable">بارگیری</span>
+            <app-custom-check-box *ngIf="!item.StartLoaded && !item.LoadedHaseError" style="vertical-align: sub; "
+              [configurationInfo]="CustomCheckBoxConfig" [isSelected]="item.Image_Extension !== '.esf' || item.IsLoaded"
+              (PrettyCheckBoxChange)="OnChTaxvalueChange($event)" [Disabled]="true">
+            </app-custom-check-box>
+            <img *ngIf="item.StartLoaded" style="width: 18px;" src="assets/Images/loading.gif" />
+            <img *ngIf="item.LoadedHaseError" class="Uncheck" src="assets/Icons/Uncheck.png" />
+
+            <span class="table-cell-Lable">بازگشایی</span>
+            <app-custom-check-box *ngIf="!item.StartDecrypted && !item.DecryptedHaseError" style="vertical-align: sub; "
+              [configurationInfo]="CustomCheckBoxConfig"
+              [isSelected]="item.Image_Extension !== '.esf' || item.IsDecrypted"
+              (PrettyCheckBoxChange)="OnChTaxvalueChange($event)" [Disabled]="true">
+            </app-custom-check-box>
+            <img *ngIf="item.StartDecrypted" style="width: 18px;" src="assets/Images/loading.gif" />
+            <img *ngIf="item.DecryptedHaseError" class="Uncheck" src="assets/Icons/Uncheck.png" />
+
+            <span class="table-cell-Lable">بارگذاری</span>
+            <app-custom-check-box *ngIf="!item.StartUploaded && !item.UploadedHaseError" style="vertical-align: sub; "
+              [configurationInfo]="CustomCheckBoxConfig" [isSelected]="item.Image_Extension !== '.esf'"
+              (PrettyCheckBoxChange)="OnChTaxvalueChange($event)" [Disabled]="true">
+            </app-custom-check-box>
+            <img *ngIf="item.StartUploaded" style="width: 18px;" src="assets/Images/loading.gif" />
+            <img *ngIf="item.UploadedHaseError" class="Uncheck" src="assets/Icons/Uncheck.png" />
+          </div>
+        </fieldset>
+      </div>
+    </div>
+    <div class="buttons-place" style=" margin: 5px">
+      <button (click)="close()" class="btn btn-primary btnGreen">
+        <img width="15px" height="15px" src="assets/Icons/exit.png" />
+        خروج</button>
+      <div *ngIf="IsWating" style="width: 100%;position: absolute;text-align: center;">
+        <img  style="width: 25%;height: 25px;" src="assets/Icons/ProgressBar.gif" />
+        <span style="margin-right: 5px;">تعداد اسناد بازگشایی شده: </span> {{DecryptedFileCount}} <span> از {{EcryptedFileCount}}</span>
+      </div>
+    </div>
+  </div>
+</div>
+<app-over-popup *ngIf="btnclicked" [PopupType]="PopupType" [HaveMaxBtn]="false" [PixelHeight]="OverPixelHeight"
+  [MainMaxwidthPixel]="MainMaxwidthPixel" [MainMinwidthPixel]="OverMainMinwidthPixel" [PixelWidth]="OverPixelWidth"
+  [startLeftPosition]="overStartLeftPosition" [startTopPosition]="OverStartTopPosition" [HaveHeader]="true"
+  [PopupParam]="PopupType === 'message-box' ? alertMessageParams : PopupParam" (popupclosed)="popupclosed($event)">
+</app-over-popup>

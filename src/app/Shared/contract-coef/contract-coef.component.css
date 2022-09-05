@@ -1,0 +1,57 @@
+.redio-label {
+    left: 1rem;
+}
+.redio-div{
+    display: flex;
+    margin: 5px;
+}
+.box-dev{
+    border-radius: 5px;
+    border: 1px solid rgb(218, 218, 218);
+    height: 40px;
+    margin-top: 10px;
+    margin-bottom: 10px; 
+    padding: 5px;
+}
+.box-grid{
+    border-radius: 5px;
+    border: 1px solid rgb(218, 218, 218);
+    height: 355px;
+    margin-bottom: 5px; 
+}
+.grid{
+    height: 375px;
+    margin: auto;
+    margin-top: 10px;
+}
+.custom-control-label::before{
+    top:0px;
+}
+.custom-control-label::after{
+    top:0px;
+}
+
+.feild-set{
+    border: 1px solid rgb(218, 218, 218);
+    min-height: 50px;
+    margin-bottom: 5px;
+    padding: 5px;
+}
+.legend
+{
+    width: 7%;
+}
+.input-with-lable{
+    float: right;
+}
+.input-style{
+    border-radius:3px;
+     height: 25px;
+     width: 150px;
+     display: inline-block;
+}
+.table-cell-Lable {
+    margin-left: 10px;
+    margin-right: 10px;
+    font-size: 10px;
+  }

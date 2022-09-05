@@ -1,0 +1,77 @@
+<div id="container" class="row" style="clear: both">
+  <div id="content" class="" style="height: 100%; width: 100%;">
+    <div class="main-form-body" style="margin: 5px;">
+
+      <fieldset class="feild-set" style="display: inherit">
+        <table style="width: 100%;">
+          <tr>
+            <td colspan="2" width="100%">
+              <span style="vertical-align: top;" class="table-cell-Lable">شرح آگهی</span>
+              <textarea style="display: inline-block;width: 85%; font-size: 11px;" rows="2" class="form-control"
+                type="text" [(ngModel)]="Note" [disabled]="true"></textarea>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2" width="100%">
+              <span class="table-cell-Lable">موضوع</span>
+              <input style="width: 85% " class="form-control input-style" type="text" [(ngModel)]="Subject" readonly />
+            </td>
+          </tr>
+          <tr>
+            <td width="100%" colspan="2">
+              <span class="table-cell-Lable" style="vertical-align: top;">جزییات آگهی</span>
+              <textarea [(ngModel)]="AdvertisingDetails" name="TextDown" class="form-control textareaStyle" rows="10"
+                id="indicator-text_note" [disabled]="true"></textarea>
+            </td>
+          </tr>
+          <tr>
+            <td width="50%">
+              <span class="table-cell-Lable">واحد سازمانی</span>
+              <input style="width: 70% " class="form-control input-style" type="text" [(ngModel)]="RegionName"
+                readonly />
+            </td>
+            <!-- <td width="50%"> با هماهنگی آقای آخوندی
+              <span class="table-cell-Lable">حوزه کاری</span>
+              <input style="width: 70% " class="form-control input-style" type="text" readonly />
+            </td> -->
+            <td width="50%">
+              <!-- با هماهنگی آقای آخوندی -->
+              <span class="table-cell-Lable">مهلت دریافت اسناد</span>
+              <input style="width: 60% " class="form-control input-style" type="text" name="Subject"
+                [(ngModel)]="DocumentDeadline" readonly />
+            </td>
+          </tr>
+          <tr>
+            <td colspan="3" width="100%">
+              <span class="table-cell-Lable" style="vertical-align: top;">مکان تحویل</span>
+              <textarea style="display: inline-block;width: 85%; font-size: 11px;" class="form-control" type="text"
+                name="Subject" [(ngModel)]="DeliveryPlace" [disabled]="true" rows="2"></textarea>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="3" width="100%">
+              <span style="vertical-align: top;" class="table-cell-Lable">شرایط متقاضی</span>
+              <textarea style="display: inline-block;width: 85%; font-size: 11px;" class="form-control" type="text"
+                name="Subject" [(ngModel)]="ActorCondition" [disabled]="true" rows="2"></textarea>
+            </td>
+          </tr>
+        </table>
+      </fieldset>
+    </div>
+    <div class="buttons-place" style=" margin: 5px">
+      <button *ngIf="HasUploadDoc" (click)="OnUploadArchive($event)" class="btn btn-primary btnGreen">
+        <img width="15px" height="15px" src="assets/Icons/auction-tender.png" />
+        شرکت در مناقصه </button>
+      <button (click)="OnArchiveDownload($event)" class="btn btn-primary btnGreen">
+        <img width="15px" height="15px" src="assets/Icons/Download-2.png" />
+        دانلود اسناد </button>
+      <button (click)="close()" class="btn btn-primary btnGreen">
+        <img width="15px" height="15px" src="assets/Icons/exit.png" />
+        خروج</button>
+    </div>
+  </div>
+</div>
+<app-over-popup *ngIf="btnclicked" [PopupType]="PopupType" [HaveMaxBtn]="false" [PixelHeight]="OverPixelHeight"
+  [PixelWidth]="OverPixelWidth" [startLeftPosition]="overStartLeftPosition" [startTopPosition]="OverStartTopPosition"
+  [HaveHeader]="true" [PopupParam]="PopupType === 'message-box' ?alertMessageParams:DealsDetailParam" (popupclosed)="popupclosed($event)">
+</app-over-popup>

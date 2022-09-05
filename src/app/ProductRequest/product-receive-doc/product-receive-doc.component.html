@@ -1,0 +1,160 @@
+<div id="container" style="clear: both;padding: 5px">
+  <div class="main-form-body" style="height: 90%;">
+    <div style="clear: both;padding-bottom: 5px; height: 99%;">
+      <fieldset class="feild-set" style="margin-top: 10px; margin-bottom: 5px;">
+        <legend class="legend">اطلاعات سند دریافتنی</legend>
+        <table style="width: 100%; margin-bottom: 5px;">
+          <tr>
+            <td width="25%">
+              <span class="table-cell-Lable">واحد اجرایی</span>
+              <input style="width: 60%; " class="form-control input-style" type="text" name="RegionName"
+                [(ngModel)]="RegionName" [disabled]="true" />
+            </td>
+            <td width="25%">
+              <span style="color: red;">*</span>
+              <span class="table-cell-Lable">نوع سند</span>
+              <app-ng-select-virtual-scroll style="display: inline-block;width: 60%;"
+                [NgSelectParams]="ReceiveDocTypeParams" [Items]="ReceiveDocTypeItems" [multiple]="false"
+                (selectedChange)="onChangeReceiveDocType($event)">
+              </app-ng-select-virtual-scroll>
+            </td>
+          </tr>
+          <tr>
+            <td width="25%">
+              <span style="color: red;">*</span>
+              <span class="table-cell-Lable">شماره سند</span>
+              <input style="width: 60%; " class="form-control input-style" type="text" name="ReferenceNo"
+                [(ngModel)]="ReferenceNo" />
+            </td>
+            <td width="25%">
+              <span style="color: red;">*</span>
+              <span class="table-cell-Lable">تاریخ سند</span>
+              <app-jalali-datepicker [WidthPC]="60" [CurrMiladiDateValue]="ReferenceDate"
+                (Change)="OnReferenceDateChange($event)">
+              </app-jalali-datepicker>
+            </td>
+          </tr>
+          <tr>
+            <td width="25%">
+              <span style="color: red;">*</span>
+              <span class="table-cell-Lable">مبلغ</span>
+              <input style="width: 60%; " class="form-control input-style" type="text" name="ReceiveDocAmount"
+                [(ngModel)]="ReceiveDocAmount" />
+            </td>
+            <td width="25%">
+              <span class="table-cell-Lable">بانک</span>
+              <app-ng-select-virtual-scroll [PageCount]="BankPageCount" [TotalItemCount]="BankTotalItemCount"
+                style="display: inline-block;width: 60%;" [NgSelectParams]="NgSelectBankParams" [Items]="BankItems"
+                (FetchMore)="FetchMoreBank($event)" (Open)="OpenBank()" (doSearch)="doBankSearch($event)"
+                (selectedChange)="onBankSelectedchanged($event)">
+              </app-ng-select-virtual-scroll>
+            </td>
+          </tr>
+          <tr>
+            <td width="25%">
+              <span class="table-cell-Lable">شعبه</span>
+              <app-ng-select-virtual-scroll [PageCount]="BranchPageCount" [TotalItemCount]="BranchTotalItemCount"
+                style="display: inline-block;width: 60%;" [NgSelectParams]="NgSelectBranchParams" [Items]="BranchItems"
+                (FetchMore)="FetchMoreBranch($event)" (Open)="OpenBranch()" (doSearch)="doBranchSearch($event)">
+              </app-ng-select-virtual-scroll>
+            </td>
+            <td width="25%">
+              <span class="table-cell-Lable">شماره حساب</span>
+              <app-ng-select-virtual-scroll style="display: inline-block;width: 60%;" [NgSelectParams]="BankAccParams"
+                [multiple]="false" [Items]="BankAccItems" (Open)="OpenBankAcc()">
+              </app-ng-select-virtual-scroll>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2" style="width: 50%">
+              <span class="table-cell-Lable">توضیحات</span>
+              <input style="width: 80%; " class="form-control input-style" type="text" name="Note" [(ngModel)]="Note" />
+            </td>
+          </tr>
+        </table>
+      </fieldset>
+    </div>
+
+    <div style="clear: both;padding-bottom: 5px; height: 99%;">
+      <fieldset class="feild-set" style="margin-top: 10px; margin-bottom: 5px;">
+        <legend class="legend">متعهد</legend>
+        <table style="width: 100%; margin-bottom: 5px;">
+          <tr>
+            <td style="width:25%">
+              <span class="table-cell-Lable">نوع </span>
+              <div class="redio-div" style="width: 59%;">
+                <div class="custom-control custom-radio custom-control-inline">
+                  <input [disabled]="IsDisbale" [checked]="TypeContractor" type="radio" class="custom-control-input"
+                    id="rdoPersonContractor" name="ChoosenContractorType" (click)="rdoContractorTypeClick(true)">
+                  <label style="margin: auto;" class="custom-control-label redio-label" for="rdoPersonContractor">حقيقي
+                  </label>
+                </div>
+                <div class="custom-control custom-radio custom-control-inline">
+                  <input [disabled]="IsDisbale" [checked]="!TypeContractor" type="radio" class="custom-control-input"
+                    id="rdoCorporateContractor" name="ChoosenContractorType">
+                  <label style="margin: auto;" class="custom-control-label redio-label" for="rdoCorporateContractor"
+                    (click)="rdoContractorTypeClick(false)">حقوقي</label>
+                </div>
+              </div>
+
+            </td>
+            <td width="25%">
+              <span class="table-cell-Lable">نام بانک</span>
+              <input style="width: 60%; " class="form-control input-style" type="text" name="PayerBankName"
+                [(ngModel)]="PayerBankName" />
+            </td>
+          </tr>
+          <tr>
+            <td width="25%">
+              <span class="table-cell-Lable">نام</span>
+              <app-ng-select-virtual-scroll style="display: inline-block;width: 60%;"
+                [NgSelectParams]="NgSelectPersonReqParams" [Items]="PersonReqItems"
+                (FetchMore)="PersonReq_FetchMore($event)" (Open)="PersonReqOpened()"
+                (doSearch)="Person_Req_DoSearch($event)" [Disabled]="IsDisbale">
+              </app-ng-select-virtual-scroll>
+            </td>
+            <td width="25%">
+              <span class="table-cell-Lable">حساب جاری</span>
+              <input style="width: 60%; " class="form-control input-style" type="text" name="PayerBankAcc"
+                [(ngModel)]="PayerBankAcc" />
+            </td>
+          </tr>
+        </table>
+      </fieldset>
+    </div>
+
+    <div style="clear: both;padding-bottom: 5px; height: 99%;">
+      <fieldset class="feild-set" style="margin-top: 10px; margin-bottom: 5px;">
+        <legend class="legend">فیش بانکی</legend>
+        <table style="width: 100%; margin-bottom: 5px;">
+          <tr>
+            <td colspan="2" style="width: 50%">
+              <span class="table-cell-Lable">مهلت پرداخت</span>
+              <app-jalali-datepicker [WidthPC]="80" [Disabled]="IsDisbaleDeadLine" [CurrMiladiDateValue]="DeadLine"
+                (Change)="OnDeadLineDateChange($event)">
+              </app-jalali-datepicker>
+            </td>
+          </tr>
+        </table>
+      </fieldset>
+    </div>
+
+    <div class="buttons-place" style="margin: unset;">
+      <button (click)="onSave()" id="btnSave" class="btn btn-primary btnGreen">
+        <img width="15px" height="15px" src="assets/Icons/save.png" />
+        ثبت
+      </button>
+      <button class="btn btn-primary btnGreen" (click)="onClose()">
+        <img width="15px" height="15px" src="assets/Icons/exit.png" />
+        خروج
+      </button>
+
+    </div>
+  </div>
+</div>
+
+<app-over-popup *ngIf="isClicked" [PopupType]="PopUpType" [HaveMaxBtn]="HaveMaxBtn"
+  [startLeftPosition]="startLeftPosition" [startTopPosition]="startTopPosition"
+  [PopupParam]="PopUpType === 'message-box' ?alertMessageParams:PopupParam" [HaveHeader]="true"
+  (PopupOutPutParam)="PopUpType ==='message-box' ? '' : getOutPutParam($event)" (popupclosed)="popupclosed()">
+</app-over-popup>

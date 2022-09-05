@@ -1,0 +1,772 @@
+<div id="container" class="row" style="clear: both ; ">
+  <div id="content" style="width: 100%;height: 99%;">
+    <div id="mainformbody" class="main-form-body" [style.height.%]="88" style="margin: 5px; padding:2px 10px">
+      <div id="tabcontent" class="tab-content" style="margin-top: 5px;" [style.height.%]="95">
+        <div role="tabpanel" id="shenasnameh" class="tab-pane fade show active"
+          style="height: 100%; margin-bottom: 5px;">
+          <fieldset class="feild-set" style="display: inherit">
+            <table style="width: 100%;">
+              <tr>
+                <td style="width: 33%">
+                  <span class="table-cell-Lable">نیاز به انعقاد قرارداد</span>
+                  <app-custom-check-box style="vertical-align: sub;" [configurationInfo]="CustomCheckBoxConfig"
+                    [isSelected]="true" (PrettyCheckBoxChange)="OnCheckBoxChange($event)" [Disabled]="DisableAll">
+                  </app-custom-check-box>
+                </td>
+                <td style="width: 33%">
+                  <span class="table-cell-Lable">نوع قرارداد</span>
+                  <app-ng-select-virtual-scroll style="display: inline-block;width: 50%;"
+                    class="select-general-for-lable" [Disabled]="DisableAll" [NgSelectParams]="ContractTypeParams"
+                    [Items]="ContractTypeItems" (selectedChange)="onChangeContractType($event)"
+                    [CheckValidate]="CheckValidate">
+                  </app-ng-select-virtual-scroll>
+                </td>
+                <td style="width: 33%">
+                  <span class="table-cell-Lable">مبلغ پیشنهادی</span><input style="width: 50%; "
+                    class="form-control input-style" type="text" name="first" value="{{SumFinalAmount}}"
+                    [attr.disabled]="DisableAll ? '' : null" />
+                </td>
+              </tr>
+              <tr>
+                <td style="width: 33%">
+                  <span class="table-cell-Lable">مدت انجام کار</span>
+                  <div style="display: inline-block;width: 60%;">
+                    <div style="display: inline-block;width: 34%;">
+                      <app-number-input-component [ReadOnly]="true" [id]="'indicator-label-Duration'"
+                        [Value]="DurationYear" [IsFloat]="false" [MaxLength]="1" [FloatMaxLength]="0"
+                        [PerCentWidth]="60" [PixelHeight]="25" (ValueChange)="getDurationYear($event)"
+                        class="col-form-label" [HaveThousand]="false">
+                      </app-number-input-component>
+                      <span style="margin-right: 5px;margin-left: 5px;" class="table-cell-Lable">سال</span>
+                    </div>
+                    <div style="display: inline-block;width: 33%;">
+                      <app-number-input-component [ReadOnly]="true"
+                        [id]="'indicator-label-Duration'" [Value]="DurationMonth" [IsFloat]="false" [MaxLength]="2"
+                        [FloatMaxLength]="0" [PerCentWidth]="60" [PixelHeight]="25"
+                        (ValueChange)="getDurationMonth($event)" class="col-form-label" [HaveThousand]="false">
+                      </app-number-input-component>
+                      <span style="margin-right: 5px;margin-left: 5px;" class="table-cell-Lable">ماه</span>
+                    </div>
+                    <div style="display: inline-block;width: 33%;">
+                      <app-number-input-component [ReadOnly]="true"
+                        [id]="'indicator-label-Duration'" [Value]="DurationDay" [IsFloat]="false"
+                        [MaxLength]="3" [FloatMaxLength]="0" [PerCentWidth]="65" [PixelHeight]="25"
+                        (ValueChange)="getDurationDay($event)" class="col-form-label" [HaveThousand]="false">
+                      </app-number-input-component>
+                      <span style="margin-right: 5px;margin-left: 5px;" class="table-cell-Lable">روز</span>
+                    </div>
+                  </div>
+                </td>
+                <td style="width: 33%">
+                  <span class="table-cell-Lable">روش انجام معامله</span>
+                  <app-ng-select-virtual-scroll style="display: inline-block;width: 50%;"
+                    class="select-general-for-lable" [NgSelectParams]="DealMethodParams" [Items]="DealMethodItems"
+                    [Disabled]="DisableAll" [CheckValidate]="CheckValidate"
+                    (selectedChange)="onChangeDealMethod($event)">
+                  </app-ng-select-virtual-scroll>
+                </td>
+                <td style="width: 33%">
+                  <span class="table-cell-Lable">نوع انتخاب مشاور</span>
+                  <app-ng-select-virtual-scroll style="display: inline-block;width: 50%;"
+                    class="select-general-for-lable" [Disabled]="true" [NgSelectParams]="ConsultantSelectTypeParams"
+                    [Items]="ConsultantSelectTypeItems">
+                  </app-ng-select-virtual-scroll>
+                </td>
+              </tr>
+              <tr>
+                <td style="width: 33%">
+                  <span class="table-cell-Lable">حد معاملات</span><input style="width: 60%; "
+                    class="form-control input-style" type="text" name="first" value="{{DealTypeName}}"
+                    [attr.disabled]="DisableAll ? '' : null" />
+                </td>
+                <td style="width: 33%">
+                  <span class="table-cell-Lable">علت ترک تشریفات</span>
+                  <app-ng-select-virtual-scroll style="display: inline-block;width: 50%;"
+                    class="select-general-for-lable" [NgSelectParams]="Article31Params" [Items]="Article31Items"
+                    [Disabled]="DisableAll" [CheckValidate]="CheckValidate">
+                  </app-ng-select-virtual-scroll>
+
+                </td>
+                <td style="width: 33%">
+                  <span class="table-cell-Lable">روش انتخاب مشاور</span>
+                  <app-ng-select-virtual-scroll style="display: inline-block;width: 50%;"
+                    class="select-general-for-lable" [Disabled]="true" [NgSelectParams]="ConsultantSelectedWayParams"
+                    [Items]="ConsultantSelectWayItems">
+                  </app-ng-select-virtual-scroll>
+                </td>
+              </tr>
+              <tr>
+
+                <td width="33%">
+                  <span class="table-cell-Lable"> تاريخ شروع کار</span>
+                  <app-jalali-datepicker [Disabled]="DisableAll" [WidthPC]="60" [CurrMiladiDateValue]="WorkStartDate"
+                    (Change)="OnWorkStartDateChange($event)" [Required]="true" [CheckValidate]="CheckValidate">
+                  </app-jalali-datepicker>
+                </td>
+                <td colspan="2" style="width: 66%">
+                  <span class="table-cell-Lable">توضیحات علت ترک تشریفات</span>
+                  <input style="width: 75%" class="form-control input-style" type="text" name="Article31subject"
+                    [(ngModel)]="Article31subject" [readonly]="DisableAll" />
+                </td>
+              </tr>
+              <tr>
+                <td style="width: 33%">
+                  <span class="table-cell-Lable">نوع درخواست معامله</span>
+                  <app-ng-select-virtual-scroll [Disabled]="true" style="display: inline-block;width: 60%;"
+                    class="select-general-for-lable" [NgSelectParams]="PRTypeParams" [Items]="PRTypeItems">
+                  </app-ng-select-virtual-scroll>
+                </td>
+                <td style="width: 33%">
+                  <span class="table-cell-Lable">رسته</span>
+                  <app-ng-select-virtual-scroll [Disabled]="true" style="display: inline-block;width: 50%;"
+                    class="select-general-for-lable" [NgSelectParams]="PriceListTopicRasteParams"
+                    [Items]="PriceListTopicRasteItems">
+                  </app-ng-select-virtual-scroll>
+                </td>
+                <td style="width: 33%">
+                  <span class="table-cell-Lable">رتبه</span>
+                  <app-ng-select-virtual-scroll [Disabled]="true" style="display: inline-block;width: 50%;"
+                    class="select-general-for-lable" [NgSelectParams]="RankParams" [Items]="RankItems">
+                  </app-ng-select-virtual-scroll>
+                </td>
+              </tr>
+            </table>
+            <table style="width: 100%;">
+              <tr>
+                <td width="39%">
+                  <span class="table-cell-Lable">نوع شروع</span>
+                  <div class="redio-div" style="width: 67%;">
+                    <div class="custom-control custom-radio custom-control-inline">
+                      <input [checked]="StartType === 1" type="radio" class="custom-control-input" id="ISContractRadio"
+                        name="rdoStartType" (click)="rdoStartTypeClick(1)" [attr.disabled]="DisableAll ? '' : null">
+                      <label style="margin: auto;" class="custom-control-label redio-label" for="ISContractRadio">از
+                        زمان انعقاد
+                      </label>
+                    </div>
+                    <div class="custom-control custom-radio custom-control-inline">
+                      <input [checked]="StartType === 2" type="radio" class="custom-control-input" id="ISDateRadio"
+                        name="rdoStartType" (click)="rdoStartTypeClick(2)" [attr.disabled]="DisableAll ? '' : null">
+                      <label style="margin: auto;" class="custom-control-label redio-label" for="ISDateRadio">از تاريخ
+                        دلخواه</label>
+                    </div>
+                    <div  class="custom-control custom-radio custom-control-inline">
+                      <input [checked]="StartType === 3" type="radio" class="custom-control-input" id="ISSignRadio" 
+                      name="rdoStartType" (click)="rdoStartTypeClick(3)" [attr.disabled]="DisableAll ? '' : null">
+                      <label style="margin: auto;" class="custom-control-label redio-label" for="ISSignRadio">از تاريخ
+                        ابلاغ</label>
+                    </div>
+                  </div>
+                </td>
+                <td width="28%">
+                  <span class="table-cell-Lable">نوع مبلغ</span>
+                  <div class="redio-div" style="width: 62%;">
+                    <div class="custom-control custom-radio custom-control-inline">
+                      <input [checked]="AmountType" type="radio" class="custom-control-input" id="rdoFinalAmount"
+                        name="ChoosenrdoAmount" (click)="rdoAmountClick(true)" [attr.disabled]="DisableAll ? '' : null">
+                      <label style="margin: auto;" class="custom-control-label redio-label" for="rdoFinalAmount">قطعي
+                      </label>
+                    </div>
+                    <div class="custom-control custom-radio custom-control-inline">
+                      <input [checked]="!AmountType" type="radio" class="custom-control-input" id="rdoCeilAmount"
+                        name="ChoosenrdoAmount" [attr.disabled]="DisableAll ? '' : null">
+                      <label style="margin: auto;" class="custom-control-label redio-label" for="rdoCeilAmount"
+                        (click)="rdoAmountClick(false)">تا سقف مبلغ</label>
+                    </div>
+                  </div>
+                </td>
+                <td width="34%"></td>
+              </tr>
+            </table>
+          </fieldset>
+
+          <ul style="margin-top: 5px" class="nav nav-tabs" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link active" href="#relation" role="tab" data-toggle="tab">قراردادهای مرتبط</a>
+            </li>
+            <li *ngIf="HaveEstiamte" class="nav-item">
+              <a class="nav-link" href="#estiamte" role="tab" data-toggle="tab">متره</a>
+            </li>
+            <li *ngIf="HaveConsultation" class="nav-item">
+              <a class="nav-link" href="#consultation" role="tab" data-toggle="tab">مشاوره</a>
+            </li>
+            <li *ngIf="HaveSupplier" class="nav-item">
+              <a class="nav-link " href="#supplier" role="tab" data-toggle="tab">طرف قرارداد</a>
+            </li>
+            <li class="nav-item" *ngIf="HasBeneficiary">
+              <a class="nav-link" href="#Beneficiary" role="tab" data-toggle="tab">بهره بردار</a>
+            </li>
+            <li class="nav-item" *ngIf="ISErrorBilldingSetting">
+              <a class="nav-link" href="#ErrorBilldingSetting" role="tab" data-toggle="tab">تنظیمات صورت حساب خط</a>
+            </li>
+            <li class="nav-item" *ngIf="TabRahbari">
+              <a class="nav-link" href="#questions" role="tab" data-toggle="tab">راهبری</a>
+            </li>
+            <li class="nav-item" *ngIf="HaveReceiveDoc">
+              <a class="nav-link" href="#productrequestwarranty" role="tab" data-toggle="tab">اقلام ضمانت نامه</a>
+            </li>
+            <li class="nav-item" *ngIf="OtherInfo">
+              <a class="nav-link" href="#OtherInfo" role="tab" data-toggle="tab">سایر اطلاعات</a>
+            </li>
+          </ul>
+
+          <div class="tab-content" style="margin-top: 5px;" [style.height.%]="TabContentHeight">
+            <div role="tabpanel" class="tab-pane fade show active" id="relation"
+              [style.height.%]="RelationTabPanelHeight" style="margin-bottom: 5px;">
+              <div [style.height.%]="100"
+                style="width: 100%; border-radius: 5px; border: 1px solid rgb(204, 204, 204);">
+                <!-- قرارداد مرتبط  -->
+                <app-grid [IsEditable]="!DisableAll" [IsDisable]="DisableAll" [columns]="ProdReqRelColDef"
+                  [rowsData]="ProdReqRelList" [gridHeight]="PrdReqRelGridHeight"
+                  (GridReady)="onGridReadyProdReqRel($event)"
+                  (cellEditingStarted)="onContractcellEditingStarted($event)">
+                </app-grid>
+              </div>
+            </div>
+
+            <div *ngIf="HaveEstiamte" role="tabpanel" class="tab-pane fade" id="estiamte"
+              [style.height.%]="EstimateTabPanelHeight">
+              <!-- متره  -->
+              <table style="width: 100%; margin-bottom: 3px; text-align: right;">
+                <tr>
+                  <td style="width: 25%; padding-right: 5%;">
+                    <span class="table-cell-Lable">سال مبنا</span>
+                    <app-ng-select-virtual-scroll style="display: inline-block;width: 75%; min-width: 80px;"
+                      class="select-general-for-lable" [Disabled]="DisableAll" [NgSelectParams]="PriceListTopicParams"
+                      [Items]="PriceListTopicItems" (selectedChange)="onChangePriceListTopic($event)">
+                    </app-ng-select-virtual-scroll>
+                  </td>
+                  <td style="width: 25%">
+                    <span class="table-cell-Lable">نوع فهرست بها</span>
+                    <app-ng-select-virtual-scroll style="display: inline-block;width: 70%; min-width: 118px;"
+                      class="select-general-for-lable" [Disabled]="DisableAll" [NgSelectParams]="PriceListTypeParams"
+                      [Items]="PriceListTypeItems" (selectedChange)="onChangePriceListType($event)">
+                    </app-ng-select-virtual-scroll>
+                  </td>
+                  <td width="25%" style="padding-right: 40px;">
+                    <span class="table-cell-Lable">تعدیل</span>
+                    <div class="redio-div" style="width: 58%">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input [disabled]="DisableAll" [checked]="IsBalancing" type="radio" class="custom-control-input"
+                          id="IsBalancingRadio" name="rdoIsBalancing" (click)="rdoIsBalancingClick(true)">
+                        <label style="margin: auto;" class="custom-control-label redio-label" for="IsBalancingRadio">
+                          دارد
+                        </label>
+                      </div>
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input [disabled]="DisableAll" [checked]="!IsBalancing" type="radio"
+                          class="custom-control-input" id="ISNotBalancingRadio" name="rdoIsBalancing"
+                          (click)="rdoIsBalancingClick(false)">
+                        <label style="margin: auto;" class="custom-control-label redio-label" for="ISNotBalancingRadio">
+                          ندارد</label>
+                      </div>
+                    </div>
+                  </td>
+                  <td style="width: 25%;">
+                    <span class="table-cell-Lable">سه ماهه مبنا</span>
+                    <app-ng-select-virtual-scroll [Disabled]="DisableAll"
+                      style="display: inline-block;width: 55%; min-width: 118px;" class="select-general-for-lable"
+                      [NgSelectParams]="SeasonListParams" [Items]="SeasonListItems">
+                    </app-ng-select-virtual-scroll>
+                  </td>
+                </tr>
+              </table>
+
+              <div id="div1" class="box-dev left-dev" [style.height.%]="PrdReqItemBoxDevHeight">
+                <app-grid style="width: 100%;" [IsEditable]="!DisableAll" [IsDisable]="DisableAll"
+                  [defaultSelectedRowIndex]="0" [columns]="ProdReqItemColDef" [rowsData]="ProdReqItemrowData"
+                  [gridHeight]="PrdReqItemGridHeight" (GridReady)="ProdReqItemGridready($event)"
+                  (RowClick)="onProdReqItemRowClick($event)">
+                </app-grid>
+              </div>
+
+              <div id="div2" class="box-dev right-dev" [style.height.%]="PrdReqItemBoxDevHeight">
+                <app-grid style="width: 100%;" [columns]="ProdReqEstColDef" [rowsData]="ProdReqEstList"
+                  [IsEditable]="!DisableAll" [IsDisable]="DisableAll" [gridHeight]="PrdReqEstGridHeight"
+                  [IsNeedImportBtn]="true" [IsNeedAddPopUp]="true" [IsNeedGroupBtn]="true"
+                  (AddPopUp)="onAddPopUpBtnClick()" (GridReady)="onProdReqEstGridReady($event)"
+                  (CellValueChanged)="onProdReqEstCellValueChanged($event)" (RowClick)="onProdReqEstRowClick($event)"
+                  (FilterChanged)="OnFilterChanged()" (RowDataChanged)="OnRowDataChanged()"
+                  (RowDataUpdated)="OnRowDataUpdated()">
+                </app-grid>
+              </div>
+              <div class="main-form-body" style=" margin-top: 4px;color: red;height: 40px; overflow: auto;">
+                <button id="btnPrint" (click)="btnClick()" class="btn btn-primary btnGreen">
+                  <img width="15px" height="15px" src="assets/Icons/print.png" />
+                  چاپ متره
+                </button>
+                <div style="min-width: 100px;font-weight: bold; float: right; margin: 5px;">
+                  <span id="sum-final-estimate-amount" class="table-cell-Lable">جمع کل :</span>
+                  <label for="sum-final-estimate-amount" style="margin:2px"> {{SumFinalItemAmount}} </label>
+                </div>
+                <div style="min-width: 100px;font-weight: bold; float: left; margin: 5px;">
+                  <span id="sum-final-estimate-amount" class="table-cell-Lable">جمع کل متره:</span>
+                  <label for="sum-final-estimate-amount" style="margin:2px"> {{SumFinalEstimateAmount}} </label>
+                </div>
+              </div>
+            </div>
+
+            <div *ngIf="HaveConsultation" role="tabpanel" class="tab-pane fade" id="consultation"
+              [style.height.%]="consultationTabPanelHeight">
+              <!-- مشاوره  -->
+
+              <div id="div3" class="box-dev left-dev-g" style="height: 100%;" [style.width.px]="GWidth"
+                [style.max-width.px]="GMaxWidth">
+                <app-grid style="width: 100%;" [IsEditable]="!DisableAll" [IsDisable]="DisableAll"
+                  [columns]="WeightProdReqItemColDef" [rowsData]="ProdReqItemrowData"
+                  (RowClick)="onPRItemRowClick($event)" (GridReady)="onPRItemGridready($event)"
+                  [gridHeight]="consultationPrdReqItemHeight">
+                </app-grid>
+              </div>
+
+              <div *ngIf="IsShowTwoGrid" id="div4" class="box-dev right-dev" style="height: 100%;">
+                <app-grid style="width: 100%;" [columns]="ProdReqPersonColDef" [rowsData]="ProdReqPersonrowData"
+                  [gridHeight]="consulationProdReqPersonColDef" [IsEditable]="!DisableAll" [IsDisable]="DisableAll"
+                  (GridReady)="onProdReqPersonGridReady($event)" (cellEditingStarted)="oncellEditingStarted($event)">
+                </app-grid>
+              </div>
+            </div>
+
+            <div *ngIf="HaveSupplier" role="tabpanel" class="tab-pane fade" id="supplier"
+              [style.height.%]="SupplierTabPanelHeight" style="margin-bottom: 5px;">
+              <div style="width: 100%; border-radius: 5px; border: 1px solid rgb(204, 204, 204);"
+                [style.height.%]="100">
+                <!-- طرف قرار داد -->
+                <app-grid [columns]="RequestSupplierColDef" [IsEditable]="!DisableAll" [IsDisable]="DisableAll"
+                  [defaultSelectedRowIndex]="0" [rowsData]="RequestSupplierList" [gridHeight]="SupplierGridHeight"
+                  (GridReady)="onGridReadyRequestSupplier($event)" (RowClick)="RowClick($event)"
+                  (cellEditingStarted)="onSupplercellEditingStarted($event)"
+                  (CellValueChanged)="onSupplercellvaluechanged($event)">
+                </app-grid>
+              </div>
+              <div *ngIf="IsContractType19" style="width: 100%; border-radius: 1px; border: 1px solid rgb(204, 204, 204);
+                                        height: 12%; margin-top: 2px; padding: 2px 0px;">
+                <span class="table-cell-Lable">آیا این قرارداد پیمایش مبنا میباشد؟</span>
+                <div class="redio-div" style="width: 83%">
+                  <div class="custom-control custom-radio custom-control-inline">
+                    <input [disabled]="true" [checked]="IsBaselineScrolling" type="radio" class="custom-control-input"
+                      id="IsBaselineScrollingYes" name="rdoBaselineScrolling" (click)="IsBaselineScrollingClick(true)">
+                    <label style="margin: auto;" class="custom-control-label redio-label" for="IsBaselineScrollingYes">
+                      بلی
+                    </label>
+                  </div>
+                  <div class="custom-control custom-radio custom-control-inline">
+                    <input [disabled]="true" [checked]="!IsBaselineScrolling" type="radio" class="custom-control-input"
+                      id="IsBaselineScrollingNo" name="rdoBaselineScrolling" (click)="IsBaselineScrollingClick(false)">
+                    <label style="margin: auto;" class="custom-control-label redio-label" for="IsBaselineScrollingNo">
+                      خیر
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div role="tabpanel" class="tab-pane fade" id="Beneficiary" [style.height.%]="100"
+              style="margin-bottom: 5px;">
+              <div style="width: 100%; border-radius: 5px; border: 1px solid rgb(204, 204, 204);"
+                [style.height.%]="100">
+                <!-- بهره بردار  -->
+                <app-grid [columns]="BeneficiaryColDef" [IsEditable]="!DisableAll" [IsDisable]="DisableAll"
+                  [defaultSelectedRowIndex]="0" [rowsData]="BeneficiaryList" (GridReady)="onGridBeneficiary($event)"
+                  (cellEditingStarted)="onBeneficiarycellEditingStarted($event)" [gridHeight]="BeneficiaryGridHeight"
+                  (CellValueChanged)="onBeneficiarycellvaluechanged($event)">
+                </app-grid>
+              </div>
+            </div>
+
+            <div role="tabpanel" class="tab-pane fade" id="ErrorBilldingSetting" [style.height.%]="100">
+              <div id="div3" class="box-dev left-dev-g" style="height: 98%; padding: 5px;" [style.width.%]="100">
+                <table style="width: 100%;">
+                  <tr>
+                    <td style="width: 33%">
+                      <span class="table-cell-Lable">طول نیمراه رفت</span>
+                      <input [disabled]="true" style="width: 50%" class="form-control input-style" type="text"
+                        name="HalWayThrough" [(ngModel)]="HalWayThrough" />
+                    </td>
+                    <td style="width: 33%">
+                      <span class="table-cell-Lable">طول نیمراه برگشت</span>
+                      <input [disabled]="true" style="width: 50%" class="form-control input-style" type="text"
+                        name="HalfWayBack" [(ngModel)]="HalfWayBack" />
+                    </td>
+                    <td style="width: 33%">
+                      <span class="table-cell-Lable">نرخ هر کیلومتر براورد اولیه</span>
+                      <input [disabled]="true" style="width: 50%" class="form-control input-style" type="text"
+                        name="RateperKilometerEstimate" [(ngModel)]="RateperKilometerEstimate" />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="width: 33%">
+                      <span class="table-cell-Lable">نرخ کارت بلیط</span>
+                      <input [disabled]="true" style="width: 50%" class="form-control input-style" type="text"
+                        name="TicketRates" [(ngModel)]="TicketRates" />
+                    </td>
+                    <td style="width: 33%">
+                      <span class="table-cell-Lable">متوسط تعداد تراکنش ماهانه خط</span>
+                      <input [disabled]="true" style="width: 50%" class="form-control input-style" type="text"
+                        name="AverageNumberTransactions" [(ngModel)]="AverageNumberTransactions" />
+                    </td>
+                    <td style="width: 33%">
+                      <span class="table-cell-Lable">تعداد مسافر نقدی ماهانه خط</span>
+                      <input [disabled]="true" style="width: 50%" class="form-control input-style" type="text"
+                        name="NumberPassengersMonthly" [(ngModel)]="NumberPassengersMonthly" />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="width: 33%">
+                      <span class="table-cell-Lable">کل مسافر ماهانه خط</span>
+                      <input [disabled]="true" style="width: 50%" class="form-control input-style" type="text"
+                        name="TotalMonthlyPassenger" [(ngModel)]="TotalMonthlyPassenger" />
+                    </td>
+                    <td style="width: 33%">
+                      <span class="table-cell-Lable">بهره بردار خط</span>
+                      <app-ng-select-virtual-scroll [Disabled]="true" style="display: inline-block;width: 50%;"
+                        [NgSelectParams]="LineOperatorParams" [Items]="LineOperatorItems"
+                        (FetchMore)="FetchMoreLineOperator($event)" (Open)="OnOpenNgSelect($event)"
+                        (doSearch)="doLineOperatorSearch($event)">
+                      </app-ng-select-virtual-scroll>
+                    </td>
+                    <td style="width: 33%">
+                      <span class="table-cell-Lable">فعال بودن کنترل خودروهای نو</span>
+                      <div class="redio-div" style="width: 50%">
+                        <div class="custom-control custom-radio custom-control-inline">
+                          <input [disabled]="true" [checked]="IsValidationNewCar" type="radio"
+                            class="custom-control-input" id="IsActiveValidationNewCar" name="IsActiveValidationNewCar">
+                          <label style="margin: auto;" class="custom-control-label redio-label"
+                            for="IsActiveValidationNewCar" (click)="onClickValidationNewCar(true)">بله
+                          </label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                          <input [disabled]="true" [checked]="!IsValidationNewCar" type="radio"
+                            class="custom-control-input" id="IsNotActiveValidationNewCar"
+                            name="IsNotActiveValidationNewCar">
+                          <label style="margin: auto;" class="custom-control-label redio-label"
+                            for="IsNotActiveValidationNewCar" (click)="onClickValidationNewCar(false)">خیر
+                          </label>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="width: 33%">
+                      <span class="table-cell-Lable">درصد حسن انجام کار</span>
+                      <input [disabled]="true" style="width: 50%" class="form-control input-style" type="text"
+                        name="PercentageGoodWork" [(ngModel)]="PercentageGoodWork" />
+                    </td>
+                    <td style="width: 33%">
+                      <span class="table-cell-Lable">درصد قابل تایید نیمراه مضاعف</span>
+                      <input [disabled]="true" style="width: 50%" class="form-control input-style" type="text"
+                        name="DoublePercentageValidated" [(ngModel)]="DoublePercentageValidated" />
+                    </td>
+                    <td style="width: 33%">
+                      <span class="table-cell-Lable">درصد بیمه</span>
+                      <input [disabled]="true" style="width: 50%" class="form-control input-style" type="text"
+                        name="InsurancePercentage" [(ngModel)]="InsurancePercentage" />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="width: 33%">
+                      <span class="table-cell-Lable">درصد کسور مالیات</span>
+                      <input [disabled]="true" style="width: 50%" class="form-control input-style" type="text"
+                        name="PercentageOfDeduction" [(ngModel)]="PercentageOfDeduction" />
+                    </td>
+                    <td style="width: 33%">
+                      <span class="table-cell-Lable">درصد مالیات بر ارزش افزوده</span>
+                      <input [disabled]="true" style="width: 50%" class="form-control input-style" type="text"
+                        name="VATPercentage" [(ngModel)]="VATPercentage" />
+                    </td>
+                    <td style="width: 33%">
+                      <span class="table-cell-Lable">ماکسیموم درصد تخلف قابل کسر</span>
+                      <input [disabled]="true" style="width: 50%" class="form-control input-style" type="text"
+                        name="MaximumViolationPercentage" [(ngModel)]="MaximumViolationPercentage" />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="width: 33%">
+                      <span class="table-cell-Lable">روش محاسبه</span>
+                      <app-ng-select-virtual-scroll [Disabled]="true" style="display: inline-block;width: 50%;"
+                        class="select-general-for-lable" [NgSelectParams]="CalculationMethodParams"
+                        [Items]="CalculationMethodItems">
+                      </app-ng-select-virtual-scroll>
+                    </td>
+                    <td style="width: 33%">
+                      <span class="table-cell-Lable">تعداد اتوبوس</span>
+                      <input [disabled]="true" style="width: 50%" class="form-control input-style" type="text"
+                        name="BusNumber" [(ngModel)]="BusNumber" />
+                    </td>
+                    <td style="width: 33%"></td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+
+            <div role="tabpanel" class="tab-pane fade" id="questions" [style.height.%]="100"
+              style="margin-bottom: 5px;">
+              <div [style.height.%]="100"
+                style="width: 100%; border-radius: 5px; border: 1px solid rgb(204, 204, 204);">
+
+                <div [style.height.%]="79"
+                  style="width: 98%;margin:10px;  border-radius: 5px; border: 1px solid rgb(204, 204, 204);">
+                  <table class="table-cell-Lable" style="width: 30%;">
+                    <tr>
+                      <td style="width: 12%; ">
+                        <div style="color: blue;text-align: right;font-weight: bold;margin-top: 10px; ">
+                          <span style="font-size: 13px;">{{QuestionLabel}}</span>
+                        </div>
+                        <div style="color: blue;text-align: right;font-weight: bold;margin-top: 10px;">
+                          <span style="font-size: 13px;">{{WinnerQuestion}}</span>
+                        </div>
+                        <div style="color: blue;text-align: right;font-weight: bold;margin-top: 10px;">
+                          <span style="font-size: 13px;">{{ReNewQuestion}}</span>
+                        </div>
+                      </td>
+                      <td style="font-size: 12px; width: 10%;text-align: right;">
+                        <div>
+                          <div class="redio-div" style="margin-top: 8px;">
+                            <div class="custom-control custom-radio custom-control-inline">
+                              <input [disabled]="true" [checked]="IsLawful" type="radio" class="custom-control-input"
+                                id="IsLawful" name="IsLawful">
+                              <label style="margin: auto;" class="custom-control-label redio-label"
+                                for="IsLawful">بله</label>
+                            </div>
+                            <div class="custom-control custom-radio custom-control-inline">
+                              <input [disabled]="true" [checked]="!IsLawful" type="radio" class="custom-control-input"
+                                id="IsNotLawful" name="IsLawful">
+                              <label style="margin: auto;" class="custom-control-label redio-label"
+                                for="IsNotLawful">خیر</label>
+                            </div>
+                          </div>
+                        </div>
+                        <div>
+                          <div class="redio-div" style="margin-top:8px;">
+                            <div class="custom-control custom-radio custom-control-inline">
+                              <input [disabled]="true" [checked]="IsYes" type="radio" class="custom-control-input"
+                                id="IsYesRadio" name="ChoosenIsYesRadioName">
+                              <label style="margin: auto;" class="custom-control-label redio-label" for="IsYesRadio">بله
+                              </label>
+                            </div>
+                            <div class="custom-control custom-radio custom-control-inline">
+                              <input [disabled]="true" [checked]="!IsYes" type="radio" class="custom-control-input"
+                                id="ISNoRadio" name="ChoosenIsYesRadioName">
+                              <label style="margin: auto;" class="custom-control-label redio-label"
+                                for="ISNoRadio">خیر</label>
+                            </div>
+                          </div>
+                        </div>
+                        <div>
+                          <div class="redio-div" style="margin-top:8px;">
+                            <div class="custom-control custom-radio custom-control-inline">
+                              <input [disabled]="true" [checked]="IsRenewal" type="radio" class="custom-control-input"
+                                id="IsRenewal" name="IsRenewal">
+                              <label style="margin: auto;" class="custom-control-label redio-label"
+                                for="IsRenewal">بله</label>
+                            </div>
+                            <div class="custom-control custom-radio custom-control-inline">
+                              <input [disabled]="true" [checked]="!IsRenewal" type="radio" class="custom-control-input"
+                                id="IsNotRenewal" name="IsRenewal">
+                              <label style="margin: auto;" class="custom-control-label redio-label"
+                                for="IsNotRenewal">خیر</label>
+                            </div>
+                          </div>
+                        </div>
+
+                      </td>
+                    </tr>
+
+                  </table>
+                </div>
+
+                <!-- <div class="buttons-place" style="margin: 10px;width: 98%;">
+                <button type="submit" (click)="onSaveQuestion()" style="width: 100px;height: 30px;"
+                  class="select-general-for-lable btn-gray-border btn btn-primary btnGreen">
+                  <img width="15px" height="15px" src="assets/Icons/save.png" />
+                  ثبت
+                </button>
+              </div> -->
+
+              </div>
+            </div>
+
+            <!--اقلام ضمانت نامه RFC 57762 -->
+            <div role="tabpanel" class="tab-pane fade" id="productrequestwarranty"
+              [style.height.%]="tabpanelWarrantyDocHeight" style="margin-bottom: 5px;">
+              <app-grid [gridHeight]="WarrantyDocGridHeight" (cellEditingStarted)="onReceiveDocEditingStarted($event)"
+                (RowClick)="onReceiveDocRowClick($event)" (GridReady)="onReceiveDocGridReady($event)"
+                [columns]="ReceiveDocColDef" [rowsData]="ReceiveDocRowData" [HaveBorder]="true">
+              </app-grid>
+              <div class="main-form-body" style=" margin-top: 4px;height: 40px; overflow: auto;">
+                <div *ngIf="MultiQuestion"
+                  style="float: right;color: blue;width: 70%;text-align: right;font-weight: bold;margin-top: 5px;">
+                  <span>{{MultiQuestionLabel}}</span>
+                  <div class="redio-div" style="margin-right: 10px;">
+                    <div class="custom-control custom-radio custom-control-inline">
+                      <input [checked]="IsWarrantyValidity" type="radio" class="custom-control-input"
+                        id="IsWarrantyValidity" name="IsWarrantyValidity" (click)="IsWarrantyValidityRedioClick(true)">
+                      <label style="margin: auto;" class="custom-control-label redio-label"
+                        for="IsWarrantyValidity">بله</label>
+                    </div>
+                    <div class="custom-control custom-radio custom-control-inline">
+                      <input [checked]="!IsWarrantyValidity" type="radio" class="custom-control-input" id="IsNotLawful"
+                        name="IsWarrantyValidity">
+                      <label style="margin: auto;" class="custom-control-label redio-label" for="IsNotLawful"
+                        (click)="IsWarrantyValidityRedioClick(false)">خیر</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- سایر اطلاعات 59274 -->
+            <div role="tabpanel" class="tab-pane fade" id="OtherInfo" [style.height.%]="100"
+            style="margin-bottom: 5px;">
+            <div style="width: 100%; border-radius: 5px; border: 1px solid rgb(204, 204, 204);"
+              [style.height.%]="100">
+              <fieldset *ngIf="true" [style.height.px]="WfDetailsShowHeight" class="feild-set"
+              style="margin-right: 6px; padding-top: 0px;margin-top: 3px;min-height: 0px; width: 99%">
+              <legend [style.width.%]="9" style="width: 10%;" class="legend">
+                مصوبات هیئت مدیره</legend>
+              <textarea [(ngModel)]="BoardDecisionsDec" name="BoardDecisionsDec" class="form-control input-style" rows="6"
+                style="display: inline-block;height: 40px;width: 100%;max-height: 40px; min-height: 40px; max-width: 100%;" readonly>
+              </textarea>
+            </fieldset>
+            </div>
+          </div>
+          </div>
+          <div *ngIf="ShowMutualContractDetails" style="text-align: right;margin-top:5px;">
+            <fieldset style="display: inherit;min-height: 38px;margin-top: 2px;" class="feild-set">
+              <table style="width: 100%;">
+                <tr>
+
+                  <td width="55%">
+                    <app-radio-box-component [Mode]="'Dual'" [Params]="McRadioTypes" [Display]="'inline'"
+                      [Bordered]="false" [Disabled]="DisableAll" [QuestionStyle]="true"
+                      [DefaultSelected]='ProductRequestObject.HaveMutualContract ? ProductRequestObject.HaveMutualContract : false'
+                      [Title]="MutualContractQuestion" [Mode]="'Dual'" [Title_Width]="120"></app-radio-box-component>
+                  </td>
+
+                  <td width="45%">
+                    <app-radio-box-component [Mode]="'Dual'" [Params]="ScRadioTypes" [Display]="'inline'"
+                      [Bordered]="false" [Disabled]="DisableAll" [QuestionStyle]="true"
+                      [DefaultSelected]='ProductRequestObject.IsSecret ? ProductRequestObject.IsSecret : false'
+                      [Title]="'آیا دارای شرایط محرمانگی است؟'" [Mode]="'Dual'" [Title_Width]="120">
+                    </app-radio-box-component>
+                  </td>
+
+                </tr>
+              </table>
+            </fieldset>
+
+            <app-radio-box-component [Mode]="'Box'" [Params]="MCSRadioTypes" [Display]="'inline'" [Bordered]="true"
+              [Disabled]="DisableAll"
+              [DefaultSelected]='ProductRequestObject.MutualContractStatus ? ProductRequestObject.MutualContractStatus : 0'
+              [Title]="'وضعیت قرارداد درامدی متقابل'" [Mode]="'Box'" [Title_Width]="150">
+            </app-radio-box-component>
+
+          </div>
+
+
+          <div *ngIf="IsShowContractContent" style="margin-top:5px;">
+            <fieldset style="display: inherit;min-height: 38px;margin-top: 2px;" class="feild-set">
+              <table style="width: 100%;">
+                <tr>
+                  <td style="width: 20%">
+                    <span class="table-cell-Lable">مفاد قرارداد</span>
+                    <app-custom-check-box style="vertical-align: sub;" [configurationInfo]="CustomCheckBoxConfig"
+                      [Disabled]="true" [isSelected]="IsContractContent"
+                      (PrettyCheckBoxChange)="OnCheckBoxChange($event)">
+                    </app-custom-check-box>
+                  </td>
+                  <td style="width: 80%">
+                    <span class="table-cell-Lable">عنوان مفاد قرارداد</span>
+                    <input style="width: 85%; " class="form-control input-style" type="text" name="ContractContentNote"
+                      [disabled]="true" [(ngModel)]="ContractContentNote" />
+                  </td>
+                </tr>
+              </table>
+            </fieldset>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="buttons-place" style="margin: unset; margin: 5px;">
+      <button id="btnRequestSuggestion" class="btn btn-primary btnGreen" (click)="RequestPersonItem()">
+        <img width="15px" height="15px" src="assets/Icons/Suggestion.png" />
+        عوامل اجرایی
+      </button>
+
+      <button [disabled]="IsDisable" (click)="BtnArchiveClick()" id="btn1" class="btn btn-primary btnGreen">
+        <img width="15px" height="15px" src="assets/Icons/TechnicalArchive.png" />
+        مستندات
+      </button>
+      <button [disabled]="IsSupplierEditable" id="btnCoef" (click)="onCoefClick()" class="btn btn-primary btnGreen">
+        <img width="15px" height="15px" src="assets/Icons/coef1.png" />
+        ضرایب درخواست
+      </button>
+      <button id="btnTenderRep" class="btn btn-primary btnGreen" (click)="onProvisionClick('Suggestion')">
+        <img width="15px" height="15px" src="assets/Icons/Suggestion.png" />
+        {{ProvisionBtnText}}
+      </button>
+      <button id="btnTenderRep" class="btn btn-primary btnGreen" (click)="onProvisionClick('Show')">
+        <img width="15px" height="15px" src="assets/Icons/Suggestion.png" />
+        تامین اعتبار
+      </button>
+      <button id="btnRequestSuggestion" class="btn btn-primary btnGreen" (click)="onProposalClick()">
+        <img width="15px" height="15px" src="assets/Icons/Suggestion.png" />
+        {{ProposalBtnText}}
+      </button>
+      <button id="btnPrint" class="btn btn-primary btnGreen" (click)="PRProvisionRepShow()">
+        <img width="15px" height="15px" src="assets/Icons/print.png" />
+        {{PRProvisionRepBtnText}}
+      </button>
+      <button *ngIf="ShowProvisionRep" id="btnPrint" class="btn btn-primary btnGreen" (click)="ProvisionRepShow()">
+        <img width="15px" height="15px" src="assets/Icons/print.png" />
+        چاپ تامین اعتبار
+      </button>
+      <button [disabled]="!SelectedSupplier || !SelectedSupplier.ActorID" id="btnClose" class="btn btn-primary btnGreen"
+        (click)="onShowContractorDetailsClick()">
+        <img width="15px" height="15px" src="assets/Icons/ok.png" />
+        {{ContractorDetailsBtnText}}
+      </button>
+      <!-- LocalProvider -->
+      <button *ngIf="false" [disabled]="!SelectedProposal || !SelectedProposal.ProposalID" id="btnClose"
+        class="btn btn-primary btnGreen" (click)="onShowContractorClick()">
+        <img width="15px" height="15px" src="assets/Icons/ok.png" />
+        مشاهده اطلاعات پیمانکار
+      </button>
+      <button *ngIf="HasBtnAutomationLetter" id="btnLetter" class="btn btn-primary btnGreen"
+        (click)="onAutomationClick()">
+        <img width="15px" height="15px" src="assets/Icons/ok.png" />
+        {{AutomationLetterBtnText}}
+      </button>
+      <button *ngIf="IsShowContractContent" (click)="onCreateContract()" id="btn2" class="btn btn-primary btnGreen">
+        <img width="15px" height="15px" src="assets/Icons/add.png" />
+        انعقاد
+      </button>
+      <button *ngIf="IsShowContractContent" (click)="ArchiveClick()" id="btn1" class="btn btn-primary btnGreen">
+        <img width="15px" height="15px" src="assets/Icons/TechnicalArchive.png" />
+        {{ArchiveBtnText}}
+      </button>
+      <button *ngIf="HasTripleReport" id="btnTenderRep" class="btn btn-primary btnGreen" (click)="onShowInputFormulaPage()">
+        <img width="15px" height="15px" src="assets/Icons/show.png" />
+        مشاهده پیش نویس جزییات
+      </button>
+      <button (click)="onClose()" class="btn btn-primary btnGreen">
+        <img width="15px" height="15px" src="assets/Icons/exit.png" />
+        خروج
+      </button>
+    </div>
+  </div>
+</div>
+<ng-template #IsValidity let-row>
+  <img width="16px" height="16px" [src]="row.IsValidity ? 'assets/Icons/TrueCheckBox.png':'assets/Icons/uncheck.png'" />
+</ng-template>
+
+<ng-template #UploadArchive let-row>
+  <img [ngClass]="'img-def'" style="cursor: pointer;" width="16px" height="16px" src="assets/Icons/TechnicalArchive.png"
+    (click)="onReceiveDocArchiveClick(row)" />
+</ng-template>
+<app-over-popup *ngIf="isClicked" [PopupType]="PopUpType" [HaveMaxBtn]="HaveMaxBtn" [HeightPercentWithMaxBtn]="95"
+  [startLeftPosition]="startLeftPosition" [startTopPosition]="startTopPosition" [PercentWidth]="PercentWidth"
+  [MainMaxwidthPixel]="MainMaxwidthPixel" [PopupParam]="PopUpType === 'message-box' ?alertMessageParams:PopupParam"
+  (popupclosed)="popupclosed($event)" [minHeightPixel]="MinHeightPixel"
+  (PopupOutPutParam)="PopUpType ==='message-box' ? MessageBoxAction($event) : getOutPutParam($event)"
+  [HeightPercentWithMaxBtn]="HeightPercentWithMaxBtn"
+  [MainMinwidthPixel]="PopUpType === 'message-box' ? '' : OverMainMinwidthPixel">
+</app-over-popup>

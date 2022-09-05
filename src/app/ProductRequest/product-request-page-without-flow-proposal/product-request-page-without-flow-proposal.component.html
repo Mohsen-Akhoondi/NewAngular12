@@ -1,0 +1,35 @@
+<div id="container" class="row" style="clear: both">
+  <div id="content" style="height: 100%;width: 100%;">
+    <div class="main-form-body" style="margin: 5px;">
+      <form>
+  <fieldset class="feild-set" style="display: inherit;" >
+    <legend style="width: 15%; font-size: 10px;"> نوع نمایش </legend>
+    <table style="margin-bottom: 10px;width: 100%">
+      <tr>
+        <div class="redio-div">
+          <div *ngFor="let ct of RadioTypes" class="custom-control custom-radio">
+            <input type="radio" class="custom-control-input" [checked]="ct.Checked" id="ISNewRadio"
+              name="ChoosenISNewRadioName">
+            <label style="margin: auto;" class="custom-control-label redio-label" (click)="IsNewRedioClick(ct.Value)"
+              for="ISNewRadio">
+              {{ct.Name}}
+            </label>
+          </div>
+        </div>
+      </tr>
+    </table>
+  </fieldset>
+  </form>
+  <div class="buttons-place" style="margin: unset;">
+    <button (click)="Save()" id="btn4" class="btn btn-primary btnGreen">
+      <img width="15px" height="15px" src="assets/Icons/ok.png" />
+      تایید
+    </button>
+    <button (click)="closeModal()" id="btn4" class="btn btn-primary btnGreen">
+      <img width="15px" height="15px" src="assets/Icons/exit.png" />
+      خروج
+    </button>
+  </div>
+</div>
+</div>
+</div>

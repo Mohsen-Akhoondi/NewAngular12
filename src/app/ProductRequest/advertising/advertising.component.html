@@ -1,0 +1,148 @@
+<div class="main-form-body" style="margin: 5px;">
+  <form>
+    <div class="main-form-body" style="display: inherit">
+      <table style="width: 100%;">
+        <tr>
+          <td width="33%">
+            <span style="color: red;">*</span>
+            <span class="table-cell-Lable">واحد اجرایی</span>
+            <app-ng-select-virtual-scroll style="display: inline-block;width: 60%;" class=""
+              [NgSelectParams]="RegionParams" [CheckValidate]="CheckValidate" [Items]="RegionItems"
+              (selectedChange)="onChangeRegion($event)" [Disabled]="!IsEditable">
+            </app-ng-select-virtual-scroll>
+          </td>
+          <td width="33%">
+            <span style="color: red;">*</span>
+            <span class="table-cell-Lable">شماره آگهی</span>
+            <input style="width: 60% " class="form-control input-style" type="text" [(ngModel)]="AdvertisingNo"
+              name="AdvertisingNo" [ngStyle]="{'border-color': CheckValidate && !AdvertisingNo ? 'red':''}"
+              placeholder="{{CheckValidate && !AdvertisingNo ? 'پر کردن مقدار این فیلد الزامیست': ''}}"
+              [disabled]="!IsEditable" />
+          </td>
+          <td width="34%">
+            <span style="color: red;">*</span>
+            <span class="table-cell-Lable">کد آگهی </span>
+            <app-number-input-component [ReadOnly]="true" [id]="'indicator-label-advertisingCode'"
+              [Value]="AdvertisingCode" [IsFloat]="false" [MaxLength]="10" [FloatMaxLength]="0" [PerCentWidth]=" 60"
+              [PixelHeight]="25" (ValueChange)="getAdvertisingCode($event)" class="col-form-label"
+              [HaveThousand]="false" name="AdvertisingCode" [CheckValidate]="CheckValidate">
+            </app-number-input-component>
+          </td>
+        </tr>
+        <tr>
+          <td width="33%">
+            <app-radio-box-component [Mode]="'Dual'" [Params]="IsCostRadioTypes" [Display]="'inline'" [Bordered]="false"
+              [BoxWidth]="60" [DefaultSelected]="IsCost" [Title]="'ماهیت'" [QuestionStyle]="false" [TableAlign]="true"
+              (SelectedOption)="rdoIsCostClick($event)">
+            </app-radio-box-component>
+          </td>
+          <td width="33%">
+            <span style="color: red;">*</span>
+            <span class="table-cell-Lable">روش انجام معامله</span>
+            <app-ng-select-virtual-scroll style="display: inline-block;width: 60% !important; margin: 0px !important;"
+              [NgSelectParams]="DealMethodParams" [Items]="DealMethodItems" [CheckValidate]="CheckValidate"
+              (selectedChange)="onChangeDealMethod($event)">
+            </app-ng-select-virtual-scroll>
+          </td>
+          <td width="34%"></td>
+        </tr>
+        <tr>
+          <td colspan="3">
+            <span style="color: red; vertical-align: top;">*</span>
+            <span class="table-cell-Lable" style="vertical-align: top; margin-top: 5px;;">متن بالا</span>
+            <textarea [(ngModel)]="TextAbove" name="TextAbove" class="form-control input-style" rows="2"
+              style="display: inline-block;height: 40px;width: 87%;" id="indicator-text_note"
+              [ngStyle]="{'border-color': CheckValidate && !TextAbove ? 'red':''}"
+              placeholder="{{CheckValidate && !TextAbove ? 'پر کردن مقدار این فیلد الزامیست': ''}}"
+              [disabled]="!IsEditable"></textarea>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </form>
+  <div class="tab-content box-dev" style="margin-top: 5px;padding: 5px;">
+    <app-grid [columns]="ColDef" [IsEditable]="IsEditable" [HasInsertBtn]="false" [IsNeedGeneralBtn]="IsEditable"
+      [rowsData]="rowsData" [IsEditable]="!IsCentralize" [gridHeightPxel]="270"
+      (GeneralBtnClick)="GeneralBtnClick($event)" (GridReady)="onGridReady($event)"
+      (RowDataUpdated)="OnRowDataUpdated()">
+    </app-grid>
+  </div>
+  <div class="main-form-body" style="display: inherit; margin-top: 5px;">
+    <form>
+      <table style="width: 100%;">
+        <tr>
+          <td colspan="4" width="100%">
+            <span style="color: red; vertical-align: top;">*</span>
+            <span class="table-cell-Lable" style="vertical-align: top;">متن پایین</span>
+            <textarea [(ngModel)]="TextDown" name="TextDown" class="form-control input-style" rows="2"
+              style="display: inline-block;height: 40px;width: 90%;" id="indicator-text_note"
+              [ngStyle]="{'border-color': CheckValidate && !TextDown ? 'red':''}"
+              placeholder="{{CheckValidate && !TextDown ? 'پر کردن مقدار این فیلد الزامیست': ''}}"
+              [disabled]="!IsEditable"></textarea>
+          </td>
+        </tr>
+        <tr>
+          <td width="25%">
+            <span style="color: red;">*</span>
+            <span class="table-cell-Lable">محل تحویل</span><input style="width: 60% " class="form-control input-style"
+              type="text" [(ngModel)]="DeliveryPlace" name="DeliveryPlace"
+              [ngStyle]="{'border-color': CheckValidate && !DeliveryPlace ? 'red':''}"
+              placeholder="{{CheckValidate && !DeliveryPlace ? 'پر کردن مقدار این فیلد الزامیست': ''}}"
+              [disabled]="!IsEditable" />
+          </td>
+          <td width="25%">
+            <span *ngIf="IsDateRequired" style="color: red;">*</span>
+            <span class="table-cell-Lable">تاریخ ثبت</span>
+            <!-- <input style="width: 60% " class="form-control input-style" type="text" value={{RegisterDate}} readonly /> -->
+            <app-jalali-datepicker [WidthPC]="60" [Required]="IsDateRequired" [CheckValidate]="CheckValidate && IsDateRequired"
+              [CurrMiladiDateValue]="RegisterDate" (Change)="OnRegisterDateChange($event)"
+              [Disabled]="!IsEditable && !IsforHall">
+            </app-jalali-datepicker>
+
+          </td>
+          <td width="25%">
+            <span *ngIf="IsDateRequired" style="color: red;">*</span>
+            <span class="table-cell-Lable">تاریخ انقضا</span>
+            <app-jalali-datepicker [Disabled]="!IsEditable && !IsforHall" [WidthPC]="60" [Required]="IsDateRequired"
+              [CheckValidate]="CheckValidate && IsDateRequired" [CurrMiladiDateValue]="ExpireDate" (Change)="OnExpireDateChange($event)">
+            </app-jalali-datepicker>
+          </td>
+          <td width="25%">
+            <span class="table-cell-Lable">تاریخ واقعی انتشار</span>
+            <app-jalali-datepicker [Disabled]="true" [WidthPC]="60" [CurrMiladiDateValue]="ActualRegisterDate">
+            </app-jalali-datepicker>
+          </td>
+          <!-- 
+          <td width="25%">
+              <span style="color: red;" *ngIf="CheckValidateRating" >*</span>
+              <span class="table-cell-Lable"> رتبه مورد نیاز</span> 
+              <app-number-input-component  [id]="'indicator-label-RatingRequired'"  [Value]="RatingRequired"
+                  [IsFloat] = "false" [MaxLength]="10" [FloatMaxLength] = "0" [PerCentWidth]=" 60" [PixelHeight]= "25" (ValueChange)="getRatingRequired($event)"
+                  class="col-form-label" [HaveThousand] = "false" name="RatingRequired" [CheckValidate]="CheckValidateRating" [ReadOnly]="!IsEditable">
+                  </app-number-input-component>
+              </td> -->
+          <td width="15%"></td>
+        </tr>
+      </table>
+    </form>
+  </div>
+</div>
+<div class="buttons-place" style="margin: unset; margin: 5px;">
+  <button *ngIf="IsEditable" (click)="onSave()" id="btnSave" class="btn btn-primary btnGreen">
+    <img width="15px" height="15px" src="assets/Icons/save.png" />
+    ثبت
+  </button>
+  <button *ngIf="IsforHall" (click)="onSaveWF()" id="btnSave" class="btn btn-primary btnGreen">
+    <img width="15px" height="15px" src="assets/Icons/save.png" />
+    ثبت
+  </button>
+  <button id="btnClose" class="btn btn-primary btnGreen" (click)="Close()">
+    <img width="15px" height="15px" src="assets/Icons/exit.png" />
+    خروج
+  </button>
+</div>
+<app-over-popup *ngIf="btnclicked" [HaveMaxBtn]="HaveMaxBtn" [startLeftPosition]="startLeftPosition"
+  [startTopPosition]="startTopPosition" [minHeightPixel]="MinHeightPixel" [PopupType]="type"
+  [PopupParam]="type === 'message-box' ? alertMessageParams: ParamObj " [HaveHeader]="HaveHeader"
+  (popupclosed)="popupclosed($event)" (PopupOutPutParam)="getOutPutParam($event)">
+</app-over-popup>

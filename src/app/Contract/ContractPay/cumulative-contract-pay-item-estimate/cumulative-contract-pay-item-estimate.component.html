@@ -1,0 +1,226 @@
+<div [ngClass]="{'disable-parent': !IsDown}" id="container" class="row" style="clear: both ; ">
+  <div id="content" class="" style="height: 100%;width: 100%;">
+    <div class="main-form-body" style=" margin: 5px;min-width: 1130px; height: 87%;">
+      <table style="width: 100%;">
+        <tr>
+          <td width="50%" colspan="2">
+            <span class="table-cell-Lable">قرارداد</span><input style="width: 80%" class="form-control input-style"
+              type="text" name="first" value="{{ ContractSubLetter }}" readonly />
+          </td>
+          <td width="25%">
+            <span class="table-cell-Lable">دوره صورت وضعیت از تاریخ</span>
+            <app-jalali-datepicker [WidthPx]="122" [Required]="true" [CurrMiladiDateValue]="ContractPayStartDate"
+              (Change)="OnContractPayStartDateChange($event)"></app-jalali-datepicker>
+          </td>
+          <td width="25%">
+            <span class="table-cell-Lable">تا تاریخ</span>
+            <app-jalali-datepicker [WidthPx]="130" [Required]="true" [CurrMiladiDateValue]="ContractPayEndDate"
+              (Change)="OnContractPayEndDateChange($event)"></app-jalali-datepicker>
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <span style="margin: 0;margin-left: 5px" class="table-cell-Lable">سال مالی</span>
+            <app-ng-select-virtual-scroll style="display: inline-table;width: 62% ; min-width: 150px;" [Disabled]="IsFinYearDisable"
+              class="select-general-for-lable" [NgSelectParams]="FinYearParams" [Items]="FinYearSet"
+              (selectedChange)="onChangeFinYearObj($event)">
+            </app-ng-select-virtual-scroll>
+          </td>
+          <td>
+            <input style="width: 100%;" class="form-control input-style" type="text" name="first"
+              value="{{ ContractOperationName }}" readonly />
+          </td>
+          <td>
+            <span class="table-cell-Lable">شماره صورت وضعیت</span>
+            <input style="width: 122px" class="form-control input-style" type="text" name="first"
+              value="{{ ContractPayNo }}" readonly />
+          </td>
+          <td>
+            <span class="table-cell-Lable">تاریخ صورت وضعیت</span>
+            <app-jalali-datepicker [WidthPx]="130" style="width: 100%;" [Required]="true"
+              [CurrMiladiDateValue]="ContractPayDate" (Change)="OnContractPayDateChange($event)">
+            </app-jalali-datepicker>
+          </td>
+        </tr>
+
+        <tr>
+          <td colspan="2">
+            <span style="margin: 0px; margin-left: 5px" class="table-cell-Lable">عامل قرارداد</span>
+            <app-ng-select-virtual-scroll style="display: inline-table;width: 80% ; min-width: 150px;"
+              class="select-general-for-lable" [NgSelectParams]="ContractAgentParams" [Items]="ContractAgentSet"
+              (selectedChange)="onChangeContractAgentObj($event)">
+            </app-ng-select-virtual-scroll>
+          </td>
+
+          <td>
+            <span class="table-cell-Lable">نوع صورت وضعیت</span>
+            <app-ng-select-virtual-scroll style="min-width: 44%;display: inline-table;margin: 0" class="select-general-for-lable"
+              [NgSelectParams]="ContractPayTypeParams" [Items]="ContractPayTypeSet"
+              (selectedChange)="onChangeContractPayTypeObj($event)">
+            </app-ng-select-virtual-scroll>
+          </td>
+          <td>
+            <span class="table-cell-Lable">صورت وضعیت</span>
+            <input style="width: 47%;" class="form-control input-style" type="text" name="first"
+              [(ngModel)]="ContractPayTechnicalCode" value="{{ ContractPayTechnicalCode }}" />
+          </td>
+        </tr>
+        <tr>
+          <td width="50%" colspan="2">
+            <span style="margin: 0;margin-left: 5px" class="table-cell-Lable">توضیحات</span>
+            <input style="width: 80%;" class="form-control input-style" type="text" name="first" [(ngModel)]="Note"
+              value="{{ Note }}" disabled="!DisplayControlls" />
+          </td>
+          <td>
+            <span class="table-cell-Lable"> سال فهرست بها</span><input style="width: 44% "
+            class="form-control input-style" type="text" name="first" value="{{PriceListFineYearName}}"
+            readonly />
+          </td>
+          <td>
+            <span class="table-cell-Lable">نوع فهرست بها</span>
+            <input style="width:47% "
+            class="form-control input-style" type="text" name="last" value="{{PriceListTypeCodeName}}" readonly />
+          </td>
+        </tr>
+      </table>
+
+      <div style="padding-bottom: 5px; margin-top: 5px;" [style.height.%]="79">
+        <div  class="box-dev" style="height: 9%; margin-bottom: 5px;">
+          <!-- <app-grid style="width: 100%;" [IsEditable]="false" [IsDisable]="HaveWorkFlow" [columns]="columnDef1"
+            [defaultSelectedRowIndex]="0" [rowsData]="ContractPayItemList"
+            (RowClick)="dgContractPayItemRowClick($event)" (CellValueChanged)="onCellValueChanged($event)"
+            (GridReady)="onContractPayItemGridReady($event)" [gridHeight]="73"></app-grid> -->
+            <table style="width: 100%; margin-top: 5px;">
+              <tr>
+                <td width="50%" colspan="2">
+                  <span class="table-cell-Lable">مبلغ صورت وضعیت</span><input style="width: 80%" class="form-control input-style"
+                    type="text" name="first" value="{{ ContractPayAmount }}" readonly />
+                </td>
+                <td width="50%" colspan="2">
+                  <span class="table-cell-Lable">ارزش افزوده صورت وضعیت</span><input style="width: 72%" class="form-control input-style"
+                    type="text" name="first" value="{{ ContractPayTaxValue }}" readonly />
+                </td>
+              </tr>
+            </table>
+          </div>
+      <div style="padding-bottom: 5px; margin-top: 5px;" [style.height.%]="80">
+        <div id="div1" class="box-dev left-dev" style="height: 99%;">
+          <app-grid style="width: 100%;" [IsEditable]="IsEditable" [IsDisable]="HaveWorkFlow" [columns]="columnDef1"
+            [defaultSelectedRowIndex]="0" [rowsData]="ContractPayItemList"
+            (RowClick)="dgContractPayItemRowClick($event)" (CellValueChanged)="onCellValueChanged($event)"
+            (GridReady)="onContractPayItemGridReady($event)" [gridHeight]="91"></app-grid>
+        </div>
+        <div id="div2" class="box-dev right-dev" style="height: 99%;">
+          <div style="height: 84%;">
+            <app-grid style="width: 100%;" [columns]="columnDef2" [IsEditable]="ISEstimateGridEditable"
+              [IsDisable]="IsDisable" [rowsData]="ContractPayItemEstimateList" [IsNeedGroupBtn]="true"
+              [IsNeedRowBtn]="true" [IsNeedImportBtn]="true" [IsNeedAddPopUp]="true" [IsNeedContractPayBtn]="true"
+              [IsNeedContractMinutesBtn]="true" [IsNeedContractAgentBtn]="true"
+              (GroupBtnClick)="OnGroupBtnClick($event)" (ImportFromExcelClick)="OnImportFromExcelBtnClick()"
+              (AddPopUp)="onAddPopUpBtnClick()" (RowBtnClick)="OnRowBtnClick($event)"
+              (GridReady)="onContractPayItemEstimateGridReady($event)"
+              (CellValueChanged)="onContractPayItemEstimateCellValueChanged($event)"
+              (cellEditingStarted)="oncellEditingStarted($event)"
+              (RowClick)="dgContractPayItemEstimateRowClick($event)" [gridHeight]="88"></app-grid>
+          </div>
+          <div class="PriceListDiv">
+            <span class="spanStyle">
+              شرح :
+            </span>
+            <span style="margin: 5px;">
+              {{PriceListTopicName}}
+            </span>
+            <span class="spanStyle">
+              واحد :
+            </span>
+            <span style="margin: 5px;">
+              {{PriceListTopicUnit}}
+            </span>
+          </div>
+        </div>
+        </div>
+    <div class="main-form-body" style="width: 100% !important; margin: 0px 0px !important; height: 44px;">
+      <button (click)="onSummary()" id="btn2" class="btn btn-primary btnGreen" style="margin: 2px">
+        <img width="15px" height="15px" src="assets/Icons/TechnicalArchive.png" />
+        خلاصه متره
+      </button>
+
+      <button (click)="onFinSheet()" id="btn2" class="btn btn-primary btnGreen" style="margin: 2px">
+        <img width="15px" height="15px" src="assets/Icons/TechnicalArchive.png" />
+        برگه مالی
+      </button>
+
+      <button (click)="onContractPayShipment()" id="btn2" class="btn btn-primary btnGreen" style="margin: 2px">
+        <img width="15px" height="15px" src="assets/Icons/TechnicalArchive.png" />
+        حمل
+      </button>
+      <button (click)="BtnDetailArchiveClick()" id="btn1" class="btn btn-primary btnGreen">
+        <img width="15px" height="15px" src="assets/Icons/TechnicalArchive.png" />
+        {{DetailArchiveBtnText}}
+      </button>
+    </div>
+    </div>
+    </div>
+ <div style="margin: 5px;">
+      <div class="buttons-place" [style.width.%]="62" style="float: right;margin: auto;">
+      <button *ngIf="HaveSave" (click)="onSave()" id="btn2" class="btn btn-primary btnGreen" >
+        <img width="15px" height="15px" src="assets/Icons/save.png" />
+        ثبت
+      </button>
+      <button (click)="BtnArchiveClick()" id="btn1" class="btn btn-primary btnGreen">
+        <img width="15px" height="15px" src="assets/Icons/TechnicalArchive.png" />
+        {{ArchiveBtnText}}
+      </button>
+
+    
+     <button (click)="onContractPayCoef()" id="btn2" class="btn btn-primary btnGreen" >
+          <img width="15px" height="15px" src="assets/Icons/TechnicalArchive.png" />
+         ضرایب پرداخت قرارداد
+    </button>
+
+      <button id="btnPrint" (click)="onPrint()" class="btn btn-primary btnGreen" >
+        <img width="15px" height="15px" src="assets/Icons/print.png" />
+        چاپ
+      </button>
+      <button id="btn3" (click)="Btnclick('Related')" class="btn btn-primary btnGreen">
+        <img width="15px" height="15px" src="assets/Icons/relation_s.png" />
+        ردیف های مرتبط
+      </button>
+      <button (click)="close()" id="btn4" class="btn btn-primary btnGreen" >
+        <img width="15px" height="15px" src="assets/Icons/exit.png" />
+        خروج
+      </button>
+      <!-- <button *ngIf="HaveConfirm" (click)="onConfirm()" id="btn2" class="btn btn-primary btnGreen"
+        style="margin: 2px;float: left !important;">
+        <img width="15px" height="15px" src="assets/Icons/{{btnConfirmIcon}}.png" />
+        {{btnConfirmName}} </button> -->
+    </div>
+    <div *ngIf="ShowWorkflowButtons" class="buttons-place" style="float: left;margin: auto;" [style.width.%]="37"> <!--// RFC 52262-->
+      <button *ngIf="true"  [disabled]="IsDisableWorkflow" (click)="onConfirms()" id="btn2"
+        class="btn btn-primary btnGreen" style="margin: 2px;">
+        <img width="15px" height="15px" src="assets/Icons/{{btnConfirmIcon}}.png" />
+        {{btnConfirmName}} </button>
+      <button *ngIf="true" [disabled]="IsDisableWorkflow" (click)="onConfirmAndSend()" id="btn2"
+        class="btn btn-primary btnGreen" style="margin: 2px;">
+        <img width="15px" height="15px" src="assets/Icons/Approve.png" />
+        تاييد و ارسال </button>
+      <button *ngIf="true" [disabled]="IsDisableWorkflow"
+        (click)="onUnConfirmAndReturn()" id="btn2" class="btn btn-primary btnGreen" style="margin: 2px;">
+        <img width="15px" height="15px" src="assets/Icons/DisApprove.png" />
+        {{btnConfirmAndReturnName}} </button>
+      <button (click)="OnClickPrintFlow()" [disabled]="IsDisableWorkflow" class="btn btn-primary btnGreen">
+        <img width="15px" height="15px" src="assets/Icons/print.png" />
+        گردش
+      </button>
+    </div>
+  </div>
+</div>
+<app-over-popup *ngIf="btnclicked" [PopupType]="type" [HaveMaxBtn]="HaveMaxBtn"
+  [PixelHeight]="type === 'contract-pay-shipment' || type ==='contract-pay-coef' ? 600 :'' " 
+  [MainMinwidthPixel]="type === 'fin-sheet' || type ==='contract-pay-coef' ? 1130 : ''"
+  [startLeftPosition]="OverstartLeftPosition" [startTopPosition]="OverstartTopPosition"
+  [PopupParam]="type ==='message-box' ?alertMessageParams  : type === 'price-list-correction'? PlcParams : paramObj" (popupclosed)="popupclosed($event)"
+  [MainMinwidthPixel]="type === 'editor-select-price-list'? 1240:''"
+  [MainMaxwidthPixel]="type === 'editor-select-price-list'? 1240:''"
+  (PopupOutPutParam)="type ==='message-box' ? MessageBoxAction($event) : getOutPutParam($event)"></app-over-popup>

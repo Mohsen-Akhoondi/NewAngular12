@@ -1,0 +1,131 @@
+<div id="container" class="row" style="clear: both">
+    <div id="content" style="height: 100%;width: 100%;">
+      <div class="main-form-body" style="margin: 5px;" [style.height.%]="mainBodyHeight">
+        <form>
+          <fieldset class="feild-set" style="display: inherit">
+            <legend style="width: 6%;"> اطلاعات قرارداد </legend>
+            <table style="width: 100%;">
+              <tr>
+                <td style="width: 20%;">
+                  <span class="table-cell-Lable">سال مالي</span>
+                  <input class="form-control input-style" style="width: 60%;" type="text" name="first"
+                    value="{{FinYearCode}}" readonly /></td>
+                <td style="width: 20%;">
+                  <span class="table-cell-Lable">کد قرارداد</span>
+                  <input class="form-control input-style" style="width: 60%" type="text" name="last"
+                    value="{{ContractCode}}" readonly /></td>
+                <td style="width: 20%;">
+                  <span class="table-cell-Lable">پيمانکار</span>
+                  <input class="form-control input-style" style="width: 60%" type="text" name="last"
+                    value="{{ContractorName}}" readonly /></td>
+                <td style="width: 20%;">
+                  <span class="table-cell-Lable">شماره نامه</span>
+                  <input class="form-control input-style" style="width: 60%" type="text" name="last" value="{{LetterNo}}"
+                    readonly /></td>
+                <td style="width: 20%;">
+                  <span class="table-cell-Lable">مبلغ</span>
+                  <input class="form-control input-style" style="width: 60%" type="text" name="last"
+                    value="{{ContractAmount}}" readonly /></td>
+              </tr>
+              <tr>
+                <td style="width: 100%" colspan="5">
+                  <span class="table-cell-Lable">موضوع</span>
+                  <input class="form-control input-style" style="width: 92%" type="text" name="first" value="{{Subject}}"
+                    readonly /></td>
+              </tr>
+            </table>
+          </fieldset>
+          <fieldset class="feild-set" style="display: inherit">
+            <legend style="width: 6%;">اطلاعات مرحله </legend>
+            <table style="width: 100%;">
+              <tr>
+                <td style="width: 20%;">
+                  <span class="table-cell-Lable">شماره</span>
+                  <input class="form-control input-style" style="width: 60%" type="text" name="first" value="{{OrderNo}}"
+                    readonly /></td>
+                <td style="width: 20%;">
+                  <span class="table-cell-Lable">تاريخ</span>
+                  <input class="form-control input-style" style="width: 60%" type="text" name="last"
+                    value="{{PersianOrderDate}}" readonly /></td>
+                <td style="width: 60%;">
+                  <span class="table-cell-Lable">توضيحات</span>
+                  <input class="form-control input-style" style="width: 87%" type="text" name="first" value="{{Note}}"
+                    readonly /></td>
+              </tr>
+            </table>
+          </fieldset>
+        </form>
+        <div style="padding-bottom: 5px;" [style.height.%]="bothGridHeight">
+  
+          <div id="div1" class="box-dev left-dev" [style.height.%]="DivHeight1">
+            <!-- فعاليت تاريخ شروع پايان مبلغ  -->
+            <app-grid style="width: 100%;" [columns]="columnDef1" [rowsData]="rowData1" (RowClick)="RowClick1($event)"
+              (GridReady)="onGridReady1($event)" [IsEditable]="HaveSave" [defaultSelectedRowIndex]="0"
+              (CellValueChanged)="onCellValueChanged($event)"  (cellEditingStarted)="oncellEditingStarted($event)" [gridHeight]="90"></app-grid>
+          </div>
+  
+  
+          <div id="div2" class="box-dev right-dev" [style.height.%]="DivHeight2">
+              <div style="height: 88.5%;">
+            <!-- فهرست بها  -->
+            <app-grid style="width: 100%;" [columns]="columnDef2" [IsEditable]="false" [IsDisable]="IsDisable"
+              [rowsData]="rowData2" (GridReady)="onGridReady2($event)" [gridHeight]="88"></app-grid>
+          </div>
+          <div class="PriceListDiv">
+              <span class="spanStyle">
+                جمع کل :
+              </span>
+              <span class="spanStyle" style="margin: 5px;">
+               {{TotalSum}}
+              </span>
+          </div>
+        </div>
+      </div>
+      </div>
+      <div class="buttons-place" style=" margin: 5px">
+  
+        <button *ngIf="HaveSave" (click)="onSave()" class="btn btn-primary btnGreen">
+          <img width="15px" height="15px" src="assets/Icons/save.png" />
+          ثبت
+        </button>
+  
+        <button id="btnCoef" (click)="BtnClick('contract-orderitem-coef')" class="btn btn-primary btnGreen">
+          <img width="15px" height="15px" src="assets/Icons/coef1.png" />
+          ضرايب رديف قرارداد
+        </button>
+        <button id="btnCoefByContractOrder" (click)="BtnClick('contract-coef-by-contract-order')" class="btn btn-primary btnGreen">
+          <img width="15px" height="15px" src="assets/Icons/coef1.png" />
+          ضرایب فعالیت
+        </button>
+        <button id="btnCoef" (click)="BtnClick('contract-coef')" class="btn btn-primary btnGreen">
+          <img width="15px" height="15px" src="assets/Icons/coef1.png" />
+          ضرايب قرارداد
+        </button>
+  
+        <button (click)="BtnClick('archive-details')" class="btn btn-primary btnGreen">
+          <img width="15px" height="15px" src="assets/Icons/TechnicalArchive.png" />
+          {{ArchiveBtnTextOrder}}
+        </button>
+        <button id="btnCoef" (click)="BtnClick('contract-order-item-deduction')" class="btn btn-primary btnGreen">
+          <img width="15px" height="15px" src="assets/Icons/coef1.png" />
+          مشاهده کسورات قرارداد
+        </button>
+        <button id="btnPrint" (click)="BtnClick('choose-report')" class="btn btn-primary btnGreen">
+          <img width="15px" height="15px" src="assets/Icons/print.png" />
+          چاپ
+        </button>
+        <button (click)="onClose()" id="btn4" class="btn btn-primary btnGreen">
+          <img width="15px" height="15px" src="assets/Icons/exit.png" />
+          خروج</button>
+      </div>
+    </div>
+  </div>
+  
+  <app-over-popup *ngIf="btnclicked" [PopupType]="type" [startLeftPosition]="startLeftPosition"
+    [startTopPosition]="startTopPosition"
+    [PixelHeight]="type === 'contract-coef' || type === 'contract-orderitem-coef'  ? 550 :'' "
+    [PixelWidth]="type === 'contract-coef' || type === 'contract-orderitem-coef'  ? 1100 :'' "
+    [PopupParam]="type === 'choose-report' ? ReportParam :  type === 'contract-coef' || type === 'contract-orderitem-coef' ? CoefParam : type ==='archive-details' ? ArchiveParam : type === 'contract-order-item-deduction' ? PopupParam:  alertMessageParams"
+    (popupclosed)="popupclosed($event)"
+    (PopupOutPutParam)="type === 'contract-orderitem-coef'? ReturendCoefLevelCode($event) : ''">
+  </app-over-popup>

@@ -1,0 +1,26 @@
+<app-number-input-component [HaveThousand]="false" [fontSize]="12" [PerCentWidth]="20" [Value]="IranPlaqueCode"
+    [ReadOnly]="false" [MaxLength]="2" (ValueChange)="IranNumChange($event)" [PixelHeight]="27">
+</app-number-input-component>
+
+<app-number-input-component [HaveThousand]="false" [fontSize]="12" [PerCentWidth]="30" [Value]="SecondPlaqueCode"
+    [ReadOnly]="false" [MaxLength]="3" (ValueChange)="SecondNumChange($event)" [PixelHeight]="27">
+</app-number-input-component>
+
+<app-ng-select-virtual-scroll style="display: inline-block; margin: 0 !important; height: 100%;width: 30%"
+    [NgSelectParams]="NgSelectLettersParams" [Items]="LettersItems">
+</app-ng-select-virtual-scroll>
+
+<app-number-input-component [HaveThousand]="false" [fontSize]="12" [PerCentWidth]="20" [Value]="FirstPlaqueCode"
+    [ReadOnly]="false" [MaxLength]="2" (ValueChange)="firstNumChange($event)" [PixelHeight]="27">
+</app-number-input-component>
+
+<app-over-popup *ngIf="isClicked" [PopupType]="PopUpType" [HaveMaxBtn]="HaveMaxBtn"
+    [startLeftPosition]="startLeftPosition" [startTopPosition]="startTopPosition"
+    [PopupParam]="PopUpType === 'message-box' ? alertMessageParams : PopupParam" [HaveHeader]="HaveHeader"
+    [HeightPercentWithMaxBtn]="PopUpType === 'message-box' ? '' : 98"
+    [PixelHeight]="PopUpType === 'message-box' ? '' : PixelHeight"
+    [MainMaxwidthPixel]="PopUpType === 'message-box' ? '' : MainMaxwidthPixel"
+    [PercentWidth]="PopUpType === 'message-box' ? '' : PercentWidth"
+    [minHeightPixel]="PopUpType === 'message-box' ? '' : MinHeightPixel"
+    [MainMinwidthPixel]="PopUpType === 'message-box' ? '' : OverMainMinwidthPixel" (PixelWidth)="PixelWidth">
+</app-over-popup>

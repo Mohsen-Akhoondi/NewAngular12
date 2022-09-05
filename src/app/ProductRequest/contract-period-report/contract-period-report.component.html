@@ -1,0 +1,104 @@
+<div class="main-form-body" style="margin-top: 5px; height:86%;">
+  <table style="width: 100%;">
+    <tr>
+      <td width="25%">
+        <span class="table-cell-Lable">واحد اجرایی</span>
+            <app-ng-select-virtual-scroll style="display: inline-block;width: 74%;" [NgSelectParams]="RegionParams"
+              (selectedChange)="onChangeRegionObj($event)" [Items]="ReigonListSet">
+            </app-ng-select-virtual-scroll>
+      
+      </td>
+      <td width="25%">
+        <span class="table-cell-Lable"> دفعات تجديد </span>
+        <app-ng-select-virtual-scroll style="display: inline-block;width: 74%;" class="select-general-for-lable"
+          [NgSelectParams]="NgSelectTimesParams" (selectedChange)="onChangeTimesObj($event)"
+          [Items]="TimesListSet">
+        </app-ng-select-virtual-scroll>
+      </td>
+    </tr>
+    <tr>
+      <td width="50%">
+        <span class="table-cell-Lable"> از تاريخ درخواست</span>
+        <app-jalali-datepicker [WidthPC]="74" [Required]="true" class="select-general-for-lable"
+          (Change)="OnFromProductRequestDateChange($event)">
+        </app-jalali-datepicker>
+
+      </td>
+      <td width="50%">
+        <span class="table-cell-Lable">تا تاريخ درخواست</span>
+        <app-jalali-datepicker [WidthPC]="74" [Required]="true" class="select-general-for-lable"
+          (Change)="OnToProductRequestDateChange($event)">
+        </app-jalali-datepicker>
+      </td>
+    </tr>
+
+    <tr>
+      <td width="50%">
+        <span class="table-cell-Lable">از تاريخ قرارداد</span>
+        <app-jalali-datepicker [WidthPC]="74" [Required]="true" class="select-general-for-lable"
+          (Change)="OnFromContractDateChange($event)">
+        </app-jalali-datepicker>
+
+      </td>
+      <td width="50%">
+        <span class="table-cell-Lable">تا تاريخ قرارداد</span>
+        <app-jalali-datepicker [WidthPC]="74" [Required]="true" class="select-general-for-lable"
+          (Change)="OnToContractDateChange($event)">
+        </app-jalali-datepicker>
+      </td>
+    </tr>
+  </table>
+  <table style="margin-top: 5px;">
+    <tr>
+      <td wdith="25%" colspan="2">
+
+        <button type="submit"  (click)="TotalySearch()"
+          style="width: 150px;height: 30px;" class="select-general-for-lable btn-gray-border btn btn-primary btnGreen">
+          <img width="15px" height="15px" src="assets/Icons/Search.png" />
+          مشاهده به سرجمع
+        </button>
+        <button type="submit"
+          (click)="DetailSearch()" style="width: 150px;height: 30px;"
+          class="select-general-for-lable btn-gray-border btn btn-primary btnGreen">
+          <img width="15px" height="15px" src="assets/Icons/Search.png" />
+          مشاهده به ريز
+        </button>
+        <button type="submit"
+        (click)="WFAverageSearch()" style="width: 260px;height: 30px;"
+        class="select-general-for-lable btn-gray-border btn btn-primary btnGreen">
+        <img width="15px" height="15px" src="assets/Icons/Search.png" />
+        مشاهده ميانگين زمان انتظار در هر مرحله
+      </button>
+      </td>
+    </tr>
+  </table>
+  <div class="box-dev" style=" width: 100%; margin-top: 5px;" [style.height.%]="76">
+    <app-grid [columns]="columnDef" [rowsData]="rowData" [gridHeight]=90>
+    </app-grid>
+</div>
+</div>
+<div class="buttons-place" style="margin: unset;">
+<button (click)="onPrint('Totaly')" class="btn btn-primary btnGreen">
+  <img width="15px" height="15px" src="assets/Icons/print.png" />
+  چاپ به سرجمع
+</button>
+<button (click)="onPrint('Details')" class="btn btn-primary btnGreen">
+  <img width="15px" height="15px" src="assets/Icons/print.png" />
+  چاپ به ريز
+</button>
+<button (click)="onPrint('Average')" class="btn btn-primary btnGreen">
+  <img width="15px" height="15px" src="assets/Icons/print.png" />
+  چاپ ميانگين زمان انتظار در هر مرحله
+</button>
+<button (click)="closeModal()" id="btn4" class="btn btn-primary btnGreen">
+  <img width="15px" height="15px" src="assets/Icons/exit.png" />
+  خروج</button>
+</div>
+<app-over-popup *ngIf="btnclicked" [HaveMaxBtn]="HaveMaxBtn" [startLeftPosition]="startLeftPosition"
+[startTopPosition]="startTopPosition" [minHeightPixel]="MinHeightPixel" [PopupType]="type"
+[HeightPercentWithMaxBtn]="HeightPercentWithMaxBtn"
+[PopupParam]="type === 'message-box' ? alertMessageParams : paramObj" [HaveHeader]="HaveHeader"
+(popupclosed)="popupclosed($event)">
+</app-over-popup>
+
+<!-- [PixelWidth]="1140" -->

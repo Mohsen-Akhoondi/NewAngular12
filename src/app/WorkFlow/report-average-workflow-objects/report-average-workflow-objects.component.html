@@ -1,0 +1,82 @@
+<div class="main-form-body" style="margin-top: 5px; height:94%;">
+  <div *ngIf="DisplayObjects" class="main-form-body">
+    <table style="width: 100%;">
+      <tr>
+        <td width="50%">
+          <span class="table-cell-Lable">واحد اجرایی</span>
+          <app-ng-select-virtual-scroll style="display: inline-block;width: 85%; min-height: 25;"
+            [NgSelectParams]="NgSelectRegionParams" [Items]="ReigonListSet">
+          </app-ng-select-virtual-scroll>
+        </td>
+        <td width="50%">
+          <span class="table-cell-Lable">نوع گردش کار</span>
+          <app-ng-select-virtual-scroll style="display: inline-block;width: 85%;" class=""
+            [NgSelectParams]="WorkflowObjectParams" (selectedChange)="onChangeWorkflowObject($event)"
+            [Items]="WorkflowObjectItems" (Open)="OnOpenNgSelect('Module')">
+          </app-ng-select-virtual-scroll>
+        </td>
+      </tr>
+      <tr>
+        <td width="50%">
+          <table style="width: 100%;">
+            <tr style="text-align: left;">
+              <td colspan="2" width="53%">
+                <span class="table-cell-Lable">تاریخ از</span>
+                <app-jalali-datepicker [WidthPC]="72.5" [Required]="true" (Change)="OnFromDateChange($event)">
+                </app-jalali-datepicker>
+              </td>
+              <td colspan="2" width="47%" style="text-align: right;">
+                <span class="table-cell-Lable">تا</span>
+                <app-jalali-datepicker [WidthPC]="92.5" [Required]="true" (Change)="OnToDateChange($event)">
+                </app-jalali-datepicker>
+              </td>
+            </tr>
+          </table>
+        </td>
+        <td width="50%">
+        </td>
+      </tr>
+    </table>
+  </div>
+  <table *ngIf="DisplayObjects">
+    <tr>
+      <td wdith="25%" colspan="2">
+        <button type="submit" (click)="SearchNode()" style="margin-left: 4px; margin-bottom: 5px; height: 30px;"
+          class="select-general-for-lable btn-gray-border btn btn-primary btnGreen">
+          <img width="15px" height="15px" src="assets/Icons/Search.png" />
+          بر اساس نقش
+        </button>
+        <button type="submit" (click)="SearchActor()" style="margin-left: 4px; margin-bottom: 5px; height: 30px;"
+          class="select-general-for-lable btn-gray-border btn btn-primary btnGreen">
+          <img width="15px" height="15px" src="assets/Icons/Search.png" />
+          بر اساس کاربران
+        </button>
+      </td>
+    </tr>
+  </table>
+  <div style="clear: both;padding-bottom: 5px;" [style.height.%]="HeightGrid">
+    <div class="box-dev" style=" width: 100%;" [style.height.%]="100">
+      <app-grid (GridReady)="onGridReady($event)" [columns]="MaincolumnDef" [rowsData]="rowData" [gridHeight]="92">
+      </app-grid>
+    </div>
+  </div>
+  <div class="buttons-place" style="margin: unset;">
+    <button (click)="closeModal()" id="btn4" class="btn btn-primary btnGreen">
+      <img width="15px" height="15px" src="assets/Icons/exit.png" />
+      خروج
+    </button>
+  </div>
+</div>
+<ng-template #ShowPersons let-row>
+  <img [ngClass]="'img-def'" width="16px" height="16px" style="cursor: pointer;" [src]="'assets/Icons/show.png'"
+    (click)="ShowPersonsBtnClick(row)" />
+</ng-template>
+
+<app-over-popup *ngIf="btnclicked" [HaveMaxBtn]="HaveMaxBtn" [startLeftPosition]="startLeftPosition"
+  [startTopPosition]="startTopPosition" [minHeightPixel]="type === 'message-box' ? '' : MinHeightPixel"
+  [PopupType]="type" [HeightPercentWithMaxBtn]="type === 'message-box' ? '' : HeightPercentWithMaxBtn"
+  [PopupParam]="type === 'message-box' ? alertMessageParams : paramObj" [HaveHeader]="HaveHeader"
+  [PixelWidth]="type === 'message-box'? '' : OverPixelWidth"
+  [MainMaxwidthPixel]="type === 'message-box'? '' : OverPixelWidth" (popupclosed)="popupclosed($event)"
+  (PopupOutPutParam)="type ==='message-box' ? MessageBoxAction($event) : ''">
+</app-over-popup>

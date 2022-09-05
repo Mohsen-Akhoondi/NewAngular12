@@ -1,0 +1,84 @@
+<div class="main-form-body" style="margin-top: 5px;height: 85%;">
+  <div id="container" style="clear: both;padding-bottom: 5px;height:100%">
+    <div class="box-dev" style=" width: 100%;height:15%">
+      <table style="width: 100%;">
+        <tr>
+          <td style="width: 25%">
+            <span class="table-cell-Lable">گروه واحد اجرایی</span>
+          <app-ng-select-virtual-scroll style="display: inline-block;width: 65%;"
+            [NgSelectParams]="NgSelectRegionGroupParams" (selectedChange)="onChangeRegionGroupObj($event)"
+            [Items]="RegionGroupListSet">
+          </app-ng-select-virtual-scroll>
+          </td>
+          <td style="width: 50%">
+            <span class="table-cell-Lable">واحد اجرایی</span>
+            <app-ng-select-virtual-scroll style="display: inline-block;width: 66%; margin-left: 1px;" [NgSelectParams]="RegionParams"
+              [Items]="RegionItems"  [multiple]="true">
+            </app-ng-select-virtual-scroll>
+            <app-custom-check-box style="vertical-align: sub;" [configurationInfo]="CustomCheckBoxConfig"
+            (PrettyCheckBoxChange)="OnChangeCheckBoxValue($event)" [isSelected]="SelectArea">
+          </app-custom-check-box>
+          </td>
+          <td style="width: 25%;"></td>
+        </tr>
+        <tr>
+          <td style="width: 25%">
+            <span class="table-cell-Lable">سال مالی</span>
+            <app-ng-select-virtual-scroll style="display: inline-block;width: 65%;" class="select-general-for-lable"
+              [NgSelectParams]="FinYearParams" [Items]="FinYearItems">
+            </app-ng-select-virtual-scroll>
+          </td>
+          <td style="width: 25%">
+            <span class="table-cell-Lable">معاونت متولی</span>
+            <app-ng-select-virtual-scroll style="display: inline-block;width: 69%;" [NgSelectParams]="RusteeParams"
+              [Items]="RusteeItems" (Open)="OnOpenNgSelect()">
+            </app-ng-select-virtual-scroll>
+          </td>
+          <td style="width: 25%">
+            <span class="table-cell-Lable">رسته</span>
+            <app-ng-select-virtual-scroll style="display: inline-block;width: 70%;" class="select-general-for-lable"
+              [NgSelectParams]="PriceListTopicRasteParams" [Items]="PriceListTopicRasteItems">
+            </app-ng-select-virtual-scroll>
+          </td>
+          <td style="width: 25%;"></td>
+        </tr>
+      </table>
+    </div>
+    <div style="margin-top: 5px; height:12%; padding-top: 3px !important; padding-bottom: 3px !important;">
+      <table style="width: 100%;">
+        <tr>
+          <td width="45%">
+          </td>
+          <td width="10%">
+            <button type="submit" (click)="Search()" style="width: 90px;height: 30px;"
+              class="select-general-for-lable btn-gray-border btn btn-primary btnGreen">
+              <img width="15px" height="15px" src="assets/Icons/Search.png" />
+              جستجو
+            </button>
+          </td>
+          <td width="45%">
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div class="box-dev" style=" width: 100%;height:73%">
+      <app-grid [columns]="columnDef" [IsEditable]="false" [HaveBorder]="true" (GridReady)="onGridReady($event)"
+        [rowsData]="rowData" [gridHeight]=92>
+      </app-grid>
+    </div>
+  </div>
+</div>
+<div class="buttons-place" style="margin: unset; height: 8%;">
+  <!-- <button (click)="print()" id="btn4" class="btn btn-primary btnGreen">
+    <img width="15px" height="15px" src="assets/Icons/print.png" />
+    چاپ
+  </button> -->
+  <button (click)="close()" id="btn4" class="btn btn-primary btnGreen">
+    <img width="15px" height="15px" src="assets/Icons/exit.png" />
+    خروج
+  </button>
+</div>
+
+<app-over-popup *ngIf="isClicked" [startLeftPosition]="startLeftPosition" [startTopPosition]="startTopPosition"
+  [PopupType]="PopUpType" [PopupParam]="alertMessageParams" (popupclosed)="popupclosed($event)">
+</app-over-popup>

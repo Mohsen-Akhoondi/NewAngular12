@@ -1,0 +1,29 @@
+table
+{
+    margin-left: auto;
+    margin-right: auto;
+}
+
+span
+{
+font-size: 12px;
+text-align: right;
+}
+
+.box-dev{
+    border-radius: 5px;
+    border: 1px solid rgb(218, 218, 218);
+}
+
+  
+  .table-cell-Lable {
+    margin-left: 10px;
+    margin-right: 10px;
+    font-size: 10px;
+  }
+  .feild-set{
+    border: 1px solid rgb(218, 218, 218);
+    min-height: 50px;
+    margin-bottom: 5px;
+    padding: 5px;
+}

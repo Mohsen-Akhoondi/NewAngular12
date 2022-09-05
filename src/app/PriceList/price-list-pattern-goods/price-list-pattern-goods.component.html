@@ -1,0 +1,29 @@
+<div id="container" class="row" style="clear: both">
+  <div id="content" class="">
+    <div id="data-grid" class="data-grid">
+      <div class="main-form-body">
+        <div class="main-form-body" style="margin-bottom: 0;">
+          <app-grid [columns]="gridcolumns" [rows]="gridrows" [gridHeightPxel]="300" (RowClick)="RowClick($event)">
+          </app-grid>
+        </div>
+      </div>
+    </div>
+    <div class="buttons-place" style="margin-top: 0; overflow: auto; min-height: 50px;">
+      <div class="card-block" style="padding: 2px 10px;">
+        <button (click)="Btnclick('transfer-distance-item')" id="btn2" class="btn btn-primary btnGreen">
+          <img width="15px" height="15px" src="assets/Icons/show.png" />
+          مشاهده شاخص حمل</button>
+        <button (click)="close()" id="btn4" class="btn btn-primary btnGreen">
+          <img width="15px" height="15px" src="assets/Icons/exit.png" />
+          خروج
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<app-over-popup *ngIf="btnclicked" [PopupType]="type" [startLeftPosition]="OverstartLeftPosition"
+  [startTopPosition]="OverstartTopPosition" [PixelHeight]="type === 'transfer-distance-item'? 600 :'' "
+  [PixelWidth]="type === 'transfer-distance-item'? 1070 :'' "
+  [PopupParam]="type === 'message-box' ? alertMessageParams : paramObj" [HaveHeader]="HaveHeader"
+  (popupclosed)="popupclosed($event)">
+</app-over-popup>

@@ -1,0 +1,52 @@
+<div (mouseenter) ="mouseEnter() " class="CustomeNgSelect" style="width: 100%" title="{{TooltipText}}"
+    [ngStyle]="{'border-color': NgSelectParams.Required && CheckValidate && !NgSelectParams.selectedObject && NgSelectParams.selectedObject !== 0 ? 'red':''}">
+    <ng-select [items]="Items" [clearable]="NgSelectParams?.clearable" [virtualScroll]="NgSelectParams?.IsVirtualScroll"
+        [loading]="NgSelectParams?.loading" bindLabel="{{NgSelectParams?.bindLabelProp}}"
+        bindValue="{{NgSelectParams?.bindValueProp}}"
+        placeholder="{{NgSelectParams.Required && CheckValidate && !NgSelectParams.selectedObject && NgSelectParams.selectedObject !== 0 ? 'پر کردن مقدار این فیلد الزامیست': ''}}"
+        [(ngModel)]="NgSelectParams.selectedObject" [searchFn]="NgSelectParams?.IsVirtualScroll ? customSearchFn: ''"
+        (search)="OnSearch($event)" [appendTo]="'.for-append-ngselect'"
+        [ngStyle]="{'min-width': NgSelectParams.MinWidth }" (ngModelChange)="onChangeselectedObject($event)"
+        (open)="OnOpen()" [multiple]="multiple" [disabled]="NgSelectParams?.IsDisabled || Disabled"
+        (scroll)="onScroll($event)" (scrollToEnd)="onScrollToEnd()">
+        <!-- <ng-template *ngIf="this.NgSelectParams.IsVirtualScroll" ng-header-tmp>
+            <small class="form-text text-muted">تعداد {{Items.length}} از {{NgSelectParams.TotalItemCount}} بارگذاری
+                شد</small>
+        </ng-template> -->
+        <ng-template *ngIf="this.NgSelectParams.AdvanceSearch && this.NgSelectParams.AdvanceSearch.SearchItemDetails"
+            ng-header-tmp>
+            <div class="redio-div" [ngStyle]="{'min-width': NgSelectParams.DropDownMinWidth }">
+                <div style="margin-left: 10px;">
+                    <span>
+                        {{this.NgSelectParams.AdvanceSearch.SearchLabel}}
+                    </span>
+                </div>
+                <div *ngFor="let SearchItem of this.NgSelectParams.AdvanceSearch.SearchItemDetails; index as i"
+                    class="custom-control custom-radio custom-control-inline">
+                    <input [checked]="i === 0" type="radio" (click)="onRedioClick(SearchItem.SearchOption)"
+                        class="custom-control-input" id="SearchRadio + {{SearchItem.HeaderName}}" name="ngSelectRadios">
+                    <label class="custom-control-label redio-label"
+                        for="SearchRadio + {{SearchItem.HeaderName}}">{{SearchItem.HeaderCaption}}</label>
+                </div>
+            </div>
+        </ng-template>
+        <ng-template *ngIf="this.NgSelectParams.AdvanceSearch && this.NgSelectParams.AdvanceSearch.SearchItemDetails"
+            ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+            <table style="width: 100%">
+                <tr *ngIf="index === 0">
+                    <th *ngIf="this.NgSelectParams.AdvanceSearch.HaveItemNo"
+                        [style.width.%]="this.NgSelectParams.AdvanceSearch.ItemNoWidth">ردیف</th>
+                    <th *ngFor="let THeaderItem of this.NgSelectParams.AdvanceSearch.SearchItemHeader"
+                        [style.width.%]="THeaderItem.width">{{THeaderItem.HeaderCaption}}</th>
+                </tr>
+                <tr [ngStyle]="{'background-color': index%2 !== 0 ? '#cce0ff':'#ffffff'}">
+                    <td *ngIf="this.NgSelectParams.AdvanceSearch.HaveItemNo"
+                        [style.width.%]="this.NgSelectParams.AdvanceSearch.ItemNoWidth">{{index + 1}}</td>
+                    <td [ngStyle]="{'white-space': THeaderItem.CanGrow ? 'break-spaces':'nowrap'}" *ngFor="let THeaderItem of this.NgSelectParams.AdvanceSearch.SearchItemDetails"
+                        [style.width.%]="THeaderItem.width">{{item[THeaderItem.HeaderName]}}</td>
+                </tr>
+            </table>
+
+        </ng-template>
+    </ng-select>
+</div>

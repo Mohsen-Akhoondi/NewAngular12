@@ -1,0 +1,137 @@
+<div class="main-form-body" style="margin-top: 3px; height:95%;">
+  <fieldset class="feild-set" style="display: inherit">
+    <table style="margin-bottom: 10px;margin-top: 7px; width: 100%;">
+      <tr>
+        <td style="width: 25%;">
+          <span class="table-cell-Lable">واحد اجرایی</span>
+          <app-ng-select-virtual-scroll style="display: inline-block;width: 75%;" [NgSelectParams]="RegionParams"
+            [Items]="RegionItems" (Open)="OnOpenNgSelect('Region')" (selectedChange)="onChangeRegion($event)">
+          </app-ng-select-virtual-scroll>
+        </td>
+        <td style="width: 25%;">
+          <span class="table-cell-Lable">معاونت مجری</span>
+          <app-ng-select-virtual-scroll style="display: inline-block;width: 75%"
+            [NgSelectParams]="CostCenterParams" [Items]="CostCenterItems" (Open)="OnOpenNgSelect('CostCenter')"
+            [CheckValidate]="CheckValidate" >
+          </app-ng-select-virtual-scroll>
+        </td>
+        <td style="width: 25%;">
+          <span  class="table-cell-Lable">سال مالی قراداد</span>
+          <app-ng-select-virtual-scroll style="display: inline-block;width: 75%;" 
+            [NgSelectParams]="FinYearParams" [Items]="FinYearItems" (Open)="OnOpenFinYear()" >
+          </app-ng-select-virtual-scroll>
+        </td>
+      </tr>
+      <tr>
+        <td  style="width: 25% ">
+          <span class="table-cell-Lable">نوع قرارداد</span>
+          <app-ng-select-virtual-scroll style="display: inline-block;width: 75%;"
+             [NgSelectParams]="ContractTypeParams" [Items]="ContractTypeItems" (Open)="OnOpenContractType()">
+          </app-ng-select-virtual-scroll>
+        </td>
+        <td style="width: 25%;">
+          <span class="table-cell-Lable">تاریخ قرارداد از</span>
+          <app-jalali-datepicker [Disabled]="DisabledFromContractDate" [WidthPC]="75" 
+           [CurrMiladiDateValue]="FromContractDate" [Required]="true" (Change)="OnFromContractDateChange($event)">
+          </app-jalali-datepicker>
+        </td>
+        <td style="width: 25%;">
+          <span class="table-cell-Lable">تاریخ قرارداد تا</span>
+          <app-jalali-datepicker [Disabled]="DisabledToContractDate" [WidthPC]="75" 
+           [CurrMiladiDateValue]="ToContractDate" [Required]="true" (Change)="OnToContractDateChange($event)">
+          </app-jalali-datepicker>
+        </td>
+      </tr>
+      <tr>
+         <td style="width: 25%">
+          <span class="table-cell-Lable">طرف قرارداد </span>
+          <app-ng-select-virtual-scroll [PageCount]="ContractorPageCount" style="display: inline-block;width: 75% !important;"
+            [NgSelectParams]="NgSelectContractorParams" [Items]="ContractorItems" (Open)="OnOpenNgSelectContractor()"
+            (FetchMore)="FetchMoreContractor($event)" (doSearch)="doContractorSearch($event)">
+          </app-ng-select-virtual-scroll>
+        </td>
+        <td  *ngIf="ShowISCost" style="width: 25%;">
+          <span class="table-cell-Lable">قرارداد</span>
+          <div class="redio-div2">
+            <div class="custom-control custom-radio custom-control-inline">
+              <input  [checked]="IsCost" type="radio" class="custom-control-input" 
+               id="ISCostRadio" name="ChoosenISCostRadioName" (click)="RedioClick(true)">
+              <label style="margin: auto;" class="custom-control-label redio-label" for="ISCostRadio">هزینه
+                ای</label>
+            </div>
+            <div class="custom-control custom-radio custom-control-inline">
+              <input [checked]="!IsCost" type="radio" class="custom-control-input" 
+               id="ISIncomeRadio" name="ChoosenISCostRadioName">
+              <label style="margin: auto;" class="custom-control-label redio-label" for="ISIncomeRadio"
+                (click)="RedioClick(false)">درآمدی</label>
+            </div>
+          </div>
+        </td>
+      </tr>
+      <!-- <tr>
+        <td style="width: 20%;">
+          <div style="width: 80%; display: inline-block; text-align: right; ">
+            <span class="table-cell-Lable" style="margin: 0 ;margin-left: 5px">قرارداد متقابل دارد؟</span>
+            <app-custom-check-box style="vertical-align: sub; " [configurationInfo]="CustomCheckBoxConfig"
+              [isSelected]="IsInternal" (PrettyCheckBoxChange)="OnChangeCheckBoxValue($event)">
+            </app-custom-check-box>
+          </div>
+        </td>
+      </tr> -->
+    </table>
+  </fieldset>
+
+  <table style="margin-top: 10px;">
+    <tr>
+      <td *ngIf="showSearch" wdith="50%" colspan="2">
+        <button type="submit" (click)="Search()" style="width: 150px;height: 30px;"
+          class="select-general-for-lable btn-gray-border btn btn-primary btnGreen">
+          <img width="15px" height="15px" src="assets/Icons/Search.png" />
+          جستجو قرارداد متقابل
+        </button>
+      </td>
+      <td *ngIf="showOnSearch" wdith="50%" colspan="2">
+        <button type="submit" (click)="OnSearch()" style="width: 190px;height: 30px;"
+          class="select-general-for-lable btn-gray-border btn btn-primary btnGreen">
+          <img width="15px" height="15px" src="assets/Icons/Search.png" />
+          جستجو پیشرفت برنامه‌ای به ریز 
+        </button>
+      </td>
+      <td *ngIf="showSearchProgress" wdith="50%" colspan="2">
+        <button type="submit" (click)="OnSearchProgressInfo()" style="width: 162px;height: 30px;"
+          class="select-general-for-lable btn-gray-border btn btn-primary btnGreen">
+          <img width="15px" height="15px" src="assets/Icons/Search.png" />
+          جستجو پیشرفت برنامه‌ای 
+        </button>
+      </td>
+    </tr>
+  </table>
+
+  <div class="box-dev" style=" width: 100%;" [style.height.%]="61">
+    <app-grid (RowClick)="RowClick($event)" [columns]="columnDef" [rowsData]="rowData" [gridHeight]="90"
+      (cellEditingStarted)="onCellEditingStarted($event)" (GridReady)="onGridReady($event)">
+    </app-grid>
+  </div>
+
+  <div class="buttons-place" style="margin: unset;">
+    <button id="btn4" class="btn btn-primary btnGreen" (click)="closeModal()">
+      <img width="15px" height="15px" src="assets/Icons/exit.png" />
+      خروج
+    </button>
+    <!-- <button  (click)="Btnclick()" id="btn2" class="btn btn-primary btnGreen">
+      <img width="15px" height="15px" src="assets/Icons/show.png" />
+      مشاهده {{ModuleName}}
+    </button> -->
+  </div>
+
+</div>
+
+<app-contract-over-popup *ngIf="btnclicked" [HaveMaxBtn]="HaveMaxBtn" [startLeftPosition]="startLeftPosition"
+[startTopPosition]="startTopPosition" [minHeightPixel]="MinHeightPixel" [PopupType]="type" 
+[HeightPercentWithMaxBtn]="HeightPercentWithMaxBtn" [PixelHeight]="PixelHeight"
+[PopupParam]="type === 'message-box' ? alertMessageParams : paramObj" [HaveHeader]="HaveHeader"
+(popupclosed)="popupclosed($event)" [MainMaxwidthPixel]="PixelWidth"  [PixelWidth]="PixelWidth"
+[PercentWidth]="PercentWidth" >
+</app-contract-over-popup>
+
+

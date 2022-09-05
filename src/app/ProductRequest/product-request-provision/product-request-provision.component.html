@@ -1,0 +1,140 @@
+<div class="main-form-body" style="margin: 5px;">
+  <form>
+    <div class="main-form-body" style="display: inherit">
+      <table style="width: 100%;">
+        <tr>
+          <td width="30%">
+            <span class="table-cell-Lable">شماره درخواست</span>
+            <input style="width: 77% " class="form-control input-style" type="text" value="{{ProductRequestCode}}"
+              readonly />
+          </td>
+          <td width="20%">
+            <span class="table-cell-Lable">تاریخ درخواست</span>
+            <app-jalali-datepicker [WidthPC]="65" [Required]="true" [Disabled]="true"
+              [CurrMiladiDateValue]="ProductRequestDate">
+            </app-jalali-datepicker>
+          </td>
+          <td width="25%">
+            <span class="table-cell-Lable">موضوع</span>
+            <input style="width: 84% " class="form-control input-style" type="text" value="{{Subject}}" readonly />
+          </td>
+        </tr>
+        <tr>
+          <td width="30%">
+            <span class="table-cell-Lable">مبلغ تامین</span>
+            <div style="display: inline-flex; width: 77%; text-align: right;">
+              <div style="width: 41%;">
+                <input style="width: 100% " value="{{SumProAmountCol}}" class="form-control input-style" type="text"
+                  name="SumProvisionAmountCol" readonly />
+              </div>
+              <div style="width: 60%; display: inline-block;">
+                <span class="table-cell-Lable">مانده تامین</span> <!--// RFC 53404 - درخواست خ احمدی--> 
+                <input style="width: 69.4% " value="{{CreditBalanceStr}}" class="form-control input-style" type="text"
+                  name="CreditBalance" readonly />
+              </div>
+            </div>
+          </td>
+          <td width="20%">
+            <span class="table-cell-Lable">مبلغ</span>
+            <input style="width: 65% " [disabled]="ModuleViewTypeCode !== 6" [(ngModel)]="ProvisionAmount"
+              class="form-control input-style" type="text" name="ProvisionAmount" />
+          </td>
+          <td width="25%">
+            <span class="table-cell-Lable">توضیحات</span>
+            <input style="width: 84% " [disabled]="ModuleViewTypeCode !== 6" [(ngModel)]="ProvisionNote"
+              class="form-control input-style" type="text" name="ProvisionNote" />
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div class="main-form-body" style="display: inherit">
+      <table style="width: 100%;">
+        <tr>
+          <td colspan="4" style="display: inline-block; text-align: right; ">
+            <span class="table-cell-Lable">مالیات بر ارزش افزوده اضافه شود</span>
+            <app-custom-check-box style=" display: inline-block; text-align: right;" [isSelected]="IsTaxValue"
+              [configurationInfo]="CustomCheckBoxConfig" (PrettyCheckBoxChange)="OnChTaxValueChange($event)"
+              [Disabled]="IsWFDisabled || !IsEditable"></app-custom-check-box>
+
+          </td>
+        </tr>
+        <tr>
+          <td width="30%">
+            <span class="table-cell-Lable">مبلغ درخواست</span><input style="width: 77% "
+              class="form-control input-style" type="text" value="{{Amount}}" readonly />
+          </td>
+          <td width="20%">
+            <span class="table-cell-Lable">مالیات بر ارزش افزوده</span><input
+              style="width: 65% " class="form-control input-style" type="text"
+              value="{{TaxValue}}" readonly />
+          </td>
+          <td width="25%">
+            <span class="table-cell-Lable">جمع کل</span>
+            <input style="width: 84% " class="form-control input-style" type="text"
+              value="{{FinalAmount}}" readonly />
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div class="main-form-body" style="display: inherit">
+      <table style="width: 100%;">
+        <tr>
+          <td colspan="4" style="display: inline-block; text-align: right; ">
+            <span class="table-cell-Lable">محل تامین اعتبار متمرکز</span>
+            <app-custom-check-box style="display: inline-block; text-align: right;" [isSelected]="IsCentralize"
+              [configurationInfo]="CustomCheckBoxConfig" (PrettyCheckBoxChange)="OnChCentralizeChange($event)"
+              [Disabled]="IsWFDisabled || !IsEditable"></app-custom-check-box>
+
+          </td>
+        </tr>
+        <tr>
+          <td width="30%">
+            <span class="table-cell-Lable">شماره نامه</span>
+            <input style="width: 77% " class="form-control input-style" type="text" name="LetterNo"
+              [(ngModel)]="LetterNo" [disabled]="!IsCentralize || IsWFDisabled || !IsEditable" />
+          </td>
+          <td width="20%">
+            <span class="table-cell-Lable">تاریخ نامه</span>
+            <app-jalali-datepicker [WidthPC]="65" [Required]="true" [Disabled]=" !IsCentralize || IsWFDisabled || !IsEditable"
+              [CurrMiladiDateValue]="LetterDate" (Change)="OnLetterDateChange($event)">
+            </app-jalali-datepicker>
+          </td>
+          <td width="25%">
+            <app-automation-button [Disabled]="!IsCentralize || IsWFDisabled || !IsEditable"
+              (AutomationOutputParam)="GetOutPutParam($event)" [InputParam]="LetterParam" [PercentWidth]="85">
+            </app-automation-button>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </form>
+
+  <div *ngIf="this.ModuleViewTypeCode !== 6" class="tab-content box-dev" style="margin-top: 5px;padding: 5px;">
+    <app-grid [columns]="ColDef" [rowsData]="rowsData" [IsEditable]="(!IsCentralize && !IsWFDisabled && IsEditable)"
+      [gridHeightPxel]="235" (GridReady)="onGridReady($event)" (CellValueChanged)="onCellValueChanged($event)"
+      (cellEditingStarted)="onBgtTopiccellEditingStarted($event)" (FilterChanged)="OnFilterChanged()"
+      (RowDataChanged)="OnRowDataChanged()" (RowDataUpdated)="OnRowDataUpdated()">
+    </app-grid>
+
+    <div class="main-form-body" style=" margin-top: 4px;color: red;height: 32px;">
+      <div style="min-width: 100px;font-weight: bold; float: right"><span id="sum-final-estimate-amount"
+          class="table-cell-Lable">جمع کل: </span>
+        <label for="sum-final-estimate-amount" style="margin:2px"> {{SumAmountStr}} </label></div>
+    </div>
+  </div>
+</div>
+<div class="buttons-place" style="margin: unset; margin: 5px;">
+  <button *ngIf="((!IsWFDisabled || ModuleViewTypeCode === 6) && IsEditable)" (click)="onSave()" id="btnSave"
+    class="btn btn-primary btnGreen">
+    <img width="15px" height="15px" src="assets/Icons/save.png" />
+    ثبت
+  </button>
+  <button id="btnClose" class="btn btn-primary btnGreen" (click)="Close()">
+    <img width="15px" height="15px" src="assets/Icons/exit.png" />
+    خروج
+  </button>
+</div>
+<app-over-popup *ngIf="isClicked" [PopupType]="PopUpType" [HaveMaxBtn]="false" (popupclosed)="popupclosed($event)"
+  [startLeftPosition]="startLeftPosition" [startTopPosition]="startTopPosition"
+  [PopupParam]="PopUpType === 'message-box' ?alertMessageParams:''">
+</app-over-popup>

@@ -1,0 +1,17 @@
+<div class="main-form-body" style="margin: 5px;">
+  <div class="box-dev" style=" width: 100%;">
+    <app-grid style="width: 100%;" 
+      [columns]="ColDef" 
+      [IsEditable]="false"
+      [rowsData]="RowData"
+       [gridHeight]="93">
+    </app-grid>
+  </div>
+</div>
+
+<div class="buttons-place" style="margin: unset; margin: 5px;">
+  <button class="btn btn-primary btnGreen" (click)="onClose()">
+    <img width="15px" height="15px" src="assets/Icons/exit.png" />
+    خروج
+  </button>
+</div>

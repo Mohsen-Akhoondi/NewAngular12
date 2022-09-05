@@ -1,0 +1,58 @@
+<div id="container" class="row" style="clear: both">
+  <div id="content"  style="height: 90%;width: 100%;">
+  <div class="main-form-body" style="margin: 5px;" [style.height.%]= "mainBodyHeight">
+    <fieldset class="feild-set" style="display: inherit">
+      <table style="margin-bottom: 10px; width: 100%;">
+        <tr>
+            <td style="width: 40%; text-align: right;">
+                <span class="table-cell-Lable">گروه واحد اجرایی</span>
+                <app-ng-select-virtual-scroll style="display: inline-block;width: 60%;"
+                  [NgSelectParams]="NgSelectRegionGroupParams" (selectedChange)="onChangeRegionGroupObj($event)"
+                  [Items]="RegionGroupListSet">
+                </app-ng-select-virtual-scroll>
+              </td>
+          <td style="width: 60%;">
+          </td>
+        </tr>
+      </table>
+    </fieldset>
+    <div style="padding-bottom: 5px;" [style.height.%]= "gridHeight">
+      <div id="div1" class="box-dev main-div" style="height: 100%;">
+        <app-grid  style="width: 100%;"
+                   [columns]="columnDef"
+                   [IsEditable]="true"
+                   [rowsData]="rowData"
+                   [AutoNumberField] = "'Article31Code'"
+                   (GridReady)="onGridReady($event)"
+                   (CellValueChanged)="onCellValueChanged($event)"
+                   (cellEditingStarted)="oncellEditingStarted($event)"
+                   [gridHeight]="gridHeight">
+        </app-grid>
+      </div>
+    </div>
+  </div>
+  <div class="buttons-place" style=" margin: 5px">
+    <button (click)="onSave()" id="btn2" class="btn btn-primary btnGreen" style="margin: 2px">
+      <img width="15px" height="15px" src="assets/Icons/save.png" />
+      ثبت </button>
+
+    <button (click)="close()" id="btn4" class="btn btn-primary btnGreen">
+      <img width="15px" height="15px" src="assets/Icons/exit.png" />
+      خروج</button>
+
+  </div>
+  </div>
+  </div>
+
+  <ng-template #Article31IsCost let-row>
+    <img width="16px" height="16px" [src]= "row.IsCost ? 'assets/Icons/TrueCheckBox.png':'assets/Icons/uncheck.png'" />
+   </ng-template>
+
+  <app-over-popup 
+ *ngIf="btnclicked"
+ [PopupType]="type"
+ [startLeftPosition]="startLeftPosition"
+ [startTopPosition]="startTopPosition" 
+ [PopupParam]="alertMessageParams"
+ (popupclosed)="popupclosed($event)"
+ (PopupOutPutParam)="type ==='message-box' ? MessageBoxAction($event) :''"></app-over-popup>

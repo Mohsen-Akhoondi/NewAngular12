@@ -1,0 +1,104 @@
+<!-- [ngStyle]="{'pointer-events': !ContractPriceListPatternID ? 'none' : 'inherit',opacity: !ContractPriceListPatternID ? '0.5' : 'inherit'}" -->
+<div id="container" class="row" style="clear: both">
+  <div id="content" class="" style="height: 100%;width: 100%;">
+    <div class="main-form-body" style="margin: 5px;" [style.height.%]="mainBodyHeight">
+      <form>
+        <fieldset class="feild-set" style="display: inherit">
+          <legend style="width: 6%;margin: 0;"> اطلاعات قرارداد </legend>
+          <table style="line-height: 12px; width: 100%;">
+            <tr>
+              <td width="20%">
+                <span class="table-cell-Lable">سال مالی</span><input style="width: 70% "
+                  class="form-control input-style" type="text" value="{{FinYearCode}}" readonly /></td>
+              <td width="20%">
+                <span class="table-cell-Lable"> کد قرارداد</span><input style="width: 70% "
+                  class="form-control input-style" type="text" value="{{ContractCode}}" readonly /></td>
+              <td width="20%">
+                <span class="table-cell-Lable"> پیمانکار </span><input style="width: 70% "
+                  class="form-control input-style" type="text" value="{{ContractorName}}" readonly /></td>
+              <td width="20%">
+                <span class="table-cell-Lable"> شماره نامه </span><input style="width: 70% "
+                  class="form-control input-style" type="text" value="{{LetterNo}}" readonly /></td>
+              <td width="20%">
+                <span class="table-cell-Lable"> مبلغ </span><input style="width: 75%; " class="form-control input-style"
+                  type="text" value="{{ContractAmount}}" readonly /></td>
+            </tr>
+            <tr>
+              <td colspan="5">
+                <span class="table-cell-Lable"> موضوع </span><input style="width: 94%; display: inline-block; "
+                  class="form-control" id="subject-style" type="text" name="first" value="{{Subject}}" readonly /></td>
+            </tr>
+          </table>
+        </fieldset>
+        <fieldset class="feild-set" style="display: inherit">
+          <legend style="width: 6%;margin: 0;"> اطلاعات مرحله </legend>
+          <table style="line-height: 1px; width: 100%;">
+            <tr>
+              <td width="20%">
+                <span class="table-cell-Lable"> شماره </span><input style="width: 70% " class="form-control input-style"
+                  type="text" value="{{OrderNo}}" readonly /></td>
+              <td width="20%">
+                <span class="table-cell-Lable"> تاریخ </span><input style="width: 70% " class="form-control input-style"
+                  type="text" value="{{PersianOrderDate}}" readonly /></td>
+              <td width="60%">
+                <span class="table-cell-Lable"> توضیحات </span><input style="width: 90%; display: inline-block; "
+                  class="form-control" id="subject-style" type="text" value="{{Note}}" readonly /></td>
+            </tr>
+          </table>
+        </fieldset>
+      </form>
+      <div style="padding-bottom: 5px;" [style.height.%]="outerGridHeight">
+
+        <div id="div1" class="box-dev left-dev" style="height: 85%;">
+          <app-grid style="width: 100%;" [columns]="columnDef_Order" [rowsData]="rowData_Order"
+            (RowClick)="RowClick_Order($event)" (GridReady)="GridReady_Order($event)" [IsDisable]="DisabledComponents"
+            [defaultSelectedRowIndex]="SelectedRowIndex_Order" [gridHeight]=gridHeight_Order>
+          </app-grid>
+        </div>
+
+        <div id="div2" class="box-dev right-dev" style="height: 85%;">
+          <app-grid style="width: 100%;" [columns]="columnDef_Person" [IsEditable]="IsEditable" [rowsData]="rowData_Person"
+            [IsDisable]="IsDisable && DisabledComponents" (GridReady)="GridReady_Person($event)" [gridHeight]="gridHeight_Person"
+            (cellEditingStarted)="oncellEditingStarted($event)" (RowClick)="RowClick_Person($event)">
+          </app-grid>
+        </div>
+      </div>
+    </div>
+    <div class="buttons-place" style=" margin: 5px">
+      <button *ngIf="HaveSave && IsEditable && !DisabledComponents" (click)="onSave()" id="btn2" class="btn btn-primary btnGreen" style="margin: 2px">
+        <img width="15px" height="15px" src="assets/Icons/save.png" />
+        ثبت </button>
+
+
+      <button *ngIf="!DisabledComponents" (click)="showVehicle()" id="btn4" class="btn btn-primary btnGreen">
+        <img width="15px" height="15px" src="assets/Icons/car.png" />
+        خودرو</button>
+
+      <!-- <button *ngIf="HaveDelete" id="btn3" class="btn btn-primary btnGreen">
+      <img width="15px" height="15px" src="assets/Icons/delete.png" />
+      حذف</button> -->
+
+      <button *ngIf="!DisabledComponents" id="btnCoef" (click)="onCoefClick()" class="btn btn-primary btnGreen">
+        <img width="15px" height="15px" src="assets/Icons/coef1.png" />
+        ضرایب قرارداد
+      </button>
+      <button *ngIf="!DisabledComponents" (click)="ShowContractCase()" id="btn2" class="btn btn-primary btnGreen">
+        <img width="15px" height="15px" src="assets/Icons/show.png" />
+        مشاهده پرونده قرارداد
+      </button>
+      <button (click)="close()" id="btn4" class="btn btn-primary btnGreen">
+        <img width="15px" height="15px" src="assets/Icons/exit.png" />
+        خروج</button>
+      <button *ngIf="HaveConfirm && !DisabledComponents" (click)="onConfirm()" id="btn2" class="btn btn-primary btnGreen"
+        style="margin: 2px;float: left !important;">
+        <img width="15px" height="15px" src="assets/Icons/{{btnConfirmIcon}}.png" />
+        {{btnConfirmName}} </button>
+    </div>
+  </div>
+</div>
+
+<app-over-popup *ngIf="btnclicked" [PopupType]="type" [HaveMaxBtn]="false" [startLeftPosition]="startLeftPosition"
+  [startTopPosition]="startTopPosition" [HeightPercentWithMaxBtn]="HeightPercentWithMaxBtn"
+  [PopupParam]="type ==='vehicle' || type === 'contract-coef' || type === 'contract-case'? paramObj : alertMessageParams" (popupclosed)="popupclosed($event)"
+  [startLeftPosition]="OverstartLeftPosition" [startTopPosition]="OverstartTopPosition">
+</app-over-popup>

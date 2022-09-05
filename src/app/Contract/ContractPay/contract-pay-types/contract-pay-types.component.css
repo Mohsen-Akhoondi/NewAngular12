@@ -1,0 +1,10 @@
+.feild-set{
+    border: 1px solid rgb(218, 218, 218);
+    min-height: 50px;
+    margin-bottom: 5px;
+    padding: 5px;
+}
+.legend
+{
+    width: 10%;
+}

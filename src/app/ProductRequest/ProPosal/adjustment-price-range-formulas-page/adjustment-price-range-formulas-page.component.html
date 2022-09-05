@@ -1,0 +1,96 @@
+<div id="container" style="clear: both;padding: 5px">
+  <div id="content" style="width:100%;">
+    <div class="main-form-body" style="width:99%;padding: 10px;margin:5px;">
+      <form>
+        <fieldset align="right" class="feild-set">
+          <legend class="legend">{{PriceListTypeName}}</legend>
+          <table style="width: 100%; margin-top: 15px;">
+            <tr>
+              <td style="width: 25%;">
+                <span class="table-cell-Lable">b</span>
+                <input type="text" class="form-control input-style" style="width: 68%" [(ngModel)]="b" name="inputb"
+                  readonly />
+              </td>
+              <td style="width: 25%;">
+                <span class="table-cell-Lable">P1</span>
+                <input type="text" class="form-control input-style" style="width: 68%" [(ngModel)]="P1" name="inputP1"
+                  readonly />
+              </td>
+              <td style="width: 25%;">
+                <span class="table-cell-Lable">P2</span>
+                <input type="text" class="form-control input-style" style="width: 68%" [(ngModel)]="P2" name="inputP2"
+                  readonly />
+              </td>
+              <td style="width: 25%;">
+                <span class="table-cell-Lable">c</span>
+                <input type="text" class="form-control input-style" style="width: 71%" [(ngModel)]="c" name="c"
+                  readonly />
+              </td>
+            </tr>
+            <tr>
+              <td style="width: 25%;">
+                <span class="table-cell-Lable">هزینه تجهیز</span>
+                <input type="text" class="form-control input-style" style="width: 68%" [(ngModel)]="EquipmentCost"
+                  name="inputEquipmentCost" readonly />
+              </td>
+              <td style="width: 25%;">
+                <span class="table-cell-Lable">Pb</span>
+                <input type="text" class="form-control input-style" style="width: 68%" [(ngModel)]="Pb" name="inputPb"
+                  readonly />
+              </td>
+              <td style="width: 25%;">
+                <span class="table-cell-Lable">α</span>
+                <input type="text" class="form-control input-style" style="width: 68%" [(ngModel)]="alpha"
+                  name="inputalpha" readonly />
+              </td>
+              <td style="width: 25%;">
+                <span class="table-cell-Lable">PE</span>
+                <input type="text" class="form-control input-style" style="width: 71%" [(ngModel)]="PE" name="PE"
+                  readonly />
+              </td>
+            </tr>
+            <tr>
+              <td style="width: 25%;">
+                <span class="table-cell-Lable">Pm</span>
+                <input type="text" class="form-control input-style" style="width: 68%" [(ngModel)]="Pm" name="Pm"
+                  readonly />
+              </td>
+              <td style="width: 25%;">
+                <span class="table-cell-Lable">Ipp</span>
+                <input type="text" class="form-control input-style" style="width: 68%" [(ngModel)]="lpp" name="lpp"
+                  readonly />
+              </td>
+              <td style="width: 25%;">
+                <span class="table-cell-Lable">k</span>
+                <input type="text" class="form-control input-style" style="width: 68%" [(ngModel)]="k" name="k"
+                  readonly />
+              </td>
+              <td style="width: 25%;">
+                <span *ngIf="!HasCPInGrid" class="table-cell-Lable">CP</span>
+                <input *ngIf="!HasCPInGrid" type="text" class="form-control input-style" style="width: 71%"
+                  [(ngModel)]="CP" name="inputCP" readonly />
+              </td>
+            </tr>
+          </table>
+          <div *ngIf="HasCPInGrid" class="box-dev"
+            style=" width: 100%; border: 1px solid rgb(214, 214, 214); height: 70%; border-radius: 5px; margin-top: 5px;">
+            <app-grid style="width: 100%;" [columns]="ColDef" [rowsData]="rowData" [IsEditable]="false"
+              [gridHeightPxel]="250" (GridReady)="onGridReady($event)">
+            </app-grid>
+          </div>
+        </fieldset>
+      </form>
+    </div>
+    <div class="buttons-place">
+      <button (click)="onClose()" id="btn4" class="btn btn-primary btnGreen">
+        <img width="15px" height="15px" src="assets/Icons/exit.png" />
+        خروج</button>
+    </div>
+
+  </div>
+</div>
+
+<app-over-popup *ngIf="btnclicked" [PopupType]="type" [startLeftPosition]="OverstartLeftPosition"
+  [startTopPosition]="OverstartTopPosition" [PopupParam]="type === 'message-box' ? alertMessageParams : ParamObj"
+  (popupclosed)="popupclosed($event)">
+</app-over-popup>

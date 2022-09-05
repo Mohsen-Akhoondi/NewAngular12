@@ -1,0 +1,247 @@
+<div [ngClass]="{'disable-parent': IsDeActive}" id="container" class="row" style="clear: both">
+  <div id="content" class="" style="height: 100%;width: 100%;">
+    <div class="main-form-body" style="margin: 5px;" [style.height.%]="mainBodyHeight">
+      <form style="height: 40%;">
+        <fieldset class="feild-set" style="display: inherit">
+          <legend style="width: 6%;margin: 0;"> اطلاعات قرارداد </legend>
+          <table style="line-height: 12px; width: 100%;">
+            <tr>
+              <td width="20%">
+                <span class="table-cell-Lable">سال مالی</span><input style="width: 70% "
+                  class="form-control input-style" type="text" value="{{FinYearCode}}" readonly /></td>
+              <td width="20%">
+                <span class="table-cell-Lable"> کد قرارداد</span><input style="width: 70% "
+                  class="form-control input-style" type="text" value="{{ContractCode}}" readonly /></td>
+              <td width="20%">
+                <span class="table-cell-Lable"> پیمانکار </span><input style="width: 70% "
+                  class="form-control input-style" type="text" value="{{ContractorName}}" readonly /></td>
+              <td width="20%">
+                <span class="table-cell-Lable"> شماره نامه </span><input style="width: 70% "
+                  class="form-control input-style" type="text" value="{{LetterNo}}" readonly /></td>
+              <td width="20%">
+                <span class="table-cell-Lable"> مبلغ </span><input style="width: 75%; " class="form-control input-style"
+                  type="text" value="{{ContractAmount}}" readonly /></td>
+            </tr>
+            <tr>
+              <td colspan="5">
+                <span class="table-cell-Lable"> موضوع </span><input style="width: 94%; display: inline-block; "
+                  class="form-control" id="subject-style" type="text" value="{{Subject}}" readonly /></td>
+            </tr>
+          </table>
+        </fieldset>
+        <fieldset class="feild-set">
+          <legend style="width: 6%;margin: 0;">اطلاعات مرحله </legend>
+          <table style="line-height: 1px; width: 100%;">
+            <tr>
+              <td width="20%">
+                <span class="table-cell-Lable"> شماره </span><input style="width: 70% " class="form-control input-style"
+                  type="text" name="first" value="{{OrderNo}}" readonly /></td>
+              <td width="20%">
+                <span class="table-cell-Lable"> تاریخ </span><input style="width: 70% " class="form-control input-style"
+                  type="text" name="last" value="{{PersianOrderDate}}" readonly /></td>
+              <td width="60%">
+                <span class="table-cell-Lable"> توضیحات </span><input style="width: 90%; display: inline-block; "
+                  class="form-control" id="subject-style" type="text" name="first" value="{{Note}}" readonly /></td>
+            </tr>
+          </table>
+        </fieldset>
+        <fieldset class="feild-set">
+          <legend style="width: 6%;margin: 0;">فهرست بها مبنا </legend>
+          <table style=" width: 100%;">
+            <tr>
+              <td width="20%">
+                <span class="table-cell-Lable"> سال مبنا </span><input style="width: 70% "
+                  class="form-control input-style" type="text" name="first" value="{{PriceListTopicCodeName}}"
+                  readonly /></td>
+              <td width="20%">
+                <span class="table-cell-Lable"> نوع فهرست بها </span><input style="width: 70% "
+                  class="form-control input-style" type="text" name="last" value="{{PriceListTypeCodeName}}" readonly />
+              </td>
+              <td width="20%">
+                <span class="table-cell-Lable">سه ماهه مبنا</span>
+                <app-ng-select-virtual-scroll style="display: inline-block;width: 70%;" [Disabled]="DisabledComponents"
+                  class="select-general-for-lable" [NgSelectParams]="SeasonListParams" [Items]="SeasonListItems">
+                </app-ng-select-virtual-scroll>
+              </td>
+              <td width="20%"></td>
+              <td width="20%"></td>
+          </table>
+        </fieldset>
+
+      </form>
+      <div [style.height.%]="60">
+        <div style="height: 100%;">
+          <div id="div1" class="box-dev left-dev" style="height: 85%;">
+            <div style="height: 83%;">
+              <app-grid style="width: 100%;" [columns]="columnDef1" [rowsData]="rowData1" (RowClick)="RowClick($event)"
+                (GridReady)="onContractOrderItemGridReady($event)" [defaultSelectedRowIndex]="defaultSelectedRowIndex"
+                [gridHeight]=gridEstimateHeight [IsDisable]="DisabledComponents">
+              </app-grid>
+            </div>
+            <div class="ButtonItemDiv">
+              <button *ngIf="!DisabledComponents" id="btnCoef" (click)="onContractOrderItemCoefClick()"
+                class="btn btn-primary btnGreen">
+                <img width="15px" height="15px" src="assets/Icons/coef1.png" />
+                ضرایب ردیف قرارداد
+              </button>
+            </div>
+          </div>
+          <div id="div2" class="box-dev right-dev" style="height: 85%;">
+            <app-grid style="width: 100%;" [columns]="columnDef2"
+              [IsEditable]="DisabledComponents === true ? false : IsEditable"
+              [GridOptionsRowStyle]="InProgressGridOptionsRowStyle"
+              [IsNeedImportBtn]="DisabledComponents === true ? false : true" [rowsData]="rowData2"
+              (AddPopUp)="onAddPopUpBtnClick()" [IsNeedAddPopUp]="DisabledComponents === true ? false : true"
+              [IsNeedGroupBtn]="DisabledComponents === true ? false : true"
+              [IsContractOrderBtn]="DisabledComponents === true ? false : true"
+              (ImportFromExcelClick)="btnClick('app-excel-load-data')" (GroupBtnClick)="OnGroupBtnClick($event)"
+              [IsDisable]="DisabledComponents === true ? true : IsDisable " (GridReady)="onGridReady($event)"
+              (RowDataChanged)="onRowDataChanged($event)" (CellValueChanged)="onCellValueChanged($event)"
+              (FilterChanged)="OnFilterChanged()" (RowDataChanged)="OnRowDataChanged()"
+              (RowBtnClick)="OnRowBtnClick($event)"
+              (RowDataUpdated)="OnRowDataUpdated()" [gridHeight]="gridEstimateHeight" (RowClick)="rowClick($event)"
+              (cellEditingStarted)="oncellEditingStarted($event)">
+            </app-grid>
+          </div>
+          <div class="main-form-body" style=" margin-top: 4px;color: red;height: 14%; overflow: auto;">
+              <button *ngIf="!DisabledComponents" id="btn3" (click)="btnClick('Related')"
+              class="btn btn-primary btnGreen">
+              <img width="15px" height="15px" src="assets/Icons/relation_s.png" />
+              ردیف های مرتبط
+            </button>
+            <button *ngIf="!DisabledComponents" (click)="btnClick('archive-order-item')"
+              class="btn btn-primary btnGreen">
+              <img width="15px" height="15px" src="assets/Icons/TechnicalArchive.png" />
+              {{ArchiveBtnTextOrderItem}}
+            </button>
+
+            <button *ngIf="!DisabledComponents" (click)="btnClick('archive-contract-estimate')"
+              class="btn btn-primary btnGreen">
+              <img width="15px" height="15px" src="assets/Icons/TechnicalArchive.png" />
+              {{ArchiveBtnTextEstimate}}
+            </button>
+              <tr>
+                <td width="33%" style="padding-right: 5px;">
+                  <div style="min-width: 80px;font-weight: bold; float: right; margin: 3px;">
+                    <span id="sum-final-estimate-amount" class="table-cell-Lable">جمع کل با احتساب ضرایب:</span>
+                    <label for="sum-final-estimate-amount" style="margin:2px"> {{SumFinalItemAmount1}} </label>
+                  </div>
+                </td>
+                <td width="33%">
+                  <div style="min-width: 80px; font-weight: bold; float: right; margin-right: 16px;">
+                    <span id="sum-final-estimate-amount" class="table-cell-Lable">جمع ردیف های فهرست بها:</span>
+                    <label for="sum-final-estimate-amount" style="margin:2px"> {{SumFinalEstimateFAmount}} </label>
+                  </div>
+                </td>
+                <td width="33%">
+                  <div style="min-width: 80px;font-weight: bold; float: right; margin: 3px;">
+                    <span id="sum-final-estimate-amount" class="table-cell-Lable">جمع ردیف های ستاره دار:</span>
+                    <label for="sum-final-estimate-amount" style="margin:2px"> {{SumFinalEstimateSAmount}} </label>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td width="33%" style="padding-right: 5px;">
+                  <div style="min-width: 80px;font-weight: bold; float: right; margin-right: 20px;">
+                    <span id="sum-final-estimate-amount" class="table-cell-Lable">جمع ردیف های مقدمه:</span>
+                    <label for="sum-final-estimate-amount" style="margin:2px"> {{SumFinalEstimateMAmount}} </label>
+                  </div>
+                </td>
+                <td width="33%">
+                  <div style="min-width: 80px;font-weight: bold; float: right; margin: 3px;">
+                    <span id="sum-final-estimate-amount" class="table-cell-Lable">جمع کل بدون احتساب ضرایب:</span>
+                    <label for="sum-final-estimate-amount" style="margin:2px"> {{SumFinalEstimateAmount}} </label>
+                  </div>
+                </td>
+                <td width="33%">
+                  <div style="min-width: 80px;font-weight: bold; float: right; margin-right: 7px;">
+                    <span id="sum-final-estimate-amount" class="table-cell-Lable">جمع کل با ضرایب ردیف(بدون تجهیز کارگاه):</span>
+                    <label for="sum-final-estimate-amount" style="margin:2px"> {{ SumFinalItemAmountCOEF}} </label>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td width="33%">
+                  <div style="min-width: 100px;font-weight: bold; float: right; margin-right: 20px;">
+                    <span id="sum-final-estimate-amount" class="table-cell-Lable">جمع کل با ضرایب ردیف:</span>
+                    <label for="sum-final-estimate-amount" style="margin:2px"> {{SumFinalItemAmount}} </label>
+                  </div>
+                </td>
+                <td width="33%">
+                  <div style="min-width: 100px;font-weight: bold; float: right; margin-right: 20px;">
+                    <span id="sum-final-estimate-amount" class="table-cell-Lable">جمع مبلغ واحد ردیف های متره:</span>
+                    <label for="sum-final-estimate-amount" style="margin:2px"> {{SumAmount}} </label>
+                  </div>
+                </td>
+                <td width="33%">
+                  <div style="float:right; min-width: 50px"><span id="sum-final-estimate-amount"
+                  class="table-cell-Lable">{{CalcFunction}} </span></div>
+                </td>
+              </tr>
+            </div>
+        </div>
+      </div>
+
+    </div>
+    <div style=" margin: 5px">
+      <div class="buttons-place" style="float: right;margin: auto;width: 67.8%;">
+        <button *ngIf="HaveSave && IsEditable && !DisabledComponents" (click)="onSave()" id="btn2"
+          class="btn btn-primary btnGreen" style="margin: 2px">
+          <img width="15px" height="15px" src="assets/Icons/save.png" />
+          ثبت </button>
+        <!-- <button *ngIf="HaveDelete" id="btn3" class="btn btn-primary btnGreen">
+      <img width="15px" height="15px" src="assets/Icons/delete.png" />
+      حذف</button> -->
+
+        <button *ngIf="!DisabledComponents" id="btnPrint" (click)="btnClick('choose-report')"
+          class="btn btn-primary btnGreen">
+          <img width="15px" height="15px" src="assets/Icons/print.png" />
+          چاپ
+        </button>
+        <button *ngIf="!DisabledComponents" id="btnCoef" (click)="onCoefClick()" class="btn btn-primary btnGreen">
+          <img width="15px" height="15px" src="assets/Icons/coef1.png" />
+          ضرایب قرارداد
+        </button>
+        <!-- RFC 54229 -->
+        <button *ngIf="!DisabledComponents" id="btnCoefByContractOrder"
+          (click)="btnClick('contract-coef-by-contract-order')" class="btn btn-primary btnGreen">
+          <img width="15px" height="15px" src="assets/Icons/coef1.png" />
+          ضرایب فعالیت
+        </button>
+        <button *ngIf="Showable && !DisabledComponents" (click)="ShowContractCase()" class="btn btn-primary btnGreen">
+          <img width="15px" height="15px" src="assets/Icons/show.png" />
+          مشاهده پرونده قرارداد
+        </button>
+        <button (click)="close()" id="btn4" class="btn btn-primary btnGreen">
+          <img width="15px" height="15px" src="assets/Icons/exit.png" />
+          خروج</button>
+      </div>
+      <div class="buttons-place" style="float: left;margin: auto;width: 32%;">
+        <button *ngIf="HaveConfirm && !DisabledComponents" (click)="onConfirm()" id="btn2"
+          class="btn btn-primary btnGreen" style="margin: 2px;">
+          <img width="15px" height="15px" src="assets/Icons/{{btnConfirmIcon}}.png" />
+          {{btnConfirmName}} </button>
+        <button *ngIf="HaveConfirm && !DisabledComponents" [disabled]="IsEndFlow" (click)="onConfirmAndSend()" id="btn2"
+          class="btn btn-primary btnGreen" style="margin: 2px;">
+          <img width="15px" height="15px" src="assets/Icons/Approve.png" />
+          تایید و ارسال </button>
+        <button *ngIf="HaveConfirm && !DisabledComponents" (click)="onUnConfirmAndReturn()" id="btn2"
+          class="btn btn-primary btnGreen" style="margin: 2px;">
+          <img width="15px" height="15px" src="assets/Icons/DisApprove.png" />
+          عدم تایید و بازگشت </button>
+      </div>
+    </div>
+  </div>
+</div>
+<app-over-popup *ngIf="btnclicked" [PopupType]="type" [HaveMaxBtn]="type === 'editor-select-price-list'"
+  [PixelHeight]="type === 'contract-coef' || type === 'contract-orderitem-coef' ? 550 : OverPopUpPixelHeight"
+  [PixelWidth]="type === 'contract-coef' || type === 'contract-orderitem-coef' || type === 'price-list-correction'  ? 1100 :'' "
+  [startLeftPosition]="OverstartLeftPosition" [startTopPosition]="OverstartTopPosition"
+  [PopupParam]="type ==='app-excel-load-data' ? Excel_Header_Param : type === 'choose-report' ? ReportParam :  type === 'contract-coef' || type === 'contract-orderitem-coef' ? CoefParam : type ==='archive-details' ? ArchiveParam : type === 'related-price-list' || type === 'price-list-topic-dataentry-page' ? paramObj : type === 'message-box'? alertMessageParams: type === 'contract-case' ? paramObj : type === 'price-list-correction'? PlcParams : OverPopUpParams"
+  (popupclosed)="popupclosed($event)" [HaveExitBtn]="type !== 'set-contract-price-list-pattern'"
+  [HaveHeader]="HaveHeader" [MainMinwidthPixel]="type === 'editor-select-price-list'? 1240: type === 'user-work-log-Contract-Order'? 1330 :''"
+  [MainMaxwidthPixel]="type === 'editor-select-price-list'? 1240:''"
+  (PopupOutPutParam)="type ==='message-box' ? MessageBoxAction($event) : getOutPutParam($event)"
+  [HeightPercentWithMaxBtn]="HeightPercentWithMaxBtn"
+  [minHeightPixel]="MinHeightPixel">
+</app-over-popup>

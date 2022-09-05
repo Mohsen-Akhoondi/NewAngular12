@@ -1,0 +1,25 @@
+<div  class="main-form-body for-append-date" style="margin: 5px;height: 40.5%;">
+
+  <form>
+    <div class="main-form-body" style="display: inherit">
+      <table style="width: 100%;">
+        <tr>
+          <td width="50%">
+            <span class="table-cell-Lable">واحد اجرایی</span>
+            <app-ng-select-virtual-scroll style="display: inline-block;width: 60%;" class="" [NgSelectParams]="RegionParams"
+               (selectedChange)="onChangeRegion($event)" [Items]="RegionItems"
+              (Open)="OnOpenNgSelect('Region')">
+            </app-ng-select-virtual-scroll>
+          </td>
+          <td width="50%">
+            <span class="table-cell-Lable">سال مالی</span>
+            <app-ng-select-virtual-scroll style="display: inline-block;width: 68%;" class="" [NgSelectParams]="FinYearParams"
+              [Items]="FinYearItems" (Open)="OnOpenNgSelect('FinYear')">
+            </app-ng-select-virtual-scroll>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </form>
+
+</div>

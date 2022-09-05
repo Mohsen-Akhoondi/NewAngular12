@@ -1,0 +1,208 @@
+<!-- <header style="min-width: 1300px;" class="fixed">
+  <div>
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <table>
+            <tr>
+              <td> <img class="logo" src="assets\Images\Logo.png"></td>
+              <td><span> سامانه تالار آگهی</span></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</header> -->
+<style>
+  .hvrItem::before,
+  hvrItem::after {
+    transition-duration: 1s;
+  }
+</style>
+<div [ngClass]="{'disable-parent': !IsDown}" style="height: 100%;">
+  <div class="content" style="min-height: calc(100% - 70px);min-width: 1300px;">
+    <div class="mainn">
+      <div style="width: 20%;">
+        <div class="org" style="min-height: 545px;">
+          <table
+            style="height: 30px;text-align: center;font-size: 14px;  width: 100%;background-image: linear-gradient(#71BCF7, #15499C);color: #fff;border-radius: 5px 5px 0px 0px;">
+            <tr>
+              <td style="padding: 10px;">
+                <span style="margin-right: 0 !important;" class="table-cell-Lable">کارفرما</span>
+                <app-ng-select-virtual-scroll style="display: inline-block;width: 80%;" class=""
+                  [NgSelectParams]="RegionGroupParams" (selectedChange)="OnRGselectedChange($event)"
+                  [Items]="RegionGroupItems" [Disabled]="false">
+                </app-ng-select-virtual-scroll>
+              </td>
+            </tr>
+          </table>
+
+
+          <table style="width: 125%;margin-top:5px;">
+            <tr>
+              <td>
+                <button (click)="accordionClick()" class="accordion">{{RegionGroupName}}</button>
+                <div *ngIf="ShowAccordion" class="panel">
+                  <div *ngFor="let item of RegionList">
+                    <app-custom-check-box (PrettyCheckBoxChange)="OnCheckBoxChange($event,item.RegionCode)"
+                      [configurationInfo]="CustomCheckBoxConfig" style="vertical-align: sub;">
+                    </app-custom-check-box>
+                    <span style="margin-right: 5px;" class="table-cell-Lable">{{item.RegionName}}</span>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <div style="width: 79%;">
+        <div>
+          <div style="width:100%;">
+
+            <div class="link">
+              <a (click)="GetType('tender')">
+                <div class="coral-item hvrItem" (mouseover)="HoverTender=true" (mouseout)="HoverTender=false">
+                  <table style="width: 100%;">
+                    <tr>
+                      <td colspan="2" style=" text-align: center;">
+                        <img *ngIf="!HoverTender" src="assets\Images\Tender.png" class="pic">
+                        <img *ngIf="HoverTender" src="assets\Images\BlackTender.png" class="pic">
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="width: 225px;">مناقصه عمومی</td>
+                      <td>{{ContractTenderCount}}</td>
+                    </tr>
+                  </table>
+                </div>
+              </a>
+            </div>
+            <div class="link">
+              <a (click)="GetType('auction')">
+                <div class="coral-item hvrItem" (mouseover)="HoverAuction=true" (mouseout)="HoverAuction=false">
+                  <table style="width: 100%;">
+                    <tr>
+                      <td colspan="2" style=" text-align: center;">
+                        <img *ngIf="!HoverAuction" src="assets\Images\Auction.png" class="pic">
+                        <img *ngIf="HoverAuction" src="assets\Images\BlackAuction.png" class="pic">
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="width: 225px;">مزایده عمومی</td>
+                      <td>{{ContractAuctionCount}}</td>
+                    </tr>
+                  </table>
+                </div>
+              </a>
+            </div>
+            <div class="link">
+              <a (click)="GetType('advertising')">
+                <div class="coral-item hvrItem" (mouseover)="HoverPublicSale=true" (mouseout)="HoverPublicSale=false">
+                  <table style="width: 100%;">
+                    <tr>
+                      <td colspan="2" style=" text-align: center;">
+                        <img *ngIf="!HoverPublicSale" style="margin-right: 0px;" src="assets\Images\PublicSale.png"
+                          class="pic">
+                        <img *ngIf="HoverPublicSale" style="margin-right: 0px;" src="assets\Images\BlackPublicSale.png"
+                          class="pic">
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="width: 225px;">حراج</td>
+                      <td>{{ContractPublicSaleCount}}</td>
+                    </tr>
+                  </table>
+                </div>
+              </a>
+            </div>
+            <div class="link">
+              <a (click)="GetType('limited-tender')">
+                <div class="coral-item hvrItem" (mouseover)="HoverLimitedTender=true"
+                  (mouseout)="HoverLimitedTender=false">
+                  <table style="width: 100%;">
+                    <tr>
+                      <td colspan="2" style=" text-align: center;">
+                        <img *ngIf="!HoverLimitedTender" src="assets\Images\LimitedTender.png" class="pic">
+                        <img *ngIf="HoverLimitedTender" src="assets\Images\BlackLimitedTender.png" class="pic">
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="width: 225px;">مناقصه محدود</td>
+                      <td>{{ContractLimitedTenderCount}}</td>
+                    </tr>
+                  </table>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="org" style="padding: 10px !important;">
+          <div><span id="type" style="font-size: larger;font-weight:bold; ">{{type}} </span>
+            <div style="float: left">
+              <span class="dot-green"></span>
+              <span style="margin: 0;" class="table-cell-Lable">در جریان</span>
+              <app-custom-check-box [isSelected]="true" (PrettyCheckBoxChange)="FilterCheckBox($event,'IsDuring')"
+                [configurationInfo]="CustomCheckBoxConfig" style="vertical-align: sub;">
+              </app-custom-check-box>
+              <span class="dot-red"></span>
+              <span style="margin: 0;" class="table-cell-Lable">منقضی شده</span>
+              <app-custom-check-box [isSelected]="true" (PrettyCheckBoxChange)="FilterCheckBox($event,'IsExpired')"
+                [configurationInfo]="CustomCheckBoxConfig" style="vertical-align: sub;">
+              </app-custom-check-box>
+            </div>
+          </div>
+          <div>
+            <hr>
+          </div>
+          <div style="height: 405px;">
+            <app-grid (SortChange)="OnSortChange($event)" (GridReady)="onGridReady($event)"
+              (ChangePage)="OnChangePage($event)" [IsServerPaging]="true" [TotalRecordCount]="TotalRecordCount"
+              [paginationPageSize]="30" (FilterChange)="OnFilterChange($event)" (RowClick)="onRowClick($event)"
+              paginationPageSize="10" [GridOptionsRowStyle]="GridOptionsRowStyle"
+              style="width: 100%;" [columns]="columnDef" [rowsData]="rowData" (GridReady)="onGridReady($event)"
+              [gridHeight]="86">
+            </app-grid>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer style="min-width: 1300px;" class="footer">
+    <div class="footer-container">
+      <div class="footer-row">
+        <div class="col-footer">
+          <div class="main-pic">
+            <div class="logo-footer">
+              <img src="assets\Images\My-tehran-1_47.png" style="margin-right: 30px; margin-left: 30px;">
+
+              <img src="assets\Images\My-tehran-1_03.png" style="margin-right: 30px; margin-left: 30px;">
+            </div>
+            <img src="assets\Images\My-tehran-1_50.png">
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </footer>
+</div>
+<ng-template #Details let-row>
+  <img width="24px" style="cursor: pointer;" height="24px" src='assets/Icons/Details.png' (click)="OpenDetails(row)" />
+</ng-template>
+<ng-template #Download let-row>
+  <img width="24px" style="cursor: pointer;" height="24px" src='assets/Icons/Download-2.png'
+    (click)="OnArchiveDownload(row)" />
+</ng-template>
+<ng-template #Upload let-row>
+  <img *ngIf="row.IsOnline" width="24px" style="cursor: pointer;" height="24px"
+    [src]="ENType === 'auction' ? 'assets/Icons/auction-tender.png':'assets/Icons/auction-tender.png'"
+    (click)="OnUploadArchive(row)" />
+  <span *ngIf="!row.IsOnline">غیر الکترونیک</span>
+</ng-template>
+<app-over-popup *ngIf="btnclicked" [PopupType]="PopupType" [HaveMaxBtn]="false" [PixelHeight]="OverPixelHeight"
+  [PixelWidth]="OverPixelWidth" [startLeftPosition]="overStartLeftPosition" [startTopPosition]="OverStartTopPosition"
+  [HaveHeader]="true" [PopupParam]="PopupType === 'message-box' ?alertMessageParams:DealsDetailParam"
+  (popupclosed)="popupclosed($event)">
+</app-over-popup>

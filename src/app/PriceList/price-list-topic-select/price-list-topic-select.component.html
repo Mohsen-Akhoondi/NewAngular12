@@ -1,0 +1,35 @@
+<div id="container" class="row" style="clear: both">
+  <div id="content" style="height: 100%;width: 100%;">
+    <div class="main-form-body" style="margin: 5px;">
+      <fieldset  align="right" class="feild-set" style="display: inherit;" >
+        <legend style="width: 11%; font-size: 10px;">انتخاب فهرست بها</legend>
+      <div class="tab-content box-dev" style="margin-top: 5px;padding: 5px;" [style.height.%]="86">
+        <app-grid 
+        [columns]="gridcolumns" 
+        [rowsData]="rowData" 
+        (GridReady)="GridReady($event)"
+        (RowClick) = "RowClick($event)" 
+        [gridHeightPxel]="230"></app-grid>
+      </div>
+    </fieldset>
+      <div class="buttons-place" style="margin: unset;">
+        <button (click)="onConfirm()" id="btnSelect" class="btn btn-primary btnGreen">
+          <img width="15px" height="15px" src="assets/Icons/ok.png" />
+          انتخاب
+        </button>
+        <button (click)="onClose()"  id="btn4" class="btn btn-primary btnGreen">
+          <img width="15px" height="15px" src="assets/Icons/exit.png" />
+          خروج
+        </button>
+      </div>
+    </div>
+</div> 
+</div> 
+<ng-template #IsSelected let-row>
+  <img width="16px" height="16px" [src]= "row.IsSelected ? 'assets/Icons/TrueCheckBox.png':'assets/Icons/Uncheck.png'" />
+</ng-template> 
+<ng-template #Upload let-row>
+  <img width="24px" style="cursor: pointer;" height="24px"
+    [src]="'assets/Icons/auction-tender.png'"
+    (click)="OnUploadClick(row)" />
+</ng-template>

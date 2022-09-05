@@ -1,0 +1,46 @@
+.redio-div{
+    display: flex;
+    margin: 5px;
+}
+table {
+    border-collapse: collapse;
+    width: 100%;
+    table-layout:fixed;
+  }
+  
+td {
+    border: 1px solid #7cccff;
+    text-align: right;
+    padding: 4px;
+    border-top: none;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+th {
+    border: 1px solid #7cccff;
+    text-align: center;
+    padding: 8px;
+    border-top: none;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .custom-control-label::before{
+    top:0px;
+    right: -1.5rem;
+}
+.custom-control-label::after{
+    top:0px;
+    right: -1.5rem;
+}
+.custom-control {
+  margin: auto !important;
+  padding: 0 !important;
+}
+.CustomeNgSelect {
+  background-color: #fff;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  min-height: 25px;
+  align-items: center;
+  display: inline-grid;
+}

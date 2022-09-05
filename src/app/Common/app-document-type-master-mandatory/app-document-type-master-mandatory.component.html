@@ -1,0 +1,61 @@
+<div class="main-form-body" style="margin-top: 5px; height:85%;">
+  <div [style.height.%]="15">
+    <fieldset class="feild-set" style="display: inherit; align-items:right;">
+      <legend style="width: 8%;">جزئیات مستندات </legend>
+      <table width="100%">
+        <tr>
+          <td width="35%">
+            <span class="table-cell-Lable">جستجوی نوع مستند</span>
+            <app-ng-select-virtual-scroll style="display: inline-block;width: 72%;" class="select-general-for-lable"
+              [NgSelectParams]="ChildDocumentTypeParams" [Items]="ChildDocumentTypeItems"
+              (Open)="OnOpenChildDocumentType()" (FetchMore)="FetchMoreChildDocumentType($event)"
+              (doSearch)="doChildDocumentTypeSearch($event)" (selectedChange)="onChangeChildDocumentType($event)">
+            </app-ng-select-virtual-scroll>
+          </td>
+          <td width="25%">
+            <span class="table-cell-Lable">انتخاب گروه مستند</span>
+            <app-ng-select-virtual-scroll style="display: inline-block;width: 65%;" class="select-general-for-lable"
+              [NgSelectParams]="NgSelectMasterDocumentParams" (selectedChange)="onChangeMasterDocument($event)"
+              [Items]="DocumentList">
+            </app-ng-select-virtual-scroll>
+          </td>
+          <td width="15%"></td>
+          <td width="25%"></td>
+        </tr>
+      </table>
+    </fieldset>
+  </div>
+  <div [style.height.%]="85">
+    <div id="div1" class="box-dev right-dev" style="height: 100%">
+      <app-grid [columns]="ChildDocumentColDef" [rowsData]="ChildDocumentList" [gridHeight]="90"
+        (RowClick)="ChildRowClicked($event)" [IsEditable]="true" (GridReady)="ChildDocReady($event)"
+        (Delete)="DoctypeRowRemoved()" [AutoNumberField]="'DocumentTypeCode'"> </app-grid>
+    </div>
+    <div id="div2" class="box-dev left-dev" style="height: 100%;">
+      <app-grid [columns]="ChildDocumentMandatoryColDef" [rowsData]="ChildDocumentMandatoryList" [gridHeight]="90"
+        [IsEditable]="true" (GridReady)="Mandatorygridready($event)" 
+        (cellEditingStarted)="MandatorycellEditingStarted($event)">
+      </app-grid>
+    </div>
+  </div>
+
+</div>
+<div class="buttons-place">
+  <button id="btn4" *ngIf="HasSave" class="btn btn-primary btnGreen" (click)="SaveDocuments()">
+    <img width="15px" height="15px" src="assets/Icons/save.png" />
+    ثبت
+  </button>
+  <button id="btn4" (click)="closeModal()" style="float:right;" class="btn btn-primary btnGreen">
+    <img width="15px" height="15px" src="assets/Icons/exit.png" />
+    خروج
+  </button>
+</div>
+
+<ng-template #IsDocTypeForced let-row>
+  <img width="16px" height="16px"
+    [src]="row.UseInAdvertising ? 'assets/Icons/TrueCheckBox.png':'assets/Icons/uncheck.png'" />
+</ng-template>
+<app-over-popup *ngIf="btnclicked" [HaveMaxBtn]="HaveMaxBtn" [HaveHeader]="HaveHeader" [PopupType]="type"
+  [startLeftPosition]="449" [startTopPosition]="247" (popupclosed)="popupclosed($event)"
+  [PopupParam]="alertMessageParams">
+</app-over-popup>

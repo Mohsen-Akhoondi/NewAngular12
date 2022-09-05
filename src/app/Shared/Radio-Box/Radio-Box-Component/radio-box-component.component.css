@@ -1,0 +1,47 @@
+.feild-set {
+    border: 1px solid rgb(218, 218, 218);
+    min-height: 50px;
+    margin-bottom: 5px;
+    padding: 5px;
+}
+
+.custom-control-label::before {
+    top: 0px;
+    right: -1.5rem;
+}
+
+.custom-control-label::after {
+    top: 0px;
+    right: -1.5rem;
+}
+
+.redio-div {
+    display: inline-block;
+    width: 60%;
+    text-align: right;
+    padding-right: 9px;
+}
+
+.QuestionStyle {
+    color: blue;
+    font-size: 12;
+    font-weight: bold;
+}
+
+.DefaultStyle {
+    font-size: 10px;
+}
+
+.CenterBox {
+    text-align: center !important;
+}
+.LeftBox {
+    text-align: left !important;
+}
+.RightBox {
+    text-align: right !important;
+}
+
+.custom-control {
+    padding-left: 1.1rem !important;
+}

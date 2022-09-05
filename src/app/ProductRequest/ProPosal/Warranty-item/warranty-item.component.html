@@ -1,0 +1,80 @@
+<div class="main-form-body for-append-date-warranty-item" style="margin-top: 5px; height: 86%;">
+  <div id="container " style="clear: both;padding-bottom: 5px;">
+    <div [style.height.%]="tabpanelWarrantyDocHeight" class="box-dev" style="margin-bottom: 5px;">
+      <app-grid [gridHeightPxel]="400" (RowClick)="RowClick($event)" [IsEditable]=" HasWarrantyItem ? false : true"
+        (GridReady)="onGridReady($event)" [columns]="WarrantyItemColDef" [rowsData]="rowData"
+        (cellEditingStarted)="oncellEditingStarted($event)">
+      </app-grid>
+    </div>
+    <fieldset [style.height.px]="40" class="feild-set">
+      <table style="width: 100%;">
+        <tr>
+          <td style="width: 20%">
+            <span class="table-cell-Lable">شماره ثبت نامه</span>
+            <input style="width: 50%; " class="form-control input-style" type="text" name="RegisterLetterNo"
+              [(ngModel)]="RegisterLetterNo" readonly />
+          </td>
+          <td style="width: 20%">
+            <span class="table-cell-Lable">شماره سند نامه</span>
+            <input style="width: 50%; " class="form-control input-style" type="text" name="DocumentLetterNo"
+              [(ngModel)]="DocumentLetterNo" readonly />
+          </td>
+          <td style="width: 22%">
+            <span class="table-cell-Lable">تاریخ ثبت دبیرخانه/ثبت نامه</span>
+            <app-jalali-datepicker [Disabled]="true" [WidthPC]="40" [CurrShamsiDateValue]="RegisterLetterDate"
+              (Change)="OnRegiserLetterDateChange($event)">
+            </app-jalali-datepicker>
+          </td>
+          <td style="width: 38%">
+            <button [disabled]="Disabled || HasWarrantyItem" id="btnClose"
+              class="btn btn-primary btn-gray-border small-btn btnGreen" (click)="onAutomationClick()">
+              <img width="15px" height="15px" src="assets/Icons/ok.png" />
+              اتصال نامه
+            </button>
+            <button [disabled]="Disabled || HasWarrantyItem" id="btnClose"
+              class="btn btn-primary btn-gray-border small-btn btnGreen" (click)="onDeleteLetterClick()">
+              <img width="15px" height="15px" src="assets/Icons/DisApprove.png" />
+              حذف نامه
+            </button>
+            <button [disabled]="HasWarrantyItem" id="btnShowLetter"
+              class="btn btn-primary btn-gray-border small-btn btnGreen" (click)="onShowLetterClick()">
+              <img width="15px" height="15px" src="assets/Icons/Approve.png" />
+              مشاهده نامه
+            </button>
+            <button [disabled]="HasWarrantyItem" id="btnShowLetter"
+              class="btn btn-primary btn-gray-border small-btn btnGreen" (click)="onCreateNewLetter()">
+              <img width="15px" height="15px" src="assets/Icons/CreateLetter.png" />
+              نامه جدید
+            </button>
+          </td>
+        </tr>
+      </table>
+    </fieldset>
+
+  </div>
+</div>
+<div class="buttons-place" style="margin: unset;">
+  <button *ngIf="!HasWarrantyItem"  (click)="onSavePRWarrantyAndValidity()" id="btn2" class="btn btn-primary btnGreen"  [disabled]="HasWarrantyItem" >
+    <img width="15px" height="15px" src="assets/Icons/save.png"/>
+    ثبت
+  </button>
+  <button (click)="close()" id="btn4" class="btn btn-primary btnGreen" >
+    <img width="15px" height="15px" src="assets/Icons/exit.png" />
+    خروج
+  </button>
+</div>
+<ng-template #UploadArchive let-row>
+  <img [ngClass]="row.ReceiveDocID ? 'img-big' : 'img-def'" style="cursor: pointer;"
+    [src]="row.ReceiveDocID ? 'assets/Icons/TechnicalArchive.png' : 'assets/Icons/uncheck.png'"
+    (click)="onReceiveDocArchiveClick(row)" />
+</ng-template>
+<ng-template #IsValidity let-row>
+  <img width="16px" height="16px" [src]="row.IsValidity ? 'assets/Icons/TrueCheckBox.png':'assets/Icons/uncheck.png'" />
+</ng-template>
+<app-over-popup *ngIf="btnclicked" [HaveMaxBtn]="HaveMaxBtn" [startLeftPosition]="startLeftPosition"
+  [startTopPosition]="startTopPosition" [minHeightPixel]="MinHeightPixel" [PercentWidth]="PercentWidth"
+  [MainMaxwidthPixel]="MainMaxwidthPixel" [PopupType]="Type" [HeightPercentWithMaxBtn]="HeightPercentWithMaxBtn"
+  [PopupParam]="Type === 'message-box' ? alertMessageParams : PopupParam" [HaveHeader]="HaveHeader"
+  (popupclosed)="popupclosed($event)"
+  (PopupOutPutParam)="Type ==='message-box' ? MessageBoxAction($event) : getOutPutParam($event)">
+</app-over-popup>

@@ -1,0 +1,71 @@
+<div class="main-form-body" style="margin-top: 5px; height: 85%;" *ngIf="ModuleCode !== 2645">
+  <fieldset *ngIf="HasRegion" align="right" class="feild-set" style="display: inherit;">
+    <legend style="width: 5%; font-size: 10px;"> واحد اجرایی </legend>
+    <table style="margin-bottom: 10px;width: 100%">
+      <tr>
+        <td style="width: 40%">
+          <span class="table-cell-Lable">واحد اجرایی</span>
+          <app-ng-select-virtual-scroll style="display: inline-block;width: 60%;" class="select-general-for-lable"
+            [NgSelectParams]="RegionParams" (selectedChange)="onChangeRegion($event)" [Items]="RegionItems">
+          </app-ng-select-virtual-scroll>
+        </td>
+        <td style="width: 15%;text-align: left;">
+          <span class="table-cell-Lable">قرارداد های دارای : </span>
+        </td>
+        <td style="width: 15%">
+          <span class="table-cell-Lable">برآورد اولیه</span>
+          <app-custom-check-box style="vertical-align: sub;" [configurationInfo]="CustomCheckBoxConfig"
+            [isSelected]="HaveEstimate" (PrettyCheckBoxChange)="OnCheckBoxChange($event,'HaveEstimate')">
+          </app-custom-check-box>
+        </td>
+        <td style="width: 15%">
+          <span class="table-cell-Lable">درخواست پرداخت</span>
+          <app-custom-check-box style="vertical-align: sub;" [configurationInfo]="CustomCheckBoxConfig"
+            [isSelected]="HavePayEstimate" (PrettyCheckBoxChange)="OnCheckBoxChange($event,'HavePayEstimate')">
+          </app-custom-check-box>
+        </td>
+        <td *ngIf="false" style="width: 15%">
+          <span class="table-cell-Lable">صورت وضعیت</span>
+          <app-custom-check-box style="vertical-align: sub;" [configurationInfo]="CustomCheckBoxConfig"
+            [isSelected]="HavePay" (PrettyCheckBoxChange)="OnCheckBoxChange($event, 'HavePay')"></app-custom-check-box>
+        </td>
+      </tr>
+    </table>
+  </fieldset>
+  <div style="clear: both;padding-bottom: 5px;" [style.height.%]="BoxDevHeight">
+    <div class="box-dev" style=" width: 100%;height: 100%;">
+      <app-grid (SortChange)="OnSortChange($event)" (GridReady)="onGridReady($event)"
+        (ChangePage)="OnChangePage($event)" [IsServerPaging]="true" [TotalRecordCount]="TotalRecordCount"
+        [paginationPageSize]="30" (FilterChange)="OnFilterChange($event)" (RowClick)=" RowClick($event)"
+        [columns]="columnDef" [rowsData]="rowData" [gridHeight]="gridHeight"></app-grid>
+    </div>
+  </div>
+</div>
+<div *ngIf="ModuleCode === 2645" class="main-form-body" style="margin-top: 5px; height: 85%;">
+  <fieldset align="right" class="feild-set" style="display: inherit; height: 100%">
+    <legend style="width: 9%;"> لیست قراردادها </legend>
+
+    <div id="container" style="clear: both;padding-bottom: 5px;">
+      <div class="box-dev" style=" width: 100%;  height: 100%;">
+        <app-grid (RowClick)="RowClick($event)" [columns]="columnDef" [rows]="rowData" [gridHeight]=100></app-grid>
+      </div>
+    </div>
+  </fieldset>
+</div>
+
+<div class="buttons-place" style="margin: unset;">
+  <button (click)="Btnclick('contract-case')" id="btn2" class="btn btn-primary btnGreen">
+    <img width="15px" height="15px" src="assets/Icons/show.png" />
+    مشاهده {{ModuleName}}</button>
+  <button (click)="close()" id="btn4" class="btn btn-primary btnGreen">
+    <img width="15px" height="15px" src="assets/Icons/exit.png" />
+    خروج</button>
+</div>
+<app-over-popup *ngIf="btnclicked" [startLeftPosition]="startLeftPosition" [startTopPosition]="startTopPosition"
+  [PopupType]="type" [PopupParam]="type === 'message-box' ? alertMessageParams : paramObj" [HaveHeader]="HaveHeader"
+  [HaveMaxBtn]="HaveMaxBtn" [HeightPercentWithMaxBtn]="HeightPercentWithMaxBtn" [minHeightPixel]="MinHeightPixel"
+  [PixelWidth]="OverPixelWidth" [MainMaxwidthPixel]="OverPixelWidth" (popupclosed)="popupclosed($event)">
+</app-over-popup>
+
+<!-- [PixelHeight] = "630"
+[PixelWidth] = "1150" -->

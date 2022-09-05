@@ -1,0 +1,727 @@
+<div class="main-form-body for-append-dates" style="margin-top: 5px;height: 87%;">
+  <fieldset *ngIf="DisplaySearchBox" class="feild-set" style="display: inherit;text-align: end;height: 10%;">
+    <!--پیرو هماهنگی با آقای آخوندی-->
+    <legend style="width: 7%; font-size: 10px;">جستجوی شخص</legend>
+    <table style="width: 100%">
+      <tr>
+        <td style="width: 25%">
+          <span class="table-cell-Lable">کد ملی</span>
+          <input name="IdentityNo" style="width: 75%;" class="form-control input-style" [(ngModel)]="IdentityNoSearch"
+            type="text" [disabled]="!DisplayBtns || !IsEditable" />
+        </td>
+
+        <td style="width: 25%">
+          <span class="table-cell-Lable">تاریخ تولد </span>
+          <app-jalali-datepicker [WidthPC]="75" [CurrMiladiDateValue]="BirthDateSearch"
+            [Disabled]="!DisplayBtns || !IsEditable" (Change)="OnBirthDateChange($event)">
+          </app-jalali-datepicker>
+        </td>
+        <td style="width: 25%; text-align: center;">
+          <span class="table-cell-Lable">کد پستی</span>
+          <input name="PostCodeSearch" style="display: inline-block;width: 75%;" class="form-control input-style"
+            [(ngModel)]="PostCodeSearch" type="text" />
+        </td>
+        <td style="width: 5%">
+          <button (click)="onSearch()" *ngIf="DisplayBtns" style="height: 25px;padding-top: 0px;padding-bottom: 0px; "
+            class="btn btn-primary btnGreen btn-gray-border">
+            <img width="20px" height="10px" src="assets/Icons/search-blue-icon.png" />
+            جستجو</button>
+        </td>
+        <td style="width: 5%">
+          <button (click)="onSearchInquiry()" *ngIf="DisplayBtns"
+            style="height: 25px;padding-top: 0px;padding-bottom: 0px; "
+            class="btn btn-primary btnGreen btn-gray-border">
+            <img width="20px" height="10px" src="assets/Icons/search-blue-icon.png" />
+            استعلام</button>
+        </td>
+      </tr>
+    </table>
+  </fieldset>
+
+
+  <div style="clear: both;" [style.height.%]="ContentHeight">
+    <!--پیرو هماهنگی با آقای آخوندی-->
+    <fieldset align="right" class="feild-set" style="display: inherit;text-align: end;height: 36%; overflow: auto;">
+      <legend style="width: 6%; font-size: 10px;"> اطلاعات پایه </legend>
+      <table style="margin-bottom: 5px;width: 100%">
+        <tr>
+          <td width="33%">
+            <span class="table-cell-Lable">کد ملی</span>
+            <input [disabled]="true" style="width: 55%; text-align: right;" class="form-control input-style" type="text"
+              name="IdentityNo" [(ngModel)]="IdentityNo"
+              [ngStyle]="{'background-color': IdentityNoSearchChangeFlag ? BackGroundColor:''}" />
+          </td>
+
+          <td width="33%">
+            <span class="table-cell-Lable">تاریخ تولد</span>
+            <app-jalali-datepicker [WidthPC]="55" [CheckValidate]="false" [Required]="false"
+              [CurrMiladiDateValue]="BirthDate" style="text-align: right;" [Disabled]="true"
+              (Change)="OnBirthDateChange($event)"
+              [ngStyle]="{'background-color': BirthDateSearchChangeFlag ? BackGroundColor:''}">
+            </app-jalali-datepicker>
+          </td>
+
+          <td width="33%">
+            <span class="table-cell-Lable">نام</span>
+            <input [disabled]="true" style="width: 55%; text-align: right;" class="form-control input-style" type="text"
+              name="FirstName" [(ngModel)]="FirstName"
+              [ngStyle]="{'background-color': FirstNameChangeFlag ? BackGroundColor:''}" />
+          </td>
+
+        </tr>
+        <tr>
+          <td width="33%">
+            <span class="table-cell-Lable"> نام خانوادگی</span>
+            <input [disabled]="true" style="width: 55%; text-align: right;" class="form-control input-style" type="text"
+              name="LastName" [(ngModel)]="LastName"
+              [ngStyle]="{'background-color': LastNameChangeFlag ? BackGroundColor:''}" />
+          </td>
+          <td width="33%">
+            <span class="table-cell-Lable">نام پدر</span>
+            <input [disabled]="!IsEditableForType3" style="width: 55%; text-align: right;"
+              class="form-control input-style" type="text" name="FatherName" [(ngModel)]="FatherName"
+              [ngStyle]="{'background-color': FatherNameChangeFlag ? BackGroundColor:''}" />
+          </td>
+          <td width="33%">
+            <span class="table-cell-Lable"> شماره شناسنامه </span>
+            <input [disabled]="!IsEditableForType3" style="width: 55%; text-align: right;"
+              class="form-control input-style" type="text" name="BirthCertificateNo" [(ngModel)]="BirthCertificateNo"
+              [ngStyle]="{'background-color': BirthCertificateNoChangeFlag ? BackGroundColor:''}" />
+          </td>
+        </tr>
+        <tr>
+          <td width="33%">
+            <span class="table-cell-Lable"> سریال شناسنامه </span>
+            <input [disabled]="!IsEditableForType3" style="width: 55%; text-align: right;"
+              class="form-control input-style" type="text" name="BirthCertificateSerial"
+              [(ngModel)]="BirthCertificateSerial"
+              [ngStyle]="{'background-color': BirthCertificateSerialChangeFlag ? BackGroundColor:''}" />
+          </td>
+          <td width="33%">
+            <span class="table-cell-Lable"> محل تولد </span>
+            <input [disabled]="!IsEditableForType3" style="width: 55%; text-align: right;"
+              class="form-control input-style" type="text" name="BirthPlace" [(ngModel)]="BirthPlace"
+              [ngStyle]="{'background-color': BirthPlaceChangeFlag ? BackGroundColor:''}" />
+          </td>
+          <td width="33%">
+            <span class="table-cell-Lable"> محل صدور </span>
+            <input [disabled]="!IsEditableForType3" style="width: 55%; text-align: right;"
+              class="form-control input-style" type="text" name="IssuancePlace" [(ngModel)]="IssuancePlace"
+              [ngStyle]="{'background-color': IssuancePlaceChangeFlag ? BackGroundColor:''}" />
+          </td>
+        </tr>
+        <tr>
+          <td width="33%">
+            <span class="table-cell-Lable"> کد اقتصادی </span>
+            <input [disabled]="!IsEditableForType3" style="width: 55%; text-align: right;"
+              class="form-control input-style" type="text" name="EconomicCode" [(ngModel)]="EconomicCode"
+              [ngStyle]="{'background-color': EconomicCodeChangeFlag ? BackGroundColor:''}" />
+          </td>
+          <td width="33%">
+            <span class="table-cell-Lable"> تصویر شناسنامه/کارت ملی</span>
+            <div style="display: inline-block ; width: 55%;text-align: right; ">
+              <button type="submit" (click)="onPersonDocArchiveClick()" style="width: 100%; float: none !important; "
+                class="btn btn-primary btnGreen btn-gray-border" [disabled]="!IsArchive && !IsEditable">
+                <img width="15px" height="10px" src="assets/Icons/TechnicalArchive.png" />
+                بارگذاری/مشاهده
+              </button>
+            </div>
+          </td>
+          <td width="33%">
+            <span class="table-cell-Lable">وضعیت در سیستم قدیم</span>
+            <input style="width: 55%;" class="form-control input-style" type="text" name="AllowStateName"
+              [(ngModel)]="AllowStateName" [disabled]="!IsEditable" readonly
+              [ngStyle]="{'background-color': AllowStateNameChangeFlag ? BackGroundColor:''}" />
+          </td>
+        </tr>
+        <tr>
+          <td width="33%" style="vertical-align: top;">
+            <span class="table-cell-Lable">درصد جانبازی </span>
+            <input [disabled]="!IsEditable" style="width: 55%; text-align: right;" class="form-control input-style"
+              type="text" name="VeteranPercent" [(ngModel)]="VeteranPercent"
+              [ngStyle]="{'background-color': VeteranPercentChangeFlag ? BackGroundColor:''}" />
+          </td>
+          <td width="81%" colspan="3" style="vertical-align: top;">
+            <span class="table-cell-Lable">توضیحات تایید کننده </span>
+            <textarea name="ActorNote" [(ngModel)]="ActorNote" class="form-control input-style" rows="4" style="display: inline-block; width: 77.2%;
+           height:23px; font-size: 12px; position: relative; z-index: 8000;" [disabled]="!IsEditable"></textarea>
+          </td>
+        </tr>
+      </table>
+    </fieldset>
+    <fieldset align="right" class="feild-set" style="display: inherit;height: 10%;">
+      <legend style="width: 3%; font-size: 10px;"> نقش </legend>
+      <div style="width: 100%;display: inline-block;text-align: right">
+        <div style="width: 10%;display: inline-block; text-align: right; ">
+          <span class="table-cell-Lable">پیمانکار</span>
+          <app-custom-check-box style="vertical-align: sub; " [configurationInfo]="CustomCheckBoxConfig"
+            [isSelected]="IsContractor" (PrettyCheckBoxChange)="OnChangeCheckBoxValue($event,'IsContractor')"
+            [Disabled]="!IsEditable" [ngStyle]="{'background-color': IsContractorChangeFlag ? BackGroundColor:''}">
+          </app-custom-check-box>
+        </div>
+        <div style="width: 10%;display: inline-block; text-align: right; ">
+          <span class="table-cell-Lable"
+            [ngStyle]="{'background-color': IsConsultChangeFlag ? BackGroundColor:''}">مشاور</span>
+          <app-custom-check-box style="vertical-align: sub; " [isSelected]="IsConsult"
+            [configurationInfo]="CustomCheckBoxConfig"
+            (PrettyCheckBoxChange)="OnChangeCheckBoxValue($event,'IsConsult')" [Disabled]="!IsEditable">
+          </app-custom-check-box>
+        </div>
+        <div style="width: 10%;display: inline-block; text-align: right; ">
+          <span class="table-cell-Lable"
+            [ngStyle]="{'background-color': IsProducerChangeFlag ? BackGroundColor:''}">تولیدکننده</span>
+          <app-custom-check-box style="vertical-align: sub;" [isSelected]="IsProducer"
+            [configurationInfo]="CustomCheckBoxConfig"
+            (PrettyCheckBoxChange)="OnChangeCheckBoxValue($event,'IsProducer')" [Disabled]="!IsEditable">
+          </app-custom-check-box>
+        </div>
+        <div style="width: 10%;display: inline-block; text-align: right; ">
+          <span class="table-cell-Lable"
+            [ngStyle]="{'background-color': IsSupplierChangeFlag ? BackGroundColor:''}">تامین کننده</span>
+          <app-custom-check-box style="vertical-align: sub;" [isSelected]="IsSupplier"
+            [configurationInfo]="CustomCheckBoxConfig"
+            (PrettyCheckBoxChange)="OnChangeCheckBoxValue($event,'IsSupplier')" [Disabled]="!IsEditable">
+          </app-custom-check-box>
+        </div>
+        <div style="width: 11%;display: inline-block; text-align: right; ">
+          <span class="table-cell-Lable"
+            [ngStyle]="{'background-color': IsInternalBuildersChangeFlag ? BackGroundColor:''}">سازنده داخلی</span>
+          <app-custom-check-box style="vertical-align: sub;" [isSelected]="IsInternalBuilders"
+            [configurationInfo]="CustomCheckBoxConfig"
+            (PrettyCheckBoxChange)="OnChangeCheckBoxValue($event,'IsInternalBuilders')" [Disabled]="!IsEditable">
+          </app-custom-check-box>
+        </div>
+        <div style="width: 11%;display: inline-block; text-align: right; ">
+          <span class="table-cell-Lable"
+            [ngStyle]="{'background-color': IsExternalBuildersChangeFlag ? BackGroundColor:''}">سازنده خارجی</span>
+          <app-custom-check-box style="vertical-align: sub;" [isSelected]="IsExternalBuilders"
+            [configurationInfo]="CustomCheckBoxConfig"
+            (PrettyCheckBoxChange)="OnChangeCheckBoxValue($event,'IsExternalBuilders')" [Disabled]="!IsEditable">
+          </app-custom-check-box>
+        </div>
+      </div>
+    </fieldset>
+
+    <ul style="margin-top: 5px; padding: 0px;" class="nav nav-tabs" role="tablist">
+      <li *ngIf="Haveshenasnameh" class="nav-item">
+        <a class="nav-link" [ngClass]="{'active': IsActiveshenasnameh && !IsExtraMode}"
+          [attr.href]="IsShowCompleteInfo ? '#shenasnameh_2':'#shenasnameh'" role="tab" data-toggle="tab">اطلاعات
+          تماس</a>
+      </li>
+      <li *ngIf="!IsDisplay" class="nav-item">
+        <a class="nav-link" [attr.href]="IsShowCompleteInfo ? '#certificate_2':'#certificate'" role="tab"
+          data-toggle="tab">گواهينامه/مجوزها</a>
+      </li>
+      <li *ngIf="HaveActorBusiness" class="nav-item active">
+        <a class="nav-link" [ngClass]="{'active': IsExtraMode}" [attr.href]="IsShowCompleteInfo ? '#Rank_2':'#Rank'"
+          role="tab" data-toggle="tab">حوزه تخصصی</a>
+      </li>
+      <li *ngIf="HaveEducation" class="nav-item">
+        <a class="nav-link" [attr.href]="IsShowCompleteInfo ? '#eduhis_2':'#eduhis'" role="tab" data-toggle="tab">سوابق
+          تحصيلي</a>
+      </li>
+      <li *ngIf="!IsDisplay" class="nav-item">
+        <a class="nav-link" [attr.href]="IsShowCompleteInfo ? '#WorkExperience_2':'#WorkExperience'" role="tab"
+          data-toggle="tab">سوابق شغلي</a>
+      </li>
+      <!-- <li class="nav-item">
+        <a class="nav-link " href="#movable" role="tab" data-toggle="tab">اموال منقول</a>
+      </li> -->
+      <li *ngIf="!IsDisplay" class="nav-item">
+        <a class="nav-link " [attr.href]="IsShowCompleteInfo ? '#Immovable_2':'#Immovable'" role="tab"
+          data-toggle="tab">اموال غيرمنقول</a>
+      </li>
+      <li *ngIf="HaveBankInfo" class="nav-item active">
+        <a class="nav-link " [ngClass]="{'active': IsActiveBankInfo}"
+          [attr.href]="IsShowCompleteInfo ? '#PersonBankInfo_2':'#PersonBankInfo'" role="tab" data-toggle="tab">اطلاعات
+          بانکي</a>
+      </li>
+      <li *ngIf="HaveTrainingCourse" class="nav-item">
+        <a class="nav-link " [attr.href]="IsShowCompleteInfo ? '#TrainingCourse_2':'#TrainingCourse'" role="tab"
+          data-toggle="tab">دوره هاي آموزشي</a>
+      </li>
+      <li *ngIf="HaveEvaluationInfo || HaveEvaluationRole" class="nav-item">
+        <a class="nav-link " [attr.href]="IsShowCompleteInfo ? '#EvaluationInfo_2':'#EvaluationInfo'" role="tab"
+          data-toggle="tab">اطلاعات ارزیابی</a>
+      </li>
+      <li *ngIf="(HaveSupplementary || IsAdmin) && IsSupplementaryInfo" class="nav-item active">
+        <!--RFC 52837-Item2-->
+        <a class="nav-link " [ngClass]="{'active': IsActiveSupplementaryInfo}"
+          [attr.href]="IsShowCompleteInfo ? '#PersonSupplementaryInfo_2':'#PersonSupplementaryInfo'" role="tab"
+          data-toggle="tab">اطلاعات تکمیلی</a>
+      </li>
+    </ul>
+
+    <div id="tabcontent" class="tab-content box-dev" style="margin-top: 5px;" [style.height.%]="TabContentHeight">
+      <div role="tabpanel" id="{{IsShowCompleteInfo ? 'shenasnameh_2':'shenasnameh'}}" class="tab-pane fade"
+        [ngClass]="{'show': IsActiveshenasnameh && !IsExtraMode ,'active': IsActiveshenasnameh && !IsExtraMode}"
+        style="height: 100%; margin-bottom: 3px; padding: 5px 5px;">
+        <table style="width: 100%;">
+          <tr>
+            <td width="100%" colspan="4">
+              <span class="table-cell-Lable">آدرس محل سکونت </span>
+              <input [disabled]="!IsEditable" style="width: 90%;" class="form-control input-style" type="text"
+                name="Address" [(ngModel)]="Address"
+                [ngStyle]="{'background-color': AddressChangeFlag ? BackGroundColor:''}" />
+            </td>
+          </tr>
+          <tr>
+            <td width="50%">
+              <span class="table-cell-Lable">تلفن محل سکونت </span>
+              <input [disabled]="!IsEditable" style="width: 80%;" class="form-control input-style" type="text"
+                name="Tel" [(ngModel)]="Tel" />
+            </td>
+            <td width="50%">
+              <span class="table-cell-Lable">کدپستی محل سکونت </span>
+              <input [disabled]="!IsEditable" style="width: 80%;" class="form-control input-style" type="text"
+                name="PostCode" [(ngModel)]="PostCode"
+                [ngStyle]="{'background-color': PostCodeChangeFlag ? BackGroundColor:''}" />
+            </td>
+          </tr>
+          <tr>
+            <td width="100%" colspan="2">
+              <span class="table-cell-Lable">آدرس محل کار</span>
+              <input [disabled]="!IsEditable" style="width: 90%;" class="form-control input-style" type="text"
+                name="WorkAddress" [(ngModel)]="WorkAddress" />
+            </td>
+          </tr>
+          <tr>
+            <td width="50%">
+              <span class="table-cell-Lable">تلفن محل کار </span>
+              <input [disabled]="!IsEditable" style="width: 80%;" class="form-control input-style" type="text"
+                name="WorkTel" [(ngModel)]="WorkTel" />
+            </td>
+
+            <td width="50%">
+              <span class="table-cell-Lable">کدپستی محل کار </span>
+              <input [disabled]="!IsEditable" style="width: 80%;" class="form-control input-style" type="text"
+                name="WorkPostCode" [(ngModel)]="WorkPostCode" />
+            </td>
+          </tr>
+          <tr>
+            <td width="50%">
+              <span class="table-cell-Lable"> پست الکترونیک </span>
+              <input [disabled]="!IsEditable" style="width: 80%;" class="form-control input-style" type="text"
+                name="Email" [(ngModel)]="Email"
+                [ngStyle]="{'background-color': EmailChangeFlag ? BackGroundColor:''}" />
+            </td>
+
+            <td width="50%">
+              <span class="table-cell-Lable"> تلفن همراه 1 </span>
+              <input [disabled]="!IsEditable" style="width: 80%;" class="form-control input-style" type="text"
+                name="Cell" [(ngModel)]="Cell" />
+            </td>
+          </tr>
+          <tr>
+            <td width="50%">
+              <span class="table-cell-Lable"> تلفن همراه 2 </span>
+              <input [disabled]="!IsEditable" style="width: 80%;" class="form-control input-style" type="text"
+                name="Cell2" [(ngModel)]="Cell2" />
+            </td>
+
+            <td width="50%">
+              <span class="table-cell-Lable"> وب سایت </span>
+              <input [disabled]="!IsEditable" style="width: 80%;" class="form-control input-style" type="text"
+                name="Web" [(ngModel)]="Web" [ngStyle]="{'background-color': WebChangeFlag ? BackGroundColor:''}" />
+            </td>
+          </tr>
+          <tr>
+            <td width="50%">
+              <div class="input-group" style="margin-bottom: 4px;">
+                <table style="width:100%;">
+                  <tr>
+                    <td style="width: 20%;">
+                      <span class="table-cell-Lable"> عکس پرسنلی</span>
+                    </td>
+                    <td style="width: 73%;">
+                      <div class="custom-file" style="margin-top: 5px">
+                        <input placeholder="Upload file" accept="image/*" type="file" (change)="onFileChanged($event)"
+                          class="custom-file-input" id="inputGrpFile01" [disabled]="!IsEditable" />
+                        <label class="custom-file-label" for="inputGrpFile01"
+                          style="text-align:right;height: 2rem; width: 445px"></label>
+                      </div>
+                    </td>
+                    <td style="width:7%; ">
+                      <img [src]="UserLocalImage" onError="this.src='assets/images/user-img-not-found.png';" alt=""
+                        style="height: 30px; width:40px;margin-right: 0px;" />
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </td>
+            <td width="50%">
+            </td>
+          </tr>
+          <tr>
+            <td width="50%">
+              <p style="color:red;width: 52%;height: 2px;">* حجم عکس باید کمتر از 100 کیلوبایت باشد.</p>
+            </td>
+            <td width="50%">
+            </td>
+          </tr>
+          <tr>
+            <td width="50%">
+              <div *ngIf="IsUncorrect" style="width: 43%;"><span style="color:red;"
+                  *ngFor="let item of ImgLoadMsgSize">{{item.msg}}</span>
+              </div>
+            </td>
+            <td width="50%">
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div role="tabpanel" id="{{IsShowCompleteInfo ? 'certificate_2':'certificate'}}"
+        class="tab-pane fade show for-append-dates" style="height: 100%;margin-bottom: 1px; padding: 1px 1px">
+        <app-grid (RowClick)="RowClickAC($event)" [columns]="CercolDef" [rowsData]="CerrowData"
+          (GridReady)="onCerGridReady($event)" [gridHeight]="87" [IsEditable]="IsEditable && !IsDisplay"
+          (cellEditingStarted)="onellEditingStartedAC($event)">
+        </app-grid>
+      </div>
+      <div role="tabpanel" id="{{IsShowCompleteInfo ? 'Rank_2':'Rank'}}" class="tab-pane fade for-append-dates"
+        [ngClass]="{'show': IsExtraMode ,'active': IsExtraMode}"
+        style="height: 100%;margin-bottom: 1px; padding: 1px 1px">
+        <app-grid [columns]="RankColumnDef" [rowsData]="RankrowsData" (GridReady)="onRankGridReady($event)"
+          [gridHeight]="87" [IsEditable]="IsEditable || CanEdite"
+          (cellEditingStarted)="onRankcellEditingStarted($event)" (RowClick)="RankRowClick($event)"
+          [GridOptionsRowStyle]="GridOptionsRowStyle">
+        </app-grid>
+      </div>
+      <div role="tabpanel" id="{{IsShowCompleteInfo ? 'eduhis_2':'eduhis'}}" class="tab-pane fade show for-append-dates"
+        style="height: 100%;margin-bottom: 1px; padding: 1px 1px">
+        <app-grid [columns]="EduHisColumnDef" [rowsData]="EduHisrowsData" (GridReady)="onEduHisGridReady($event)"
+          [gridHeight]="87" [IsEditable]="IsEditable" (cellEditingStarted)="onEduHiscellEditingStarted($event)"
+          (RowClick)="EduHisRowClick($event)">
+        </app-grid>
+      </div>
+      <div role="tabpanel" id="{{IsShowCompleteInfo ? 'WorkExperience_2':'WorkExperience'}}" class="tab-pane fade"
+        style="height: 100%;margin-bottom: 1px; padding: 1px 1px">
+        <app-grid (RowClick)="RowClickWE($event)" style="width: 98%;" [columns]="colDef" [rowsData]="rowData"
+          (GridReady)="onGridReady($event)" [gridHeight]="87" [IsEditable]="IsEditable && !IsDisplay"
+          (cellEditingStarted)="onWorkExpcellEditingStarted($event)"></app-grid>
+      </div>
+      <!-- <div role="tabpanel" id="movable" class="tab-pane fade show "
+        style="height: 100%; margin-bottom: 1px; padding: 1px 1px">
+        <app-grid (cellEditingStarted)="onMovablecellEditingStarted($event)" [columns]="MovableColumnDef"
+          [rowsData]="MovablerowsData" (GridReady)="onMovableGridReady($event)" [IsEditable]="IsEditable"
+          [gridHeight]="87" (RowClick)="MovAssetRowClick($event)">
+        </app-grid>
+      </div> -->
+      <div role="tabpanel" id="{{IsShowCompleteInfo ? 'Immovable_2':'Immovable'}}" class="tab-pane fade show"
+        style="height: 100%; margin-bottom: 1px; padding: 1px 1px">
+        <app-grid (RowClick)="RowClickIP($event)" (GridReady)="onGridReadyIP($event)"
+          [columns]="ImmovablePropertyColDef" [rowsData]="ImmovablePropertyRows" [IsEditable]="IsEditable && !IsDisplay"
+          (cellEditingStarted)="onellEditingStartedIP($event)" [gridHeight]="87">
+        </app-grid>
+      </div>
+      <div role="tabpanel" id="{{IsShowCompleteInfo ? 'PersonBankInfo_2':'PersonBankInfo'}}" class="tab-pane fade"
+        [ngClass]="{'show': IsActiveBankInfo ,'active': IsActiveBankInfo}"
+        style="height: 100%; margin-bottom: 1px; padding: 1px 1px">
+        <app-grid (GridReady)="onBankgridApiReady($event)" [columns]="ActorBankColDef" [rowsData]="BankrowData"
+          [IsEditable]="IsEditable" (cellEditingStarted)="oncellEditingStarted($event)"
+          (CellValueChanged)="onPRPersonCellValueChanged($event)" [gridHeight]="87">
+        </app-grid>
+      </div>
+      <div role="tabpanel" id="{{IsShowCompleteInfo ? 'TrainingCourse_2':'TrainingCourse'}}" class="tab-pane fade"
+        style="height: 100%;margin-bottom: 1px; padding: 1px 1px">
+        <app-grid [columns]="TrainingCourseColDef" [rowsData]="TrainingCourseRows" [IsEditable]="IsEditable"
+          (RowClick)="RowClickTC($event)" (GridReady)="onGridReadyTC($event)" [gridHeight]="87">
+        </app-grid>
+      </div>
+      <div role="tabpanel" id="{{IsShowCompleteInfo ? 'EvaluationInfo_2':'EvaluationInfo'}}" class="tab-pane fade"
+        style="height: 100%;margin-bottom: 1px; padding: 1px 1px">
+        <table style="width: 100%;">
+          <tr>
+            <td colspan="2" width="100%">
+              <fieldset align="right" class="feild-set"
+                style="display: inherit;text-align: end;margin-top: 10px;margin-bottom: 10px;">
+                <legend style="width: 40%; font-size: 10px;"> (میانگین امتیاز تیم اجرایی پروژه(مدیر پروژه و اعضای تیم
+                  پروژه که در پروپوزال ارسالی معرفی شده اند </legend>
+                <table style="margin-bottom: 5px;margin-top: 5px;width: 100%">
+                  <tr>
+                    <td width="33%">
+                      <span class="table-cell-Lable">امتیاز مدرک تحصیلی</span>
+                      <app-ng-select-virtual-scroll style="display: inline-block;width: 47%;" class=""
+                        (Open)="OnOpenNgSelect('DegreeScore', null)" [NgSelectParams]="DegreeScoreParams"
+                        [Disabled]="!IsEditable" [Items]="DegreeScoreItems"
+                        (selectedChange)="onChangeDegreeScore($event)">
+                      </app-ng-select-virtual-scroll>
+                      <input [disabled]="false"
+                        style="width: 7%; height: 27px;margin-right: 5px;border: 0px;padding: 0px;"
+                        class="form-control input-style" type="text" name="DegreeScoreValue"
+                        [(ngModel)]="DegreeScoreValue" />
+                    </td>
+                    <td width="33%">
+                      <span class="table-cell-Lable">امتیاز سابقه کار</span>
+                      <app-ng-select-virtual-scroll style="display: inline-block;width: 45%;" class=""
+                        (Open)="OnOpenNgSelect('ExperienceScore', null)" [NgSelectParams]="ExperienceScoreParams"
+                        [Disabled]="!IsEditable" [Items]="ExperienceScoreItems"
+                        (selectedChange)="onChangeExperienceScore($event)">
+                      </app-ng-select-virtual-scroll>
+                      <input [disabled]="false"
+                        style="width: 7%; height: 27px;margin-right: 5px;border: 0px;padding: 0px;"
+                        class="form-control input-style" type="text" name="ExperienceScoreValue"
+                        [(ngModel)]="ExperienceScoreValue" />
+                    </td>
+                    <td width="33%">
+                      <span class="table-cell-Lable">امتیاز معیار</span>
+                      <app-ng-select-virtual-scroll style="display: inline-block;width: 45%;" class=""
+                        (Open)="OnOpenNgSelect('CriterionScore', null)" [NgSelectParams]="CriterionScoreParams"
+                        [Disabled]="!IsEditable" [Items]="CriterionScoreItems"
+                        (selectedChange)="onChangeCriterionScore($event)">
+                      </app-ng-select-virtual-scroll>
+                      <input [disabled]="false"
+                        style="width: 7%; height: 27px;margin-right: 5px;border: 0px;padding: 0px;"
+                        class="form-control input-style" type="text" name="CriterionScoreValue"
+                        [(ngModel)]="CriterionScoreValue" />
+                    </td>
+                  </tr>
+                </table>
+              </fieldset>
+            </td>
+          </tr>
+          <tr>
+            <td width="55%">
+              <span class="table-cell-Lable">دارا بودن گواھینامه و تاییدھای مرتبط با استاندارد ھای مدیریتی و تخصصی مرتبط
+                با کیفیت محصولات/خدمات </span>
+              <app-ng-select-virtual-scroll style="display: inline-block;width: 25%;" class=""
+                (Open)="OnOpenNgSelect('ApprovalCertificate', null)" [NgSelectParams]="ApprovalCertificateParams"
+                [Disabled]="!IsEditable" [Items]="ApprovalCertificateItems"
+                (selectedChange)="onChangeApprovalCertificate($event)">
+              </app-ng-select-virtual-scroll>
+              <input [disabled]="false" style="width: 5%; height: 27px;margin-right: 5px;border: 0px;padding: 0px;"
+                class="form-control input-style" type="text" name="ApprovalCertificateValue"
+                [(ngModel)]="ApprovalCertificateValue" />
+            </td>
+            <td width="45%">
+              <span class="table-cell-Lable">گرید شرکت(ارائه شده توسط سازمانھای تخصصی متولی گرید بندی) </span>
+              <app-ng-select-virtual-scroll style="display: inline-block;width: 33.5%;" class=""
+                (Open)="OnOpenNgSelect('CompanyGrade', null)" [NgSelectParams]="CompanyGradeParams"
+                [Disabled]="!IsEditable" [Items]="CompanyGradeItems" (selectedChange)="onChangeCompanyGrade($event)">
+              </app-ng-select-virtual-scroll>
+              <input [disabled]="false" style="width: 5%; height: 27px;margin-right: 5px;border: 0px;padding: 0px;"
+                class="form-control input-style" type="text" name="CompanyGradeValue" [(ngModel)]="CompanyGradeValue" />
+            </td>
+          </tr>
+          <tr>
+            <td width="55%">
+              <span class="table-cell-Lable">کیفیت پروپوزال ارائه شده در زمینه موضوع پروژه</span>
+              <app-ng-select-virtual-scroll style="display: inline-block;width: 25%;" class=""
+                (Open)="OnOpenNgSelect('ProposalQuality', null)" [NgSelectParams]="ProposalQualityParams"
+                [Disabled]="!IsEditable" [Items]="ProposalQualityItems"
+                (selectedChange)="onChangeProposalQuality($event)">
+              </app-ng-select-virtual-scroll>
+              <input [disabled]="false" style="width: 5%; height: 27px;margin-right: 5px;border: 0px;padding: 0px;"
+                class="form-control input-style" type="text" name="ProposalQualityValue"
+                [(ngModel)]="ProposalQualityValue" />
+            </td>
+            <td width="45%">
+              <span class="table-cell-Lable">دارا بودن سوابق کاری مشابه با موضوع پروژه </span>
+              <app-ng-select-virtual-scroll style="display: inline-block;width: 33.5%;" class=""
+                (Open)="OnOpenNgSelect('SimilarWorkExperience', null)" [NgSelectParams]="SimilarWorkExperienceParams"
+                [Disabled]="!IsEditable" [Items]="SimilarWorkExperienceItems"
+                (selectedChange)="onChangeSimilarWorkExperience($event)">
+              </app-ng-select-virtual-scroll>
+              <input [disabled]="false" style="width: 5%; height: 27px;margin-right: 5px;border: 0px;padding: 0px;"
+                class="form-control input-style" type="text" name="SimilarWorkExperienceValue"
+                [(ngModel)]="SimilarWorkExperienceValue" />
+            </td>
+          </tr>
+          <tr>
+            <td width="55%">
+              <span class="table-cell-Lable">نظر کمیته فنی</span>
+              <app-ng-select-virtual-scroll style="display: inline-block;width: 25%;" class=""
+                (Open)="OnOpenNgSelect('CommitionView', null)" [NgSelectParams]="CommitionViewParams"
+                [Disabled]="!IsEditable" [Items]="CommitionViewItems" (selectedChange)="onChangeCommitionView($event)">
+              </app-ng-select-virtual-scroll>
+              <input [disabled]="false" style="width: 5%; height: 27px;margin-right: 5px;border: 0px;padding: 0px;"
+                class="form-control input-style" type="text" name="CommitionViewValue"
+                [(ngModel)]="CommitionViewValue" />
+            </td>
+            <td width="45%">
+              <span class="table-cell-Lable"> رضایت نامه ھای دریافتی از کارفرمایان قبلی برای پروژه مشابه </span>
+              <app-ng-select-virtual-scroll style="display: inline-block;width: 33.5%;" class=""
+                (Open)="OnOpenNgSelect('EmployerReceipt', null)" [NgSelectParams]="EmployerReceiptParams"
+                [Disabled]="!IsEditable" [Items]="EmployerReceiptItems"
+                (selectedChange)="onChangeEmployerReceipt($event)">
+              </app-ng-select-virtual-scroll>
+              <input [disabled]="false" style="width: 5%; height: 27px;margin-right: 5px;border: 0px;padding: 0px;"
+                class="form-control input-style" type="text" name="EmployerReceiptValue"
+                [(ngModel)]="EmployerReceiptValue" />
+            </td>
+
+          </tr>
+          <tr>
+            <td width="55%">
+              <span class="table-cell-Lable">سابقه ھمکاری با سازمان</span>
+              <app-ng-select-virtual-scroll style="display: inline-block;width: 25%;" class=""
+                [NgSelectParams]="CooperationHistoryParams" [Disabled]="!IsEditable" [Items]="CooperationHistoryItems"
+                (selectedChange)="onChangeCooperationHistory($event)"
+                (Open)="OnOpenNgSelect('CooperationHistory', null)">
+              </app-ng-select-virtual-scroll>
+              <input [disabled]="false" style="width: 5%; height: 27px;margin-right: 5px;border: 0px;padding: 0px;"
+                class="form-control input-style" type="text" name="CooperationHistoryValue"
+                [(ngModel)]="CooperationHistoryValue" />
+            </td>
+            <td width="45%">
+              <span class="table-cell-Lable"> بومی بودن شرکت </span>
+              <app-ng-select-virtual-scroll style="display: inline-block;width: 33.5%;" class=""
+                (Open)="OnOpenNgSelect('NativenessCopmany', null)" [NgSelectParams]="NativenessCopmanyParams"
+                [Disabled]="!IsEditable" [Items]="NativenessCopmanyItems"
+                (selectedChange)="onChangeNativenessCopmany($event)">
+              </app-ng-select-virtual-scroll>
+              <input [disabled]="false" style="width: 5%; height: 27px;margin-right: 5px;border: 0px;padding: 0px;"
+                class="form-control input-style" type="text" name="NativenessCopmanyValue"
+                [(ngModel)]="NativenessCopmanyValue" />
+            </td>
+          </tr>
+
+        </table>
+      </div>
+      <div role="tabpanel" id="{{IsShowCompleteInfo ? 'PersonSupplementaryInfo_2':'PersonSupplementaryInfo'}}"
+        class="tab-pane fade" [ngClass]="{'show': IsActiveSupplementaryInfo ,'active': IsActiveSupplementaryInfo}"
+        style="height: 100%; margin-bottom: 1px; padding: 1px 1px">
+        <fieldset class="feild-set" style="display: inherit; margin:1%">
+          <legend>دانلود فایل</legend>
+          <table style="width: 100%; height: 30%; text-align: right;">
+            <tr>
+              <td style="width: 25%; padding-right: 8%;">
+                <a href={{ProviderSurvey}}>پرسشنامه تامین کننده</a>
+              </td>
+              <td style="width: 25%; padding-right: 10%;">
+                <a href={{ExternalBuilderSurvey}}>پرسشنامه سازندگان خارجی</a>
+              </td>
+              <td style="width: 25%; padding-right: 12%;">
+                <a href={{InternalBuilderSurvey}}>پرسشنامه سازندگان داخلی</a>
+              </td>
+              <td style="width: 25%; padding-right: 12%;">
+                <a href={{OtherInfo}}>سایر اطلاعات</a>
+              </td>
+            </tr>
+          </table>
+        </fieldset>
+        <table style="width: 100%;">
+          <tr>
+            <td style="width: 100%; text-align: center;">
+              <button type="submit" (click)="onSupplementaryInfoArchiveClick()"
+                class="btn btn-primary btnGreen btn-gray-border" style="width: 14%; float: none !important;">
+                <img width="15px" height="15px" src="assets/Icons/TechnicalArchive.png" />
+                بارگذاری/مشاهده
+              </button>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <!--RFC 52837-Item2-->
+    </div>
+  </div>
+</div>
+
+<div style="height: 12%;">
+  <div class="buttons-place" style="float: right;margin: auto;" [style.width.%]="ButtonsBoxWidth">
+    <button *ngIf="IsEditable" (click)="onSave()" id="btnSave" class="btn btn-primary btnGreen">
+      <img width="15px" height="15px" src="assets/Icons/save.png" />
+      ثبت
+    </button>
+    <button *ngIf="ModuleViewTypeCode === 7" (click)="onWFSave()" id="btnSave" class="btn btn-primary btnGreen">
+      <img width="15px" height="15px" src="assets/Icons/save.png" />
+      ثبت
+    </button>
+    <button (click)="OnshowhistorydetailClick()" id="showhistorydetail" class="btn btn-primary btnGreen">
+      <img width="15px" height="15px" src="assets/Icons/Suggestion.png" />
+      مشاهده ریز اصلاحات
+    </button>
+    <button *ngIf="ActorId" id="btnPrint" class="btn btn-primary btnGreen" (click)="btnPrintClick()">
+      <img width="15px" height="15px" src="assets/Icons/print.png" />
+      چاپ
+    </button>
+    <button *ngIf="IsExtraMode" (click)="onSaveRank()" id="btnSave" class="btn btn-primary btnGreen">
+      <img width="15px" height="15px" src="assets/Icons/save.png" />
+      {{ButtonName}}
+    </button>
+    <!-- <button *ngIf="HaveCompleteInfo" [disabled]="!PersonObject" id="btnShowDetailsPage" class="btn btn-primary btnGreen"
+      (click)="btnShowDetailsClick()">
+      <img width="15px" height="15px" src="assets/Icons/Suggestion.png" />
+      مشاهده کلیه اطلاعات
+    </button> -->
+    <button *ngIf="ActorId" id="btnShowDetailsPage" class="btn btn-primary btnGreen" (click)="btnWorkFlowClick()">
+      <img width="15px" height="15px" src="assets/Icons/Suggestion.png" />
+      تاریخچه گردش
+    </button>
+    <button id="RunningContracts" class="btn btn-primary btnGreen" (click)="onShowRunningContractsClick()">
+      <img width="15px" height="15px" src="assets/Icons/Suggestion.png" />
+      موارد موثر در کسر ظرقیت کل
+    </button>
+    <button (click)="onClose()" id="btn4" class="btn btn-primary btnGreen">
+      <img width="15px" height="15px" src="assets/Icons/exit.png" />
+      خروج
+    </button>
+  </div>
+  <div *ngIf="ShowWorkflowButtons" class="buttons-place" style="float: left;margin: auto;" [style.width.%]="49.8">
+    <button *ngIf="!IsFromSearch" (click)="onConfirm()" id="btn2" class="btn btn-primary btnGreen" style="margin: 2px;">
+      <img width="15px" height="15px" src="assets/Icons/{{btnConfirmIcon}}.png" />
+      {{btnConfirmName}} </button>
+    <button *ngIf="WorkFlowID" [disabled]="IsEndFlow" (click)="onConfirmAndSend()" id="btn2"
+      class="btn btn-primary btnGreen" style="margin: 2px;">
+      <img width="15px" height="15px" src="assets/Icons/Approve.png" />
+      تایید و ارسال </button>
+    <button *ngIf="WorkFlowID" (click)="onUnConfirmAndReturn()" id="btn2" class="btn btn-primary btnGreen"
+      style="margin: 2px;">
+      <img width="15px" height="15px" src="assets/Icons/DisApprove.png" />
+      {{btnConfirmAndReturnName}} </button>
+    <button *ngIf="WorkFlowID && IsEndFlow" (click)="onRevocationClick()" id="btn2" class="btn btn-primary btnGreen"
+      style="margin: 2px;">
+      <img width="15px" height="15px" src="assets/Icons/revocation.png" />
+      ابطال </button>
+  </div>
+</div>
+
+<ng-template #UploadArchive let-row>
+  <img [ngClass]="'img-def'" width="16px" height="16px" style="cursor: pointer;"
+    [src]="'assets/Icons/TechnicalArchive.png'" (click)="onDocArchiveClick(row)" />
+</ng-template>
+
+<ng-template #AllowStateCodeUpdate let-row>
+  <img [ngClass]="'img-def'" width="16px" height="16px" style="cursor: pointer;" [src]="'assets/Icons/save.png'"
+    (click)="AllowStateUpdate(row)" />
+</ng-template>
+
+<ng-template #MovableProperty let-row>
+  <img [ngClass]="'img-def'" width="16px" height="16px" style="cursor: pointer;" src="assets/Icons/MovableProperty.png"
+    (click)="onMovablePropertyClick(row)" />
+</ng-template>
+
+<ng-template #WorkLogDetail let-row>
+  <!--RFC 52927-->
+  <img [ngClass]="'img-def'" width="16px" height="16px" style="cursor: pointer;" [src]="'assets/Icons/show.png'"
+    (click)="onWorkLogDetailClick(row)" />
+</ng-template>
+
+<ng-template #PrintFlow let-row>
+  <!--RFC 52927-->
+  <img [ngClass]="'img-def'" width="16px" height="16px" style="cursor: pointer;" [src]="'assets/Icons/print.png'"
+    (click)="onPrintFlowClick(row)" />
+</ng-template>
+
+<ng-template #HasOpenWF let-row>
+  <img width="16px" height="16px" [src]="row.HasOpenWF ? 'assets/Icons/TrueCheckBox.png':'assets/Icons/uncheck.png'" />
+</ng-template>
+
+<ng-template #ShowContractorwinercommition let-row>
+  <img [ngClass]="'img-def'" style="cursor: pointer;" width="16px" height="16px" src="assets/Icons/Suggestion.png"
+    (click)="onShowContractorwinercommitionClick(row)" />
+</ng-template>
+<ng-template #ShowHistoryList let-row>
+  <img [ngClass]="'img-def'" style="cursor: pointer;" width="16px" height="16px" src="assets/Icons/Suggestion.png"
+    (click)="onShowHistoryListClick(row)" />
+</ng-template>
+
+<app-over-popup *ngIf="isClicked" [PopupType]="PopUpType" [HaveMaxBtn]="HaveMaxBtn"
+  [startLeftPosition]="startLeftPosition" [startTopPosition]="startTopPosition"
+  [PopupParam]="PopUpType === 'message-box' ? alertMessageParams : PopupParam" [HaveHeader]="HaveHeader"
+  (popupclosed)="popupclosed($event)" [PixelWidth]="PopUpType === 'message-box'? '' : OverPixelWidth"
+  [minHeightPixel]="MinHeightPixel"
+  [PixelHeight]="PopUpType === 'person2' ? PixelHeight : PopUpType === 'current-suppliers-contract' ? MinHeightPixel: ''"
+  [HeightPercentWithMaxBtn]="PopUpType === 'current-suppliers-contract' ? '' : 98"
+  [MainMaxwidthPixel]="PopUpType === 'current-suppliers-contract' ? MainMaxwidthPixel : ''"
+  (PopupOutPutParam)="PopUpType ==='message-box' ? MessageBoxAction($event) : getOutPutParam($event)">
+</app-over-popup>

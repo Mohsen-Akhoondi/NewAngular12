@@ -1,0 +1,54 @@
+<di class="nmain-form-body" style="margin-top:5px; height: 85%;">
+  <fieldset *ngIf="HasRegion" class="feid-set" style="display: inherit;">
+      <legend style="width:5%;">واحد اجرایی</legend>
+        <table style="margin-bottom: 5px; width:100%">
+          <tr>
+              <td width="25%">
+                <span class="table-cell-Lablle">واحد اجرایی</span>
+                <app-ng-select-vitual-scroll style="display:inline-block;width:72%;min-height: 25;"
+                 [NgSelectParams]="RegionParams" [Items]="ReigonListSet" (selectedChange)="onChangeRegionObj($event)">
+                </app-ng-select-vitual-scroll>
+              </td>
+          </tr>
+        </table>
+  </fieldset>
+</di>
+
+
+
+
+
+<!--<div class="main-form-body" style="margin-top: 5px; height: 85%;">
+  <fieldset *ngIf="HasRegion" class="feild-set" style="display: inherit">
+    <legend style="width: 5%;"> واحد اجرایی </legend>
+    <table style="margin-bottom: 5px; width: 100%;">
+      <tr>
+        <td width="25%">
+          <span class="table-cell-Lablle">واحد اجرایی</span>
+          <app-ng-select-virtual-scroll style="display: inline-block;width: 72%; min-height: 25;"
+            [NgSelectParams]="RegionParams" [Items]="ReigonListSet" (selectedChange)="onChangeRegionObj($event)">
+          </app-ng-select-virtual-scroll>
+        </td>
+
+        <td width="25%">
+          <span class="table-cell-Lablle">از سال مالی</span>
+          <app-ng-select-virtual-scroll style="display: inline-block;width: 72%; min-height: 25;"
+            [NgSelectParams]="FromFinYearParams" [Items]="FinYearItems" (selectedChange)="onChangeFromFinYearObj($event)">
+          </app-ng-select-virtual-scroll>
+        </td>-->
+
+  <button   (click)="report()" id="btn4" class="btn btn-primary btnGreen">
+    <img width="15px" height="15px" src="assets/Icons/print.png" />
+    چاپ</button> 
+
+  <button (click)="close()" id="btn4" class="btn btn-primary btnGreen">
+    <img width="15px" height="15px" src="assets/Icons/exit.png" />
+    خروج</button>
+
+<!-- <app-over-popup *ngIf="btnclicked" [HaveMaxBtn]="HaveMaxBtn" [startLeftPosition]="startLeftPosition"
+  [startTopPosition]="startTopPosition" [minHeightPixel]="MinHeightPixel" [PopupType]="type"
+  [HeightPercentWithMaxBtn]="HeightPercentWithMaxBtn" [PixelHeight]="PixelHeight"
+  [PopupParam]="type === 'message-box' ? alertMessageParams : paramObj" [HaveHeader]="HaveHeader"
+  (popupclosed)="popupclosed($event)" [MainMaxwidthPixel]="PixelWidth" [PixelWidth]="PixelWidth"
+  [PercentWidth]="PercentWidth">
+</app-over-popup> -->

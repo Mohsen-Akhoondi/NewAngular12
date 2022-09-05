@@ -1,0 +1,38 @@
+<div id="container" class="row" style="clear: both">
+  <div id="content" class="">
+    <div class="main-form-body" style="margin: 5px;">
+      <table style="margin-top: 5px;margin-bottom: 5px;margin-left: 10px;">
+        <tr>
+          <td style="padding: 10px; width: 120px ">نوع نقش</td>
+          <td>
+            <div style="margin-bottom: 10px">
+              <ng-select style="min-width: 200px;" [items]="RolesSet" bindLabel="RoleName" bindValue="RoleID"
+                [(ngModel)]="selectedRoleID">
+              </ng-select>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding: 10px;">
+            شخص حقیقی
+          </td>
+          <td>
+            <div>
+              <ng-select style="min-width: 200px;" [items]="PersonSet" bindLabel="PersonName" bindValue="ActorId"
+                [(ngModel)]="selectPersonID">
+              </ng-select>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div class="buttons-place">
+      <button (click)="BtnOkclick()" id="btn2" class="btn btn-primary btnGreen">
+        <img width="15px" height="15px" src="assets/Icons/ok.png" />
+        تایید </button>
+      <button (click)="close()" id="btn4" class="btn btn-primary btnGreen">
+        <img width="15px" height="15px" src="assets/Icons/exit.png" />
+        خروج</button>
+    </div>
+  </div>
+</div>

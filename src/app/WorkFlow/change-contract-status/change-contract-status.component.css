@@ -1,0 +1,17 @@
+
+span {
+    font-size: 12px;
+    text-align: right;
+}
+
+/* .table-cell-Lable {
+    margin-left: 6px;
+    margin-right: 6px;
+    font-size: 10px;
+} */
+
+.table-cell-Lable {
+    margin-left: 10px;
+    margin-right: 10px;
+    font-size: 10px;
+  }

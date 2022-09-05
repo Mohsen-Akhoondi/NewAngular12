@@ -1,0 +1,195 @@
+<div id="container" style="clear: both;padding: 5px">
+  <div class="main-form-body" style="margin: 5px;height: 86%;">
+    <form>
+      <fieldset class="feild-set" style="display: inherit">
+        <legend style="width: 8%;">استعلام بها</legend>
+        <table style="width: 100%;">
+          <tr>
+            <td width="25%">
+              <span class="table-cell-Lable">شماره</span><input style="width: 60% " [disabled]="IsWFDisable"
+                class="form-control input-style" type="text" name="InquiryNo" [(ngModel)]="InquiryNo" />
+            </td>
+            <td width="25%">
+              <span class="table-cell-Lable">تاریخ</span>
+              <app-jalali-datepicker [Disabled]="IsWFDisable" [WidthPC]="60" [CurrMiladiDateValue]="InquiryDate"
+                [Disabled]="false" (Change)="OnInquiryDateChange($event)">
+              </app-jalali-datepicker>
+            </td>
+            <td width="20%">
+              <span class="table-cell-Lable">عنوان</span>
+              <input [disabled]="IsWFDisable" style="width: 60% " class="form-control input-style" type="text"
+                name="Note" [(ngModel)]="Note" />
+            </td>
+          </tr>
+          <tr>
+            <td width="25%">
+              <span class="table-cell-Lable">مبلغ سپرده</span>
+              <app-number-input-component [ReadOnly]="IsWFDisable" [id]="'indicator-label-code'" [HaveThousand]="true"
+                [fontSize]="12" [PixelWidth]="211" [PixelHeight]="25" [Value]="DepositAmount"
+                (ValueChange)="getDepositAmount($event)">
+              </app-number-input-component>
+
+            </td>
+            <td width="25%">
+              <span class="table-cell-Lable">تاریخ دریافت پاکت</span>
+              <app-jalali-datepicker [Disabled]="IsWFDisable" [WidthPC]="60" [CurrMiladiDateValue]="DeadLineDate"
+                [ShowMode]="'daytime'" [DateFormat]="'YYYY/MM/DD HH:mm:ss'" [Disabled]="false"
+                (Change)="OnDeadLineDateChange($event)">
+              </app-jalali-datepicker>
+            </td>
+            <td width="25%">
+              <span class="table-cell-Lable">مهلت دریافت اسناد</span>
+              <app-jalali-datepicker [Disabled]="IsWFDisable" [WidthPC]="60" [Disabled]="false"
+                [CurrMiladiDateValue]="DocumentDeadlineDate" (Change)="OnDocumentDeadlineDateChange($event)">
+              </app-jalali-datepicker>
+            </td>
+          </tr>
+          <tr>
+            <td width="25%">
+              <span class="table-cell-Lable">روش بررسی</span>
+              <app-ng-select-virtual-scroll style="display: inline-block;width: 60%;" class="select-general-for-lable"
+                [NgSelectParams]="ReviewMethodParams" [Disabled]="IsWFDisable" [Items]="ReviewMethodItems"
+                [multiple]="false">
+              </app-ng-select-virtual-scroll>
+
+            </td>
+            <td width="25%">
+              <span class="table-cell-Lable">مبلغ اسناد</span>
+              <app-number-input-component [ReadOnly]="IsWFDisable" [id]="'indicator-label-code'" [HaveThousand]="true"
+                [ReadOnly]="false" [fontSize]="12" [PixelWidth]="211" [PixelHeight]="25" [Value]="DepositAmount"
+                (ValueChange)="getDepositAmount($event)">
+              </app-number-input-component>
+            </td>
+            <td width="25%">
+              <span class="table-cell-Lable">مهلت ارایه پیشنهاد</span>
+              <app-jalali-datepicker [Disabled]="IsWFDisable" [WidthPC]="60" [Disabled]="false"
+                [CurrMiladiDateValue]="DocumentDeadlineDate" (Change)="OnDocumentDeadlineDateChange($event)">
+              </app-jalali-datepicker>
+            </td>
+          </tr>
+          <tr>
+            <td width="25%">
+              <span class="table-cell-Lable">مبلغ پیش پرداخت</span>
+              <app-number-input-component [ReadOnly]="IsWFDisable" [id]="'indicator-label-code'" [HaveThousand]="true"
+                [ReadOnly]="false" [fontSize]="12" [PixelWidth]="211" [PixelHeight]="25" [Value]="PrepaymentAmount"
+                (ValueChange)="getPrepaymentAmount($event)">
+              </app-number-input-component>
+            </td>
+            <td style="width: 25%">
+              <span class="table-cell-Lable">مبلغ پیشنهادی</span>
+              <input style="width: 60%; " class="form-control input-style" type="text" name="first"
+                value="{{SumFinalAmount}}" readonly />
+            </td>
+          </tr>
+          <tr>
+            <td colspan="4" width="100%">
+              <span class="table-cell-Lable" style="vertical-align: top;">مکان تحویل</span>
+              <textarea [disabled]="IsWFDisable" [(ngModel)]="DeliveryLocation" name="DeliveryLocation"
+                class="form-control input-style" rows="1" style="width: 86.7%;" id="indicator-text_note"></textarea>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="4" width="100%">
+              <span class="table-cell-Lable" style="vertical-align: top;">شرایط متقاضی</span>
+              <textarea [disabled]="IsWFDisable" [(ngModel)]="ActorCondition" name="ActorCondition"
+                class="form-control input-style" rows="2" style="width: 86.7%;" id="indicator-text_note"></textarea>
+            </td>
+          </tr>
+
+        </table>
+      </fieldset>
+      <fieldset class="feild-set" style="display: inherit">
+        <legend style="width: 3%;">آگهی</legend>
+        <table style="width: 100%;">
+          <tr>
+            <td colspan="4" width="100%">
+              <span class="table-cell-Lable"> روزنامه</span>
+              <app-ng-select-virtual-scroll style="display: inline-block;width: 86.7%;" class="select-general-for-lable"
+                [NgSelectParams]="NewsPaperParams" [Items]="NewsPaperItems" [multiple]="true" [Disabled]="IsWFDisable">
+              </app-ng-select-virtual-scroll>
+            </td>
+          </tr>
+          <tr>
+            <td width="25%">
+              <span class="table-cell-Lable">تاریخ انتشار</span>
+              <app-jalali-datepicker [WidthPC]="60" [CurrMiladiDateValue]="AdvertisingDate"
+                (Change)="OnAdvertisingDateChange($event)" [Disabled]="IsWFDisable">
+              </app-jalali-datepicker>
+            </td>
+            <td style="width: 25%;">
+              <span class="table-cell-Lable">آگهی</span>
+              <input type="text" class="form-control input-style" style="width: 54%" name="AdvertisingCode"
+                maxlength="10" size="10" value={{AdvertisingCode}} readonly />
+            </td>
+            <td style="width: 25%;">
+              <span class="table-cell-Lable">مشاهده آگهی</span>
+              <div style="display: inline-block ; width: 61%;">
+                <button [disabled]="!IsSelectedAdvertising" (click)="onbtnAdvertiseShow()"
+                  style="width: 100%; float: none !important;" class="btn btn-primary btnGreen btn-gray-border">
+                  <img width="15px" height="15px" src="assets/Icons/TechnicalArchive.png" />
+                  مشاهده
+                </button>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </fieldset>
+    </form>
+    <div class="tab-content box-dev" style="margin-top: 5px;padding: 5px;" [style.height.%]="86">
+      <app-grid [IsEditable]="false" [columns]="ProductRequestCostColDef" [rowsData]="PRCostRowData"
+        (GridReady)="onPRCostGridReady($event)" (RowClick)="RowClick($event)" [gridHeightPxel]="gridHeightPxel">
+      </app-grid>
+      <fieldset class="feild-set" style="display: inherit; padding-top: 0px;margin-top: 3px;min-height: 0px;">
+        <legend style="width: 7%;" class="legend">اطلاعات تماس</legend>
+        <table style="width: 100%;">
+          <tr>
+            <td style="width: 20%">
+              <span class="table-cell-Lable">شماره تلفن</span>
+              <app-number-input-component [id]="'indicator-label-Tel'" [Value]="Tel" [IsFloat]="false" [MaxLength]="11"
+                [FloatMaxLength]="0" [PerCentWidth]="57" [PixelHeight]="25" (ValueChange)="OnInfoChanged($event,'Tel')"
+                class="col-form-label" [HaveThousand]="false" [ReadOnly]="IsWFDisable">
+              </app-number-input-component>
+            </td>
+            <td style="width: 20%">
+              <span class="table-cell-Lable">شماره تلفن همراه</span>
+              <app-number-input-component [id]="'indicator-label-Tel'" [Value]="Cell" [IsFloat]="false" [MaxLength]="11"
+                [FloatMaxLength]="0" [PerCentWidth]="57" [PixelHeight]="25" (ValueChange)="OnInfoChanged($event,'Cell')"
+                class="col-form-label" [HaveThousand]="false" [ReadOnly]="IsWFDisable">
+              </app-number-input-component>
+            </td>
+            <td style="width: 60%">
+              <span class="table-cell-Lable">آدرس</span>
+              <input type="text" class="form-control input-style" style="width: 90%" [(ngModel)]="Address"
+                name="Address" (ngModelChange)="OnInfoChanged($event,'Address')" readonly />
+            </td>
+          </tr>
+        </table>
+      </fieldset>
+    </div>
+  </div>
+  <div class="buttons-place" style="margin: unset; margin: 5px;">
+    <button (click)="onPrintClick()" id="btnPrint" class="btn btn-primary btnGreen">
+      <img width="15px" height="15px" src="assets/Icons/print.png" />
+      چاپ آگهی
+    </button>
+    <button (click)="onPrintClick2()" id="btnPrint2" class="btn btn-primary btnGreen">
+      <img width="15px" height="15px" src="assets/Icons/print.png" />
+      چاپ
+    </button>
+    <button id="btnClose" class="btn btn-primary btnGreen" (click)="Close()">
+      <img width="15px" height="15px" src="assets/Icons/exit.png" />
+      خروج
+    </button>
+  </div>
+</div>
+<ng-template #IsWin let-row>
+  <img width="16px" height="16px" [src]="row.IsWin ? 'assets/Icons/TrueCheckBox.png':'assets/Icons/uncheck.png'" />
+</ng-template>
+
+<app-over-popup *ngIf="isClicked" [PopupType]="type" [HaveMaxBtn]="HaveMaxBtn" [startLeftPosition]="startLeftPosition"
+  [startTopPosition]="startTopPosition" [MainMinwidthPixel]="MainMinwidthPixel"
+  [HeightPercentWithMaxBtn]="type ==='message-box' ? '' : 95"
+  [PopupParam]="type ==='message-box'? alertMessageParams : ParamObj " (popupclosed)="popupclosed($event)"
+  (PopupOutPutParam)="getOutPutParam($event)"
+  [minHeightPixel]="type ==='message-box' || type ==='advertising-search' ? '' :MinHeightPixel">
+</app-over-popup>

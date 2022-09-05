@@ -1,0 +1,194 @@
+<div style="clear: both;height: 95%;">
+  <div class="main-form-body" style="margin: 5px; height:91%">
+    <div class="main-form-body" style="display: inherit">
+      <table style="width: 100%;">
+
+        <tr>
+          <!-- <td width="25%">
+          <span style="color: red;">*</span>
+          <span class="table-cell-Lable">واحد اجرایی</span>
+          <app-ng-select-virtual-scroll style="display: inline-block;width: 60%;" class=""
+            [NgSelectParams]="RegionParams" [CheckValidate]="CheckValidate" [Items]="RegionItems"
+            (selectedChange)="onChangeRegion($event)">
+
+          </app-ng-select-virtual-scroll>
+        </td> -->
+
+          <td width="25%">
+            <span style="color: red;">*</span>
+            <span class="table-cell-Lable">نام مشتری</span>
+            <app-ng-select-virtual-scroll style="display: inline-block;width: 77%;" [CheckValidate]="CheckValidate"
+              [Disabled]="IsDisabledPerson" [NgSelectParams]="NgSelectPersonReqParams" [Items]="PersonReqItems"
+              (FetchMore)="PersonReq_FetchMore($event)" (Open)="PersonReqOpened()"
+              (doSearch)="Person_Req_DoSearch($event)" (selectedChange)="onChangePerson($event)">
+            </app-ng-select-virtual-scroll>
+          </td>
+          <td width="25%">
+            <span style="color: red;">*</span>
+            <span class="table-cell-Lable">نماینده مشتری</span>
+            <app-ng-select-virtual-scroll style="display: inline-block;width: 60%;" class=""
+              [Disabled]="IsDisabledAgent" [NgSelectParams]="NgSelectAgentPersonReqParams" [Items]="AgentPersonReqItems"
+              (FetchMore)="AgentPersonReq_FetchMore($event)" (Open)="AgentPersonReqOpened()"
+              (doSearch)="AgentPerson_Req_DoSearch($event)" [CheckValidate]="CheckValidate">
+            </app-ng-select-virtual-scroll>
+          </td>
+
+          <td width="25%">
+            <span class="table-cell-Lable"> شماره سفارش</span>
+            <input [disabled]="true" style="width: 60%; " class="form-control input-style" type="text"
+              name="CustomerOrderCode" [(ngModel)]="CustomerOrderCode" />
+          </td>
+
+        </tr>
+
+        <tr>
+          <td width="25%">
+            <span style="color: red;">*</span>
+            <span class="table-cell-Lable">تاریخ</span>
+            <app-jalali-datepicker [Disabled]="IsDisabledCustomerOrderDate" [WidthPC]="77"
+              [CheckValidate]="CheckValidate" [Required]="true" [CurrMiladiDateValue]="CustomerOrderDate"
+              (Change)="OnOrderRequestDateChange($event)">
+            </app-jalali-datepicker>
+          </td>
+          <td>
+            <span class="table-cell-Lable"> محل استفاده </span>
+            <app-ng-select-virtual-scroll style="display: inline-block;width: 60%;" class=""
+              [NgSelectParams]="ActLocationParams" [Items]="ActLocationItems" [Disabled]="IsDisabledActLocation">
+            </app-ng-select-virtual-scroll>
+          </td>
+          <td width="25%">
+            <span class="table-cell-Lable">مستندات</span>
+            <div style="display: inline-block ; width: 60%; margin-top: 1px;">
+              <button type="submit" (click)="onDocArchiveClick()" class="btn btn-primary btnGreen btn-gray-border"
+                style="width: 99%; float: none !important;">
+                <img width="15px" height="15px" src="assets/Icons/TechnicalArchive.png" />
+                بارگذاری/مشاهده
+              </button>
+            </div>
+          </td>
+
+
+
+          <!-- <td width="25%">
+          <span class="table-cell-Lable">نماینده کارفرما</span>
+          <app-ng-select-virtual-scroll style="display: inline-block;width: 60%;"
+            [NgSelectParams]="NgSelectEmployerPersonReqParams" [Items]="EmployerPersonReqItems"
+            (FetchMore)="EmployerPersonReq_FetchMore($event)" (Open)="EmployerPersonReqOpened()"
+            (doSearch)="EmployerPerson_Req_DoSearch($event)">
+          </app-ng-select-virtual-scroll>
+        </td> -->
+        </tr>
+
+        <tr>
+          <td colspan="2" width="50%">
+            <span style="color: red;vertical-align: top">*</span>
+            <span class="table-cell-Lable" style="vertical-align: top;"> موضوع</span>
+            <textarea [disabled]="IsDisabledSubject" [ngStyle]="{'border-color': CheckValidate && !Subject ? 'red':''}"
+              placeholder="{{CheckValidate && !Subject ? 'پر کردن مقدار این فیلد الزامیست': ''}}" [(ngModel)]="Subject"
+              name="Subject" class="form-control input-style" rows="2"
+              style="display: inline-block;height: 35px;width: 88.5%;" id="indicator-text_note"></textarea>
+          </td>
+          <td *ngIf="false" width="25%">
+
+            <!-- <span style="color: red;">*</span> -->
+            <span class="table-cell-Lable">نوع فروش</span>
+            <app-ng-select-virtual-scroll style="display: inline-block;width: 60%;" class=""
+              [Disabled]="IsDisabledOrderType" [NgSelectParams]="OrderTypeParams" [Items]="OrderTypeItems"
+              (selectedChange)="OrderTypeSelectedChange($event)">
+            </app-ng-select-virtual-scroll>
+
+          </td>
+
+        </tr>
+        <tr *ngIf="false">
+          <td width="25%">
+            <span class="table-cell-Lable"> قرارداد </span>
+            <app-ng-select-virtual-scroll style="display: inline-block;width: 60%;" [NgSelectParams]="ContractParams"
+              [Items]="ContractItems" (Open)="OnOpenNgSelect()" (FetchMore)="FetchMoreContract($event)"
+              (doSearch)="doContractSearch($event)" [TotalItemCount]="ContractTotalItemCount" [Disabled]="IsDisabled"
+              [PageCount]="ContractPageCount">
+            </app-ng-select-virtual-scroll>
+          </td>
+        </tr>
+
+      </table>
+    </div>
+
+    <div class="for-append-date" style="width: 100%;" [style.height.%]="gridHeightDiv">
+      <app-grid [HaveBorder]="true" [columns]="columnDef" [rowsData]="rowsData" (GridReady)="onGridReady($event)"
+        [IsEditable]="IsGridEditable" [gridHeight]="GridHeight" (RowClick)="RowClick($event)"
+        (CellValueChanged)="onCellValueChanged($event)">
+      </app-grid>
+    </div>
+  </div>
+
+
+  <div style="margin: 5px;">
+
+    <div class="buttons-place" style="float: right;margin: auto; width: 54%;">
+      <button *ngIf="IsEditable" (click)="onSave()" id="btnSave" class="btn btn-primary btnGreen">
+        <img width="15px" height="15px" src="assets/Icons/save.png" />
+        ثبت
+      </button>
+      
+      <button *ngIf="HaveRevocation" (click)="onRevocation()" id="btn2" class="btn btn-primary btnGreen"
+        style="margin: 2px;">
+        <img width="15px" height="15px" src="assets/Icons/{{btnRevocationIcon}}.png" />
+        {{btnRevocationName}} </button>
+      <button *ngIf="BTNDisable" (click)="OnRequestClick()" id="btnSave" class="btn btn-primary btnGreen">
+        <img width="15px" height="15px" src="assets/Icons/add.png" />
+        تفکیک درخواست
+      </button>
+      <button *ngIf="ModuleViewTypeCode === 5000" [disabled]="!WorkFlowInstanceID" (click)="BtnVeiwclick()"
+        class="btn btn-primary btnGreen">
+        <img width="15px" height="15px" src="assets/Icons/show.png" />
+        جزییات گردش
+      </button>
+      <button *ngIf="true" (click)="CustomerFileVeiwclick()" class="btn btn-primary btnGreen">
+        <img width="15px" height="15px" src="assets/Icons/show.png" />
+        مشاهده پرونده مشتری
+      </button>
+      <button id="btnClose" class="btn btn-primary btnGreen" (click)="Close()">
+        <img width="15px" height="15px" src="assets/Icons/exit.png" />
+        خروج
+      </button>
+
+    </div>
+
+    <div *ngIf="true" class="buttons-place" style="float:left;margin: auto;" [style.width.%]="45.5">
+      <button [disabled]="BTNsShow" (click)="onConfirm()" id="btn2" class="btn btn-primary btnGreen"
+        style="margin: 2px;">
+        <img width="15px" height="15px" src="assets/Icons/{{btnConfirmIcon}}.png" />
+        <!--RFC 53826-->
+        {{btnConfirmName}}
+      </button>
+      <button [disabled]="BTNsShow" (click)="onConfirmAndSend()" id="btn2" class="btn btn-primary btnGreen"
+        style="margin: 2px;">
+        <img width="15px" height="15px" src="assets/Icons/Approve.png" />
+        تایید و ارسال </button>
+      <button [disabled]="BTNsShow" (click)="onUnConfirmAndReturn()" id="btn2" class="btn btn-primary btnGreen"
+        style="margin: 2px;">
+        <img width="15px" height="15px" src="assets/Icons/DisApprove.png" />
+        {{btnConfirmAndReturnName}} </button>
+      <button [disabled]="BTNsShow" (click)="OnClickPrintFlow()" class="btn btn-primary btnGreen">
+        <img width="15px" height="15px" src="assets/Icons/print.png" />
+        گردش
+      </button>
+    </div>
+  </div>
+</div>
+
+<app-cfm-over-popup *ngIf="isClicked" [PopupType]="PopUpType" [startLeftPosition]="startLeftPosition"
+  [startTopPosition]="startTopPosition" [minHeightPixel]="MinHeightPixel" [PercentWidth]="PercentWidth"
+  [HaveMaxBtn]="HaveMaxBtn" [MainMaxwidthPixel]="MainMaxwidthPixel" [HeightPercentWithMaxBtn]="HeightPercentWithMaxBtn"
+  [PopupParam]="PopUpType ==='message-box' ? alertMessageParams : PopupParam " (popupclosed)="popupclosed($event)"
+  (PopupOutPutParam)="PopUpType ==='message-box' ? MessageBoxAction($event) : getOutPutParam($event)">
+</app-cfm-over-popup>
+<ng-template #TextBtn let-row>
+  <img [ngClass]="'img-def'" width="16px" height="16px" style="cursor: pointer;" [src]="'assets/Icons/show.png'"
+    (click)="TextColumnBtn(row)" />
+</ng-template>
+<ng-template #CostumerOrderBtn let-row>
+  <img [ngClass]="'img-def'" width="16px" height="16px" style="cursor: pointer;" [src]="'assets/Icons/show.png'"
+    (click)="CostumerOrderColumnBtn(row)" />
+</ng-template>

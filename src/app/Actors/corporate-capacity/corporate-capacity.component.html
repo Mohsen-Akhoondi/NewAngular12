@@ -1,0 +1,53 @@
+<div class="main-form-body" style="margin-top: 5px; height: 85%;">
+  <fieldset class="feild-set" style="display: inherit;height: 15%;">
+    <table style="margin-bottom: 10px;width: 100%">
+      <tr>
+        <!-- <td style="width: 40%">
+          <span class="table-cell-Lable">فهرست بها</span>
+          <app-ng-select-virtual-scroll style="display: inline-block;width:70%;" [NgSelectParams]="NgSelectParams"
+            [Items]="PriceListTopicItems" (selectedChange)="onChangePriceListTopic($event)"
+            [CheckValidate]="CheckValidate">
+          </app-ng-select-virtual-scroll>
+        </td> -->
+        <td style="width: 50%">
+          <span class="table-cell-Lable">تاريخ شروع</span>
+          <app-jalali-datepicker [WidthPC]="84" [CheckValidate]="CheckValidate" [CurrMiladiDateValue]="StartDate"
+            [Required]="true" (Change)="OnStartDateChange($event)">
+          </app-jalali-datepicker>
+        </td>
+        <td style="width: 50%">
+          <span class="table-cell-Lable">تاريخ پايان</span>
+          <app-jalali-datepicker [WidthPC]="84" [CurrMiladiDateValue]="EndDate" (Change)="OnEndDateChange($event)">
+          </app-jalali-datepicker>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="3" style="padding-right:5px;">
+          <span class="table-cell-Lable" style="width: 5.1; display: inline-block;">توضيحات</span>
+          <input style="width: 92.2%" class="form-control input-style" type="text" name="Note" [(ngModel)]="Note" />
+        </td>
+      </tr>
+    </table>
+  </fieldset>
+  <div class="box-dev" style=" width: 100%;" [style.height.%]="83">
+    <app-grid [columns]="columnDef" [rowsData]="rowsData" (GridReady)="onGridReady($event)" [gridHeight]="90"
+      [IsEditable]="true" (cellEditingStarted)="onContractcellEditingStarted($event)">
+    </app-grid>
+  </div>
+
+</div>
+
+<div class="buttons-place" style="margin: unset;">
+  <button (click)="onSave()" id="btnSave" class="btn btn-primary btnGreen">
+    <img width="15px" height="15px" src="assets/Icons/save.png" />
+    ثبت
+  </button>
+
+  <button (click)="onClose()" id="btn4" class="btn btn-primary btnGreen">
+    <img width="15px" height="15px" src="assets/Icons/exit.png" />
+    خروج</button>
+</div>
+
+<app-over-popup *ngIf="isClicked" [PopupType]="PopUpType" [HaveMaxBtn]="false" [startLeftPosition]="startLeftPosition"
+  [startTopPosition]="startTopPosition" [PopupParam]="alertMessageParams" [HaveHeader]="HaveHeader"
+  (popupclosed)="popupclosed($event)">

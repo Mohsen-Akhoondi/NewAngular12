@@ -1,0 +1,93 @@
+<div id="container" class="row">
+  <div id="content" class="" style="height: 100%; width: 100%;">
+      <div class="main-form-body" style="margin: 5px;" [style.height.%]="86">
+        <div style="height: 86%;">
+          <ul style="margin-top: 5px" class="nav nav-tabs" role="tablist">
+            <li class="nav-item">
+              <a (click)="OnFinishCartableClick(false)" class="nav-link active" href="#curr-car" role="tab" data-toggle="tab">کارتابل جاری</a>
+            </li>
+            <li class="nav-item">
+              <a (click)="OnFinishCartableClick(true)" class="nav-link" href="#finish-car" role="tab" data-toggle="tab">کارتابل ابطال شده</a>
+            </li>
+          </ul>
+          <div id="tabcontent" class="tab-content" style="margin-top: 5px;height: 100%;">
+            <div role="tabpanel" class="tab-pane fade show active" id="curr-car"
+              style="height: 100%; margin-bottom: 5px;">
+              <app-grid [HeaderWidth]="93" [columns]="columnDef"  [rowsData]="UserWorkListrowData" 
+                [gridHeight]="85"  (RowClick)="RowrevocClick($event)"
+                ></app-grid>
+            </div>
+            <div role="tabpanel" class="tab-pane fade show" id="finish-car" style="height: 100%; margin-bottom: 5px;">
+              <app-grid [HeaderWidth]="93" [columns]="FinishedcolumnDef"
+              [rowsData]="UserRevocListrowData" [gridHeight]="99" (RowClick)="Rowreturnrevoclick($event)"
+              ></app-grid>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="!IsFinishCartableClick" [style.height.%]="12">
+          <fieldset style="padding: 5px;min-height:70px;" class="feild-set">
+            <legend style="width: 10%;">
+              اتصال نامه</legend>
+        <table style="width: 100%;">
+          <tr>
+            <td style="width: 18%">
+              <span class="table-cell-Lable">شماره ثبت نامه</span>
+              <input style="width: 48%; " class="form-control input-style" type="text" name="RegisterLetterNo"
+                [(ngModel)]="RegisterLetterNo" readonly />
+            </td>
+            <td style="width: 20%">
+              <span class="table-cell-Lable">شماره سند نامه</span>
+              <input style="width: 48%; " class="form-control input-style" type="text" name="DocumentLetterNo"
+                [(ngModel)]="DocumentLetterNo" readonly />
+            </td>
+            <td style="width: 25%">
+              <span class="table-cell-Lable">تاریخ ثبت دبیرخانه/ثبت نامه</span>
+              <input style="width: 39%; " class="form-control input-style" type="text" name="RegisterLetterDate"
+                [(ngModel)]="RegisterLetterDate" readonly />
+            </td>
+            <td style="width: 39%">
+              <button [disabled]="IsDisable" id="btnClose" class="btn btn-primary btn-gray-border small-btn btnGreen"
+                (click)="onAutomationClick()">
+                <img width="15px" height="15px" src="assets/Icons/ok.png" />
+                اتصال نامه
+              </button>
+              <button *ngIf="false" [disabled]="IsDisable" id="btnClose" class="btn btn-primary btn-gray-border small-btn btnGreen"
+                (click)="onDeleteLetterClick()">
+                <img width="15px" height="15px" src="assets/Icons/DisApprove.png" />
+                حذف نامه
+              </button>
+              <button *ngIf="false" id="btnShowLetter" class="btn btn-primary btn-gray-border small-btn btnGreen"
+                (click)="onShowLetterClick()">
+                <img width="15px" height="15px" src="assets/Icons/Approve.png" />
+                مشاهده نامه
+              </button>
+              <button *ngIf="false" id="btnShowLetter" class="btn btn-primary btn-gray-border small-btn btnGreen"
+                (click)="onCreateNewLetter()">
+                <img width="15px" height="15px" src="assets/Icons/CreateLetter.png" />
+                نامه جدید
+              </button>
+            </td>
+          </tr>
+        </table>
+        </fieldset>
+        </div>
+        </div>
+        <div class="buttons-place" style=" margin: 5px">
+          <button (click)="onRevocationClick()" id="btn2" class="btn btn-primary btnGreen" style="margin: 2px">
+            <img width="15px" height="15px" src="assets/Icons/{{btnRevocationIcon}}.png" />
+            {{btnRevocationName}} </button>
+          <button (click)="popupclosed()" class="btn btn-primary btnGreen">
+            <img width="15px" height="15px" src="assets/Icons/exit.png" />
+            انصراف</button>
+        </div>
+  </div>
+</div>
+<app-over-popup 
+*ngIf="btnclicked"
+[PopupType]="type"
+[startLeftPosition]="startLeftPosition"
+[startTopPosition]="startTopPosition" 
+[PopupParam]="type === 'message-box'?alertMessageParams:AutomationParam"
+[minHeightPixel]="MinHeightPixel"
+(popupclosed)="closee === 'message-box' ? popupclosed($event) : popupclosedwithoutexit($event) "
+></app-over-popup>

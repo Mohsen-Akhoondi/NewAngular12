@@ -1,0 +1,134 @@
+<div [ngClass]="{'MaximizeComponent': GridMaximized}" [style.height.%]="ParentgridHeight ? ParentgridHeight : 100">
+  <div style="text-align: right;background-color: #d6e6ff;border-bottom: dotted 0.01px gray;display: flex;width: 100%">
+    <div style="height: 30px;width: 100%;overflow: auto;display: block;">
+      <div *ngIf="IsEditable && HasInsertBtn" style="display: inline-flex; float: right;margin-right: 5px;">
+        <div style="display: inline-block;">
+          <div style="margin-top: 5px;">
+            <img (mouseover)="onmouseover('Up')" title="افزودن ردیف جدید بالای ردیف انتخاب شده"
+              (mouseout)="onmouseout('Up')" width="12px" height="8px" src="{{ImageArrowUpSrc}}"
+              style="display: block;cursor: pointer;" (click)="onAddUpRow()" />
+            <img (mouseover)="onmouseover('Down')" title="افزودن ردیف جدید پایین ردیف انتخاب شده"
+              (mouseout)="onmouseout('Down')" style="cursor: pointer;" (click)="onAddBelowRow()" width="12px"
+              height="8px" src="{{ImageArrowDownSrc}}" /></div>
+        </div>
+        <button [disabled]="IsDisable" (click)="onAddRow()" id="btn352" class="btn btn-primary editaible-grid-btn">
+          جدید
+        </button>
+      </div>
+      <button *ngIf="IsEditable && HaveDelete" [disabled]="IsDisable" (click)="onRemoveSelected()" id="btn3"
+        class="btn btn-primary editaible-grid-btn">
+        <img width="15px" height="15px" src="assets/Icons/delete-icon.png" />
+        حذف
+      </button>
+      <button *ngIf="IsNeedGeneralBtn" [disabled]="IsDisableGeneralBtn" (click)="onGeneralBtnClick($event)" id="btn3"
+        class="btn btn-primary editaible-grid-btn">
+        <img width="15px" height="15px" src="assets/Icons/{{GenralBtnIcon}}.png" />
+        {{GenralBtnName}}
+      </button>
+
+      <button *ngIf="IsNeedAddPopUp && IsEditable" [disabled]="IsDisable" (click)="onAddPopUp()"
+        class="btn btn-primary editaible-grid-btn">
+        <img width="15px" height="15px" src="assets/Icons/add-tree.png" />
+        افزودن ردیف فهرست بها
+      </button>
+      <button *ngIf="IsNeedImportBtn && IsEditable" [disabled]="IsDisable" (click)="onImportFromExcel()"
+        id="btnLoadExcel" class="btn btn-primary editaible-grid-btn">
+        <img width="15px" height="15px" src="assets/Icons/excel-green.png" />
+        خواندن از فایل
+      </button>
+      <button *ngIf="IsNeedGroupBtn && IsEditable" [disabled]="IsDisable" (click)="onAddGroupItems()" id="btn3"
+        class="btn btn-primary editaible-grid-btn">
+        <img width="15px" height="15px" src="assets/Icons/MultiAdd.png" />
+        انتخاب دسته ای
+      </button>
+      <button *ngIf="IsContractOrderBtn && IsEditable" [disabled]="IsDisable" (click)="onAddRowItems('ContractOrder')"
+        id="btn3" class="btn btn-primary editaible-grid-btn">
+        <img width="15px" height="15px" src="assets/Icons/MultiAdd.png" />
+        نقل از قرارداد
+      </button>
+      <button *ngIf="IsNeedRowBtn && IsEditable" [disabled]="IsDisable" (click)="onAddRowItems('RowItems')" id="btn3"
+        class="btn btn-primary editaible-grid-btn">
+        <img width="15px" height="15px" src="assets/Icons/MultiAdd.png" />
+        نقل از برآورد
+      </button>
+      <button *ngIf="IsNeedContractPayBtn && IsEditable" [disabled]="IsDisable" (click)="onAddRowItems('ContractPay')"
+        id="btn3" class="btn btn-primary editaible-grid-btn">
+        <img width="15px" height="15px" src="assets/Icons/MultiAdd.png" />
+        نقل از درخواست پرداخت
+      </button>
+      <button *ngIf="IsNeedContractMinutesBtn && IsEditable" [disabled]="IsDisable"
+        (click)="onAddRowItems('ContractMinutes')" id="btn3" class="btn btn-primary editaible-grid-btn">
+        <img width="15px" height="15px" src="assets/Icons/MultiAdd.png" />
+        نقل از صورت جلسه
+      </button>
+      <button *ngIf="IsNeedContractAgentBtn && IsEditable" [disabled]="IsDisable"
+        (click)="onAddRowItems('ContractAgent')" id="btn3" class="btn btn-primary editaible-grid-btn">
+        <img width="15px" height="15px" src="assets/Icons/MultiAdd.png" />
+        نقل از عامل قرارداد
+      </button>
+
+      <button *ngIf="IsEstateSpecBtn" (click)="onAddRowItems('EstateSpec')" class="btn btn-primary editaible-grid-btn">
+        <img width="15px" height="15px" src="assets/Icons/estate.png" />
+        انتخاب ملک
+      </button>
+
+
+      <img *ngIf="gridHeight && HasMaximizeBtn" width="15px" height="15px"
+        [src]="this.GridMaximized ? 'assets/Icons/Minimize.png':'assets/Icons/Maximize.png'" (click)="OnGridMaximized()"
+        style="float: left;margin-top: 8px;margin-left: 3px;cursor: pointer;"
+        title="{{this.GridMaximized ? 'اندازه پیشفرض':'تمام صفحه'}}" />
+      <img width="15px" height="15px" src="assets/Icons/ResizeCol.png" (click)="OnAutoSizeAllCol()"
+        style="float: left;margin-top: 8px;margin-left: 3px;cursor: pointer;" title="تنظیم اندازه ستون ها" />
+      <img width="15px" height="15px" src="assets/Icons/excel-green.png" (click)="OnExportToExcell()"
+        style="float: left;margin-top: 8px;margin-left: 3px;cursor: pointer;" title="خروجی به اکسل" />
+      <div *ngIf="gridHeader" [style.width.%]="HeaderWidth ? HeaderWidth : ''"
+        style="display: inline-block;margin-top: 8px;margin-right: 5px;white-space: nowrap;text-overflow: ellipsis;overflow: hidden;">
+        {{ gridHeader }}
+      </div>
+    </div>
+  </div>
+  <!-- <div *ngIf="gridHeader && !IsEditable"
+    style="text-align: right;background-color: #d6e6ff;border-bottom: dotted 0.01px gray;padding: 3px;">
+    {{ gridHeader }}
+  </div> -->
+  <ag-grid-angular [singleClickEdit]="true" [ngStyle]="{'border': HaveBorder ? '1px solid rgb(218, 218, 218)':''}"
+    [style.height.%]="gridHeight ? gridHeight : ''"
+    [ngStyle]="{'max-height': GridMaxHeight ? GridMaxHeight : 'inherit',overflow: GridMaxHeight ? 'auto' : 'inherit'}"
+    [style.height.px]="gridHeightPxel ? gridHeightPxel : ''" class="ag-theme-balham" [rowData]="rowData"
+    [columnDefs]="columnDefs" [gridOptions]="gridOptions" [pagination]="isPagination"
+    [paginationPageSize]="paginationPageSize" (paginationChanged)="onPaginationChanged($event)"
+    (gridReady)="onGridReady($event)" (rowClicked)="onRowClicked($event)" (rowDataChanged)="onRowDataChanged()"
+    (rowDataUpdated)="onRowDataUpdated()" (rowDoubleClicked)="onRowDoubleClicked($event)"
+    (cellEditingStarted)="onCellEditingStarted($event)" (cellValueChanged)="onCellValueChanged($event)"
+    (filterChanged)="OnFilterChanged($event)" (sortChanged)="OnSortChanged($event)" [getRowHeight]="RowHeightFunc"
+    [rowHeight] = "RowHeight ? RowHeight : ''">
+  </ag-grid-angular>
+  <div *ngIf="IsServerPaging" class="ag-theme-balham">
+    <div class="ag-rtl">
+      <div class="ag-paging-panel ag-font-style">
+        <span ref="eSummaryPanel" class="ag-paging-row-summary-panel">
+          <span ref="lbFirstRowOnPage">{{FirstRowOnPage}}</span> تا <span ref="lbLastRowOnPage">{{LastRowOnPage}}</span>
+          از <span ref="lbRecordCount">{{TotalRecordCount}}</span>
+        </span>
+        <span class="ag-paging-page-summary-panel">
+          <button type="button" class="ag-paging-button" (click)="onFirst()" ref="btFirst">اولین</button>
+          <button type="button" class="ag-paging-button" (click)="onPrevious()" ref="btPrevious">قبلی</button>
+          صفحه <span ref="lbCurrent">{{CurrentPageNumber}}</span> از <span ref="lbTotal">{{TotalPageCount}}</span>
+          <button type="button" class="ag-paging-button" (click)="onNext()" ref="btNext">بعدی</button>
+          <button type="button" class="ag-paging-button" (click)="onLast()" ref="btLast">آخرین</button>
+        </span>
+
+      </div>
+    </div>
+  </div>
+</div>
+<!-- <ag-grid-angular
+            style="width: 100%; height: 40px"
+            #bottomGrid
+            class="ag-theme-balham"
+            [rowData]="bottomData"
+            [gridOptions]="bottomOptions"
+            headerHeight="0"
+            [rowStyle]="{ fontWeight: 'bold' }"
+            [columnDefs]="columnDefs">
+</ag-grid-angular> -->

@@ -1,0 +1,283 @@
+<div class="main-form-body" style="margin-top: 5px; height: 87%;">
+  <div class="main-form-body">
+    <table style="width: 100%;">
+      <tr>
+        <td width="25%">
+          <span class="table-cell-Lable">واحد اجرایی</span>
+          <app-ng-select-virtual-scroll style="display: inline-block; width: 70%;"
+            [NgSelectParams]="NgSelectRegionParams" (selectedChange)="onChangeReigonObj($event)"
+            [Items]="ReigonListSet">
+          </app-ng-select-virtual-scroll>
+        </td>
+        <td width="25%">
+          <span class="table-cell-Lable">محل هزینه</span>
+          <app-ng-select-virtual-scroll (Open)="OnOpenNgSelect('ExeUnit')" style="display: inline-block; width: 70%;"
+            [NgSelectParams]="VWExeUnitParams" [Items]="VWExeUnitItems">
+          </app-ng-select-virtual-scroll>
+        </td>
+        <td width="25%">
+          <span class="table-cell-Lable">ماهیت</span>
+          <div style="width: 70%; display: inline-block; text-align: right;">
+            <div style="width: 40%; display: inline-block; text-align: left;">
+              <span class="table-cell-Lable" style="margin: 0; margin-left: 5px">هزینه ای</span>
+              <app-custom-check-box style="vertical-align: sub;" [configurationInfo]="CustomCheckBoxConfig"
+                [isSelected]="IsCost" (PrettyCheckBoxChange)="OnChangeCheckBoxValue($event, 'IsCost')">
+              </app-custom-check-box>
+            </div>
+            <div style="width: 50%; display: inline-block; text-align: right">
+              <span class="table-cell-Lable" style="margin-left: 5px">درآمدی</span>
+              <app-custom-check-box style="vertical-align: sub; display: inline-block;" [isSelected]="IsIncome"
+                [configurationInfo]="CustomCheckBoxConfig" (PrettyCheckBoxChange)="
+                                OnChangeCheckBoxValue($event, 'IsIncome')">
+              </app-custom-check-box>
+            </div>
+          </div>
+        </td>
+        <td width=" 25%">
+          <span class="table-cell-Lable"> نوع گردش کار </span>
+          <app-ng-select-virtual-scroll (Open)="OnOpenNgSelect('Module')" style="display: inline-block; width: 70%;"
+            [NgSelectParams]="NgSelectModuleParams" [Items]="ModuleNameListSet">
+          </app-ng-select-virtual-scroll>
+        </td>
+      </tr>
+      <tr>
+        <td width="25%">
+          <span class="table-cell-Lable">از درخواست</span>
+          <app-ng-select-virtual-scroll [TotalItemCount]="FromRequestTotalItemCount" [PageCount]="FromRequestPageCount"
+            (Open)="OnOpenNgSelect('FromRequest')" style="display: inline-block; width: 70%;"
+            [NgSelectParams]="FromRequestParams" (FetchMore)="FetchMoreRequest($event, 'From')"
+            (doSearch)="doRequestSearch($event, 'From')" (selectedChange)="onChangeNgSelect($event, 'FromRequest')"
+            [Items]="FromRequestItems">
+          </app-ng-select-virtual-scroll>
+        </td>
+        <td width="25%">
+          <span class="table-cell-Lable">تا درخواست</span>
+          <app-ng-select-virtual-scroll [TotalItemCount]="ToRequestTotalItemCount" [PageCount]="ToRequestPageCount"
+            (Open)="OnOpenNgSelect('ToRequest')" style="display: inline-block; width: 70%;"
+            [NgSelectParams]="ToRequestParams" (FetchMore)="FetchMoreRequest($event, 'TO')"
+            (doSearch)="doRequestSearch($event, 'TO')" [Items]="ToRequestItems">
+          </app-ng-select-virtual-scroll>
+        </td>
+        <td width="25%">
+          <span class="table-cell-Lable">نوع درخواست</span>
+          <div style="width: 70%; display: inline-block; text-align: right">
+            <div style="width: 40%; display: inline-block; text-align: left">
+              <span class="table-cell-Lable" style="margin: 0; margin-left: 5px">جدید</span>
+              <app-custom-check-box style="vertical-align: sub" [configurationInfo]="CustomCheckBoxConfig"
+                [isSelected]="IsNew" (PrettyCheckBoxChange)="OnChangeCheckBoxValue($event, 'IsNew')">
+              </app-custom-check-box>
+            </div>
+            <div style="width: 50%; display: inline-block; text-align: right; margin-right: 7px;">
+              <span class="table-cell-Lable" style="margin-left: 5px">تمدید</span>
+              <app-custom-check-box style="vertical-align: sub; display: inline-block" [isSelected]="IsExtended"
+                [configurationInfo]="CustomCheckBoxConfig" (PrettyCheckBoxChange)="OnChangeCheckBoxValue($event, 'IsExtended')">
+              </app-custom-check-box>
+            </div>
+          </div>
+        </td>
+        <td width="25%">
+          <span class="table-cell-Lablle"> تاریخ درخواست از</span>
+          <app-jalali-datepicker [WidthPC]="35" [Required]="true" (Change)="OnFromProductRequestDateChange($event)">
+          </app-jalali-datepicker>
+          <span class="table-cell-Lablle">تا</span>
+          <app-jalali-datepicker [WidthPC]="30" [Required]="true" (Change)="OnToProductRequestDateChange($event)">
+          </app-jalali-datepicker>
+        </td>
+      </tr>
+      <tr>
+        <td width="25%">
+          <span class="table-cell-Lable">معاونت متولی</span>
+          <app-ng-select-virtual-scroll (Open)="OnOpenNgSelect('Rustee')" style="display: inline-block; width: 70%;"
+            [NgSelectParams]="RusteeParams" (selectedChange)="onChangeNgSelect($event, 'Rustee')" [Items]="RusteeItems">
+          </app-ng-select-virtual-scroll>
+        </td>
+        <td width="25%">
+          <span class="table-cell-Lable">اداره متولی</span>
+          <app-ng-select-virtual-scroll (Open)="OnOpenNgSelect('SubRustee')" style="display: inline-block; width: 70%;"
+            [NgSelectParams]="SubRusteeParams" [Items]="SubRusteeItems">
+          </app-ng-select-virtual-scroll>
+        </td>
+        <td width="25%">
+          <span class="table-cell-Lable">معاونت مجری</span>
+          <app-ng-select-virtual-scroll (Open)="OnOpenNgSelect('CostCenter')" style="display: inline-block; width: 70%;"
+            [NgSelectParams]="CostCenterParams" (selectedChange)="onChangeNgSelect($event, 'CostCenter')"
+            [Items]="CostCenterItems">
+          </app-ng-select-virtual-scroll>
+        </td>
+        <td width="25%">
+          <span class="table-cell-Lable">اداره مجری</span>
+          <app-ng-select-virtual-scroll (Open)="OnOpenNgSelect('SubCostCenter')"
+            style="display: inline-block; width: 70%;" [NgSelectParams]="SubCostCenterParams"
+            [Items]="SubCostCenterItems">
+          </app-ng-select-virtual-scroll>
+        </td>
+      </tr>
+    </table>
+    <div>
+      <fieldset class="feild-set" style="display: inline-block; width: 49%; margin-left: 5px;">
+        <legend style="width: 9%;">&nbsp; از قرارداد &nbsp;</legend>
+        <table style="width: 100%">
+          <tr>
+            <td width="30%">
+              <span class="table-cell-Lable"> سال مالی </span>
+              <app-ng-select-virtual-scroll style="display: inline-block; width: 55%;"
+                [NgSelectParams]="NgSelectFromFinYearParams" [Items]="FinYearList">
+              </app-ng-select-virtual-scroll>
+            </td>
+            <td width="70%">
+              <span class="table-cell-Lable"> قرارداد</span>
+              <app-ng-select-virtual-scroll style="display: inline-block; width: 85%;"
+                [TotalItemCount]="FromContractTotalItemCount" [PageCount]="FromContractPageCount"
+                [NgSelectParams]="NgSelectContractParamsFrom" [Items]="ContractListSetFrom"
+                (FetchMore)="FetchMoreFromContract($event)" (doSearch)="doFromContractSearch($event)"
+                (selectedChange)="FromContractChanged($event)" (Open)="FromContractOpened()">
+              </app-ng-select-virtual-scroll>
+            </td>
+          </tr>
+        </table>
+      </fieldset>
+      <fieldset class="feild-set" style="display: inline-block; width: 50%;">
+        <legend style="width: 9%;">&nbsp; تا قرارداد &nbsp;</legend>
+        <table style="width: 100%">
+          <tr>
+            <td width="30%">
+              <span class="table-cell-Lable">سال مالی</span>
+              <app-ng-select-virtual-scroll style="display: inline-block; width: 53%;"
+                [NgSelectParams]="NgSelectToFinYearParams" [Items]="FinYearList">
+              </app-ng-select-virtual-scroll>
+            </td>
+            <td width="70%">
+              <span class="table-cell-Lable">قرارداد</span>
+              <app-ng-select-virtual-scroll style="display: inline-block; width: 77%;"
+                [TotalItemCount]="ToContractTotalItemCount" [PageCount]="ToContractPageCount"
+                [NgSelectParams]="NgSelectContractParamsTo" [Items]="ContractListSetTo"
+                (FetchMore)="FetchMoreToContract($event)" (doSearch)="doToContractSearch($event)"
+                (Open)="ToContractOpened()">
+              </app-ng-select-virtual-scroll>
+            </td>
+          </tr>
+        </table>
+      </fieldset>
+    </div>
+    <table style="width: 100%;">
+      <tr>
+        <td width="25%">
+          <span class="table-cell-Lable">وضعیت قرارداد</span>
+          <app-ng-select-virtual-scroll style="display: inline-block; width: 77%;"
+            [NgSelectParams]="NgSelectContractStatusList" [Items]="ContractStatusList">
+          </app-ng-select-virtual-scroll>
+          <!-- (FetchMore)="FetchMoreToContract($event)" (doSearch)="doToContractSearch($event)"
+              (Open)="ToContractOpened()" -->
+        </td>
+        <td width="25%">
+          <span class="table-cell-Lable">نوع پیمانکار</span>
+          <div class="redio-div" style="width: 68%; text-align: center; margin-left: 10px;">
+            <div class="custom-control custom-radio custom-control-inline">
+              <input [checked]="ContractorType" type="radio" class="custom-control-input" id="rdoPersonContractor"
+                name="ChoosenContractorType" (click)="rdoContractorTypeClick(true)" />
+              <label style="margin: auto;" class="custom-control-label redio-label" for="rdoPersonContractor">حقيقي
+              </label>
+            </div>
+            <div class="custom-control custom-radio custom-control-inline">
+              <input [checked]="!ContractorType" type="radio" class="custom-control-input" id="rdoCorporateContractor"
+                name="ChoosenContractorType" />
+              <label style="margin: auto;" class="custom-control-label redio-label" for="rdoCorporateContractor"
+                (click)="rdoContractorTypeClick(false)">حقوقي</label>
+            </div>
+          </div>
+        </td>
+        <td style="width: 25%">
+          <span class="table-cell-Lable">پیمانکار </span>
+          <app-ng-select-virtual-scroll [PageCount]="ContractorPageCount" [TotalItemCount]="ContractorTotalItemCount"
+            style="display: inline-block; width: 80%;" class="select-general-for-lable"
+            [NgSelectParams]="NgSelectContractorParams" [Items]="ContractorItems"
+            (FetchMore)="FetchMoreContractor($event)" (Open)="OpenContractor($event)"
+            (doSearch)="doContractorSearch($event)">
+          </app-ng-select-virtual-scroll>
+        </td>
+      </tr>
+      <tr>
+        <td width="25%">
+          <span class="table-cell-Lablle"> تاریخ انعقاد از</span>
+          <app-jalali-datepicker [WidthPC]="36" [Required]="true" (Change)="OnFromLetterDateChange($event)">
+          </app-jalali-datepicker>
+          <span class="table-cell-Lablle">تا</span>
+          <app-jalali-datepicker [WidthPC]="36.5" [Required]="true" (Change)="OnToLetterDateChange($event)">
+          </app-jalali-datepicker>
+        </td>
+        <td colspan="2" width="100%">
+          <span class="table-cell-Lable">موضوع</span>
+          <input name="Subject" style="display: inline-block; width: 86%;" class="form-control input-style"
+            [(ngModel)]="SubjectParameter" type="text" />
+        </td>
+      </tr>
+    </table>
+  </div>
+  <table>
+    <tr>
+      <td wdith="25%" colspan="2">
+        <button type="submit" (click)="Search()"
+          class="select-general-for-lable btn-gray-border btn btn-primary btnGreen">
+          <img width="15px" height="15px" src="assets/Icons/Search.png" />
+          جستجو
+        </button>
+      </td>
+    </tr>
+  </table>
+
+  <div style="clear: both; padding-bottom: 5px; height: 50%;">
+    <div class="box-dev" style="width: 100%" [style.height.%]="100">
+      <app-grid (GridReady)="onGridReady($event)" (RowClick)="RowClick($event)" [columns]="MaincolumnDef"
+        [rowsData]="rowData" [gridHeight]="86">
+      </app-grid>
+    </div>
+  </div>
+</div>
+<div class="buttons-place" style="margin: unset;">
+  <button *ngIf="!IsEstimate && !ISProvisionRemain && !IsArticle48" [disabled]="!selectedRow" (click)="BtnClick()"
+    id="btn4" class="btn btn-primary btnGreen">
+    <img width="15px" height="15px" src="assets/Icons/show.png" />
+    جزئیات گردش
+  </button>
+
+  <button *ngIf="!IsEstimate && !ISProvisionRemain && !IsArticle48" [disabled]="!selectedRow"
+    (click)="BtnShowContactClick()" id="btn2" class="btn btn-primary btnGreen">
+    <img width="15px" height="15px" src="assets/Icons/show.png" />
+    مشاهده پرونده قرارداد
+  </button>
+
+  <button *ngIf="!IsEstimate && !ISProvisionRemain && !IsArticle48 && ModuleCode === 2705" [disabled]="!selectedRow"
+    (click)="onSetMainContractorClick()" id="btn2" class="btn btn-primary btnGreen">
+    <img width="15px" height="15px" src="assets/Icons/add.png" />
+    درج پیمانکار اصلی
+  </button>
+
+  <!-- !ISProvisionRemain && !IsArticle48 && HaveClarification -->
+  <button *ngIf="false" [disabled]="IsDisableClarification" (click)="UploadContractInClarification()" id="btn2"
+    class="btn btn-primary btnGreen">
+    <img width="15px" height="15px" src="assets/Icons/Upload.png" />
+    ارسال به سامانه شفاف
+  </button>
+  <button *ngIf="ISProvisionRemain || IsArticle48" id="btn5" class="btn btn-primary btnGreen"
+    (click)="OnConfirmSelectedRow()">
+    <img width="15px" height="15px" src="assets/Icons/ok.png" />
+    تایید
+  </button>
+  <button *ngIf="IsEstimate" (click)="onOkClick()" id="btnInsert" class="btn btn-primary btnGreen">
+    <img width="15px" height="15px" src="assets/Icons/Add.png" />
+    تایید
+  </button>
+  <button (click)="closeModal()" id="btn4" class="btn btn-primary btnGreen">
+    <img width="15px" height="15px" src="assets/Icons/exit.png" />
+    خروج
+  </button>
+</div>
+<ng-template #IsPostedToClean let-row>
+  <img width="16px" height="16px" [src]="row.IsPostedToClean ? 'assets/Icons/TrueCheckBox.png': 'assets/Icons/uncheck.png'" />
+</ng-template>
+<app-over-popup *ngIf="btnclicked" [HaveMaxBtn]="HaveMaxBtn" [startLeftPosition]="startLeftPosition"
+  [startTopPosition]="startTopPosition" [minHeightPixel]="MinHeightPixel" [PopupType]="type"
+  [HeightPercentWithMaxBtn]="HeightPercentWithMaxBtn"
+  [PopupParam]="type === 'message-box' ? alertMessageParams : paramObj" [HaveHeader]="HaveHeader"
+  [PixelWidth]="OverPixelWidth" [MainMaxwidthPixel]="OverPixelWidth" (popupclosed)="popupclosed($event)">
+</app-over-popup>

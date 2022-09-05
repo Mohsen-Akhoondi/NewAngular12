@@ -1,0 +1,38 @@
+.input-style{
+    border-radius:3px;
+     height: 25px;
+     display: inline-block;
+  }
+  
+  .table-cell-Lable {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+  
+  .feild-set{
+      border: 1px solid rgb(218, 218, 218);
+      min-height: 50px;
+      margin-bottom: 5px;
+      padding: 5px;
+      display: inherit;
+  }
+  
+  .legend {
+    width: auto; 
+    margin: 0; 
+    font-weight: bold;
+  }
+  
+  .buttons-place {
+    z-index: 3;
+    height: 44px;
+    padding: 7px;
+    margin-left: 5px;
+    margin-right: 5px;
+    /* margin-top: 5px; */
+    margin-bottom: 5px;
+    -webkit-box-shadow: #babdc2 0 1px 0px 0 inset, #babdc2 0 -1px 0px 0 inset,
+      #babdc2 -1px 0 0px 0 inset, #babdc2 1px 0 0px 0 inset;
+    width: 98%;
+  }
+  

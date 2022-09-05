@@ -1,0 +1,29 @@
+.table-cell-Lable {
+    margin-left: 10px;
+    margin-right: 10px;
+    font-size: 10px;
+}
+.main-div {
+    float: right;
+    margin-left: 5px;
+    width: 100%;
+}
+
+.feild-set{
+    border: 1px solid rgb(218, 218, 218);
+    /* min-height: 50px; */
+    margin-bottom: 10px;
+    padding: 4px;
+    text-align: right;
+}
+.CenterDiv{
+    text-align: center;
+    margin: auto;
+}
+.RightDiv{
+    text-align: right;
+    margin: auto;
+}
+.col-form-label {
+    margin: 0px 5px 0px 0px;
+}

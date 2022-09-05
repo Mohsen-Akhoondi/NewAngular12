@@ -1,0 +1,69 @@
+<div class="main-form-body" style="margin: 5px; height:86%;">
+  <div class="main-form-body">
+    <table style="width: 100%;">
+      <tr>
+        <td width="25%">
+          <span class="table-cell-Lable">واحد اجرایی</span>
+          <app-ng-select-virtual-scroll style="display: inline-block;width: 65%;" class=""
+            [NgSelectParams]="RegionParams" (selectedChange)="onChangeRegion($event)" [Items]="RegionItems">
+          </app-ng-select-virtual-scroll>
+        </td>
+        <td width="25%">
+          <span class="table-cell-Lable">مرکز هزینه اصلی</span>
+          <app-ng-select-virtual-scroll style="display: inline-block;width: 65%;" class=""
+            [NgSelectParams]="CostCenterParams" (selectedChange)="onChangeCostCenterObj($event)"
+            [Items]="CostCenterList">
+          </app-ng-select-virtual-scroll>
+        </td>
+        <td width="25%">
+          <span class="table-cell-Lable">مرکز هزینه فرعی</span>
+          <app-ng-select-virtual-scroll style="display: inline-block;width: 65%;" class=""
+            [NgSelectParams]="SubCostCenterParams" (selectedChange)="onChangeSubCostCenterObj($event)"
+            [Items]="SubCostCenterList">
+          </app-ng-select-virtual-scroll>
+        </td>
+        <td width="25%">
+          <span class="table-cell-Lable">نقش کاربران</span>
+          <app-ng-select-virtual-scroll style="display: inline-block;width: 65%;" class="" [NgSelectParams]="RoleParams"
+            (selectedChange)="onChangeRoleObj($event)" [Items]="RoleListSet">
+          </app-ng-select-virtual-scroll>
+        </td>
+      </tr>
+      <tr>
+        <td wdith="50%" colspan="2" style="padding-left: 15%;padding-top: 5px;">
+          <span class="table-cell-Lable">نمایش کاربران تک منطقه ای</span>
+          <app-custom-check-box style="vertical-align: sub;" [configurationInfo]="CustomCheckBoxConfig"
+            [isSelected]="true" (PrettyCheckBoxChange)="OnCheckBoxChange($event)">
+          </app-custom-check-box>
+        </td>
+        <td wdith="25%"></td>
+        <td wdith="25%"></td>
+      </tr>
+    </table>
+  </div>
+  <table style="width: 100%;">
+    <tr>
+      <td wdith="100%" style="padding-right: 50%;">
+        <button type="submit" (click)="OnSearch()"
+          class="select-general-for-lable btn-gray-border btn btn-primary btnGreen">
+          <img width="15px" height="15px" src="assets/Icons/Search.png" />
+          جستجو
+        </button>
+      </td>
+    </tr>
+  </table>
+  <div id="container" style="clear: both;padding-bottom: 5px;">
+    <div class="box-dev" style=" width: 100%;">
+      <app-grid [columns]="colDef" [rows]="userRegionRoleData" [gridHeightPxel]="300"></app-grid>
+    </div>
+  </div>
+</div>
+
+<div class="buttons-place" style="margin: 10; height: 44px; padding: 10px; padding-bottom: 7px;">
+  <button (click)="closeModal()" id="btn2" class="btn btn-primary btnGreen">
+    <img width="15px" height="15px" src="assets/Icons/exit.png" />
+    خروج</button>
+</div>
+<app-over-popup *ngIf="btnclicked" [PopupType]="PopupType" [startLeftPosition]="449" [startTopPosition]="347"
+  (popupclosed)="popupclosed($event)" [PopupParam]="type === 'message-box' ? alertMessageParams :''">
+</app-over-popup>

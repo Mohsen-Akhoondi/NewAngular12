@@ -1,0 +1,54 @@
+<div id="container" class="row" style="clear: both">
+  <div id="content" class="" style="height: 100%; width: 100%;">
+
+    <div class="main-form-body">
+        <div class="box-dev">
+          <app-grid
+            style="width:100%;"
+            [columns]="colDefRight"
+            [rows]="rowDataRight"
+            [gridHeight]="98"
+            [gridHeader]= "'منوی کاربر'"
+            (RowClick)="RightRowClick($event)"
+            (GridReady)="onRightGridReady($event)"
+          ></app-grid>
+        </div>
+
+
+        <div class="middleDiv buttons-in-column arrow-key">
+
+          <button (click)="addRightToLeft()"  class="btn btnGreen fa fa-angle-left"></button>
+          <button (click)="addLeftToRight()" class="btn btnGreen fa fa-angle-right"></button>
+          <button (click)="addAllRightToLeft()" class="btn btnGreen fa fa-angle-double-left"></button>
+          <button (click)="addAllLeftToRight()" class="btn btnGreen fa fa-angle-double-right"></button>
+
+        </div>
+        <div class="box-dev">
+          <app-grid
+            style="width: 100%;"
+            [columns]="colDefLeft"
+            [rows]="rowDataLeft"
+            [gridHeight]="98"
+            [gridHeader]= "'منوی سفارشی کاربر'"
+            (RowClick)="LeftRowClick($event)"
+            (GridReady)="onLeftGridReady($event)"
+          ></app-grid>
+        </div>
+      </div>
+
+    <div class="buttons-place">
+      <button
+        id="btnSave"
+        class="btn btn-primary btnGreen"
+        (click)="onConfirm()"
+      >
+        <img width="10px"   src="assets/Icons/save.png" />
+        تایید
+      </button>
+      <button (click)="close()" id="btn4" class="btn btn-primary btnGreen">
+        <img width="10px"  src="assets/Icons/exit.png" />
+        خروج
+      </button>
+    </div>
+</div>
+</div>

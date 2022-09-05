@@ -1,0 +1,19 @@
+<input 
+[disabled]="ReadOnly"
+#inputRef 
+id = "{{id}}"
+class="form-control"
+type="text"
+maxlength="{{MaxLength}}" 
+(keypress)="OnKeyPress($event)" 
+[(ngModel)]="Value"
+(ngModelChange)="onInputChange($event)"
+[style.width.px] = "PixelWidth ? PixelWidth:''"
+[style.fontSize.px]="fontSize ? fontSize:''"
+[style.height.px] = "PixelHeight ? PixelHeight:''"
+[style.height.%] = "PerCentHeight ? PerCentHeight:''"
+[style.width.%] = "PerCentWidth ? PerCentWidth:''"
+style="display: inline-block;"
+[ngStyle]="{'border-color': CheckValidate && !Value ? 'red':''}"
+placeholder="{{CheckValidate && !Value ? 'پر کردن مقدار این فیلد الزامیست': ''}}">
+

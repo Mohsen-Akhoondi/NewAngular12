@@ -1,0 +1,450 @@
+<div [ngStyle]="{'pointer-events': !IsDown ? 'none' : 'inherit',opacity: !IsDown ? '0.5' : 'inherit'}" id="container"
+  class="row for-append-date" style="clear: both ; ">
+  <div id="content" style="width: 100%;height: 99%;">
+    <div id="mainformbody" class="main-form-body" [style.height.%]="87" style="margin: 5px; padding:2px 10px">
+      <div id="tabcontent" class="tab-content" style="margin-top: 5px;" [style.height.%]="100">
+        <div role="tabpanel" id="shenasnameh" class="tab-pane fade show active"
+          style="height: 100%; margin-bottom: 5px;">
+          <fieldset class="feild-set" style="display: inherit">
+            <table style="width: 100%;">
+              <tr>
+                <td style="width: 25%;">
+                  <span class="table-cell-Lable">کد قرارداد</span>
+                  <input style="width: 60%; " class="form-control input-style" type="text" name="first"
+                    value="{{ ContractCode }}" readonly />
+                </td>
+                <td style="width: 25%;">
+                  <span class="table-cell-Lable">نوع قرارداد</span><input style="width: 60%; "
+                    class="form-control input-style" type="text" name="first" value="{{ ContractType }}" readonly />
+                </td>
+                <td style="width: 25%;">
+                  <span class="table-cell-Lable"> تاريخ شروع قرارداد</span><input style="width: 55%; "
+                    class="form-control input-style" type="text" name="first" value="{{FromContractDatePersian}}"
+                    readonly />
+                </td>
+                <td style="width: 25%;">
+                  <span class="table-cell-Lable"> تاريخ پايان قرارداد</span><input style="width: 55%; "
+                    class="form-control input-style" type="text" name="first" value="{{ ToContractDatePersian}}"
+                    readonly />
+                </td>
+              </tr>
+              <tr>
+                <td style="width: 25%">
+                  <span class="table-cell-Lable">پيمانکار</span><input style="width: 60%; "
+                    class="form-control input-style" type="text" name="first" value="{{ ContractorName }}" readonly />
+                </td>
+                <td style="width: 25%">
+                  <span class="table-cell-Lable">مبلغ قرارداد</span><input style="width: 60%; "
+                    class="form-control input-style" type="text" name="first" value="{{ ContractAmount }}" readonly />
+                </td>
+                <td style="width: 25%">
+                  <span class="table-cell-Lable"> شماره نامه</span><input style="width: 55%; "
+                    class="form-control input-style" type="text" name="first" value="{{ LetterNo }}" readonly />
+                </td>
+                <td style="width: 25%">
+                  <span class="table-cell-Lable"> تاريخ نامه</span><input style="width: 55%; "
+                    class="form-control input-style" type="text" name="first" value="{{ LetterDatePersian }}"
+                    readonly />
+                </td>
+              </tr>
+              <tr>
+                <td style="width: 25%">
+                  <span class="table-cell-Lable"> مبلغ پيش پرداخت </span><input style="width: 60%; "
+                    class="form-control input-style" type="text" name="first" value="{{ PrePayAmount }}" readonly />
+                </td>
+                <td style="width: 25%">
+                  <span class="table-cell-Lable">درصد</span><input style="width: 60%; " class="form-control input-style"
+                    type="text" name="first" value="{{ PrePayPercent }}" readonly />
+                </td>
+                <td style="width: 25%">
+                  <span class="table-cell-Lable">درصد استهلاک</span><input style="width: 55%; "
+                    class="form-control input-style" type="text" name="first" value="{{ DepreciationPercent }}"
+                    readonly />
+                </td>
+                <td style="width: 25%">
+                  <span class="table-cell-Lable">تاريخ شروع استهلاک</span><input style="width: 55%; "
+                    class="form-control input-style" type="text" name="first" value="{{ DepreciationStartDatePersian }}"
+                    readonly />
+                </td>
+              </tr>
+              <tr>
+                <td style="width: 50%" colspan="2">
+                  <span class="table-cell-Lable"> محدوده انجام</span><input style="width: 80%; "
+                    class="form-control input-style" type="text" name="first" value="{{ ActLocationName }}" readonly />
+                </td>
+                <td style="width: 25%">
+                  <span class="table-cell-Lable">تاریخ شروع آخرین مرحله</span>
+                  <input style="width: 55%; " class="form-control input-style" type="text" name="first"
+                    value="{{ MinStartDate }}" readonly />
+                </td>
+                <td style="width: 25%">
+                  <span class="table-cell-Lable">تاریخ پایان آخرین مرحله</span>
+                  <input style="width: 55%; " class="form-control input-style" type="text" name="first"
+                    value="{{ MaxEndDate }}" readonly />
+                </td>
+              </tr>
+              <tr>
+                <td style="width: 50%" colspan="2">
+                  <span class="table-cell-Lable">موضوع</span><input style="width: 80%" class="form-control input-style"
+                    type="text" name="first" value="{{ Subject }}" readonly />
+                </td>
+                <td style="width: 25%">
+                  <span class="table-cell-Lable"> مبلغ آخرین مرحله</span><input style="width: 55%; "
+                    class="form-control input-style" type="text" name="first" value="{{ sumFinalAmountStr }}"
+                    readonly />
+                </td>
+                <td style="width: 25%">
+                  <span style="margin: 0;margin-left: 10px" class="table-cell-Lable">قرارداد تجمیعی</span>
+                  <app-custom-check-box style="vertical-align: sub; " [configurationInfo]="CustomCheckBoxConfig"
+                    [isSelected]="IsCumulative" (PrettyCheckBoxChange)="OnChIsCumulativeChange($event)">
+                  </app-custom-check-box>
+                  <span style="margin: 0;margin-left: 10px" class="table-cell-Lable">قرارداد حجمی</span>
+                  <app-custom-check-box style="vertical-align: sub; " [configurationInfo]="CustomCheckBoxConfig2"
+                    [isSelected]="IsVolumetric" (PrettyCheckBoxChange)="OnChIsVolumetricChange($event)">
+                  </app-custom-check-box>
+                </td>
+              </tr>
+              <tr>
+                <td style="width: 50%" colspan="2">
+                  <span class="table-cell-Lable">توضیحات</span>
+                  <input style="width: 80%" class="form-control input-style" type="text" name="first" value="{{ Note }}"
+                    readonly />
+                </td>
+                <td style="width: 25%">
+                  <span class="table-cell-Lable">مرکز هزينه</span><input style="width: 55%; "
+                    class="form-control input-style" type="text" name="first" value="{{ SubCostCenterName }}"
+                    readonly />
+                </td>
+                <td style="width: 25%;">
+                  <span class="table-cell-Lable">عدم کنترل تاریخ</span>
+                  <app-custom-check-box style="vertical-align: sub; " [configurationInfo]="CustomCheckBoxConfig1"
+                    [isSelected]="NotControllingPayDatePeriod"
+                    (PrettyCheckBoxChange)="OnChIsNotContollingPayDatePeriodChange($event)">
+                  </app-custom-check-box>
+                  <span class="table-cell-Lable">نشانگر چند فاکتوری</span>
+                  <app-custom-check-box style="vertical-align: sub; " [configurationInfo]="CustomCheckBoxConfig2"
+                    [isSelected]="IsMultiInvoice" (PrettyCheckBoxChange)="OnChIsMultiInvoiceChange($event)">
+                  </app-custom-check-box>
+                </td>
+              </tr>
+              <tr>
+                <td style="width: 50%" colspan="2">
+                </td>
+                <td style="width: 25%"></td>
+                <td style="width: 25%;">
+                  <span class="table-cell-Lable">قرارداد عمرانی</span>
+                  <app-custom-check-box style="vertical-align: sub; " [configurationInfo]="CustomCheckBoxConfig1"
+                  [isSelected]="IsEstimate" (PrettyCheckBoxChange)="OnIsEstimateChange($event)">
+                  </app-custom-check-box>
+                  <span class="table-cell-Lable1">عدم کنترل تاریخ نظارت</span>
+                  <app-custom-check-box style="vertical-align: sub; " [configurationInfo]="CustomCheckBoxConfig5"
+                  [isSelected]="HasExpiredSupervision" (PrettyCheckBoxChange)="OnHasExpiredSupervisionChange($event)">
+                  </app-custom-check-box>
+                </td>
+
+              </tr>
+            </table>
+          </fieldset>
+          <ul style="margin-top: 5px" class="nav nav-tabs" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link active" href="#profilee-{{BeforPageTypeName}}" role="tab" data-toggle="tab">اطلاعات
+                مرحله</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#buzzz-{{BeforPageTypeName}}" role="tab" data-toggle="tab">عوامل اجرايي</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#referencess-{{BeforPageTypeName}}" role="tab" data-toggle="tab">عوامل تعديل</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#referencesss-{{BeforPageTypeName}}" role="tab" data-toggle="tab">اطلاعات
+                مالي</a>
+            </li>
+            <li *ngIf="IsInCome" class="nav-item">
+              <a class="nav-link" href="#AssetIncome-{{BeforPageTypeName}}" role="tab" data-toggle="tab">منبع درآمد</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#RelatedProduct-{{BeforPageTypeName}}" role="tab" data-toggle="tab">اقلام
+                تعرفه</a>
+            </li>
+          </ul>
+          <div class="tab-content" style="margin-top: 5px;" [style.height.%]="OuterDivPanelHeight">
+            <div role="tabpanel" class="tab-pane fade show active" id="profilee-{{BeforPageTypeName}}"
+              [style.height.%]="PanelHeightInTab" style=" margin-bottom: 5px;">
+              <div style="width: 100%; border-radius: 5px; border: 1px solid rgb(204, 204, 204);"
+                [style.height.%]="T11HeightPercent">
+                <!-- شماره مرحله تاريخ  -->
+                <app-grid (RowClick)="RowClick($event)" [columns]="agContrcatOrderCol" [defaultSelectedRowIndex]="0"
+                  [rowsData]="ContractOrderListData" (GridReady)="onGridReadyContractOrder($event)" [gridHeight]="88">
+                </app-grid>
+              </div>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="buzzz-{{BeforPageTypeName}}"
+              [style.height.%]="PanelHeightInTab" style="margin-bottom: 5px;">
+              <div [style.height.%]="T12HeightPercent"
+                style="border-radius: 5px; border: 1px solid rgb(204, 204, 204);">
+                <!-- نام نقش نوع نقش  -->
+                <app-grid (RowClick)="ContractPersonRowClick($event)" (GridReady)="onGridReady($event)"
+                  [columns]="adContractPersoncol" [IsEditable]="IsEditable" [rowsData]="ContractPersonListData"
+                  [gridHeight]="GridHeight" (cellEditingStarted)="onContractPersoncellEditingStarted($event)">
+                </app-grid>
+              </div>
+            </div>
+
+            <div role="tabpanel" class="tab-pane fade" id="referencess-{{BeforPageTypeName}}"
+              [style.height.%]="PanelHeightInTab">
+              <div [style.height.%]="T13HeightPercent" style="width: 100%; margin-bottom: 5px;">
+                <div class="bntBox" style="height: 98%; padding: 0 1% 0 0;">
+                  <div class="card-block" style="padding: 4px 5px 0px 5px;margin: 5px;">
+                    <div class="form-group row" style="margin-bottom:5px; margin-top: 10px">
+                      <table>
+                        <tr>
+                          <td>
+                            <label style="margin-right: 5px" for="s-1" class="col-form-label FontSize12">سال
+                              مبنا</label>
+                          </td>
+                          <td>
+                            <div class="col-md-2">
+                              <app-ng-select-virtual-scroll
+                                style="display: inline-block;width: 55%; min-width: 180px;margin-right: 0px;"
+                                [Disabled]="!IsEditable" class="select-general-for-lable"
+                                [NgSelectParams]="PriceListTopicParams" [Items]="PriceListTopicsSet"
+                                (selectedChange)="onChangePriceListTopicObj($event)">
+                              </app-ng-select-virtual-scroll>
+                            </div>
+                          </td>
+                          <td>
+                            <label style="margin-right: 5px" for="s-1" class="col-form-label FontSize12">نوع فهرست
+                              بها</label>
+                          </td>
+                          <td>
+                            <div class="col-md-2">
+                              <app-ng-select-virtual-scroll
+                                style="display: inline-block;width: 55%; min-width: 180px;margin-right: 0px;"
+                                [Disabled]="!IsEditable" class="select-general-for-lable"
+                                [NgSelectParams]="PriceListTypeParams" [Items]="PriceListTypeSet"
+                                (selectedChange)="onChangePriceListTypeObj($event)">
+                              </app-ng-select-virtual-scroll>
+                            </div>
+                          </td>
+                          <td>
+                            <label style="margin-right: 5px" for="s-1" class="col-form-label FontSize12">تاريخ شروع به
+                              کار</label>
+                          </td>
+                          <td>
+                            <div class="col-md-2" style="padding-right: 15px;">
+                              <app-jalali-datepicker [WidthPx]="180" [Disabled]="!IsDisplay">
+                              </app-jalali-datepicker>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <label style="margin-right: 5px" for="s-1" class="col-form-label FontSize12">سه ماه
+                              مبنا</label>
+                          </td>
+                          <td>
+                            <div class="col-md-2" style="padding-right: 10px;">
+                              <app-ng-select-virtual-scroll [Disabled]="!IsEditable"
+                                style="display: inline-block;width: 55%; min-width: 180px;"
+                                class="select-general-for-lable" [NgSelectParams]="SeasonListParams"
+                                [Items]="SeasonListItems">
+                              </app-ng-select-virtual-scroll>
+                            </div>
+                          </td>
+                          <td>
+                            <label style="margin-right: 20px" for="s-1" class="col-form-label FontSize12">ضريب محاسبه
+                              تعديل</label>
+                          </td>
+                          <td>
+                            <div class="col-md-2">
+                              <input style="height: 28px; min-width: 180px;" class="form-control input-style fontsize"
+                                type="text" name="last" value="" [disabled]="!IsEditable" />
+                            </div>
+                          </td>
+                          <td>
+                            <label style="margin-right: 34px" for="s-1" class="col-form-label FontSize12">نوع شاخص
+                              تعديل</label>
+                          </td>
+                          <td>
+                            <div class="col-md-2">
+                              <app-ng-select-virtual-scroll
+                                style="display: inline-block; min-width: 180px;margin-right: 0px;"
+                                [Disabled]="!IsEditable" class="select-general-for-lable" [NgSelectParams]="LevelParams"
+                                [Items]="LevelSet">
+                              </app-ng-select-virtual-scroll>
+                            </div>
+                          </td>
+                        </tr>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div role="tabpanel" class="tab-pane fade" id="referencesss-{{BeforPageTypeName}}"
+              style="margin-bottom: 5px;" [style.height.%]="PanelHeightInTab">
+              <div [style.height.%]="99" class="info-div">
+
+                <table style="width: 100%;">
+                  <tr>
+                    <td style="width: 25%">
+                      <span class="table-cell-Lable"> درصد افزايش قرارداد </span><input style="width: 60%; "
+                        class="form-control input-style" type="text" name="first" value="{{ IncPercent }}" readonly />
+                    </td>
+                    <td style="width: 25%">
+                      <span class="table-cell-Lable"> شماره واحد قراردادها</span><input style="width: 60%; "
+                        class="form-control input-style" type="text" name="first" value="{{ ContractNo }}" readonly />
+                    </td>
+
+
+                    <td style="width: 25%">
+                      <span class="table-cell-Lable"> سند مکانيزه مثبت </span><input style="width: 60%; "
+                        class="form-control input-style" type="text" name="first" value="{{ ContractVoucherTypeP }}"
+                        readonly />
+                    </td>
+                    <td style="width: 25%">
+                      <span class="table-cell-Lable"> سند مکانيزه منفي </span><input style="width: 60%; "
+                        class="form-control input-style" type="text" name="first" value="{{ ContractVoucherTypeN }}"
+                        readonly />
+                    </td>
+
+
+                  </tr>
+                  <tr>
+                    <td style="width: 25%">
+                      <span class="table-cell-Lable"> وضعيت قرارداد </span><input style="width: 60%; "
+                        class="form-control input-style" type="text" name="first" value="{{ ContractSatus }}"
+                        readonly />
+                    </td>
+                    <td style="width: 25%">
+                      <span class="table-cell-Lable"> ناظر اول</span><input style="width: 60%; "
+                        class="form-control input-style" type="text" name="first" value="{{ FirstObserver  }}"
+                        readonly />
+                    </td>
+                    <td style="width: 25%">
+                      <span class="table-cell-Lable"> ناظر دوم </span><input style="width: 60%; "
+                        class="form-control input-style" type="text" name="first" value="{{ SecondObserver }}"
+                        readonly />
+                    </td>
+                    <td style="width: 25%">
+                      <span class="table-cell-Lable"> شعبه تامين اجتماعي </span><input style="width: 60%; "
+                        class="form-control input-style" type="text" name="first" value="{{ SocialSecurityBranchName }}"
+                        readonly />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="width: 25%">
+                      <span class="table-cell-Lable">کد کارگاهي</span><input style="width: 60%; "
+                        class="form-control input-style" type="text" name="first" value="{{ WorkshopCode }}" readonly />
+                    </td>
+                    <td style="width: 25%">
+                      <span class="table-cell-Lable"> واحد مالياتي</span><input style="width: 60%; "
+                        class="form-control input-style" type="text" name="first" value="{{ TaxUnitName }}" readonly />
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="AssetIncome-{{BeforPageTypeName}}"
+              [style.height.%]="PanelHeightInTab" style=" margin-bottom: 5px;">
+              <div style="width: 100%; border-radius: 5px; border: 1px solid rgb(204, 204, 204);"
+                [style.height.%]="T11HeightPercent">
+                <app-grid (GridReady)="onContractAssetIncomeGridReady($event)" [columns]="ContractAssetIncomecol"
+                  [IsEditable]="IsEditable" [rowsData]="ContractAssetIncomeListData"
+                  (CellValueChanged)="onContractAssetIncomeCellValueChanged($event)" [gridHeight]="GridHeight">
+                </app-grid>
+              </div>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="RelatedProduct-{{BeforPageTypeName}}"
+              [style.height.%]="PanelHeightInTabRelated" style="margin-bottom: 5px;">
+              <div [style.height.%]="T12HeightPercent"
+                style="border-radius: 5px; border: 1px solid rgb(204, 204, 204);">
+                <app-grid (RowClick)="RelatedProductRowClick($event)" (GridReady)="onRelatedProductGridReady($event)"
+                  [columns]="RelatedProductCol" [IsEditable]="true" [rowsData]="RelatedProductRowData"
+                  [gridHeight]="GridHeightRelated" (cellEditingStarted)="oncellEditingStarted($event)">
+                </app-grid>
+              </div>
+              <div *ngIf="!HaveSave && !IsDisplay" class="buttons-place" style="margin: unset; margin: 3px;">
+                <button (click)="onSaveRelatedProduct()" id="btnSave" class="btn btn-primary btnGreen">
+                  <img width="15px" height="15px" src="assets/Icons/save.png" />
+                  ثبت
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <ng-template #ShowRequest let-row>
+      <img style="cursor: pointer;" width="16px" height="16px" [src]="'assets/Icons/show.png'"
+        (click)="onShowProductRequestClick(row)" />
+    </ng-template>
+    <ng-template #PrintFlow let-row>
+      <img style="cursor: pointer;" width="16px" height="16px" [src]="'assets/Icons/print.png'"
+        (click)="onPrintFlowClick(row)" />
+    </ng-template>
+    <div class="buttons-place" style="margin: unset; margin: 5px;">
+
+      <button *ngIf="HaveSave && IsDisplay" (click)="onSave()" id="btn2" class="btn btn-primary btnGreen">
+        <img width="15px" height="15px" src="assets/Icons/save.png" />
+        ثبت
+      </button>
+
+      <button (click)="btnClick('view-no-estimate')" class="btn btn-primary btnGreen">
+        <img width="15px" height="15px" src="assets/Icons/show.png" />
+        مشاهده مرحله
+      </button>
+      <button *ngIf="HaveEstimate" (click)="btnClick('view-estimate')" class="btn btn-primary btnGreen">
+        <img width="15px" height="15px" src="assets/Icons/show.png" />
+        مشاهده برآورد
+      </button>
+      <button (click)="onCoefClick()" class="btn btn-primary btnGreen">
+        <img width="15px" height="15px" src="assets/Icons/coef1.png" />
+        ضرايب قرارداد
+      </button>
+      <button (click)="btnClick('archive')" class="btn btn-primary btnGreen">
+        <img width="15px" height="15px" src="assets/Icons/TechnicalArchive.png" />
+        درج مستندات فني قرارداد
+      </button>
+      <button *ngIf="Showable" (click)="btnClick('contract-case')" class="btn btn-primary btnGreen">
+        <img width="15px" height="15px" src="assets/Icons/show.png" />
+        مشاهده پرونده قرارداد
+      </button>
+      <button (click)="onContractPersonPrint()" class="btn btn-primary btnGreen">
+        <img width="15px" height="15px" src="assets/Icons/show.png" />
+        چاپ عوامل اجرايي
+      </button>
+      <button (click)="OnClickPrintFlow()" class="btn btn-primary btnGreen">
+        <img width="15px" height="15px" src="assets/Icons/print.png" />
+        چاپ گردش برآورد اولیه
+      </button>
+      <!-- <button *ngIf="HasProductRequest" (click)="onShowProductRequestClick()" class="btn btn-primary btnGreen">
+        <img width="15px" height="15px" src="assets/Icons/show.png" />
+        مشاهده درخواست قرارداد
+      </button> -->
+      <button *ngIf="HaveSave && IsDisplay && ShowDelete" (click)="DeleteContractOrder()" id="btn2"
+        class="btn btn-primary btnGreen">
+        <img width="15px" height="15px" src="assets/Icons/delete.png" />
+        حذف
+      </button>
+      <button (click)="onClose()" class="btn btn-primary btnGreen">
+        <img width="15px" height="15px" src="assets/Icons/exit.png" />
+        خروج
+      </button>
+    </div>
+  </div>
+</div>
+
+
+<app-over-popup *ngIf="isClicked" [PopupType]="type" [PopupParam]="type === 'archive-details'? ArchiveParam : type === 'contract-coef' ? CoefParam : type === 'contract-person' ? selectedContractPersonRow : type ==='view-estimate' || type ==='view-no-estimate' ? ViewEstimateParam : type ==='contract-case' 
+  || type ==='product-request-page' ||  type ==='product-request-page-without-flow' ? paramObj : alertMessageParams"
+  (popupclosed)="popupclosed($event)" (PopupOutPutParam)="type ==='message-box' ? MessageBoxAction($event) : getOutPutParam($event)"
+  [startLeftPosition]="type ==='view-estimate' || type ==='view-no-estimate' || type === 'contract-coef' || type ==='contract-case' ||  type ==='product-request-page' ||  type ==='product-request-page-without-flow' ? startLeftPosition  : 521"
+  [startTopPosition]="type ==='view-estimate' || type ==='view-no-estimate' || type === 'contract-coef' || type ==='contract-case' ||  type ==='product-request-page' ||  type ==='product-request-page-without-flow'  ? startTopPosition : 207"
+  [HaveHeader]="HaveHeader"
+  [HaveMaxBtn]="type ==='view-estimate' || type ==='view-no-estimate' || type ==='contract-case' || type ==='product-request-page' || type ==='product-request-page-without-flow'"
+  [minHeightPixel]="MinHeightPixel" [PercentWidth]="PercentWidth" [HeightPercentWithMaxBtn]="HeightPercentWithMaxBtn">
+</app-over-popup>
+

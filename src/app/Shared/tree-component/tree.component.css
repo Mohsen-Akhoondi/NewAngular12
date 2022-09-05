@@ -1,0 +1,9 @@
+div.tree {
+  height: 100%;
+}
+
+#filter{
+margin:5px 15px;
+box-sizing: border-box;
+width: 95%;
+}

@@ -1,0 +1,73 @@
+<div id="container" class="row" style="clear: both">
+  <div id="content" class="" style="height: 100%; width: 99%; margin-right: 5px;">
+    <div class="main-form-body" [style.height.%]="86" style="margin: 5px; padding:2px 10px">
+      <form>
+        <fieldset class="feild-set" style="display: inherit">
+          <legend style="width: 7%;margin: 0;"> اطلاعات قرارداد </legend>
+          <table style="line-height: 12px; width: 100%;">
+            <tr>
+              <td width="20%">
+                <span class="table-cell-Lable">سال مالی</span><input style=" width: 70% "
+                  class="form-control input-style" type="text" value="{{FinYearCode}}" readonly />
+              </td>
+              <td width="20%">
+                <span class="table-cell-Lable">کد قرارداد</span><input style=" width: 64% "
+                  class="form-control input-style" type="text" value="{{ContractCode}}" readonly />
+              </td>
+              <td width="20%">
+                <span class="table-cell-Lable">نوع قرارداد</span><input style="width: 64% "
+                  class="form-control input-style" type="text" value="{{ContractTypeName}}" readonly />
+              </td>
+              <td width="20%">
+                <span class="table-cell-Lable">شماره نامه</span><input style="width: 64% "
+                  class="form-control input-style" type="text" name="last" value="{{LetterNo}}" readonly />
+              </td>
+              <td width="20%">
+                <span class="table-cell-Lable">مبلغ</span><input style="width: 64% " class="form-control input-style"
+                  type="text" name="last" value="{{ContractAmount}}" readonly />
+              </td>
+            </tr>
+            <tr>
+              <td colspan="3">
+                <span class="table-cell-Lable">پیمانکار</span><input style="width: 90% "
+                  class="form-control input-style" type="text" name="last" value="{{ContractorName}}" readonly />
+              </td>
+              <td>
+                <span class="table-cell-Lable">تاریخ شروع</span><input style="width: 64% "
+                  class="form-control input-style" type="text" name="last" value="{{FromContractDatePersian}}"
+                  readonly />
+              </td>
+              <td>
+                <span class="table-cell-Lable">تاریخ پایان</span><input style="width: 64% "
+                  class="form-control input-style" type="text" name="last" value="{{ToContractDatePersian}}" readonly />
+              </td>
+            </tr>
+            <tr>
+              <td colspan="5">
+                <span class="table-cell-Lable">موضوع</span><input style="width: 94% " class="form-control input-style"
+                  id="subject-style" type="text" name="first" value="{{Subject}}" readonly />
+              </td>
+            </tr>
+          </table>
+        </fieldset>
+      </form>
+      <div class="box-dev" [style.height.%]="76" style=" width: 100%; border: 1px solid rgb(214, 214, 214);">
+        <app-grid style="width: 100%;" [columns]="columnDef_Voucher" [rowsData]="rowData_Voucher"
+          (GridReady)="GridReady($event)" [gridHeightPxel]="340" [gridHeader]="'اسناد حسابداری مرتبط'">
+        </app-grid>
+      </div>
+    </div>
+    <div class="buttons-place" style=" margin: 5px">
+
+      <button (click)="close()" id="btn4" class="btn btn-primary btnGreen">
+        <img width="15px" height="15px" src="assets/Icons/exit.png" />
+        خروج</button>
+
+    </div>
+  </div>
+</div>
+
+
+<app-over-popup *ngIf="btnclicked" [PopupType]="type" [HaveMaxBtn]="false" [startLeftPosition]="OverstartLeftPosition"
+  [startTopPosition]="OverstartTopPosition" [PopupParam]="alertMessageParams" (popupclosed)="popupclosed($event)">
+</app-over-popup>

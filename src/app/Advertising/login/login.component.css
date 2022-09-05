@@ -1,0 +1,68 @@
+
+.panel .panel-body {
+    background-color: #fff;
+    font-size: 14px;
+    padding: 16px;
+}
+.panel .panel-body {
+    border-radius: 2px;
+}
+.panel.panel-default .panel-heading {
+    color: #9e9e9e;
+    background-color: #fafafa;
+    border-color: #fafafa;
+}
+.panel .panel-heading {
+    color: #9e9e9e;
+    background-color: #fafafa;
+    padding: 0px 16px 0px 16px;
+    line-height: 48px;
+}
+.panel .panel-heading {
+    border-top-left-radius: 2px;
+    border-top-right-radius: 2px;
+}
+.panel .panel-footer {
+    padding: 16px;
+    background-color: #fafafa;
+    border-radius: 0 0 2px 2px;
+}
+.clearfix::after, .dl-horizontal dd::after, .container::after, .container-fluid::after, .row::after, .form-horizontal .form-group::after, .nav::after, .btn-toolbar::after, .btn-group-vertical > .btn-group::after, .pager::after, .modal-footer::after, .page-heading::after, #topnav::after, #topnav .logo-area::after, #topnav .userinfo li a::after, #topnav a.username::after, .sidebar nav.widget-body > ul.acc-menu li.hasChild > a::after, .navbar::after, .navbar-header::after, .navbar-collapse::after, .panel::after, .panel-heading::after, .panel-body::after, .panel-footer::after, .timeline > li .timeline-header::after, .timeline > li .timeline-footer::after, .widget-weather::after, .gallery::after {
+    clear: both;
+}
+.clearfix::before, .clearfix::after, .dl-horizontal dd::before, .dl-horizontal dd::after, .container::before, .container::after, .container-fluid::before, .container-fluid::after, .row::before, .row::after, .form-horizontal .form-group::before, .form-horizontal .form-group::after, .nav::before, .nav::after, .btn-toolbar::before, .btn-toolbar::after, .btn-group-vertical > .btn-group::before, .btn-group-vertical > .btn-group::after, .pager::before, .pager::after, .modal-footer::before, .modal-footer::after, .page-heading::before, .page-heading::after, #topnav::before, #topnav::after, #topnav .logo-area::before, #topnav .logo-area::after, #topnav .userinfo li a::before, #topnav .userinfo li a::after, #topnav a.username::before, #topnav a.username::after, .sidebar nav.widget-body > ul.acc-menu li.hasChild > a::before, .sidebar nav.widget-body > ul.acc-menu li.hasChild > a::after, .navbar::before, .navbar::after, .navbar-header::before, .navbar-header::after, .navbar-collapse::before, .navbar-collapse::after, .panel::before, .panel::after, .panel-heading::before, .panel-heading::after, .panel-body::before, .panel-body::after, .panel-footer::before, .panel-footer::after, .timeline > li .timeline-header::before, .timeline > li .timeline-header::after, .timeline > li .timeline-footer::before, .timeline > li .timeline-footer::after, .widget-weather::before, .widget-weather::after, .gallery::before, .gallery::after {
+    content: " ";
+    display: table;
+}
+.clearfix::after, .dl-horizontal dd::after, .container::after, .container-fluid::after, .row::after, .form-horizontal .form-group::after, .nav::after, .btn-toolbar::after, .btn-group-vertical > .btn-group::after, .pager::after, .modal-footer::after, .page-heading::after, #topnav::after, #topnav .logo-area::after, #topnav .userinfo li a::after, #topnav a.username::after, .sidebar nav.widget-body > ul.acc-menu li.hasChild > a::after, .navbar::after, .navbar-header::after, .navbar-collapse::after, .panel::after, .panel-heading::after, .panel-body::after, .panel-footer::after, .timeline > li .timeline-header::after, .timeline > li .timeline-footer::after, .widget-weather::after, .gallery::after {
+    clear: both;
+}
+.clearfix::before, .clearfix::after, .dl-horizontal dd::before, .dl-horizontal dd::after, .container::before, .container::after, .container-fluid::before, .container-fluid::after, .row::before, .row::after, .form-horizontal .form-group::before, .form-horizontal .form-group::after, .nav::before, .nav::after, .btn-toolbar::before, .btn-toolbar::after, .btn-group-vertical > .btn-group::before, .btn-group-vertical > .btn-group::after, .pager::before, .pager::after, .modal-footer::before, .modal-footer::after, .page-heading::before, .page-heading::after, #topnav::before, #topnav::after, #topnav .logo-area::before, #topnav .logo-area::after, #topnav .userinfo li a::before, #topnav .userinfo li a::after, #topnav a.username::before, #topnav a.username::after, .sidebar nav.widget-body > ul.acc-menu li.hasChild > a::before, .sidebar nav.widget-body > ul.acc-menu li.hasChild > a::after, .navbar::before, .navbar::after, .navbar-header::before, .navbar-header::after, .navbar-collapse::before, .navbar-collapse::after, .panel::before, .panel::after, .panel-heading::before, .panel-heading::after, .panel-body::before, .panel-body::after, .panel-footer::before, .panel-footer::after, .timeline > li .timeline-header::before, .timeline > li .timeline-header::after, .timeline > li .timeline-footer::before, .timeline > li .timeline-footer::after, .widget-weather::before, .widget-weather::after, .gallery::before, .gallery::after {
+    content: " ";
+    display: table;
+}
+.customLogin {
+    width: 100% !important;
+    margin: auto !important;
+    margin-top: auto !important;
+    max-width: 100% !important;
+    flex: 100% !important;
+}
+.panel .panel-heading h2 {
+    color: #9e9e9e;
+    font-size: 14px;
+    font-weight: 700;
+    padding: 14px 0 14px;
+    margin: 0;
+    line-height: 20px;
+    text-transform: uppercase;
+}
+.panel .panel-heading h2 {
+    height: 100%;
+    width: auto;
+    float: right;
+    position: relative;
+}
+.panel.panel-default .panel-heading h2 {
+    color: #086ff8;
+}

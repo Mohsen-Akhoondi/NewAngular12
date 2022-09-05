@@ -1,0 +1,10 @@
+<div class="CustomeTreeSelect" style="width: 100%"
+  [ngStyle]="{'border-color': CheckValidate && !TreeSelectParams.selectedObject && TreeSelectParams.selectedObject !== 0 ? 'red':''}">
+  <tree-select name="{{TreeSelectParams?.bindLable}}-simpleSelect" [items]="Items"
+    idField="{{TreeSelectParams?.bindValue}}" textField="{{TreeSelectParams?.bindLable}}" childrenField="children"
+    [(ngModel)]="TreeSelectParams.selectedObject" required=true
+    filterPlaceholder="{{TreeSelectParams.Required && CheckValidate && !TreeSelectParams.selectedObject && TreeSelectParams.selectedObject !== 0 ? 'پر کردن مقدار این فیلد الزامیست': ''}}"
+    [allowFilter]="TreeSelectParams?.allowFilter" [TextSpanWidth] = "TreeSelectParams?.TextSpanWidth"  [disabled]="TreeSelectParams?.Disabled"
+    [allowParentSelection]="TreeSelectParams?.AllowParentSelection"
+    (ngModelChange)="onChangeselectedObject($event)"></tree-select>
+</div>

@@ -1,0 +1,33 @@
+<div class="main-form-body" style="margin-top: 5px; height:85%;">
+  <div  style="clear: both;padding-bottom: 5px; height:100%;">
+      <div class="box-dev" style=" width: 100%;"  [style.height.%]="100" >
+          <app-grid
+          [columns]="ColDef" 
+          [rowsData]="rowData" 
+          [gridHeight]=92
+          (GridReady)="GridReady($event)"
+          [IsEditable]="true"
+          [AutoNumberField]="'PROVIDER_ASSET_TYPE'"
+          >
+          </app-grid>
+        </div>    
+  </div>
+</div>
+<div class="buttons-place" style="margin: unset;">
+<button *ngIf="HasSave " (click)="Save()" id="btn4" class="btn btn-primary btnGreen">
+    <img width="15px" height="15px" src="assets/Icons/save.png" />
+     ثبت
+</button>
+<button (click)="closeModal()" id="btn4" class="btn btn-primary btnGreen">
+<img width="15px" height="15px" src="assets/Icons/exit.png" />
+خروج
+</button>
+</div>
+<app-over-popup
+*ngIf="btnclicked"
+[PopupType]="type"
+[startLeftPosition]="449"
+[startTopPosition]="247"
+(popupclosed)="popupclosed($event)"
+[PopupParam]="alertMessageParams">
+</app-over-popup>

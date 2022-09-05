@@ -1,0 +1,194 @@
+<div id="container" class="row for-append-date" style="clear: both ; ">
+  <div id="content" style="width: 100%;height: 99%;">
+    <div class="main-form-body for-pr-wf" style="margin: 5px;" [style.height.%]="MainBodyHeight ? MainBodyHeight : ''">
+      <form style="height: 100%;">
+
+        <div class="main-form-body" style="display: inherit">
+          <table style="width: 100%;">
+            <tr>
+              <td width="25%">
+                <span style="color: red;">*</span>
+                <span class="table-cell-Lable">واحد اجرایی</span>
+                <app-ng-select-virtual-scroll style="display: inline-block;width: 66%;" class=""
+                  [NgSelectParams]="RegionParams" [CheckValidate]="CheckValidate"
+                  (selectedChange)="onChangeRegion($event)" [Items]="RegionItems"
+                  (Open)="OnOpenNgSelect('Region', false)">
+                </app-ng-select-virtual-scroll>
+              </td>
+              <td width="25%">
+                <span style="color: red;">*</span>
+                <span class="table-cell-Lable">سال مالي</span>
+                <app-ng-select-virtual-scroll style="display: inline-block;width: 60%;" class="select-general-for-lable"
+                  [NgSelectParams]="FinYearParams" [Items]="FinYearItems" [CheckValidate]="CheckValidate">
+                </app-ng-select-virtual-scroll>
+              </td>
+              <td width="25%">
+                <span class="table-cell-Lable"> کد صورتجلسه</span>
+                <input style="width: 66% " class="form-control input-style" type="text" value="{{ContractCode}}"
+                  readonly />
+              </td>
+              <td width="25%">
+                <span *ngIf="true" style="color: red;">*</span>
+                <span class="table-cell-Lable">شماره صورتجلسه</span>
+                <input style="width:  60%" class="form-control input-style" type="text" name="LetterNo"
+                  [(ngModel)]="LetterNo" [ngStyle]="{'border-color': CheckValidate && !LetterNo ? 'red':''}"
+                  placeholder="{{CheckValidate && !LetterNo  ? 'پر کردن مقدار این فیلد الزامیست': ''}}" />
+              </td>
+            </tr>
+            <tr>
+              <td width="25%">
+                <span style="color: red;">*</span>
+                <span class="table-cell-Lable">تاريخ شروع</span>
+                <app-jalali-datepicker [WidthPC]="66" [Required]="true" [CheckValidate]="CheckValidate"
+                  [CurrMiladiDateValue]="StartDate" (Change)="OnStartDateChange($event)">
+                </app-jalali-datepicker>
+              </td>
+              <td width="25%">
+                <span style="color: red;">*</span>
+                <span class="table-cell-Lable"> تاريخ پايان</span>
+                <app-jalali-datepicker [WidthPC]="60" [Required]="true" [CheckValidate]="CheckValidate"
+                  [CurrMiladiDateValue]="EndDate" (Change)="OnEndDateChange($event)">
+                </app-jalali-datepicker>
+              </td>
+              <td width="25%">
+                <span class="table-cell-Lable">ناظر صورتجلسه</span>
+                <app-ng-select-virtual-scroll [PageCount]="ActorPageCount" [style.width.%]="66"
+                  [TotalItemCount]="ActorTotalItemCount" style="display: inline-block;" class="select-general-for-lable"
+                  [NgSelectParams]="NgSelectActorParams" [Items]="ActorItems" (FetchMore)="FetchMoreActor($event)"
+                  (Open)="OpenActor($event)" (doSearch)="doActorSearch($event)">
+                </app-ng-select-virtual-scroll>
+              </td>
+              <td width="25%">
+                <span class="table-cell-Lable">ناظر دوم قرارداد</span>
+                <app-ng-select-virtual-scroll [PageCount]="SecondObserverPageCount" [style.width.%]="60"
+                  [TotalItemCount]="SecondObserverTotalItemCount" style="display: inline-block;"
+                  class="select-general-for-lable" [NgSelectParams]="NgSelectSecondObserverParams"
+                  [Items]="SecondObserverItems" (FetchMore)="FetchMoreSecondObserver($event)"
+                  (Open)="OpenSecondObserver($event)" (doSearch)="doSecondObserverSearch($event)">
+                </app-ng-select-virtual-scroll>
+              </td>
+            </tr>
+            <tr>
+              <td width="25%">
+                <span class="table-cell-Lable">نوع طرف قرارداد</span>
+                <div class="redio-div" style="width: 62%; text-align: center; margin-left: 10px;">
+                  <div class="custom-control custom-radio custom-control-inline">
+                    <input [checked]="ContractorType" type="radio" class="custom-control-input" id="rdoPersonContractor"
+                      name="ChoosenContractorType" (click)="rdoContractorTypeClick(true)">
+                    <label style="margin: auto;" class="custom-control-label redio-label"
+                      for="rdoPersonContractor">حقيقي
+                    </label>
+                  </div>
+                  <div class="custom-control custom-radio custom-control-inline">
+                    <input [checked]="!ContractorType" type="radio" class="custom-control-input"
+                      id="rdoCorporateContractor" name="ChoosenContractorType">
+                    <label style="margin: auto;" class="custom-control-label redio-label" for="rdoCorporateContractor"
+                      (click)="rdoContractorTypeClick(false)">حقوقي</label>
+                  </div>
+                </div>
+              </td>
+              <td colspan="2" style="width: 50%">
+                <span style="color: red;">*</span>
+                <span class="table-cell-Lable">به نیابت از</span>
+                <app-ng-select-virtual-scroll [PageCount]="ContractorPageCount" [style.width.%]="ContractorWidth"
+                  [TotalItemCount]="ContractorTotalItemCount" style="display: inline-block;"
+                  class="select-general-for-lable" [NgSelectParams]="NgSelectContractorParams" [Items]="ContractorItems"
+                  (FetchMore)="FetchMoreContractor($event)" (Open)="OpenContractor($event)"
+                  (doSearch)="doContractorSearch($event)" [CheckValidate]="CheckValidate">
+                </app-ng-select-virtual-scroll>
+                <img *ngIf="true" width="15px" height="15px" src="assets/Icons/add.png"
+                  style="cursor: pointer;margin-right: 10px;" (click)="onAddActorClick()" />
+              </td>
+              <td width="25%">
+                <span *ngIf="IsRequire" style="color: red;">*</span>
+                <span class="table-cell-Lable" style="margin-left:9px">تاريخ انعقاد قرارداد</span>
+                <app-jalali-datepicker [WidthPC]="60" [CurrMiladiDateValue]="LetterDate" [Required]="true"
+                  (Change)="OnLetterDateChange($event)" [CheckValidate]="CheckValidate && IsRequire">
+                </app-jalali-datepicker>
+              </td>
+            </tr>
+            <tr>
+              <td width="25%">
+                <span *ngIf="true" style="color: red;">*</span>
+                <span class="table-cell-Lable">مبلغ قرارداد</span>
+                <input style="width:  66%" class="form-control input-style" type="text" name="ContractAmount"
+                  [(ngModel)]="ContractAmount" [ngStyle]="{'border-color': CheckValidate && !ContractAmount ? 'red':''}"
+                  placeholder="{{CheckValidate && !ContractAmount ? 'پر کردن مقدار این فیلد الزامیست': ''}}" />
+              </td>
+              <td colspan="3" style="width: 100%">
+                <span *ngIf="true" style="color: red;">*</span>
+                <span class="table-cell-Lable">موضوع</span>
+                <input style="width:  86.7%" class="form-control input-style" type="text" name="Contractsubject"
+                  [(ngModel)]="Contractsubject"
+                  [ngStyle]="{'border-color': CheckValidate && !Contractsubject ? 'red':''}"
+                  placeholder="{{CheckValidate && !Contractsubject ? 'پر کردن مقدار این فیلد الزامیست': ''}}" />
+              </td>
+            </tr>
+          </table>
+          <!-- </fieldset> -->
+        </div>
+        <ul style="margin-top: 5px " class="nav nav-tabs" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link" [ngClass]="{'active': IsEditable}" href="#relation" role="tab"
+              data-toggle="tab">قراردادهاي مرتبط</a>
+          </li>
+        </ul>
+        <div class="tab-content" style="margin-top: 5px;" [style.height.%]="93">
+          <div role="tabpanel" class="tab-pane fade show active" id="relation" [style.height.%]="100"
+            style="margin-bottom: 5px;">
+            <div [style.height.%]="75" style="width: 100%; border-radius: 5px; border: 1px solid rgb(204, 204, 204);">
+              <!-- قرارداد مرتبط  -->
+              <app-grid [IsEditable]="false" (GridReady)="onGridReadyProdReqRel($event)" [columns]="contractRelColDef"
+                [rowsData]="contractRelList" [gridHeight]="91">
+              </app-grid>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div style="margin: 5px;">
+      <div class="buttons-place" style="float: right;margin: auto;width: 55.9%; overflow: auto;">
+        <button *ngIf="true" (click)="onSave()" id="btnSave" class="btn btn-primary btnGreen">
+          <img width="15px" height="15px" src="assets/Icons/save.png" />
+          ثبت
+        </button>
+        <button [disabled] = "!ArchiveEnabled" (click)="BtnArchiveClick()" id="btn1" class="btn btn-primary btnGreen">
+          <img width="15px" height="15px" src="assets/Icons/TechnicalArchive.png" />
+          مستندات
+        </button>
+        <button id="btnClose" class="btn btn-primary btnGreen" (click)="Close()">
+          <img width="15px" height="15px" src="assets/Icons/exit.png" />
+          خروج
+        </button>
+      </div>
+      <div class="buttons-place" style="float: left;margin: auto;width: 44%;">
+        <button *ngIf="!IsShow && DisabledControls" [disabled]="IsDisable" (click)="onConfirm()" id="btn2"
+          class="btn btn-primary btnGreen" style="margin: 2px;">
+          <img width="15px" height="15px" src="assets/Icons/{{btnConfirmIcon}}.png" />
+          {{btnConfirmName}} </button>
+        <button *ngIf="!IsShow && DisabledControls" [disabled]="IsDisable || IsFinalConfirm"
+          (click)="onConfirmAndSend()" id="btn2" class="btn btn-primary btnGreen" style="margin: 2px;">
+          <img width="15px" height="15px" src="assets/Icons/Approve.png" />
+          تایید و ارسال </button>
+        <button *ngIf="!IsShow && DisabledControls" [disabled]="IsDisable" (click)="onUnConfirmAndReturn()" id="btn2"
+          class="btn btn-primary btnGreen" style="margin: 2px;">
+          <img width="15px" height="15px" src="assets/Icons/DisApprove.png" />
+          عدم تایید و بازگشت </button>
+        <button *ngIf="HasShow" (click)="OnClickPrintFlow()" [disabled]="IsDisable" class="btn btn-primary btnGreen">
+          <img width="15px" height="15px" src="assets/Icons/print.png" />
+          گردش
+        </button>
+      </div>
+    </div>
+  </div>
+  <!-- <ng-template #ShowMapField let-row>
+  <img style="cursor: pointer;" width="16px" height="16px" src="assets/Icons/Map.png" (click)="OnShowMapClick(row)" />
+</ng-template> -->
+  <app-over-popup *ngIf="isClicked" [PopupType]="PopUpType" [HaveMaxBtn]="HaveMaxBtn" [HeightPercentWithMaxBtn]="95"
+    [startLeftPosition]="startLeftPosition" [startTopPosition]="startTopPosition"
+    [PopupParam]="PopUpType === 'message-box' ? alertMessageParams : PopUpType ==='archive-details' ? ArchiveParam : PopupParam"
+    [HaveHeader]="HaveHeader" [PercentWidth]="PercentWidth" [MainMaxwidthPixel]="MainMaxwidthPixel"
+    [minHeightPixel]="MinHeightPixel"
+    (PopupOutPutParam)="PopUpType ==='message-box' ? MessageBoxAction($event) : getOutPutParam($event)"
+    (popupclosed)="popupclosed($event)">
+  </app-over-popup>

@@ -1,0 +1,69 @@
+#header
+{
+    background-color: deepskyblue;
+    width: 100%;
+    height: 20px;
+    cursor: move;
+}
+
+#headertitle
+{
+    float : right;
+    padding-right: 5px;
+}
+
+.container
+{
+    border: solid blue;
+}
+#content
+{
+    background-color: transparent;
+    flex: 1;
+    padding: 0;
+    overflow: hidden;
+    float: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+}
+.data-grid
+{
+    flex: 1;
+    background-color: transparent;
+    height: 100%;
+    padding: 5px;
+    text-align: right;
+}
+.main-form-body
+{
+
+    overflow: auto;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,18 @@
+
+.table-cell-Lable {
+    margin-left: 10px;
+    margin-right: 10px; 
+    font-size: 10px;
+  }
+
+
+  .box-dev{
+    border-radius: 5px;
+    border: 1px solid rgb(218, 218, 218);
+}
+.feild-set{
+    border: 1px solid rgb(218, 218, 218);
+    min-height: 50px;
+    margin-bottom: 5px;
+    padding: 5px;
+}

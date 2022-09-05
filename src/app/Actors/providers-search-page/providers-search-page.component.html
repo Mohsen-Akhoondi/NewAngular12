@@ -1,0 +1,202 @@
+<div class="main-form-body for-append-dates-provider" style="margin-top: 5px; height:87%;">
+  <div style="width: 100%; border: 1px solid rgb(218, 218, 218); border-radius: 3px;">
+    <div style="width: 25%;">
+      <span class="table-cell-Lable">نوع تامین کننده</span>
+      <div class="redio-div" style=" padding-right: 15px; padding-bottom: 7px; width: 70%; display: inline-block;">
+        <div class="custom-control custom-radio custom-control-inline">
+          <input [checked]="IsCorporate" type="radio" class="custom-control-input" id="IsCorporateRadio"
+            name="ChoosenIsCorporateRadioName" (click)="RadioIsCorporateClick(true)">
+          <label style="margin: auto;" class="custom-control-label redio-label" for="IsCorporateRadio">حقوقی
+          </label>
+        </div>
+        <div class="custom-control custom-radio custom-control-inline">
+          <input [checked]="!IsCorporate" type="radio" class="custom-control-input" id="IsNotCorporateRadio"
+            name="ChoosenIsCorporateRadioName" style="padding-left: 0px;" (click)="RadioIsCorporateClick(false)">
+          <label style="margin: auto;" class="custom-control-label redio-label" for="IsNotCorporateRadio">حقیقی
+          </label>
+        </div>
+      </div>
+    </div>
+    <!--ورودی حقوقی-->
+    <table *ngIf="IsCorporate" style="width: 100%; margin-bottom: 3px;">
+      <tr>
+        <td style="width: 25%;">
+          <span class="table-cell-Lable">نام شرکت</span>
+          <input name="CorporateName" style="display: inline-block;width: 70%;" class="form-control input-style"
+            [(ngModel)]="Name" type="text" />
+        </td>
+        <td style="width: 25%;">
+          <span class="table-cell-Lable">شناسه ملی</span>
+          <!-- <app-number-input-component [id]="'indicator-label-code'" [HaveThousand]="false" [fontSize]="12"
+           [PixelHeight]="25" [MaxLength]="11" [Value]="IdentityNo" [PerCentWidth] ="70"
+          (ValueChange)="getCorporateIdentityNo($event)">
+          </app-number-input-component> -->
+          <input name="CorporateIdentityNo" style="display: inline-block;width: 70%;" class="form-control input-style"
+            [(ngModel)]="IdentityNo" type="text" />
+
+        </td>
+        <td style="width: 25%;">
+          <span class="table-cell-Lable">تاریخ ثبت</span>
+          <app-jalali-datepicker [WidthPC]="70" [CurrMiladiDateValue]="ProviderDate"
+            (Change)="OnProviderDateChange($event)">
+          </app-jalali-datepicker>
+        </td>
+        <td style="width: 25%; padding-left: 5px;">
+          <span class="table-cell-Lable">شماره همراه</span>
+          <input name="CorporateCell" style="display: inline-block;width: 70%;" class="form-control input-style"
+            [(ngModel)]="Cell" type="text" />
+        </td>
+      </tr>
+    </table>
+    <!--ورودی حقیقی-->
+    <table *ngIf="!IsCorporate" style="width: 100%; margin-bottom: 3px;">
+      <tr>
+        <td style="width: 25%;">
+          <span class="table-cell-Lable">نام شخص</span>
+          <input name="PersonName" style="display: inline-block;width: 70%;" class="form-control input-style"
+            [(ngModel)]="Name" type="text" />
+        </td>
+        <td style="width: 25%;">
+          <span class="table-cell-Lable">کد ملی</span>
+          <!-- <app-number-input-component [id]="'indicator-label-code'" [HaveThousand]="false" [fontSize]="12"
+          [PixelHeight]="25" [MaxLength]="10" [Value]="IdentityNo" [PerCentWidth] ="70"
+         (ValueChange)="getPersonIdentityNo($event)">
+       </app-number-input-component> -->
+
+          <input name="PersonIdentityNo" style="display: inline-block;width: 70%;" class="form-control input-style"
+            [(ngModel)]="IdentityNo" type="text" />
+        </td>
+        <td style="width: 25%;">
+          <span class="table-cell-Lable">تاریخ تولد</span>
+          <app-jalali-datepicker [WidthPC]="70" [CurrMiladiDateValue]="ProviderDate"
+            (Change)="OnProviderDateChange($event)">
+          </app-jalali-datepicker>
+        </td>
+        <td style="width: 25%; padding-left: 5px;">
+          <span class="table-cell-Lable">شماره همراه</span>
+          <input name="PersonCell" style="display: inline-block;width: 70%;" class="form-control input-style"
+            [(ngModel)]="Cell" type="text" />
+        </td>
+      </tr>
+    </table>
+    <table style="width: 100%; margin-bottom: 3px;">
+      <tr>
+        <!-- <td width="25%">
+          <span class="table-cell-Lable">واحد اجرایی</span>
+          <app-ng-select-virtual-scroll style="display: inline-block;width: 70%;" [NgSelectParams]="RegionParams"
+            (selectedChange)="onChangeRegion($event)" [Items]="RegionItems" (Open)="OnOpenNgSelect('Region')">
+          </app-ng-select-virtual-scroll>
+        </td> -->
+        <td width="25%">
+          <span class="table-cell-Lable">محل هزینه </span>
+          <app-ng-select-virtual-scroll style="display: inline-block;width: 70%;" [NgSelectParams]="VWExeUnitParams"
+            (selectedChange)="onChangeExeUnit($event)" [Items]="ExeUnitItems" (Open)="OnOpenNgSelect('ExeUnit')">
+          </app-ng-select-virtual-scroll>
+        </td>
+        <td width="25%">
+          <span class="table-cell-Lable">کسب و کار</span>
+          <app-ng-select-virtual-scroll style="display: inline-block;width: 70%;"
+            [NgSelectParams]="BusinessPatternParams" (selectedChange)="onChangeBusinessPattern($event)"
+            [Items]="BusinessPatternItems" (Open)="OnOpenNgSelect('BusinessPattern')">
+          </app-ng-select-virtual-scroll>
+        </td>
+        <td width="25%">
+          <span class="table-cell-Lable">نقش</span>
+          <app-ng-select-virtual-scroll style="display: inline-block;width: 70%;" [NgSelectParams]="RoleParams"
+            (selectedChange)="onChangeRole($event)" [Items]="RoleItems">
+          </app-ng-select-virtual-scroll>
+        </td>
+        <td style="width: 25%; padding-left: 5px;">
+          <span class="table-cell-Lable">نام کاربری</span>
+          <input name="LoginName" style="display: inline-block;width: 70%;" class="form-control input-style"
+            [(ngModel)]="LoginName" type="text" />
+        </td>
+      </tr>
+    </table>
+    <table *ngIf="IsCorporate" style="width: 100%; margin-bottom: 3px;">
+      <tr>
+        <td style="width: 25%;">
+          <span class="table-cell-Lable">از رتبه</span>
+          <input name="FromRank" style="display: inline-block;width: 70%;" class="form-control input-style"
+            [(ngModel)]="FromRank" type="text" />
+        </td>
+        <td style="width: 25%;">
+          <span class="table-cell-Lable">تا رتبه</span>
+          <input name="ToRank" style="display: inline-block;width: 70%;" class="form-control input-style"
+            [(ngModel)]="ToRank" type="text" />
+        </td>
+        <td style="width: 25%;">
+          <span class="table-cell-Lable">رشته</span>
+          <app-ng-select-virtual-scroll style="display: inline-block;width: 70%;"
+            [NgSelectParams]="CourseParams" (selectedChange)="onChangeCourse($event)"
+            [Items]="CourseItems" (Open)="OnOpenNgSelect('price-list-topic')">
+          </app-ng-select-virtual-scroll>
+        </td>
+        <td style="width: 25%; padding-left: 5px;">
+          <span class="table-cell-Lable">شماره ثبت</span>
+          <input name="RegisterNo" style="display: inline-block;width: 70%;" class="form-control input-style"
+            [(ngModel)]="RegisterNo" type="text" />
+        </td>
+      </tr>
+    </table>
+  </div>
+  <!--دکمه جستجو-->
+  <table style="width: 100%; margin: 3px;">
+    <tr>
+      <td wdith="100%" colspan="2" style="padding-right: 50%;">
+        <button type="submit" (click)="Search()"
+          class="select-general-for-lable btn-gray-border btn btn-primary btnGreen">
+          <img width="15px" height="15px" src="assets/Icons/Search.png" />
+          جستجو
+        </button>
+      </td>
+    </tr>
+  </table>
+  <!--گرید-->
+  <div style="clear: both;padding-bottom: 5px; height: 76%;">
+    <!--گرید حقوقی-->
+    <div *ngIf="IsCorporate" class="box-dev" style=" width: 100%;" [style.height.%]="82">
+      <app-grid (GridReady)="onCorporateGridReady($event)" [columns]="CorporatecolumnDef" [rowsData]="CorporaterowData"
+        [gridHeight]="90" (RowClick)="CorporateRowClick($event)">
+      </app-grid>
+    </div>
+    <!--گرید حقیقی-->
+    <div *ngIf="!IsCorporate" class="box-dev" style=" width: 100%;" [style.height.%]="90">
+      <app-grid (GridReady)="onPersonGridReady($event)" [columns]="PersoncolumnDef" [rowsData]="PersonrowData"
+        [gridHeight]="90" (RowClick)="PersonRowClick($event)">
+      </app-grid>
+    </div>
+    <div class="box-dev" style=" width: 100%; height: 9%; margin:5px 0px;text-align: left;color:blue; padding: 4px;">
+      <span id="sum-final">مجموع کل رکوردهای یافت شده </span>
+      <label for="sum-final" style="margin:2px"> {{TotalCount}} </label>
+    </div>
+  </div>
+
+  <ng-template #ShowInformations let-row>
+    <img [ngClass]="'img-def'" style="cursor: pointer;" width="16px" height="16px" src="assets/Icons/Details.png"
+      (click)="onShowInformationsClick(row)" />
+  </ng-template>
+  <ng-template #ShowRunningContracts let-row>
+    <img [ngClass]="'img-def'" style="cursor: pointer;" width="16px" height="16px" src="assets/Icons/Suggestion.png"
+      (click)="onShowRunningContractsClick(row)" />
+  </ng-template>
+</div>
+
+<div class="buttons-place" style="float: right;margin: auto;" [style.width.%]="100">
+  <button (click)="onClose()" id="btn4" class="btn btn-primary btnGreen">
+    <img width="15px" height="15px" src="assets/Icons/exit.png" />
+    خروج
+  </button>
+</div>
+
+<app-over-popup *ngIf="isClicked" [PopupType]="PopUpType" [HaveMaxBtn]="HaveMaxBtn"
+  [startLeftPosition]="startLeftPosition" [startTopPosition]="startTopPosition"
+  [PopupParam]="PopUpType === 'message-box' ? alertMessageParams : PopupParam" [HaveHeader]="HaveHeader"
+  [HeightPercentWithMaxBtn]="PopUpType === 'message-box' ? '' : 98"
+  [PixelHeight]="PopUpType === 'message-box' ? '' : PixelHeight"
+  [MainMaxwidthPixel]="PopUpType === 'message-box' ? '' : MainMaxwidthPixel"
+  [PercentWidth]="PopUpType === 'message-box' ? '' : PercentWidth"
+  [minHeightPixel]="PopUpType === 'message-box' ? '' : MinHeightPixel"
+  [MainMinwidthPixel]="PopUpType === 'message-box' ? '' : OverMainMinwidthPixel" (popupclosed)="popupclosed($event)"
+  (PixelWidth)="PixelWidth">
+</app-over-popup>

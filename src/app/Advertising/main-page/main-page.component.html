@@ -1,0 +1,126 @@
+<!-- <header style="min-width:1300px;" class="fixed">
+    <div>
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <table>
+                        <tr>
+                            <td> <img class="logo" src="assets\Images\Logo.png"></td>
+                            <td><span> سامانه تالار آگهی</span></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</header> -->
+<div style="height: 89%;" [ngClass]="{'disable-parent': !IsDown}">
+    <div style="min-height: calc(100% - 129px);min-width:1300px;">
+        <div class="link-area">
+            <div class="row">
+                <div class="link">
+                    <a [queryParams]="{type:'tender'}" [routerLink]="['/tender-page']" routerLinkActive="active">
+                        <div class="coral-item hvrItem" (mouseover)="HoverTender=true" (mouseout)="HoverTender=false">
+                            <table style="width: 100%;">
+                                <tr>
+                                    <td colspan="2" style=" text-align: center;">
+                                        <img *ngIf="!HoverTender" src="assets\Images\Tender.png" class="pic">
+                                        <img *ngIf="HoverTender" src="assets\Images\BlackTender.png" class="pic">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 225px;">مناقصه عمومی</td>
+                                    <td>{{ContractTenderCount}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </a>
+                </div>
+                <div class="link">
+                    <a [queryParams]="{type:'auction'}" [routerLink]="['/tender-page']" routerLinkActive="active">
+                        <div class="coral-item hvrItem" (mouseover)="HoverAuction=true" (mouseout)="HoverAuction=false">
+                            <table style="width: 100%;">
+                                <tr>
+                                    <td colspan="2" style=" text-align: center;">
+                                        <img *ngIf="!HoverAuction" src="assets\Images\Auction.png" class="pic">
+                                        <img *ngIf="HoverAuction" src="assets\Images\BlackAuction.png" class="pic">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 225px;">مزایده عمومی</td>
+                                    <td>{{ContractAuctionCount}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </a>
+                </div>
+                <div class="link">
+                    <a [queryParams]="{type:'advertising'}" [routerLink]="['/tender-page']" routerLinkActive="active">
+                        <div class="coral-item hvrItem" (mouseover)="HoverPublicSale=true"
+                            (mouseout)="HoverPublicSale=false">
+                            <table style="width: 100%;">
+                                <tr>
+                                    <td colspan="2" style=" text-align: center;">
+                                        <img *ngIf="!HoverPublicSale" style="margin-right: 0px;"
+                                            src="assets\Images\PublicSale.png" class="pic">
+                                        <img *ngIf="HoverPublicSale" style="margin-right: 0px;"
+                                            src="assets\Images\BlackPublicSale.png" class="pic">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 225px;">حراج</td>
+                                    <td>{{ContractPublicSaleCount}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </a>
+                </div>
+                <div class="link">
+                    <a (click)="LimitedTenderClick()">
+                        <div class="coral-item hvrItem" (mouseover)="HoverLimitedTender=true"
+                            (mouseout)="HoverLimitedTender=false">
+                            <table style="width: 100%;">
+                                <tr>
+                                    <td colspan="2" style=" text-align: center;">
+                                        <img *ngIf="!HoverLimitedTender" src="assets\Images\LimitedTender.png"
+                                            class="pic">
+                                        <img *ngIf="HoverLimitedTender" src="assets\Images\BlackLimitedTender.png"
+                                            class="pic">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 225px;">مناقصه محدود</td>
+                                    <td>{{ContractLimitedTenderCount}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <footer style="min-width:1300px;" class="footer">
+        <div class="footer-container">
+            <div class="footer-row">
+                <div class="col-footer">
+                    <div class="main-pic">
+                        <div class="logo-footer">
+                            <img src="assets\Images\My-tehran-1_47.png" style="margin-right: 30px; margin-left: 30px;">
+
+                            <img src="assets\Images\My-tehran-1_03.png" style="margin-right: 30px; margin-left: 30px;">
+                        </div>
+                        <img src="assets\Images\My-tehran-1_50.png">
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </footer>
+</div>
+<app-over-popup *ngIf="btnclicked" [PopupType]="PopupType" [HaveMaxBtn]="false" [PixelHeight]="OverPixelHeight"
+    [PixelWidth]="OverPixelWidth" [startLeftPosition]="overStartLeftPosition" [startTopPosition]="OverStartTopPosition"
+    [HaveHeader]="true" [PopupParam]="DealsParam" (popupclosed)="popupclosed($event)">
+</app-over-popup>

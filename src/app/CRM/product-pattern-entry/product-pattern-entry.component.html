@@ -1,0 +1,94 @@
+<div class="main-form-body" style="margin-top: 3px; height:60%;">
+
+  <table style="width: 100%;">
+
+    <tr>
+
+      <td width="68%">
+        <span class="table-cell-Lable"> کد گروه محصول</span>
+        <app-number-input-component [HaveThousand]="false" [ReadOnly]="true" [Value]="ProductPatternCode" class="col-form-label"
+          [PerCentWidth]="75" [PixelHeight]="25">
+        </app-number-input-component>
+
+      </td>
+    </tr>
+
+    <tr>
+      <td width="68%">
+        <span class="table-cell-Lable"> نام گروه محصول </span>
+        <input [(ngModel)]="ProductPatternName"  name="ProductPatternName" style="display: inline-block;width:75%; margin-right: 10px;" class="form-control input-style"
+        type="text" />
+      </td>
+    </tr>
+  
+    <tr>
+      <td width="68%">
+        <span class="table-cell-Lable">معاونت تخصصی</span>
+        <app-ng-select-virtual-scroll style="display: inline-block;width: 75%;"
+        [Disabled]="CostCenter"
+       [NgSelectParams]="CostCenterParams"  (selectedChange)="onChangeCostCenterObj($event)" [Items]="CostCenterItems">
+        </app-ng-select-virtual-scroll>
+      </td>
+    </tr>
+    
+    <tr>
+      <td width="68%">
+        <span class="table-cell-Lable">اداره تخصصی</span>
+        <app-ng-select-virtual-scroll style="display: inline-block;width: 75%;"
+        [Disabled]="CostCenter"
+         [NgSelectParams]="SubCostCenterParams" [Items]="SubCostCenterItems"   >
+        </app-ng-select-virtual-scroll>
+      </td>
+    </tr>
+
+
+    <div class="redio-div">
+
+
+      <td width="25%">
+      
+        <div class="redio-div"  >
+      <div class="custom-control custom-radio custom-control-inline">
+        <input [checked]="SameLevel" type="radio" class="custom-control-input" id="ISSameLevelRadio"
+          name="ChoosenISSameLevelRadioName" (click)="RedioClick(true)" [disabled]="IsEditable" >
+        <label style="margin: auto;" class="custom-control-label redio-label" for="ISSameLevelRadio" >
+          هم سطح
+        </label>
+      </div>
+
+      <div class="custom-control custom-radio custom-control-inline" >
+        <input [checked]="!SameLevel" type="radio" class="custom-control-input" id="ISChildRadio"
+          name="ChoosenISChildRadioName"  (click)="RedioClick(false)" [disabled]="IsEditable"> 
+        <label style="margin: auto;" class="custom-control-label redio-label" for="ISChildRadio">
+          فرزند
+        </label>
+      </div>
+    </div>
+  </td>
+
+
+    </div>
+  </table>
+
+</div>
+
+<div class="buttons-place" style="margin: unset ;">
+
+  <button (click)="insert()" class="select-general-for-lable  btn btn-primary btnGreen">
+    <img width="15px" height="15px" src="assets/Icons/save.png" />
+    ثبت
+  </button>
+
+  <button (click)="closeModal()" id="btn4" class="btn btn-primary btnGreen">
+    <img width="15px" height="15px" src="assets/Icons/exit.png" />
+    خروج
+  </button>
+
+</div>
+
+<app-cfm-over-popup *ngIf="isClicked" [PopupType]="PopUpType" [startLeftPosition]="startLeftPosition"
+  [startTopPosition]="startTopPosition" [minHeightPixel]="MinHeightPixel" [PercentWidth]="PercentWidth"
+  [MainMaxwidthPixel]="MainMaxwidthPixel" [HeightPercentWithMaxBtn]="HeightPercentWithMaxBtn" [PopupType]="type"
+  [PopupParam]="alertMessageParams " (popupclosed)="popupclosed($event)"
+  (PopupOutPutParam)="PopUpType ==='message-box' ? MessageBoxAction($event) : getOutPutParam($event)">
+</app-cfm-over-popup>

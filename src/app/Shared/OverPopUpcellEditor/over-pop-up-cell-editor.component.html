@@ -1,0 +1,7 @@
+<div>
+    <input #inputRef autofocus style="width: 87%;height: 24px;" type="text" [(ngModel)]="InputValue" />
+    <img width="23px" height="15px" (click)="dosearch()" src="assets/Icons/blue-search-icon_2.png" style="cursor: pointer; padding-left: 5px;" />
+</div>
+<app-over-popup *ngIf="BeginSearch" [PopupType]="SearchPopupType" [startLeftPosition]="startLeftPosition" [startTopPosition]="startTopPosition"  (PopupOutPutParam)="getOutPutParam($event)" [HaveMaxBtn]="true" [MainMinwidthPixel]="MainMinwidthPixel" [MainMaxwidthPixel]="MainMaxwidthPixel" [PopupParam]="PopupParam"
+    (popupclosed)="popupclosed($event)">
+</app-over-popup>

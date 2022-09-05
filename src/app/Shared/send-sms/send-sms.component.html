@@ -1,0 +1,36 @@
+<div class="main-form-body" style="margin-top: 5px; height:72%;" align="right">
+  <!-- <fieldset align="right" class="feild-set" style="display: inherit; height: 100%;">
+    <legend style="width: 7%; font-size: 10px;">متن پیامک</legend> -->
+  <table style="width: 100%;">
+    <tr>
+      <td width="100%">
+        <span class="table-cell-Lable">متن پیامک</span>
+        <div style="display: inline-block ; width: 100%;">
+          <textarea [(ngModel)]="Note" name="Note" class="form-control input-style" rows="4"
+            style="display: inline-block;height: 177px;width: 100%;max-height: 177px; min-height: 177px !important; max-width: 100%; font-size: 12px !important;"
+            id="textnote">
+          </textarea>
+        </div>
+      </td>
+    </tr>
+  </table>
+  <!-- </fieldset> -->
+</div>
+
+<div class="buttons-place" style="float: right;margin: auto;" [style.width.%]="100">
+  <button (click)="onSend()" id="btnSend" class="btn btn-primary btnGreen">
+    <img width="15px" height="15px" src="assets/Icons/send-sms.png" />
+    ارسال
+  </button>
+  <button (click)="closeModal()" id="btn4" class="btn btn-primary btnGreen">
+    <img width="15px" height="15px" src="assets/Icons/exit.png" />
+    خروج</button>
+</div>
+
+<app-over-popup *ngIf="btnclicked" [HaveMaxBtn]="HaveMaxBtn" [startLeftPosition]="startLeftPosition"
+  [startTopPosition]="startTopPosition" [minHeightPixel]="MinHeightPixel" [PopupType]="type"
+  [PopupParam]="type === 'message-box' ? alertMessageParams : paramObj" [PixelHeight]="PixelHeight"
+  [MainMaxwidthPixel]="MainMaxwidthPixel" [minWidthPixel]="minWidthPixel" [PixelWidth]="PixelWidth"
+  (popupclosed)="type === 'message-box' ? messageclosed() : popupclosed()"
+  >
+</app-over-popup>

@@ -1,0 +1,134 @@
+<div [ngClass]="{'disable-parent': !IsDown}" id="container" class="row" style="clear: both ; ">
+  <div id="content" class="" style="margin: 5px; width: 100%; height: 98%;">
+    <div class="main-form-body" style="margin: 3px;min-width: 570px; height: 77%; ">
+      <table style="width: 100%;">
+        <tr>
+          <td>
+            <span class="table-cell-Lable">قرارداد</span><input style="width: 88%" class="form-control input-style"
+              type="text" name="first" value="{{ ContractSubLetter }}" readonly />
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <span class="table-cell-Lable">درخواست پرداخت</span>
+            <input style="width: 88%;" class="form-control input-style" type="text" name="first"
+              value="{{ ContractOperationName }}" readonly />
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <span *ngIf="CheckValidate" style="color: red;"> * </span>
+            <span style="margin: 0;margin-left: 5px" class="table-cell-Lable">سال مالی</span>
+            <ng-select [disabled]="IsFinYearDisable && !DisplayControlls" class="select-general-for-lable"
+              [items]="FinYearSet" bindLabel="FinYearCode" bindValue="FinYearCode" [(ngModel)]="selectedFinYearObj"
+              (ngModelChange)="onChangeFinYearObj($event)" id="analayze-price-fin-year-select"
+              style="display: inline-table;width: 88% ; min-width: 100px;"
+              [ngStyle]="{'border-color': CheckValidate && !selectedFinYearObj ? 'red':''}"
+              placeholder="{{CheckValidate && !selectedFinYearObj ? 'پر کردن مقدار این فیلد الزامیست': ''}}">
+            </ng-select>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <span class="table-cell-Lable">شماره درخواست</span>
+            <input style="width: 88%" class="form-control input-style" type="text" name="first"
+              value="{{ ContractPayNo }}" readonly />
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <span class="table-cell-Lable">صورت وضعیت</span>
+            <input style="width: 88%;" class="form-control input-style" type="text" name="first"
+              [(ngModel)]="ContractPayTechnicalCode" value="{{ ContractPayTechnicalCode }}"
+              [disabled]="!DisplayControlls" />
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <span class="table-cell-Lable">تاریخ درخواست</span>
+            <app-jalali-datepicker [WidthPC]="88" style="width: 100%;" [Required]="true"
+              [CurrMiladiDateValue]="ContractPayDate" (Change)="OnContractPayDateChange($event)"
+              [Disabled]="!DisplayControlls">
+            </app-jalali-datepicker>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <span class="table-cell-Lable">مبلغ پرداخت</span>
+            <input style="width: 88%" class="form-control input-style" type="text" name="first"
+              [(ngModel)]="ContractPayAmount" value="{{ ContractPayAmount }}" [disabled]="!DisplayControlls || IsContractorAgent" />
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div>
+              <div>
+                <span class="table-cell-Lable">توضیحات</span>
+                <input style="width: 88%;" class="form-control input-style" type="text" name="first" [(ngModel)]="Note"
+                  value="{{ Note }}" [disabled]="!DisplayControlls" />
+              </div>
+              <div *ngIf="ShowConfimChekBox" style="width :33%;margin-top: 4px;">
+                <span style="margin-left: 8px" class="table-cell-Lable ">تایید شده</span>
+                <div style="display: inline-block; width: 65%; text-align: right;">
+                  <app-custom-check-box style="vertical-align: sub;" [configurationInfo]="CustomCheckBoxConfig"
+                    [isSelected]="IsConfirm" (PrettyCheckBoxChange)="OnChangeCheckBoxValue($event)">
+                  </app-custom-check-box>
+                </div>
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr *ngIf="ShowContractorAmount">
+          <td>
+            <span class="table-cell-Lable">مبلغ پیمانکار</span>
+            <input style="width: 88%" class="form-control input-style" type="text" name="first"
+              [(ngModel)]="ContractorAmount" value="{{ ContractorAmount }}" [disabled]="!IsContractorAgent && !IsAdminToolsModule" />
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div style="margin:2px;">
+      <div class="buttons-place" style="float: right; margin: auto;width: 39%; ">
+        <button *ngIf="HaveSave" (click)="onSave()" id="btn2" class="btn btn-primary btnGreen">
+          <img width="15px" height="15px" src="assets/Icons/save.png" />
+          ثبت
+        </button>
+        <button *ngIf="true" (click)="BtnArchiveClick()" id="btn1" class="btn btn-primary btnGreen">
+          <img width="15px" height="15px" src="assets/Icons/TechnicalArchive.png" />
+          مستندات
+        </button>
+        <button id="btnPrint" class="btn btn-primary btnGreen" (click)="print()">
+          <img width="15px" height="15px" src="assets/Icons/print.png" />
+          چاپ
+        </button>
+        <button (click)="close()" id="btn4" class="btn btn-primary btnGreen">
+          <img width="15px" height="15px" src="assets/Icons/exit.png" />
+          خروج
+        </button>
+      </div>
+      <div *ngIf="ShowWorkflowButtons" class="buttons-place" style="float: left;margin: auto; width: 60.5%;">
+        <button *ngIf="DisplayWorkflow" [disabled]="IsDisableWorkflow" (click)="onConfirms()" id="btn2"
+          class="btn btn-primary btnGreen" style="margin: 2px;">
+          <img width="15px" height="15px" src="assets/Icons/{{btnConfirmIcon}}.png" />
+          {{btnConfirmName}} </button>
+        <button *ngIf="DisplayWorkflow" [disabled]="IsDisableWorkflow || ShowSendBtn" (click)="onConfirmAndSend()"
+          id="btn2" class="btn btn-primary btnGreen" style="margin: 2px;">
+          <img width="15px" height="15px" src="assets/Icons/Approve.png" />
+          تاييد و ارسال </button>
+        <button *ngIf="DisplayWorkflow" [disabled]="IsDisableWorkflow || ISDisabledConfirmAndReturnBtn"
+          (click)="onUnConfirmAndReturn()" id="btn2" class="btn btn-primary btnGreen" style="margin: 2px;">
+          <img width="15px" height="15px" src="assets/Icons/DisApprove.png" />
+          {{btnConfirmAndReturnName}} </button>
+        <button (click)="OnClickPrintFlow()" [disabled]="IsDisableWorkflow" class="btn btn-primary btnGreen">
+          <img width="15px" height="15px" src="assets/Icons/print.png" />
+          گردش
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<app-over-popup *ngIf="btnclicked" [PopupType]="type" [HaveMaxBtn]="HaveMaxBtn"
+  [startLeftPosition]="OverstartLeftPosition" [startTopPosition]="OverstartTopPosition"
+  [PopupParam]="type ==='message-box' ?alertMessageParams  : paramObj" (popupclosed)="popupclosed($event)"
+  (PopupOutPutParam)="type ==='message-box' ? MessageBoxAction($event) : getOutPutParam($event)">
+</app-over-popup>

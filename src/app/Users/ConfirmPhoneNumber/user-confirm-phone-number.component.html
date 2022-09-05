@@ -1,0 +1,38 @@
+<div class="modal-user-confirm-phone" id="modal-name" style="top: 175px;
+left: 443px;">
+  <div class="modal-user-confirm-phone-container" style="background: white;max-width: 500px; ">
+    <div class="row">
+      <div id="header-user-confirm-phone">
+        <span>ورود شماره تلفن همراه</span>
+      </div>
+    </div>
+    <div class="main-form-body" style="margin-top: 5px;text-align: right;display: flex;">
+      <div class="input-with-lable" style="">
+        <label for="phone-number-input-lable" class="col-form-label" style="min-width: 75px;">شماره تلفن همراه</label>
+        <input style="display: inline-block;" id="phone-number-input-lable" class="form-control" type="text" name="last"
+          placeholder="091244455123" [(ngModel)]="PhoneNumber" [disabled]="IsSendSMS" />
+      </div>
+      <button (click)="DisposableBtnSMSClicked()" id="btnSendSMS" class="btn btn-primary btnGreen"
+        style="margin-right:auto !important" [disabled]="IsSendSMS">
+        <img width="15px" height="15px" src="assets/Icons/send-sms.png" />
+        ارسال رمز یکبارمصرف
+      </button>
+    </div>
+    <div *ngIf="IsSendSMS" class="main-form-body" style="margin-top: 5px;text-align: right;display: flex;">
+      <div class="input-with-lable">
+        <label for="verify-code-input-lable" class="col-form-label" style="min-width: 75px;">رمز یکبارمصرف</label>
+        <input style="display: inline-block;" id="verify-code-input-lable" class="form-control" type="text"
+          [(ngModel)]="VerifyCode" />
+      </div>
+    </div>
+    <div class="buttons-place" style="margin: 0;margin-bottom: 5px;">
+      <button (click)="DoSave()" id="btnSave" class="btn btn-primary btnGreen" [disabled]="!IsSendSMS">
+        <img width="15px" height="15px" src="assets/Icons/save.png" />
+        ثبت
+      </button>
+    </div>
+  </div>
+</div>
+<app-over-popup *ngIf="isClicked" [PopupType]="'message-box'" [PopupParam]="alertMessageParams"
+  (popupclosed)="popupclosed($event)" [startLeftPosition]="521" [startTopPosition]="207">
+</app-over-popup>

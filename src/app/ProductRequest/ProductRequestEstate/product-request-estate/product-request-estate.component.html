@@ -1,0 +1,54 @@
+<div id="container" style="clear: both;padding: 5px">
+  <div class="main-form-body" style="height: 90%;">
+    <div style="clear: both;padding-bottom: 5px; height: 99%;">
+      <div class="box-dev" style=" width: 100%;">
+        <app-grid style="width: 90%;" (GridReady)="onEstateGridReady($event)" [columns]="EstateColDef"
+          [IsEditable]="IsEditable" [defaultSelectedRowIndex]="0" [rowsData]="EstateRowData"
+          (RowClick)="onEstateRowClick($event)" (CellValueChanged)="onEstateValueChanged($event)"
+          (cellEditingStarted)="onAssetcellEditingStarted($event)" [IsEstateSpecBtn]="true"
+          (RowBtnClick)="OnChooseEstateSpecClick($event)" [gridHeight]="84">
+        </app-grid>
+      </div>
+      <div *ngIf="true" id="gridRight" class="box-dev">
+        <app-grid [columns]="RequestSupplierColDef" [IsEditable]="IsEditable" [defaultSelectedRowIndex]="0"
+          [rowsData]="RequestSupplierRowData" [gridHeight]="84" [gridHeader]="'طرف قرارداد'"
+          (GridReady)="onGridReadyRequestSupplier($event)" (cellEditingStarted)="onSupplierCellEditingStarted($event)"
+          (CellValueChanged)="onSupplierCellvaluechanged($event)">
+        </app-grid>
+      </div>
+    </div>
+    <div class="buttons-place" style="margin: unset;">
+      <button *ngIf="HaveSave" (click)="onSave()" id="btnSave" class="btn btn-primary btnGreen">
+        <img width="15px" height="15px" src="assets/Icons/save.png" />
+        ثبت
+      </button>
+      <button (click)="onRequestEvaluateClick()" class="btn btn-primary btnGreen">
+        <img width="15px" height="15px" src="assets/Icons/Estate.png" />
+        ارزیابی
+      </button>
+      <button class="btn btn-primary btnGreen" (click)="onClose()">
+        <img width="15px" height="15px" src="assets/Icons/exit.png" />
+        خروج
+      </button>
+    </div>
+  </div>
+
+  <ng-template #ShowMapField let-row>
+    <img style="cursor: pointer;" width="16px" height="16px" src="assets/Icons/Map.png" (click)="OnShowMapClick(row)" />
+  </ng-template>
+
+  <ng-template #UploadArchive let-row>
+    <img [ngClass]="'img-def'" style="cursor: pointer;" width="16px" height="16px"
+      src="assets/Icons/TechnicalArchive.png" (click)="onDocArchiveClick(row)" />
+  </ng-template>
+
+  <ng-template #EvaluationInfo let-row>
+    <img [ngClass]="'img-def'" style="cursor: pointer;" width="16px" height="16px"
+      src="assets/Icons/TechnicalArchive.png" (click)="onEvaluationInfoClick(row)" />
+  </ng-template>
+
+  <app-over-popup *ngIf="isClicked" [PopupType]="PopUpType" [HaveMaxBtn]="HaveMaxBtn"
+    [startLeftPosition]="startLeftPosition" [startTopPosition]="startTopPosition"
+    [PopupParam]="PopUpType === 'message-box' ?alertMessageParams:PopupParam" [HaveHeader]="true"
+    (PopupOutPutParam)="PopUpType ==='message-box' ? '' : getOutPutParam($event)" (popupclosed)="popupclosed()">
+  </app-over-popup>

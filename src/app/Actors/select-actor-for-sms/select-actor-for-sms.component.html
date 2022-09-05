@@ -1,0 +1,28 @@
+<div id="container" class="row" style="clear: both">
+  <div id="content" class="">
+    <div style="min-width: 350px;">
+      <div class="main-form-body" style="margin: 5px;">
+        <div class="header-message">
+
+          <div *ngFor="let item of InputParam?.RadioItems; index as i" class="custom-control custom-radio">
+            <input *ngIf="i === 0" checked="checked" type="radio" (click)="onRedioClick(item.type)"
+              class="custom-control-input" id="LevelRadio{{i}}" name="LevelRadios">
+            <input *ngIf="i > 0" type="radio" (click)="onRedioClick(item.type)" class="custom-control-input"
+              id="LevelRadio{{i}}" name="LevelRadios">
+            <label class="custom-control-label redio-label" for="LevelRadio{{i}}">{{item.title}}</label>
+          </div>
+        </div>
+
+      </div>
+      <div class="buttons-place">
+        <button (click)="OnOkClick()" id="btn2" class="btn btn-primary btnGreen">
+          <img width="15px" height="15px" src="assets/Icons/ok.png" />
+          تایید </button>
+        <button (click)="onClose()" id="btnClose" class="btn btn-primary btnGreen">
+          <img width="15px" height="15px" src="assets/Icons/exit.png" />
+          خروج
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,42 @@
+<div id="container" class="row" style="clear: both">
+  <div id="myContent" class="data-grid">
+
+    <div class="main-form-body" style="height: 87%;">
+      <app-grid [columns]="columnDefs" [rowsData]="rowData" [gridHeight]="93" (RowDoubleClick)="onDoubleDisplay($event)"
+        (RowClick)="onRowClicked($event)" [defaultCol]="defaultColDef" (GridReady)="onGridReady($event)">
+      </app-grid>
+    </div>
+    <div class="buttons-place" style="margin: 0">
+      <button *ngIf="HasArchiveAccess" (click)="onDocArchiveClick()" id="btn2" class="btn btn-primary btnGreen">
+        <img width="15px" height="15px" src="assets/Icons/add.png" />
+        افزودن
+      </button>
+      <button id="btnDisplay" class="btn btn-primary btnGreen" (click)="onDisplay($event)">
+        <img width="15px" height="15px" src="assets/Icons/show.png" />
+        مشاهده
+      </button>
+      <button *ngIf="HasArchiveAccess" (click)="onRemove()" id="btn2" class="btn btn-primary btnGreen"
+        style="margin: 2px">
+        <img width="15px" height="15px" src="assets/Icons/delete-icon.png" />
+        حذف
+      </button>
+      <button (click)="close()" id="btn4" class="btn btn-primary btnGreen">
+        <img width="15px" height="15px" src="assets/Icons/exit.png" />
+        خروج
+      </button>
+    </div>
+  </div>
+</div>
+<ng-template #fileExtCell let-row>
+  <img width="24px" height="24px" src={{row.Image_Url}} />
+</ng-template>
+
+<app-over-popup *ngIf="isClicked" [PopupType]="PopUpType" [HaveMaxBtn]="false" [startLeftPosition]="startLeftPosition"
+  [startTopPosition]="startTopPosition" [PopupParam]="PopUpType === 'message-box' ? alertMessageParams : PopupParam"
+  [HaveHeader]="HaveHeader" (popupclosed)="popupclosed($event)"
+  [PixelWidth]="PopUpType === 'message-box'? '' : OverPixelWidth"
+  [PixelHeight]="PopUpType === 'person2' ? PixelHeight : ''"
+  (ModalArchiveClosed)="PopUpType ==='message-box' ? '' : PopupOutPutAction($event)"
+  (PopupOutPutParam)="PopUpType ==='message-box' ? '' : onPopupOutPutParam($event)"
+  [MainMaxwidthPixel]="MainMaxwidthPixel" [MainMinwidthPixel]="OverMainMinwidthPixel">
+</app-over-popup>

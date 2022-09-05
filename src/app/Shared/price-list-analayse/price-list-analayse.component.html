@@ -1,0 +1,123 @@
+<div id="container" class="row" style="clear: both">
+  <div id="content" class="">
+    <div id="data-grid" class="data-grid">
+      <div class="main-form-body">
+        <ul style="margin-top: 5px" class="nav nav-tabs" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active" href="#humanpower" role="tab" data-toggle="tab">نیروی انسانی</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#machinerys" role="tab" data-toggle="tab">ماشین آلات</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#materials" role="tab" data-toggle="tab">مصالح</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#transport" role="tab" data-toggle="tab">حمل</a>
+          </li>
+        </ul>
+        <div class="tab-content" style="margin-top: 5px;">
+          <div role="tabpanel" class="tab-pane fade show active" id="humanpower"
+            style="height: 80%; margin-bottom: 5px;">
+            <div style="height: 80%;">
+              <div class="main-form-body" style="margin-bottom: 0;">
+                <app-grid [columns]="gridcolumns"
+                          [rowsData]="gridrows_1" 
+                          [gridHeightPxel]="200"
+                          (GridReady)="onGridReady1($event)"
+                          >
+                </app-grid>
+                <div>
+                  <table class="sum-FinalPrice" style="border: 1px solid  rgb(214, 214, 214)">
+                    <tr>
+                      <td>جمع حاصل:</td>
+                      <td style="padding:0px; min-width: 63px; text-align: center;"><label for="sum-fin1"
+                          style="margin:2px"> {{manpowersum}} </label> </td>
+                    </tr>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div role="tabpanel" class="tab-pane fade" id="machinerys" style="height: 80%;">
+            <div class="main-form-body" style="margin-bottom: 0;">
+              <app-grid [columns]="gridcolumns" 
+                        [rowsData]="gridrows_2" 
+                        [gridHeightPxel]="200"
+                        (GridReady)="onGridReady2($event)" 
+                        >
+              </app-grid>
+              <div>
+                <table class="sum-FinalPrice" style="border: 1px solid  rgb(214, 214, 214)">
+                  <tr>
+                    <td>جمع حاصل:</td>
+                    <td style="padding:0px; min-width: 63px; text-align: center;"><label for="sum-fin2"
+                        style="margin:2px"> {{machineryssum}} </label> </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div role="tabpanel" class="tab-pane fade" id="materials" style="height: 80%;">
+            <div class="main-form-body" style="margin-bottom: 0;">
+              <app-grid [columns]="gridcolumns" 
+                        [rowsData]="gridrows_3" 
+                        [gridHeightPxel]="200"
+                        (GridReady)="onGridReady3($event)" 
+                        >
+              </app-grid>
+              <div>
+                <table class="sum-FinalPrice" style="border: 1px solid  rgb(214, 214, 214)">
+                  <tr>
+                    <td>جمع حاصل:</td>
+                    <td style="padding:0px; min-width: 63px; text-align: center;"><label for="sum-fin3"
+                        style="margin:2px"> {{materialssum}} </label> </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div role="tabpanel" class="tab-pane fade" id="transport" style="height: 80%;">
+            <div class="main-form-body" style="margin-bottom: 0;">
+              <app-grid [columns]="gridcolumns" 
+                        [rowsData]="gridrows_4" 
+                        [gridHeightPxel]="200"
+                        (GridReady)="onGridReady4($event)" 
+                        >
+              </app-grid>
+              <div>
+                <table class="sum-FinalPrice" style="border: 1px solid  rgb(214, 214, 214)">
+                  <tr>
+                    <td>جمع حاصل:</td>
+                    <td style="padding:0px; min-width: 63px; text-align: center;">
+                      <label for="sum-fin4" style="margin:2px"> {{transportsum}} </label> </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="buttons-place" style="margin-top: 0; overflow: auto; height: 55px;">
+      <div class="card-block" style="padding: 2px 10px;">
+        <div class="form-group row" style="margin-bottom:5px ; padding-right:5px;">
+          <button (click)="close()" id="btn4" class="btn btn-primary btnGreen">
+            <img width="15px" height="15px" src="assets/Icons/exit.png" />
+            خروج
+          </button>
+          <div style="flex: auto; padding-left: 5px">
+            <table class="sum-FinalPrice" style="border: 1px solid  rgb(214, 214, 214);">
+              <tr>
+                <td style="min-width: 54.6px; text-align: center;">جمع کل:</td>
+                <td style="padding:0px; min-width: 64px; text-align: center; ">
+                  <label for="total-sum" style="margin-bottom: 0;">{{sum_all.toLocaleString()}} </label>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

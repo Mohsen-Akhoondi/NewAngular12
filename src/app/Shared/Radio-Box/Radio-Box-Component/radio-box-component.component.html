@@ -1,0 +1,33 @@
+<fieldset *ngIf="Mode === 'Box'" [ngClass]="{'feild-set' : Bordered}"
+  [style.min-height.px]="Min_Height ? Min_Height: 38">
+  <legend *ngIf="Title" [style.width.px]="Title_Width"> &nbsp; {{Title}} &nbsp; </legend>
+  <table style="width: 100% !important;">
+    <tr>
+      <div id="redio-div-wrapper" [ngClass]=" CenterBox ? 'CenterBox' :'RightBox'">
+        <div class="redio-div" [ngClass]=" CenterBox ? 'CenterBox':''" style="margin-right: 10px;" [style.width.%]="BoxWidth ? BoxWidth : ''">
+          <div *ngFor="let ct of List" style="padding-right:5px;"
+            [ngClass]="{'custom-control-inline': Display ==='inline'}" class="custom-control custom-radio">
+            <input [disabled]="Disabled" [checked]="ct.Checked" type="radio" class="custom-control-input"
+              style="margin:2px;" name="{{ct.ElementName}}" id="{{ct.ElementName}}">
+            <label style="margin: auto;" for="{{ct.ElementName}}" (click)="OnChange(ct.Value)"
+              class="custom-control-label redio-label">{{ct.Name}}</label>
+          </div>
+        </div>
+      </div>
+    </tr>
+  </table>
+</fieldset>
+
+<div *ngIf="Mode === 'Dual' " style="width: 100%;" >
+  <span [ngClass]=" QuestionStyle ? 'QuestionStyle':'DefaultStyle'">{{Title}}</span>
+  <div class="redio-div" [ngClass]="{'CenterBox' : BoxAlign === 'center', 'LeftBox' : BoxAlign === 'left', 'RightBox' : BoxAlign === 'right'}" style="margin-right: 10px;"
+    [style.width.%]="BoxWidth ? BoxWidth : ''">
+    <div *ngFor="let ct of List" [ngClass]="{'custom-control-inline': Display ==='inline'}"
+      class="custom-control custom-radio">
+      <input [disabled]="Disabled" [checked]="ct.Checked" type="radio" [ngClass]="{'table-cell-Lable' : TableAlign }"
+        class="custom-control-input" style="margin:2px;" name="{{ct.ElementName}}" id="{{ct.ElementName}}">
+      <label style="margin: auto;" for="{{ct.ElementName}}" (click)="OnChange(ct.Value)"
+        class="custom-control-label redio-label">{{ct.Name}}</label>
+    </div>
+  </div>
+</div>

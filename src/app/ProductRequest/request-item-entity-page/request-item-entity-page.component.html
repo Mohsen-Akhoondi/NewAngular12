@@ -1,0 +1,72 @@
+<div class="main-form-body" style="margin-top: 5px; height:87%;">
+  <div class="main-form-body">
+    <table style="width: 100%;">
+      <tr>
+        <td *ngIf="HasRegion" width="20%">
+          <span class="table-cell-Lable">واحد اجرایی</span>
+          <app-ng-select-virtual-scroll style="display: inline-block; width: 70%; min-height: 25;"
+                                        [NgSelectParams]="NgSelectRegionParams" 
+                                        (selectedChange)="onChangeReigonObj($event)"
+                                        [Items]="ReigonListSet">
+          </app-ng-select-virtual-scroll>
+        </td>
+        <td [style.width.%]="WidthNoRegion">
+          <span class="table-cell-Lable"> درخواست</span>
+          <app-ng-select-virtual-scroll style="display: inline-block;"
+                                        [style.width.%]= "WidthwithRegionNg" 
+                                        [TotalItemCount]="RequestTotalItemCount" 
+                                        [PageCount]="RequestPageCount"
+                                        (Open)="OnOpenNgSelect('ProductRequest', null)" 
+                                        [NgSelectParams]="RequestParams" 
+                                        (FetchMore)="FetchMoreRequest($event)"
+                                        (doSearch)="doRequestSearch($event)" 
+                                        (selectedChange)="onChangePRequestObj($event)"
+                                        [Items]="RequestItems">
+          </app-ng-select-virtual-scroll>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <div style="clear: both;padding-bottom: 5px; height: 100%;">
+    <div class="box-dev" style=" width: 100%;" [style.height.%]="46"> <!--گرید اقلام درخواست-->
+      <app-grid (GridReady)="onPRItemGridReady($event)" 
+                (RowClick)="PRItemRowClick($event)" 
+                [columns]="PRItemcolumnDef"
+                [rowsData]="PRItemrowData" 
+                [gridHeight]="87"
+                [IsEditable] = "false"
+                [gridHeader] = "'اقلام درخواست'"
+                [defaultSelectedRowIndex]="defaultSelectedRowIndex">
+      </app-grid>
+    </div>
+    <!--گرید موجودیت قلم درخواست-->
+    <div class="box-dev" style=" width: 100%; margin-top: 5px;" [style.height.%]="45"> 
+      <app-grid (GridReady)="onRIEGridReady($event)" 
+                (RowClick)="RIEntityRowClick($event)"
+                [columns]="RIEntitycolumnDef"
+                [rowsData]="RIEntityrowData" 
+                [gridHeight]="80"
+                [IsEditable] = "true"
+                [defaultSelectedRowIndex]="defaultSelectedRowIndex"
+                (CellValueChanged)="RIEntityCellValueChanged($event)" 
+                (Delete)="RIEntityonDeletedRow($event)"
+                (cellEditingStarted)="oncellEditingStarted($event)">
+      </app-grid>
+    </div>
+  </div>
+</div>
+<div class="buttons-place" style="margin: unset;">
+  <button (click)="onSave()" id="btn4" class="btn btn-primary btnGreen">
+    <img width="15px" height="15px" src="assets/Icons/save.png" />
+    ثبت
+  </button>
+  <button (click)="closeModal()" id="btn4" class="btn btn-primary btnGreen">
+    <img width="15px" height="15px" src="assets/Icons/exit.png" />
+    خروج</button>
+</div>
+ 
+<app-over-popup *ngIf="btnclicked" [HaveMaxBtn]="HaveMaxBtn" [startLeftPosition]="startLeftPosition"
+  [startTopPosition]="startTopPosition" [PopupType]="PopupType" [HaveHeader]="HaveHeader"
+  [PopupParam]="PopupType === 'message-box' ? alertMessageParams : paramObj" (popupclosed)="popupclosed($event)"
+  (PopupOutPutParam)="PopupType ==='message-box' ? MessageBoxAction($event) : ''">
+</app-over-popup>

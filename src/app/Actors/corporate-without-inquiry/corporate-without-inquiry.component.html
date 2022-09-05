@@ -1,0 +1,173 @@
+<div class="main-form-body for-append-date" style="margin-top: 5px; height: 86%;">
+  <table style="margin-bottom: 10px;width: 100%">
+    <tr>
+      <td style="width: 33%; text-align: left;">
+        <span class="table-cell-Lable">شناسه ملی</span>
+        <input name="IdentityNoSearch" style="display: inline-block;width: 72%;" class="form-control input-style"
+          [(ngModel)]="IdentityNoSearch" type="text" />
+      </td>
+      <td style="width: 33%; text-align: left;">
+      </td>
+      <td style="width: 33%">
+      </td>
+    </tr>
+  </table>
+  <div id="container" style="clear: both;padding-bottom: 5px; height: 30% !important;">
+    <table style="margin-bottom: 10px;width: 100%">
+      <tr>
+        <td width="33%">
+          <span class="table-cell-Lable">نام</span>
+          <input  style="width: 72%" class="form-control input-style" type="text" name="ActorName"
+            [(ngModel)]="ActorName" />
+        </td>
+        <td width="33%">
+          <span class="table-cell-Lable">نوع شخص حقوقی</span>
+          <app-ng-select-virtual-scroll style="display: inline-block; width: 60%;"
+            [NgSelectParams]="NgSelectCorporateTypeParams" [Items]="CorporateTypeItem" [CheckValidate]="CheckValidate">
+          </app-ng-select-virtual-scroll>
+        </td>
+        <td width="33%">
+          <span class="table-cell-Lable">شناسه</span>
+          <input  style="width: 60%" class="form-control input-style" type="text" name="ActorId"
+            [(ngModel)]="ActorId" />
+        </td>
+      </tr>
+      <tr>
+        <td width="33%">
+          <span class="table-cell-Lable">مرجع ثبت</span>
+          <input  style="width: 72%" class="form-control input-style" type="text"
+            name="RegisterReferenceName" [(ngModel)]="RegisterReferenceName" />
+        </td>
+        <td width="33%">
+          <span class="table-cell-Lable">کد ثبت</span>
+          <input  style="width: 60%" class="form-control input-style" type="text" name="RegisterNo"
+            [(ngModel)]="RegisterNo" />
+        </td>
+        <td width="33%">
+          <span class="table-cell-Lable">تاریخ ثبت</span>
+          <input  style="width: 60%" class="form-control input-style" type="text"
+            name="RegisterPersianDate" [(ngModel)]="RegisterPersianDate" />
+        </td>
+      </tr>
+      <tr>
+        <td width="33%">
+          <span class="table-cell-Lable">تلفن</span>
+          <input [disabled]="false" style="width: 72%" class="form-control input-style" type="text" name="Tel"
+            [(ngModel)]="Tel" />
+        </td>
+        <td width="33%">
+          <span class="table-cell-Lable">فکس</span>
+          <input [disabled]="!IsEditFields" style="width: 60%" class="form-control input-style" type="text" name="Fax"
+            [(ngModel)]="Fax" />
+        </td>
+        <td width="33%">
+          <span class="table-cell-Lable">ایمیل</span>
+          <input [disabled]="!IsEditFields" style="width: 60%" class="form-control input-style" type="text" name="Email"
+            [(ngModel)]="Email" />
+        </td>
+      </tr>
+      <tr>
+        <td width="33%">
+          <span class="table-cell-Lable">وب سایت</span>
+          <input [disabled]="!IsEditFields" style="width: 72%" class="form-control input-style" type="text" name="Web"
+            [(ngModel)]="Web" />
+        </td>
+        <td width="33%">
+          <span class="table-cell-Lable">واحد اجرایی</span>
+          <input  style="width: 60%" class="form-control input-style" type="text" name="RegionName"
+            [(ngModel)]="RegionName" />
+        </td>
+        <td width="33%">
+          <span class="table-cell-Lable">کد اقتصادی</span>
+          <input [disabled]="!IsEditFields" style="width: 60%" class="form-control input-style" type="text"
+            name="EconomicCode" [(ngModel)]="EconomicCode" />
+        </td>
+      </tr>
+      <tr>
+        <td width="33%" colspan="2">
+          <span class="table-cell-Lable">آدرس</span>
+          <input style="width: 86%" class="form-control input-style" type="text" name="Address"
+            [(ngModel)]="Address" />
+        </td>
+        <td width="25%">
+          <span class="table-cell-Lable">کد پستی</span>
+          <input style="width: 60%" class="form-control input-style" type="text" name="PostCode"
+            [(ngModel)]="PostCode" />
+        </td>
+
+      </tr>
+      <tr>
+        <td width="33%">
+          <span class="table-cell-Lable">کد شناسایی سازمان برنامه</span>
+          <input [disabled]="!IsEditFields" style="width: 72%" class="form-control input-style" type="text"
+            name="ProgramOrgIdentityCode" [(ngModel)]="ProgramOrgIdentityCode" />
+        </td>
+        <td style="width: 25%;">
+          <span class="table-cell-Lable">مستندات</span>
+          <div style="display: inline-block ; width: 60%; margin-left: 2px;">
+            <button type="submit" (click)="BtnArchiveClick()" class="btn btn-primary btnGreen btn-gray-border"
+              style="width: 100%; float: none !important;">
+              <img width="15px" height="15px" src="assets/Icons/TechnicalArchive.png" />
+              بارگذاری/مشاهده
+            </button>
+          </div>
+        </td>
+        <td style="width: 33%;padding-left: 92px">
+          <span class="table-cell-Lable">فعال</span>
+          <app-custom-check-box style="vertical-align: sub;" [configurationInfo]="CustomCheckBoxConfig"
+            [isSelected]="IsValid" (PrettyCheckBoxChange)="OnCheckBoxChange($event)">
+          </app-custom-check-box>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <div id="container" style="clear: both;padding-bottom: 5px; height: 5% !important;">
+    <ul style="margin-top: 5px;" class="nav nav-tabs" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link active" href="#members" role="tab" data-toggle="tab">اعضا</a>
+      </li>
+    </ul>
+  </div>
+  <div id="container" style="clear: both;padding-bottom: 5px; height: 50% !important;">
+    <div id="tabcontent" class="tab-content box-dev" style="margin-top: 5px; height: 116%;">
+      <div role="tabpanel" id="members" class="tab-pane fade show active"
+        style="height: 100%;margin-bottom: 1px; padding: 2px 2px;">
+        <app-grid (RowClick)="RowClickMCP($event)" style="width: 98%;" [columns]="colDef" [rowsData]="rowData"
+          (GridReady)="onGridReady($event)" [gridHeight]="90" [IsEditable]="true"
+          (cellEditingStarted)="onCellEditingStartedMCP($event)">
+        </app-grid>
+      </div>
+    </div>
+  </div>
+  <ng-template #IsSignRightValid let-row>
+    <img width="16px" height="16px"
+      [src]="row.SignRight ? 'assets/Icons/TrueCheckBox.png':'assets/Icons/Uncheck.png'" />
+  </ng-template>
+  <ng-template #SignImageValid let-row>
+    <img [ngClass]="row.SignImage ? 'img-big-SignImage' : 'img-def'"
+      [src]="row.SignImage ? row.SignImageBase64String:'assets/Icons/Uncheck.png'" />
+  </ng-template>
+  <ng-template #UploadImage let-row>
+    <img style="cursor: pointer;" [ngClass]="'img-big'" id="UploadImage" (click)="uploadimgCSMClicked()"
+      [src]="'assets/Icons/Upload.png'" />
+  </ng-template>
+</div>
+
+<div class="buttons-place" style="margin: unset;height: 7%;">
+  <button (click)="onSave()" [disabled]="false" id="btnSave" class="btn btn-primary btnGreen">
+    <img width="15px" height="15px" src="assets/Icons/save.png" />
+    ثبت
+  </button>
+  <button (click)="onClose()" id="btn4" class="btn btn-primary btnGreen">
+    <img width="15px" height="15px" src="assets/Icons/exit.png" />
+    خروج
+  </button>
+  <input placeholder="Upload file" style="visibility: hidden;" style="height:0px;width:0px;" accept="image/*"
+    type="file" (change)="onCSMFileChanged($event)" class="custom-file-input" id="imguploadcsm" />
+</div>
+
+
+<app-over-popup *ngIf="isClicked" [PopupType]="PopUpType" [HaveMaxBtn]="false" [startLeftPosition]="startLeftPosition"
+  [startTopPosition]="startTopPosition" [PopupParam]="PopUpType === 'message-box' ? alertMessageParams : PopupParam"
+  [HaveHeader]="HaveHeader" (popupclosed)="popupclosed($event)">
+</app-over-popup>

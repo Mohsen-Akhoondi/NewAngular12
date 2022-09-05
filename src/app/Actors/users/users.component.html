@@ -1,0 +1,163 @@
+<div id="container" class="row" style="clear: both">
+  <div id="content" style="height: 97%;width: 100%;">
+    <div class="main-form-body" style="margin: 5px;" [style.height.%]="mainBodyHeight">
+      <form>
+        <div style="height: 175px;" class="field-set">
+          <fieldset style="height: 120px;width:100%;" class="field-set">
+            <legend style="width: 15%; font-size: 10px;">جستجوی شخص</legend>
+            <table style="margin-bottom: 5px;width: 100% ;margin-top: 5px;">
+              <tr>
+                <td style="width: 50%">
+                  <span class="table-cell-Lable">نام شخص</span>
+                  <app-ng-select-virtual-scroll style="display: inline-block;width: 80%;"
+                    class="select-general-for-lable" [CheckValidate]="CheckValidate"
+                    [NgSelectParams]="NgSelectPersonParams" [Items]="PersonItems" (FetchMore)="Person_FetchMore($event)"
+                    (Open)="PersonOpened($event)" (selectedChange)="Person_OnChange($event)"
+                    (doSearch)="Person_DoSearch($event)">
+                  </app-ng-select-virtual-scroll>
+                </td>
+                <td style="width: 50%">
+                  <span class="table-cell-Lable">نام کاربری</span>
+                  <input style="display: inline-block;width: 80%;" name="LoginName" [(ngModel)]="LoginName"
+                    class="form-control input-style" type="text" />
+                </td>
+              </tr>
+              <tr>
+                <td style="width: 50%">
+                  <span class="table-cell-Lable">کد ملی</span>
+                  <input style="display: inline-block;width: 80%;" name="IdentityNo" [(ngModel)]="IdentityNo"
+                    class="form-control input-style" type="text" />
+                </td>
+                <td style="width: 50%">
+                  <div style="display: inline-flex;width: 80%;">
+                    <button (click)="onSearch()" class="btn btn-primary btnGreen btn-gray-border"
+                      style="width: 122px; padding: 0;height: 25px;margin: 0 !important;margin-left: 3px !important;">
+                      <img width="15px" height="15px" src="assets/Icons/search-blue-icon.png" />
+                      جستجو</button>
+                    <button (click)="onClear()" class="btn btn-primary btnGreen btn-gray-border"
+                      style="width: 122px; padding: 0;height: 25px;margin: 0 !important;">
+                      <img width="15px" height="15px" src="assets/Icons/eraser.png" />
+                      پاک کردن</button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td style="width: 50%">
+                  <div style="display: inline-flex;width: 80%;">
+                    <button (click)="onSearchUsersRole()" class="btn btn-primary btnGreen btn-gray-border"
+                      style="width: 244px; padding: 0;height: 25px;margin: 0 !important;margin-left: 3px !important;">
+                      <img width="15px" height="15px" src="assets/Icons/search-blue-icon.png" />
+                      جستجوی کاربران واحد اجرایی</button>
+                  </div>
+                </td>
+                <td style="width: 50%">
+                  <div style="display: inline-flex;width: 80%;">
+                    <button (click)="onSearchUserWorkLog()" class="btn btn-primary btnGreen btn-gray-border"
+                      style="width: 244px; padding: 0;height: 25px;margin: 0 !important;margin-left: 3px !important;">
+                      <img width="15px" height="15px" src="assets/Icons/search-blue-icon.png" />
+                      جستجوی کاربران ایجاد شده توسط راهبر</button>
+                  </div>
+                </td>
+              </tr>
+              <!-- <tr>
+              <td style="width: 50%">
+              </td>
+              <td style="width: 50%">
+                <div style="display: inline-flex;width: 80%;">
+                  <button (click)="onSearchUsersRole()" class="btn btn-primary btnGreen btn-gray-border"
+                    style="width: 244px; padding: 0;height: 25px;margin: 0 !important;margin-left: 3px !important;">
+                    <img width="15px" height="15px" src="assets/Icons/search-blue-icon.png" />
+                    جستجوی نقش کاربران واحد اجرایی</button>
+                </div>
+              </td>
+            </tr> -->
+            </table>
+          </fieldset>
+          <div style="width: 100%;height: 35px;" class="div-que">
+            <span>ارسال پیامک</span>
+            <div class="redio-div" style="margin-right: 10px;">
+              <div class="custom-control custom-radio custom-control-inline">
+                <input [checked]="IsWFSendSms" type="radio" class="custom-control-input" id="IsSms" name="IsSms"
+                  (click)="IsSmsRedioClick(true)">
+                <label style="margin: auto;" class="custom-control-label redio-label" for="IsSms">بله</label>
+              </div>
+              <div class="custom-control custom-radio custom-control-inline">
+                <input [checked]="!IsWFSendSms" type="radio" class="custom-control-input" id="IsNotSms" name="IsNotSms">
+                <label style="margin: auto;" class="custom-control-label redio-label" for="IsNotSms"
+                  (click)="IsSmsRedioClick(false)">خیر</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="div-top">
+          <app-grid style="width: 70%;" [columns]="Role_colDef" [rowsData]="Role_rowData"
+            (GridReady)="Role_onGridReady($event)" [gridHeight]="83" [IsEditable]="true"
+            (Delete)="Role_onDeletedRow($event)"></app-grid>
+        </div>
+      </form>
+      <div class="div-grid">
+        <div id="divRight" class="div-right">
+          <app-grid style="width: 45%;" [columns]="UserRegion_colDef" [rowsData]="UserRegion_rowData"
+            (GridReady)="UserRegion_onGridReady($event)" (RowClick)="UserRegion_onRowClick($event)"
+            (cellEditingStarted)="UserRegion_onCellEditingStarted($event)"
+            (CellValueChanged)="UserRegion_onCellValueChanged($event)" (Delete)="UserRegion_onDeletedRow($event)"
+            [gridHeight]="91" [IsEditable]="true" [HasMaximizeBtn]="false"></app-grid>
+        </div>
+        <div id="divLeft" class="div-left">
+          <div class="div-left-top">
+            <app-grid style="width: 45%;" [columns]="UserRegionRole_colDef" [rowsData]="UserRegionRole_rowData"
+              (GridReady)="UserRegionRole_onGridReady($event)"
+              (CellValueChanged)="UserRegionRole_onCellValueChanged($event)" [gridHeight]="76" [IsEditable]="true"
+              (cellEditingStarted)="UserRegionRole_onCellEditingStarted($event)"
+              (Delete)="UserRegionRole_onDeletedRow($event)">
+            </app-grid>
+          </div>
+          <div class="div-left-middle">
+            <app-grid style="width: 45%;" [columns]="UnitPatternUserRegion_colDef"
+              [rowsData]="UnitPatternUserRegion_rowData" (GridReady)="UnitPatternUserRegion_onGridReady($event)"
+              (CellValueChanged)="UnitPatternUserRegion_onCellValueChanged($event)"
+              (cellEditingStarted)="UnitPatternUserRegion_onCellEditingStarted($event)" [gridHeight]="76"
+              [IsEditable]="true" (Delete)="UnitPatternUserRegion_onDeletedRow($event)"></app-grid>
+          </div>
+          <div class="div-left-bottom">
+            <app-grid style="width: 45%;" [columns]="UserCostCenter_colDef" [rowsData]="UserCostCenter_rowData"
+              (GridReady)="UserCostCenter_onGridReady($event)"
+              (CellValueChanged)="UserCostCenter_onCellValueChanged($event)"
+              (cellEditingStarted)="UserCostCenter_onCellEditingStarted($event)" [gridHeight]="76" [IsEditable]="true"
+              (Delete)="UserCostCenter_onDeletedRow($event)">
+            </app-grid>
+            <!-- (CellValueChanged)="UserCostCenter_onCellValueChanged($event)" -->
+          </div>
+        </div>
+      </div>
+
+    </div> <!--  main-form-body -->
+    <div class="buttons-place" style="margin: 5px;">
+      <button (click)="onSave()" [disabled]="false" id="btnSave" class="btn btn-primary btnGreen">
+        <img width="15px" height="15px" src="assets/Icons/save.png" />
+        ثبت
+      </button>
+
+      <button (click)="onClose()" id="btn4" class="btn btn-primary btnGreen">
+        <img width="15px" height="15px" src="assets/Icons/exit.png" />
+        خروج</button>
+    </div> <!--  buttons -->
+
+  </div> <!--  container -->
+</div> <!--  content -->
+
+
+<ng-template #IsDefault let-row>
+  <img width="16px" height="16px" [src]="row.IsDefault ? 'assets/Icons/TrueCheckBox.png':'assets/Icons/Uncheck.png'" />
+</ng-template>
+
+<ng-template #AccessType let-row>
+  <img width="16px" height="16px"
+    [src]="row.AccessType === 2 ? 'assets/Icons/TrueCheckBox.png':'assets/Icons/uncheck.png'" />
+</ng-template>
+
+<app-over-popup *ngIf="btnclicked" [PopupType]="type" [HaveMaxBtn]="false" [startLeftPosition]="startLeftPosition"
+  [startTopPosition]="startTopPosition" [PopupParam]="alertMessageParams" [HaveHeader]="HaveHeader"
+  [PixelWidth]="PixelWidth" (popupclosed)="popupclosed($event)"
+  (PopupOutPutParam)="type ==='message-box' ? MessageBoxAction($event) : ''">
+</app-over-popup>

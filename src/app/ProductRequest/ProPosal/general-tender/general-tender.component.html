@@ -1,0 +1,608 @@
+<div id="container" style="clear: both;padding: 5px">
+  <div class="main-form-body for-append-date-2" style="margin: 2px;height: 86%;">
+    <form>
+      <fieldset class="feild-set" style="display: inherit">
+        <legend class="legend">اطلاعات درخواست</legend>
+        <table style="width: 100%;">
+          <tr>
+            <td width="25%">
+              <span class="table-cell-Lable">شماره درخواست</span><input style="width: 50% "
+                class="form-control input-style" type="text" value="{{ProductRequestCode}}" readonly />
+            </td>
+            <td width="25%">
+              <span class="table-cell-Lable">تاریخ درخواست</span>
+              <app-jalali-datepicker [WidthPC]="50" [CurrMiladiDateValue]="ProductRequestDate" [Disabled]="true">
+              </app-jalali-datepicker>
+            </td>
+            <td width="25%">
+              <span class="table-cell-Lable">موضوع</span><input style="width: 70% " class="form-control input-style"
+                type="text" name="Subject" value="{{Subject}}" readonly />
+            </td>
+            <td width="25%">
+              <span class="table-cell-Lable">روش بررسی</span>
+              <app-ng-select-virtual-scroll style="display: inline-block;width: 50%;" class="select-general-for-lable"
+                [NgSelectParams]="ReviewMethodParams" [Disabled]="true" [Items]="ReviewMethodItems" [multiple]="false">
+              </app-ng-select-virtual-scroll>
+            </td>
+          </tr>
+        </table>
+      </fieldset>
+      <fieldset *ngIf="HaveDetails" class="feild-set" style="display: inherit">
+        <legend style="width: 8%;">{{InquiryHeaderName}}</legend>
+        <table style="width: 100%;">
+          <tr>
+            <td width="33%">
+              <span style="color: red;">*</span>
+              <span class="table-cell-Lable">{{InquiryNoLableName}}</span><input style="width: 50% " [disabled]="true"
+                class="form-control input-style" type="text" name="InquiryNo"
+                placeholder="{{CheckValidate && !InquiryNo ? 'پر کردن مقدار این فیلد الزامیست': ''}}"
+                [(ngModel)]="InquiryNo" />
+            </td>
+            <td width="33%">
+              <span style="color: red;" *ngIf="ISStarInquiryDateLableName">*</span>
+              <span class="table-cell-Lable">{{InquiryDateLableName}}</span>
+              <app-jalali-datepicker [Disabled]="IsWFDisable" [WidthPC]="50" [CurrMiladiDateValue]="InquiryDate"
+                [CheckValidate]="CheckValidate && ISStarInquiryDateLableName" (Change)="OnInquiryDateChange($event)">
+              </app-jalali-datepicker>
+            </td>
+            <td width="33%">
+              <span style="color: red;">*</span>
+              <span class="table-cell-Lable">{{InquiryNoteLableName}}</span>
+              <input [disabled]="IsWFDisable && HaveInquiryNote" style="width: 71% " class="form-control input-style"
+                type="text" placeholder="{{CheckValidate && !Note ? 'پر کردن مقدار این فیلد الزامیست': ''}}" name="Note"
+                [(ngModel)]="Note" />
+            </td>
+          </tr>
+          <tr>
+            <td *ngIf="HasPrepaymentAmount" width="33%">
+              <span class="table-cell-Lable"> {{PrepaymentAmountLableName}}</span>
+              <app-number-input-component [ReadOnly]="IsWFDisable" [id]="'indicator-label-code'" [HaveThousand]="true"
+                [ReadOnly]="false" [fontSize]="12" [PerCentWidth]="50" [PixelHeight]="25" [Value]="PrepaymentAmount"
+                (ValueChange)="getPrepaymentAmount($event)">
+              </app-number-input-component>
+            </td>
+            <td *ngIf="HasDeadLineDate" width="33%">
+              <span class="table-cell-Lable">{{DeadLineDateName}}</span>
+              <app-jalali-datepicker [Disabled]="IsWFDisable" [WidthPC]="50" [CurrMiladiDateValue]="DeadLineDate"
+                [ShowMode]="'daytime'" [DateFormat]="'YYYY/MM/DD HH:mm:ss'" [Disabled]="false"
+                (Change)="OnDeadLineDateChange($event)">
+              </app-jalali-datepicker>
+            </td>
+            <td width="33%" *ngIf="HasDepositAmount">
+              <span *ngIf="ModuleViewTypeCode == 131" style="color: red;">*</span>
+              <span class="table-cell-Lable">{{DepositAmountLableName}}</span>
+              <app-number-input-component [ReadOnly]="IsWFDisable" [id]="'indicator-label-code'" [HaveThousand]="true"
+                [fontSize]="12" [PerCentWidth]="DepositAmountWidth" [PixelHeight]="25" [Value]="DepositAmount"
+                (ValueChange)="getDepositAmount($event)" [CheckValidate]="CheckValidateDepositAmount">
+              </app-number-input-component>
+
+            </td>
+            <td *ngIf="IsType24" style="width: 33%">
+              <span class="table-cell-Lable">مبلغ پیشنهادی</span>
+              <input [style.width.%]="SumFinalAmountWidth" class="form-control input-style" type="text" name="first"
+                value="{{SumFinalAmount}}" readonly />
+            </td>
+            <td *ngIf="HasWarrantyReceiveDocType" width="33%"></td>
+            <td *ngIf="HasWarrantyReceiveDocType" width="33%">
+              <span class="table-cell-Lable">نوع سپرده درخواستی</span>
+              <app-ng-select-virtual-scroll style="display: inline-block;width: 50%;" class="select-general-for-lable"
+                [NgSelectParams]="WarrantyReceiveDocTypeParams" [Items]="WarrantyReceiveDocTypeItems"
+                [multiple]="false">
+              </app-ng-select-virtual-scroll>
+            </td>
+          </tr>
+          <tr *ngIf="HaveReviewMethod">
+            <td width="33%">
+              <span class="table-cell-Lable">مبلغ اسناد</span>
+              <app-number-input-component [ReadOnly]="IsWFDisable" [id]="'indicator-label-code'" [HaveThousand]="true"
+                [ReadOnly]="false" [fontSize]="12" [PerCentWidth]="50" [PixelHeight]="25" [Value]="DocumentAmount"
+                (ValueChange)="getDocumentAmount($event)">
+              </app-number-input-component>
+            </td>
+            <td width="33%">
+              <span class="table-cell-Lable">مهلت ارایه پیشنهاد</span>
+              <app-jalali-datepicker [Disabled]="IsWFDisable" [WidthPC]="50" [Disabled]="false"
+                [CurrMiladiDateValue]="SuggestionDeadlineDate" (Change)="OnSuggestionDeadlineDateChange($event)">
+              </app-jalali-datepicker>
+            </td>
+            <td width="33%">
+            </td>
+          </tr>
+          <tr>
+
+            <td *ngIf="HasRecDocAndPock" width="33%">
+              <span style="color: red;" *ngIf="ISStarDocumentDeadlineDate">*</span>
+              <span class="table-cell-Lable">مهلت دریافت اسناد و تحویل پاکت</span>
+              <app-jalali-datepicker [Disabled]="IsWFDisable" [WidthPC]="50" [Disabled]="false"
+                [CheckValidate]="CheckValidate && ISStarDocumentDeadlineDate"
+                [CurrMiladiDateValue]="DocumentDeadlineDate" (Change)="OnDocumentDeadlineDateChange($event)">
+              </app-jalali-datepicker>
+            </td>
+            <td width="33%">
+              <span class="table-cell-Lable">بارگذاری اسناد</span>
+              <div style="display: inline-block ; width: 50%;">
+                <button [disabled]="IsDisable" (click)="onbtnDocumentUpload()"
+                  style="width: 100%; float: none !important; height: 25px; padding: 0px;" id="btnSave"
+                  class="btn btn-primary btnGreen btn-gray-border">
+                  <img width="15px" height="15px" src="assets/Icons/TechnicalArchive.png" />
+                  بارگذاری
+                </button>
+              </div>
+            </td>
+          </tr>
+          <tr *ngIf="HaveReviewMethod">
+            <td colspan="3" width="100%">
+              <span class="table-cell-Lable" style="vertical-align: top;">مکان تحویل</span>
+              <textarea [disabled]="IsWFDisable" [(ngModel)]="DeliveryLocation" name="DeliveryLocation"
+                class="form-control input-style" rows="1" style="width: 83.5%;" id="indicator-text_note"></textarea>
+            </td>
+          </tr>
+          <tr>
+            <td *ngIf="HasActorCondition" colspan="3" width="100%">
+              <span class="table-cell-Lable" style="vertical-align: top;">{{ActorConditionLableName}}</span>
+              <textarea [disabled]="IsWFDisable" [(ngModel)]="ActorCondition" name="ActorCondition"
+                class="form-control input-style" rows="2" style="width: 83.5%;" id="indicator-text_note"></textarea>
+            </td>
+          </tr>
+          <tr>
+            <td *ngIf="HaveProposalReadingDate" width="33%">
+              <span style="color: red;" *ngIf="HaveProposalReadingDate">*</span>
+              <span class="table-cell-Lable">تاریخ خواندن پیشنهاد</span>
+              <app-jalali-datepicker [Disabled]="IsWFDisable" [WidthPC]="50" [ShowMode]="ShowMode" [DateFormat]="DateFormat"
+                [CurrMiladiDateValue]="ProposalReadingDate" [CheckValidate]="CheckValidate && HaveProposalReadingDate"
+                (Change)="OnProposalReadingDateChange($event)">
+              </app-jalali-datepicker>
+            </td>
+          </tr>
+        </table>
+      </fieldset>
+      <fieldset *ngIf="ModuleViewTypeCode === 90 || ModuleViewTypeCode === 129 || ModuleViewTypeCode === 130 || ModuleViewTypeCode === 141 || ModuleViewTypeCode === 185"
+        class="feild-set" style="display: inherit">
+        <legend style="width: 8%;">{{InquiryHeaderName}}</legend>
+        <table style="width: 100%;">
+          <tr>
+            <td width="25%">
+              <span style="color: red;">*</span>
+              <span class="table-cell-Lable">شماره</span><input style="width: 64.5% " [disabled]="true"
+                class="form-control input-style" type="text" name="InquiryNo"
+                placeholder="{{CheckValidate && !InquiryNo ? 'پر کردن مقدار این فیلد الزامیست': ''}}"
+                [(ngModel)]="InquiryNo" />
+            </td>
+            <td width="27%">
+              <span style="color: red;">*</span>
+              <span class="table-cell-Lable">عنوان</span>
+              <input [disabled]="IsWFDisable" style="width: 61.5% " class="form-control input-style" type="text"
+                placeholder="{{CheckValidate && !Note ? 'پر کردن مقدار این فیلد الزامیست': ''}}" name="Note"
+                [(ngModel)]="Note" />
+            </td>
+            <td width="23%">
+              <span style="color: red;" *ngIf="ISStarInquiryDateLableName">*</span>
+              <span class="table-cell-Lable">تاریخ</span>
+              <app-jalali-datepicker [Disabled]="IsWFDisable" [WidthPC]="65" [CurrMiladiDateValue]="InquiryDate"
+                [CheckValidate]="CheckValidate && ISStarInquiryDateLableName" [Disabled]="false"
+                (Change)="OnInquiryDateChange($event)">
+              </app-jalali-datepicker>
+            </td>
+            <td width="25%">
+              <span class="table-cell-Lable">مهلت دریافت اسناد</span>
+              <app-jalali-datepicker [Disabled]="false" [WidthPC]="50" [Disabled]="false"
+                [CurrMiladiDateValue]="DocumentDeadlineDate" (Change)="OnDocumentDeadlineDateChange($event)">
+              </app-jalali-datepicker>
+            </td>
+          </tr>
+          <tr>
+            <td width="25%">
+              <span class="table-cell-Lable">مبلغ پیشنهادی</span>
+              <input style="width: 64.5%; " class="form-control input-style" type="text" name="first"
+                value="{{SumFinalAmount}}" readonly />
+            </td>
+            <td width="27%">
+              <span class="table-cell-Lable">مبلغ اسناد</span>
+              <app-number-input-component [ReadOnly]="false" [id]="'indicator-label-code'" [HaveThousand]="true"
+                [ReadOnly]="false" [fontSize]="12" [PixelWidth]="166" [PixelHeight]="25" [Value]="DocumentAmount"
+                (ValueChange)="getDocumentAmount($event)">
+              </app-number-input-component>
+            </td>
+            <td width="23%">
+              <span class="table-cell-Lable">مبلغ سپرده</span>
+              <app-number-input-component [ReadOnly]="IsWFDisable" [id]="'indicator-label-code'" [HaveThousand]="true"
+                [fontSize]="12" [PixelWidth]="149" [PixelHeight]="25" [Value]="DepositAmount"
+                (ValueChange)="getDepositAmount($event)">
+              </app-number-input-component>
+            </td>
+            <td width="25%">
+              <span class="table-cell-Lable">بارگذاری اسناد</span>
+              <div style="display: inline-block ; width: 50%; text-align: center; vertical-align: center;">
+                <button [disabled]="false" (click)="onbtnDocumentUpload()"
+                  style="width: 100%; float: none !important; margin: auto !important; height: 25px !important; padding: 0px;"
+                  id="btnSave" class="btn btn-primary btnGreen btn-gray-border">
+                  <img width="15px" height="15px" src="assets/Icons/TechnicalArchive.png" />
+                  بارگذاری
+                </button>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td width="25%">
+              <span class="table-cell-Lable">مبلغ پایه</span>
+              <app-number-input-component [ReadOnly]="false" [id]="'indicator-label-code'" [HaveThousand]="true"
+                [ReadOnly]="false" [fontSize]="12" [PixelWidth]="161" [PixelHeight]="25" [Value]="PrepaymentAmount"
+                (ValueChange)="getPrepaymentAmount($event)">
+              </app-number-input-component>
+            </td>
+            <td width="27%">
+              <span class="table-cell-Lable">نوع سپرده درخواستی</span>
+              <app-ng-select-virtual-scroll style="display: inline-block; width: 61.5%;"
+                class="select-general-for-lable" [NgSelectParams]="WarrantyReceiveDocTypeParams"
+                [Items]="WarrantyReceiveDocTypeItems" [multiple]="false">
+              </app-ng-select-virtual-scroll>
+            </td>
+            <td width="23%">
+              <span class="table-cell-Lable">دوره تضمین</span>
+              <app-number-input-component [ReadOnly]="false" [id]="'indicator-label-code'" [HaveThousand]="true"
+                [ReadOnly]="false" [fontSize]="12" [PixelWidth]="149" [PixelHeight]="25" [Value]="WarrantyDuration"
+                (ValueChange)="WarrantyDurationChange($event)">
+              </app-number-input-component>
+            </td>
+            <td width="25%">
+
+            </td>
+          </tr>
+        </table>
+        <table style="width: 100%;">
+          <tr>
+            <td width="52%">
+              <span class="table-cell-Lable" style="vertical-align: top;">مکان تحویل</span>
+              <textarea [disabled]="false" [(ngModel)]="DeliveryLocation" name="DeliveryLocation"
+                class="form-control input-style" rows="1" style="width: 83%;" id="indicator-text_note"></textarea>
+            </td>
+            <td width="48%">
+              <span class="table-cell-Lable" style="vertical-align: top;">شرایط متقاضی</span>
+              <textarea [disabled]="IsWFDisable" [(ngModel)]="ActorCondition" name="ActorCondition"
+                class="form-control input-style" rows="2" style="width: 83%;" id="indicator-text_note"></textarea>
+            </td>
+          </tr>
+        </table>
+      </fieldset>
+      <fieldset *ngIf="ModuleViewTypeCode === 94" class="feild-set" style="display: inherit">
+        <legend style="width: 8%;">{{InquiryHeaderName}}</legend>
+        <table style="width: 100%;">
+          <tr>
+            <td width="25%">
+              <span style="color: red;">*</span>
+              <span class="table-cell-Lable">شماره</span><input style="width: 64.5% " [disabled]="true"
+                class="form-control input-style" type="text" name="InquiryNo"
+                placeholder="{{CheckValidate && !InquiryNo ? 'پر کردن مقدار این فیلد الزامیست': ''}}"
+                [(ngModel)]="InquiryNo" />
+            </td>
+            <td width="27%">
+              <span style="color: red;">*</span>
+              <span class="table-cell-Lable">عنوان</span>
+              <input [disabled]="IsWFDisable" style="width: 61.5% " class="form-control input-style" type="text"
+                placeholder="{{CheckValidate && !Note ? 'پر کردن مقدار این فیلد الزامیست': ''}}" name="Note"
+                [(ngModel)]="Note" />
+            </td>
+            <td width="23%">
+              <span style="color: red;" *ngIf="ISStarInquiryDateLableName">*</span>
+              <span class="table-cell-Lable">تاریخ</span>
+              <app-jalali-datepicker [Disabled]="IsWFDisable" [WidthPC]="65" [CurrMiladiDateValue]="InquiryDate"
+                [Disabled]="false" (Change)="OnInquiryDateChange($event)">
+              </app-jalali-datepicker>
+            </td>
+            <td width="25%">
+              <span class="table-cell-Lable">تاریخ دریافت پاکات</span>
+              <app-jalali-datepicker [Disabled]="IsWFDisable" [WidthPC]="50" [CurrMiladiDateValue]="DeadLineDate"
+                [ShowMode]="'daytime'" [DateFormat]="'YYYY/MM/DD HH:mm:ss'" [Disabled]="false"
+                (Change)="OnDeadLineDateChange($event)">
+              </app-jalali-datepicker>
+            </td>
+          </tr>
+          <tr>
+            <td width="25%">
+              <span class="table-cell-Lable">مبلغ پیشنهادی</span>
+              <input style="width: 64.5%; " class="form-control input-style" type="text" name="first"
+                value="{{SumFinalAmount}}" readonly />
+            </td>
+            <td width="27%">
+              <span class="table-cell-Lable">مبلغ اسناد</span>
+              <app-number-input-component [ReadOnly]="false" [id]="'indicator-label-code'" [HaveThousand]="true"
+                [ReadOnly]="false" [fontSize]="12" [PixelWidth]="166" [PixelHeight]="25" [Value]="DocumentAmount"
+                (ValueChange)="getDocumentAmount($event)">
+              </app-number-input-component>
+            </td>
+            <td width="23%">
+              <span class="table-cell-Lable">مبلغ سپرده</span>
+              <app-number-input-component [ReadOnly]="IsWFDisable" [id]="'indicator-label-code'" [HaveThousand]="true"
+                [fontSize]="12" [PixelWidth]="149" [PixelHeight]="25" [Value]="DepositAmount"
+                (ValueChange)="getDepositAmount($event)">
+              </app-number-input-component>
+            </td>
+            <td width="25%">
+              <span class="table-cell-Lable">مهلت دریافت اسناد</span>
+              <app-jalali-datepicker [Disabled]="false" [WidthPC]="50" [Disabled]="false"
+                [CurrMiladiDateValue]="DocumentDeadlineDate" (Change)="OnDocumentDeadlineDateChange($event)">
+              </app-jalali-datepicker>
+            </td>
+          </tr>
+          <tr>
+            <td width="25%">
+              <span class="table-cell-Lable">مبلغ پایه</span>
+              <app-number-input-component [ReadOnly]="false" [id]="'indicator-label-code'" [HaveThousand]="true"
+                [ReadOnly]="false" [fontSize]="12" [PixelWidth]="161" [PixelHeight]="25" [Value]="PrepaymentAmount"
+                (ValueChange)="getPrepaymentAmount($event)">
+              </app-number-input-component>
+            </td>
+            <td width="27%">
+              <span class="table-cell-Lable">نوع سپرده درخواستی</span>
+              <app-ng-select-virtual-scroll style="display: inline-block; width: 61.5%;"
+                class="select-general-for-lable" [NgSelectParams]="WarrantyReceiveDocTypeParams"
+                [Items]="WarrantyReceiveDocTypeItems" [multiple]="false">
+              </app-ng-select-virtual-scroll>
+            </td>
+            <td width="23%">
+              <span class="table-cell-Lable">دوره تضمین</span>
+              <app-number-input-component [ReadOnly]="false" [id]="'indicator-label-code'" [HaveThousand]="true"
+                [ReadOnly]="false" [fontSize]="12" [PixelWidth]="149" [PixelHeight]="25" [Value]="WarrantyDuration"
+                (ValueChange)="WarrantyDurationChange($event)">
+              </app-number-input-component>
+            </td>
+            <td width="25%">
+              <span class="table-cell-Lable">بارگذاری اسناد</span>
+              <div style="display: inline-block ; width: 50%; text-align: center; vertical-align: center;">
+                <button [disabled]="false" (click)="onbtnDocumentUpload()"
+                  style="width: 100%; float: none !important; margin: auto !important; height: 25px !important; padding: 0px;"
+                  id="btnSave" class="btn btn-primary btnGreen btn-gray-border">
+                  <img width="15px" height="15px" src="assets/Icons/TechnicalArchive.png" />
+                  بارگذاری
+                </button>
+              </div>
+            </td>
+          </tr>
+        </table>
+        <table style="width: 100%;">
+          <tr>
+            <td width="52%">
+              <span class="table-cell-Lable" style="vertical-align: top;">مکان تحویل</span>
+              <textarea [disabled]="false" [(ngModel)]="DeliveryLocation" name="DeliveryLocation"
+                class="form-control input-style" rows="1" style="width: 83%;" id="indicator-text_note"></textarea>
+            </td>
+            <td width="48%">
+              <span class="table-cell-Lable" style="vertical-align: top;">شرایط متقاضی</span>
+              <textarea [disabled]="IsWFDisable" [(ngModel)]="ActorCondition" name="ActorCondition"
+                class="form-control input-style" rows="2" style="width: 83%;" id="indicator-text_note"></textarea>
+            </td>
+          </tr>
+        </table>
+      </fieldset>
+      <fieldset *ngIf="HaveAdvertising" class="feild-set" style="display: inherit">
+        <legend style="width: 3%;">آگهی</legend>
+        <table style="width: 100%;">
+          <tr *ngIf="HaveNewsPaper">
+            <td colspan="4" width="100%">
+              <span class="table-cell-Lable"> روزنامه</span>
+              <app-ng-select-virtual-scroll style="display: inline-block;width: 85%;" class="select-general-for-lable"
+                [NgSelectParams]="NewsPaperParams" [Items]="NewsPaperItems" [multiple]="true">
+              </app-ng-select-virtual-scroll>
+            </td>
+          </tr>
+          <tr>
+            <td style="width: 25%;">
+              <span class="table-cell-Lable">آگهی</span>
+              <input type="text" class="form-control input-style" style="width: 49%" name="AdvertisingCode"
+                maxlength="10" size="10" value={{AdvertisingCode}} readonly />
+              <img width="15px" height="15px" src="assets/Icons/search.png" style="cursor: pointer;margin-right: 5px;"
+                (click)="onAdvertisingSearchClick()" />
+            </td>
+            <td *ngIf="HaveAdvertisingDate" width="25%">
+              <span class="table-cell-Lable">تاریخ انتشار</span>
+              <app-jalali-datepicker [WidthPC]="55" [CurrMiladiDateValue]="AdvertisingDate"
+                [Disabled]="IsAdvertisingDateDisable" (Change)="OnAdvertisingDateChange($event)">
+              </app-jalali-datepicker>
+            </td>
+            <td width="25%">
+              <span *ngIf="HaveAdvertiseUpload" class="table-cell-Lable">بارگذاری آگهی</span>
+              <div *ngIf="HaveAdvertiseUpload" style="display: inline-block ; width: 55%;">
+                <button [disabled]="IsDisable" (click)="onbtnAdvertiseUpload()"
+                  style="width: 100%; float: none !important; height: 25px; padding: 0px;"
+                  class="btn btn-primary btnGreen btn-gray-border">
+                  <img width="15px" height="15px" src="assets/Icons/TechnicalArchive.png" />
+                  بارگذاری
+                </button>
+              </div>
+            </td>
+            <td *ngIf="!HaveAdvertisingDate" width="25%"></td>
+          </tr>
+          <tr *ngIf="HaveAdvertisingDates">
+            <td width="25%">
+              <span class="table-cell-Lable">تاریخ انتشار آگهی</span>
+              <app-jalali-datepicker [WidthPC]="55" [CurrMiladiDateValue]="AdvertisingRegDate" [Disabled]="true">
+              </app-jalali-datepicker>
+            </td>
+            <td width="25%">
+              <span class="table-cell-Lable">تاریخ انقضا آگهی </span>
+              <app-jalali-datepicker [WidthPC]="55" [CurrMiladiDateValue]="AdvertisingExpDate" [Disabled]="true">
+              </app-jalali-datepicker>
+            </td>
+            <td width="25%">
+              <span class="table-cell-Lable">مدت اعتبار آگهی</span>
+              <input style="width: 55% " class="form-control input-style" type="text" value="{{ValidityDuration}}"
+                readonly />
+            </td>
+          </tr>
+          <tr>
+            <td *ngIf="HaveAdvertisingDates" width="25%">
+              <span class="table-cell-Lable">تاریخ واقعی انتشار</span>
+              <app-jalali-datepicker [WidthPC]="55" [CurrMiladiDateValue]="ActualRegisterDate" [Disabled]="true">
+              </app-jalali-datepicker>
+            </td>
+            <td *ngIf="HaveAdvertisingShow" style="width: 25%;">
+              <span class="table-cell-Lable">مشاهده آگهی</span>
+              <div style="display: inline-block ; width: 56%;">
+                <button [disabled]="!IsSelectedAdvertising" (click)="onbtnAdvertiseShow()"
+                  style="width: 100%; float: none !important; height: 25px; padding: 0px;"
+                  class="btn btn-primary btnGreen btn-gray-border">
+                  <img width="15px" height="15px" src="assets/Icons/TechnicalArchive.png" />
+                  مشاهده
+                </button>
+              </div>
+            </td>
+          </tr>
+          <tr *ngIf="HaveRatingRequired">
+            <td width="25%">
+              <span class="table-cell-Lable"> رتبه مورد نیاز</span>
+              <app-number-input-component [id]="'indicator-label-RatingRequired'" [Value]="RatingRequired"
+                [IsFloat]="false" [MaxLength]="10" [FloatMaxLength]="0" [PerCentWidth]=" 55" [PixelHeight]="24"
+                (ValueChange)="getRatingRequired($event)" class="col-form-label" [HaveThousand]="false"
+                name="RatingRequired" [CheckValidate]="CheckValidateRating">
+              </app-number-input-component>
+            </td>
+          </tr>
+        </table>
+      </fieldset>
+    </form>
+    <div *ngIf="HaveSupplers" class="tab-content box-dev" style="margin-top: 5px;padding: 5px;" [style.height.%]="86">
+      <app-grid [IsEditable]="IsEditable" [columns]="ProductRequestCostColDef" [rowsData]="PRCostRowData"
+        (CellValueChanged)="onPRCostCellValueChanged($event)" (cellEditingStarted)="onSupplercellEditingStarted($event)"
+        (GridReady)="onPRCostGridReady($event)" (RowClick)="RowClick($event)" [gridHeightPxel]="gridHeightPxel">
+      </app-grid>
+      <fieldset *ngIf="HaveSupplersInfo" class="feild-set"
+        style="display: inherit; padding-top: 0px;margin-top: 3px;min-height: 0px;">
+        <legend style="width: 7%;" class="legend">اطلاعات تماس</legend>
+        <table style="width: 100%;">
+          <tr>
+            <td style="width: 20%">
+              <span class="table-cell-Lable">شماره تلفن</span>
+              <app-number-input-component [id]="'indicator-label-Tel'" [Value]="Tel" [IsFloat]="false" [MaxLength]="11"
+                [FloatMaxLength]="0" [PerCentWidth]="57" [PixelHeight]="25" (ValueChange)="OnInfoChanged($event,'Tel')"
+                class="col-form-label" [HaveThousand]="false" [ReadOnly]="Disabled">
+              </app-number-input-component>
+            </td>
+            <td style="width: 30%">
+              <span class="table-cell-Lable">شماره تلفن همراه</span>
+              <app-number-input-component [id]="'indicator-label-Tel'" [Value]="Cell" [IsFloat]="false" [MaxLength]="11"
+                [FloatMaxLength]="0" [PerCentWidth]="57" [PixelHeight]="25" (ValueChange)="OnInfoChanged($event,'Cell')"
+                class="col-form-label" [HaveThousand]="false" [ReadOnly]="Disabled">
+              </app-number-input-component>
+            </td>
+            <td style="width: 50%">
+              <span class="table-cell-Lable">آدرس</span>
+              <input type="text" class="form-control input-style" style="width: 90%" [(ngModel)]="Address"
+                name="Address" (ngModelChange)="OnInfoChanged($event,'Address')" [disabled]="Disabled"/>
+            </td>
+          </tr>
+        </table>
+      </fieldset>
+      <fieldset *ngIf="HaveProposaletter" class="feild-set"
+        style="display: inherit; padding-top: 0px;margin-top: 3px;min-height: 0px;">
+        <legend style="width: 22%;" class="legend">
+          نامه ثبت دبیرخانه ای اسناد دریافت شده از پیمانکار</legend>
+        <table style="width: 100%;">
+          <tr>
+            <td style="width: 18%">
+              <span class="table-cell-Lable">شماره ثبت نامه</span>
+              <input style="width: 55%; " class="form-control input-style" type="text" name="RegisterLetterNo"
+                [(ngModel)]="RegisterLetterNo" readonly />
+            </td>
+            <td style="width: 18%">
+              <span class="table-cell-Lable">شماره سند نامه</span>
+              <input style="width: 55%; " class="form-control input-style" type="text" name="DocumentLetterNo"
+                [(ngModel)]="DocumentLetterNo" readonly />
+            </td>
+            <td style="width: 24%">
+              <span class="table-cell-Lable">تاریخ ثبت دبیرخانه/ثبت نامه</span>
+              <app-jalali-datepicker [Disabled]="true" [WidthPC]="40" [CurrShamsiDateValue]="RegisterLetterDate"
+                (Change)="OnRegiserLetterDateChange($event)">
+              </app-jalali-datepicker>
+            </td>
+            <td style="width: 40%">
+              <button [disabled]="!SelectedProposal" id="btnClose"
+                class="btn btn-primary btn-gray-border small-btn btnGreen" (click)="onAutomationClick()">
+                <img width="15px" height="15px" src="assets/Icons/ok.png" />
+                اتصال نامه
+              </button>
+              <button [disabled]="!SelectedProposal" id="btnClose"
+                class="btn btn-primary btn-gray-border small-btn btnGreen" (click)="onDeleteLetterClick()">
+                <img width="15px" height="15px" src="assets/Icons/DisApprove.png" />
+                حذف نامه
+              </button>
+              <button [disabled]="!SelectedProposal" id="btnShowLetter"
+                class="btn btn-primary btn-gray-border small-btn btnGreen" (click)="onShowLetterClick()">
+                <img width="15px" height="15px" src="assets/Icons/Approve.png" />
+                مشاهده نامه
+              </button>
+              <button [disabled]="!SelectedProposal" id="btnShowLetter"
+                class="btn btn-primary btn-gray-border small-btn btnGreen" (click)="onCreateNewLetter()">
+                <img width="15px" height="15px" src="assets/Icons/CreateLetter.png" />
+                نامه جدید
+              </button>
+            </td>
+          </tr>
+        </table>
+      </fieldset>
+    </div>
+  </div>
+  <ng-template #UploadArchive let-row>
+    <img [ngClass]="'img-def'" width="16px" height="16px" style="cursor: pointer;"
+      [src]="'assets/Icons/TechnicalArchive.png'" (click)="onPersonReceiveDocArchiveClick(row)" />
+  </ng-template>
+  <ng-template #CancelReceiveElectronicDocs let-row>
+    <img [ngClass]="'img-def'" width="16px" height="16px" style="cursor: pointer;" [src]="'assets/Icons/uncheck.png'"
+      (click)="onCancelReceiveElectronicDocs(row)" />
+  </ng-template>
+  <div class="buttons-place" style="margin: unset; margin: 2px;">
+    <button *ngIf="!HasWFSave && IsEditable" (click)="onSave()" id="btnSave" class="btn btn-primary btnGreen">
+      <img width="15px" height="15px" src="assets/Icons/save.png" />
+      ثبت
+    </button>
+    <button *ngIf="HasWFSave" (click)="onWFSave()" id="btnSave" class="btn btn-primary btnGreen">
+      <img width="15px" height="15px" src="assets/Icons/save.png" />
+      ثبت
+    </button>
+
+    <button *ngIf="ISPropsalItemActive" (click)="onPropsalItemClick()" id="btnSave" class="btn btn-primary btnGreen">
+      <img width="15px" height="15px" src="assets/Icons/add.png" />
+      جزییات مبلغ پیشنهادی پیمانکار
+    </button>
+
+    <button *ngIf="HaveAdvertisePrint" (click)="onPrintClick()" id="btnPrint" class="btn btn-primary btnGreen">
+      <img width="15px" height="15px" src="assets/Icons/print.png" />
+      چاپ آگهی
+    </button>
+    <button [disabled]="!ShowContractordetails" id="btnClose" class="btn btn-primary btnGreen"
+      (click)="onShowContractorDetailsClick()">
+      <!--RFC 52669-->
+      <img width="15px" height="15px" src="assets/Icons/ok.png" />
+      مشاهده اطلاعات پیمانکار
+    </button>
+
+    <button *ngIf="false" (click)="onPrintClick2()" id="btnPrint2" class="btn btn-primary btnGreen">
+      <img width="15px" height="15px" src="assets/Icons/print.png" />
+      چاپ
+    </button>
+
+    <button id="btnClose" class="btn btn-primary btnGreen" (click)="Close()">
+      <img width="15px" height="15px" src="assets/Icons/exit.png" />
+      خروج
+    </button>
+  </div>
+</div>
+<ng-template #IsWin let-row>
+  <img width="16px" height="16px" [src]="row.IsWin ? 'assets/Icons/TrueCheckBox.png':'assets/Icons/uncheck.png'" />
+</ng-template>
+<ng-template #Print let-row>
+  <img [ngClass]="'img-def'" style="cursor: pointer;" width="16px" height="16px" src="assets/Icons/print.png"
+    (click)="onPrintCartClick(row)" />
+</ng-template>
+
+<ng-template #IsReceivedValid let-row>
+  <img width="16px" height="16px" [src]="row.IsReceived ? 'assets/Icons/TrueCheckBox.png':'assets/Icons/Uncheck.png'" />
+</ng-template>
+<app-over-popup *ngIf="isClicked" [PopupType]="type" [HaveMaxBtn]="HaveMaxBtn" [startLeftPosition]="startLeftPosition"
+  [startTopPosition]="startTopPosition" [MainMinwidthPixel]="MainMinwidthPixel"
+  [HeightPercentWithMaxBtn]="type ==='message-box' ? '' : type ==='proposal-item-estimate' ? 100 : 97"
+  [PopupParam]="type ==='message-box'? alertMessageParams : ParamObj " (popupclosed)="popupclosed($event)"
+  (PopupOutPutParam)="type ==='message-box' ? MessageBoxAction($event) : getOutPutParam($event)"
+  [minHeightPixel]="type ==='message-box' || type ==='advertising-search' ? '' :MinHeightPixel"
+  [MainMinwidthPixel]="OverMainMinwidthPixel"
+  [PercentWidth]="type === 'corporate2' || type === 'person2'? PercentWidth : ''">
+</app-over-popup>

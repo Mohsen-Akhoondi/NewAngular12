@@ -1,0 +1,87 @@
+<div id="container" style="clear: both;padding: 5px">
+  <div id="content" style="width:100%;">
+    <div class="main-form-body" style="width:98%;padding: 10px;margin:5px;">
+      <form>
+        <fieldset align="right" class="feild-set">
+          <legend class="legend" style="width: 35%">ارسال نامه اتوماسیونی</legend>
+          <table style="width: 100%; text-align: left;">
+            <tr>
+              <td style="width: 100%"> 
+                <span class="table-cell-Lable" style="vertical-align: top;">ارسال به</span>
+                <textarea [(ngModel)]="SendTo" name="SendTo"
+                  class="form-control input-style" rows="2" style="display: inline-block;height: 40px;width: 77%;"
+                  id="indicator-text_note"></textarea>
+              </td>
+            </tr>
+            <tr>
+              <td style="width: 100%"> 
+                <span class="table-cell-Lable" style="vertical-align: top;">امضا کننده</span>
+                <textarea [(ngModel)]="Signer" name="Signer"
+                  class="form-control input-style" rows="2" style="display: inline-block;height: 40px;width: 77%;"
+                  id="indicator-text_note"></textarea>
+              </td>
+            </tr>
+            <tr>
+              <td style="width: 100%"> 
+                <span class="table-cell-Lable" style="vertical-align: top;">تایید کننده</span>
+                <textarea [(ngModel)]="Seconder" name="Seconder"
+                  class="form-control input-style" rows="2" style="display: inline-block;height: 40px;width: 77%;"
+                  id="indicator-text_note"></textarea>
+              </td>
+            </tr>
+            <tr>
+              <td style="width: 100%"> 
+                <span class="table-cell-Lable" style="vertical-align: top;">رونوشت</span>
+                <textarea [(ngModel)]="Transcript" name="Transcript"
+                  class="form-control input-style" rows="2" style="display: inline-block;height: 40px;width: 77%;"
+                  id="indicator-text_note"></textarea>
+              </td>
+            </tr>
+            <tr>
+              <td style="width: 100%"> 
+                <span class="table-cell-Lable" >عنوان</span>
+                <input type="text"  class="form-control input-style" style="width: 77%" 
+                [(ngModel)] = "Subject"  name="Subject"/>
+              </td>
+            </tr>
+            <tr>
+              <td style="width: 100%"> 
+                <span class="table-cell-Lable" style="vertical-align: top;">متن</span>
+                <textarea [(ngModel)]="Text" name="Text"
+                  class="form-control input-style" rows="5" style="display: inline-block;height: 40px;width: 77%;"
+                  id="indicator-text_note"></textarea>
+              </td>
+            </tr>
+            <tr>
+              <td style="width: 100%;">
+                <span class="table-cell-Lable">پیوست</span>
+                <div class="custom-file" style="margin-top: 5px; width: 77%;">                               
+                <input
+                 placeholder="Upload file"
+                 accept=""
+                 type="file"
+                 (change)="onFileChanged($event)"
+                 class="custom-file-input"
+                 id="inputGrpFile01"
+                 />                
+                 <label class="custom-file-label" for="inputGrpFile01" style="text-align:right;height: 2rem; width: 211px"></label>      
+                </div>
+                </td>
+            </tr>
+          </table>
+        </fieldset>
+      </form>
+    </div>
+    <div class="buttons-place" style="width: 98%;">
+      <button (click)="onSend()" 
+      class="btn btn-primary btnGreen">
+        <img width="15px" height="15px" src="assets/Icons/send-sms.png" />
+         ارسال
+      </button>
+  
+      <button (click)="onClose()" id="btn4" class="btn btn-primary btnGreen">
+        <img width="15px" height="15px" src="assets/Icons/exit.png" />
+        خروج</button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,161 @@
+<div [ngClass]="{'disable-parent': !IsDown}">
+  <div id="content" style="text-align:center;direction: rtl;">
+  <div class="main-form-body" style="width:98%;padding: 5px;margin:5px;">
+    <form style="line-height: 1.5;">
+      <fieldset align="right" class="feild-set" style="display: inherit;">
+        <table>
+          <tr>
+            <td style="width:8%;" >کد ملی</td>
+            <td style="width: 35%;"><input [disabled]="IsDisable"  class="form-control input-style" [(ngModel)] = "inputIdentityNo" name="inputIdentityNo"/></td>
+            <td style="width:10%;"><img *ngIf = "!IsDisable" width="15px" height="15px" src="assets/Icons/search.png" (click)= "onClick()" style="cursor: pointer" /></td>
+            <td style="width:12%;">نام کاربری</td>
+            <td style="width: 35%;"><input class="form-control input-style" type="text" [(ngModel)]="LoginName" name="login" [disabled]="IsDisable"/></td>
+          </tr>
+          <tr>
+            <td style="width:8%;">نام</td>
+            <td style="width: 35%;"><input class="form-control input-style" type="text" readonly [(ngModel)]="FirstName" name="first" /></td>
+            <td style="width:10%;"></td>   
+            <td style="width:12%;">نام خانوادگی </td>
+            <td style="width: 35%;"><input class="form-control input-style" type="text" readonly [(ngModel)]="LastName" name="last" /></td>  
+          </tr>
+        </table>          
+      </fieldset>
+            <div style="width:100%;">
+                  <fieldset align="right" class="feild-set" style="display: inherit;">
+                    <legend style="width: 15%;margin: 0">بارگذاری عکس</legend>
+                    <div class="input-group" style="margin-bottom: 4px;">
+                     <table style="width:100%;">
+                       <tr>
+                         <td style="width: 4%;"></td> 
+                         <td style="width: 43%;">
+                          <div class="custom-file" style="margin-top: 5px">                               
+                          <input
+                           placeholder="Upload file"
+                           accept="image/*"
+                           type="file"
+                           (change)="onFileChanged($event)"
+                           class="custom-file-input"
+                           id="inputGrpFile01"
+                           />                
+                           <label class="custom-file-label" for="inputGrpFile01" style="text-align:right;height: 2rem; width: 250px"></label>      
+                          </div>
+                          </td>
+                          <td style="width:4%;"></td>
+                          <td style="width:35%; padding-right: 0px;">
+                          <img src="data:image/png;base64,{{UserImage}}" [src]="UserLocalImage" onError="this.src='assets/images/user-img-not-found.png';" class="" alt="" style="height: 40px; margin-right: 5px;"/>
+                          </td>
+                          <td style="widows:8%;"></td>
+                          <td style="width:20%;"></td>
+                          </tr>
+                          <tr><td colspan="6"><p style="color:red; direction: rtl; text-align: right; height: 5px;">* حجم عکس باید کمتر از 100 کیلوبایت باشد.</p></td></tr>
+                          <tr *ngIf="IsUncorrect">
+                            <td colspan="2" style="height: 3px;  margin-top: 2px" ><span style="color:red; text-align: right;" *ngFor="let item of ImgLoadMsgSize">{{item.msg}}</span></td>
+                            <td colspan="2" style="height: 3px;  margin-top: 2px" ><span style="color:red; text-align: right;" *ngFor="let item of ImgLoadMsgType">{{item.msg}}</span></td>
+                            <td colspan="2" style="height: 3px;  margin-top: 2px" ><span style="color:red; text-align: right;" *ngFor="let item of ImgLoadMsgDimensions">{{item.msg}}</span></td>
+                          </tr>
+                        </table>
+                        
+                </div> 
+                </fieldset>
+              </div> 
+              <div style="width:100%;"> 
+              <fieldset align="right" class="feild-set" style="display: inherit;">
+                  <legend style="width: 25%;">ورود شماره تلفن همراه</legend>  
+                  <table style="width:100%;">
+                    <tr>
+                      <td style="width: 10%;"></td> 
+                      <td style="width: 30%;">
+                          <div style="display: inline-block;" >
+                              <input
+                                style="font-size: 12px;display: inline-block;width:100%;"
+                                id="phone-number-input-lable"
+                                class="form-control"
+                                type="text"
+                                name="PhoneNumber"
+                                placeholder="091244455123"
+                                [(ngModel)]="PhoneNumber"
+                                [disabled]= "IsSendSMS"
+                              />
+                            </div>
+                      </td>
+                      <td style="width: 5%;"> <button
+                        (click)="DisposableBtnSMSClicked()"
+                        id="btnSendSMS"
+                        class="btn btn-primary btnGreen"
+                      
+                        [disabled]= "IsSendSMS"
+                      >
+                        <img width="15px" height="15px" src="assets/Icons/send-sms.png" />
+                       ارسال کد تاییدیه
+                      </button></td>
+                      <td style="width: 12%;"> <div
+                        *ngIf="IsSendSMS"
+                        style="text-align: right;"
+                      >
+                      <div><label for="verify-code-input-lable" class="col-form-label" style="min-width: 75px;"> کد تاییدیه</label></div></div></td> 
+                      <td style="width: 35%;">
+                          <div
+                          *ngIf="IsSendSMS"
+                          style="text-align: right;"
+                          >                        
+                          <div style="display: inline-block;">
+                            <input
+                              style="font-size: 12px;display: inline-block;"
+                              id="verify-code-input-lable"
+                              class="form-control"
+                              name="verify"
+                              type="text"
+                              [(ngModel)]="VerifyCode"
+                            />
+                          </div>
+                        </div>
+                    </tr>
+                  </table>                
+           </fieldset> 
+          </div>   
+    </form>
+  </div>
+    <div class="box-dev" style="width: 98%;margin: 5px;" *ngIf = "!IsDisable" >
+      <app-grid
+        style="width: 70%;"
+        [columns]="colDefMenu"
+        [rowsData]="rowDataMenu"
+        (GridReady)="onGridReadyMenu($event)"
+        (CellValueChanged)="onCellValueChanged($event)"
+        [gridHeight]="83" 
+        [IsEditable]="IsEditable"          
+      ></app-grid> 
+    </div>
+<div class="buttons-place" style=" display: flex ; width: 98%; margin: 5px;" >
+  <button *ngIf = "!IsDisable" 
+    id="btnSearch"
+    class="btn btn-primary btnGreen"
+    (click)="BtnSearchClick()">
+    <img width="10px"   src="assets/Icons/search.png"  />
+    جستجو
+  </button>
+  <button
+    id="btnSave"
+    class="btn btn-primary btnGreen"
+    (click)="onSave()"
+    [disabled]= "isClicked">
+    <img width="10px"   src="assets/Icons/save.png"  />
+    ثبت
+  </button>
+  <button (click)="close()" id="btn4" class="btn btn-primary btnGreen">
+    <img width="10px"  src="assets/Icons/exit.png" />
+    خروج
+  </button>
+</div>
+</div>
+</div>
+<app-over-popup
+*ngIf= "btnclicked"
+[PopupType]= "type" 
+[startLeftPosition] = "startLeftPosition"
+[startTopPosition] = "startTopPosition"
+[PixelWidth]="type === 'users-search'? 800:''"
+[PopupParam]= "alertMessageParams"
+(popupclosed)= "popupclosed($event)"
+(PopupOutPutParam)= "type === 'users-search'? Search($event) : type === 'message-box' ? MessageBoxAction($event) :''">
+</app-over-popup>

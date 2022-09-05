@@ -1,0 +1,173 @@
+<div id="container" class="row" style="clear: both ; ">
+  <div id="content" style="width: 100%;height: 99%;">
+    <div id="mainformbody" class="main-form-body" [style.height.%]="67" style="margin: 5px; padding:2px 10px">
+
+      <div id="tabcontent" class="tab-content" style="margin-top: 5px;" [style.height.%]="100">
+        <div role="tabpanel" id="shenasnameh" class="tab-pane fade show active"
+          style="height: 100%; margin-bottom: 5px;">
+          <div class="main-form-body" style="display: inherit">
+            <table style="width: 100%;margin-bottom: 3px;">
+              <tr >
+                <td style="width: 50%">
+                  <span class="table-cell-Lable">تاريخ شروع قرارداد</span>
+                  <app-jalali-datepicker [WidthPC]="60" [CurrMiladiDateValue]="StartDate"
+                    (Change)="OnContractStartDateChange($event)" [Disabled]="DisableDate">
+                  </app-jalali-datepicker>
+                </td>
+                <td style="width: 50%">
+                  <span class="table-cell-Lable">تاريخ پايان قرارداد</span>
+                  <app-jalali-datepicker [WidthPC]="60" [CurrMiladiDateValue]="EndDate"
+                    (Change)="OnContractEndDateChange($event)" [Disabled]="DisableEndDate" >
+                  </app-jalali-datepicker>
+                </td>
+              </tr>
+              <tr>
+                <td style="width: 50%">
+                  <span class="table-cell-Lable">{{LetterDateStr}}</span>
+                  <app-jalali-datepicker [WidthPC]="60" [CurrMiladiDateValue]="ContractLetterDate"
+                    (Change)="OnContractLetterDateChange($event)" [Disabled]="disabledLetterDate">
+                  </app-jalali-datepicker>
+                </td>
+                <td style="width: 50%">
+                  <span class="table-cell-Lable">{{LetterNoStr}}</span>
+                  <input style="width: 60%; " class="form-control input-style" type="text" name="ContractLetterNo"
+                  [disabled]="Disabled" [(ngModel)]="ContractLetterNo" />
+                </td>
+              </tr>
+              <tr>
+                <td style="width: 50%">
+                  <span class="table-cell-Lable">{{SignerStr}}</span>
+                  <app-ng-select-virtual-scroll (Open)="onSignersOpen()" style="display: inline-block;width: 60%;"
+                    [NgSelectParams]="ContractSignParams" (FetchMore)="FetchMoreSigners($event)"  [Disabled]="Disabled"
+                    (doSearch)="doSignersSearch($event)" [Items]="ContractSignItems" [multiple]="true">
+                  </app-ng-select-virtual-scroll>
+                </td>
+                <td style="width: 50%">
+                  <span class="table-cell-Lable">{{SumProposalName}}</span>
+                  <input style="width: 60%; " class="form-control input-style" type="text" name="SumFinalAmountStr"
+                  [disabled]="true" [(ngModel)]="SumFinalAmountStr" />
+                 
+                </td>
+              </tr>
+              <tr *ngIf="HasContractor">
+                <td style="width: 20%">
+                  <span class="table-cell-Lable">ظرفيت ريالي</span><input style="width: 60% "
+                    class="form-control input-style" type="text" value="" readonly />
+                </td>
+                <td style="width: 20%">
+                  <span class="table-cell-Lable">ظرفيت تعدادي</span><input style="width: 60% "
+                    class="form-control input-style" type="text" value="" readonly />
+                </td>
+                <td style="width: 60%">
+                  <span class="table-cell-Lable">نام پيمانکار</span><input style="width: 85% "
+                    class="form-control input-style" type="text"
+                    readonly />
+                </td>
+              </tr>
+              <tr *ngIf="HasContractStyle">
+                <td colspan="2" width="40%">
+                  <span class="table-cell-Lable">تيپ</span>
+                  <app-ng-select-virtual-scroll style="display: inline-block;width: 80%;" (Open)="onContractStyleOpen()"
+                    [NgSelectParams]="ContractStyleParams" [Items]="ContractStyleItems" [Disabled]="Disabled">
+                  </app-ng-select-virtual-scroll>
+                </td>
+              </tr>
+            </table>
+          </div>
+
+          <!-- <div *ngIf="ModuleViewTypeCode !== 66" class="main-form-body" style="display: inherit">
+            <table style="width: 100%;">
+              <tr>
+                <td colspan="2" width="40%">
+                  <span class="table-cell-Lable"> تاريخ شروع کار</span>
+                  <app-jalali-datepicker [WidthPC]="80" [CurrMiladiDateValue]="WorkStartDate"
+                    (Change)="OnWorkStartDateChange($event)">
+                  </app-jalali-datepicker>
+                </td>
+                <td width="60%">
+                  <span class="table-cell-Lable">نوع شروع</span>
+                  <div class="redio-div">
+                    <div class="custom-control custom-radio custom-control-inline">
+                      <input [checked]="StartType === 1" type="radio" class="custom-control-input" id="ISContractRadio"
+                        name="rdoStartType" (click)="rdoStartTypeClick(1)">
+                      <label style="margin: auto;" class="custom-control-label redio-label" for="ISContractRadio">از
+                        زمان انعقاد
+                      </label>
+                    </div>
+                    <div class="custom-control custom-radio custom-control-inline">
+                      <input [checked]="StartType === 2" type="radio" class="custom-control-input" id="ISDateRadio"
+                        name="rdoStartType">
+                      <label style="margin: auto;" class="custom-control-label redio-label" for="ISDateRadio"
+                        (click)="rdoStartTypeClick(2)">از تاريخ دلخواه</label>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+
+              <tr>
+
+                 <td colspan="2" width="40%">
+                  <span class="table-cell-Lable"> تاريخ پايان گارانتي</span>
+                  <app-jalali-datepicker [WidthPC]="80"  [CurrMiladiDateValue]="WarrantyDate"
+                    (Change)="OnWarrantyDateChange($event)">
+                  </app-jalali-datepicker>
+                </td> 
+
+                <td width="60%">
+                  <span class="table-cell-Lable">نوع مبلغ</span>
+                  <div class="redio-div">
+                    <div class="custom-control custom-radio custom-control-inline">
+                      <input [checked]="AmountType" type="radio" class="custom-control-input" id="rdoFinalAmount"
+                        name="ChoosenrdoAmount" (click)="rdoAmountClick(true)">
+                      <label style="margin: auto;" class="custom-control-label redio-label" for="rdoFinalAmount">قطعي
+                      </label>
+                    </div>
+                    <div class="custom-control custom-radio custom-control-inline">
+                      <input [checked]="!AmountType" type="radio" class="custom-control-input" id="rdoCeilAmount"
+                        name="ChoosenrdoAmount">
+                      <label style="margin: auto;" class="custom-control-label redio-label" for="rdoCeilAmount"
+                        (click)="rdoAmountClick(false)">تا سقف مبلغ</label>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+               <tr>
+                <td width="25%">
+                  <span class="table-cell-Lable">داراي محرمانگي</span>
+                  <app-custom-check-box style="vertical-align: sub; display: inline-block;" [isSelected]="IsSecret"
+                    [configurationInfo]="CustomCheckBoxConfig" (PrettyCheckBoxChange)="OnChSecretChange($event)">
+                  </app-custom-check-box>
+                </td>
+              </tr>
+            </table>
+          </div>-->
+        </div>
+      </div>
+    </div>
+
+    <div style="margin: 5px;">
+      <div class="buttons-place" style="float: right;margin: auto;margin-bottom: 5px;width: 100%;">
+
+        <button *ngIf="!Disabled"  [disabled]="Disabled" (click)="onSave()" id="btn2" class="btn btn-primary btnGreen">
+          <img width="15px" height="15px" src="assets/Icons/save.png" />
+          ثبت
+        </button>
+
+        <button (click)="onClose()" class="btn btn-primary btnGreen">
+          <img width="15px" height="15px" src="assets/Icons/exit.png" />
+          خروج
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<app-over-popup *ngIf="isClicked" 
+  [PopupType]="PopUpType"
+  [startLeftPosition]="startLeftPosition"
+  [startTopPosition]="startTopPosition"
+  [PopupParam]="PopUpType === 'message-box' ?alertMessageParams:PopupParam"
+  [HaveHeader]="HaveHeader" 
+  (popupclosed)="popupclosed($event)">
+</app-over-popup>

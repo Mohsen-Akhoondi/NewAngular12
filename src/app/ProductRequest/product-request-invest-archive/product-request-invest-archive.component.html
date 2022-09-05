@@ -1,0 +1,314 @@
+<div class="main-form-body for-append-date" style="margin: 5px;height: 87%">
+  <form>
+    <fieldset class="feild-set" style="display: inherit">
+      <table style="width: 100%;">
+        <tr>
+          <td width="50%">
+            <span style="color: red;">*</span>
+            <span class="table-cell-Lable">واحد اجرایی</span>
+            <app-ng-select-virtual-scroll style="display: inline-block;width: 76%;" [NgSelectParams]="RegionParams"
+              [Disabled]="!InsertMode" (Open)="OnOpenNgSelect($event)" [Items]="RegionItems"
+              (selectedChange)="onChangeRegion($event)" [CheckValidate]="CheckValidate">
+            </app-ng-select-virtual-scroll>
+          </td>
+          <!-- <td width="50%">
+            <span style="color: red;">*</span>
+            <span class="table-cell-Lable">محل هزینه </span>
+            <app-ng-select-virtual-scroll style="display: inline-block;width: 73%;" [NgSelectParams]="VWExeUnitParams"
+              [Disabled]="!InsertMode" [Items]="ExeUnitItems" (Open)="OnOpenExeUnit($event)">
+            </app-ng-select-virtual-scroll>
+          </td> -->
+          <td width="50%">
+            <span class="table-cell-Lable">شماره درخواست</span>
+            <input style="width: 73.2% " class="form-control input-style" type="text" value="{{ProductRequestNo}}"
+              readonly />
+          </td>
+        </tr>
+        <tr>
+          <td width="50%">
+            <span style="color: red;">*</span>
+            <span class="table-cell-Lable">معاونت مجری</span>
+            <app-ng-select-virtual-scroll [Disabled]="!InsertMode" style="display: inline-block;width: 76%;"
+              [NgSelectParams]="CostCenterParams" (selectedChange)="onChangeCostCenter($event)"
+              [Items]="CostCenterItems" (Open)="OnOpenNgSelectCostCenter($event)" [CheckValidate]="CheckValidate">
+            </app-ng-select-virtual-scroll>
+          </td>
+          <td width="50%">
+            <span style="color: red;">*</span>
+            <span class="table-cell-Lable">اداره مجری</span>
+            <app-ng-select-virtual-scroll [Disabled]="!InsertMode" style="display: inline-block;width: 73%;"
+              [NgSelectParams]="SubCostCenterParams" [Items]="SubCostCenterItems" [CheckValidate]="CheckValidate"
+              (Open)="OnOpenNgSelectSubCostCenter($event)" (selectedChange)="onSubCostCenterSelectedChange($event)">
+            </app-ng-select-virtual-scroll>
+          </td>
+
+
+        </tr>
+        <tr>
+          <td width="50%">
+            <span style="color: red;">*</span>
+            <span class="table-cell-Lable">درخواست کننده</span>
+            <app-ng-select-virtual-scroll [Disabled]="!InsertMode" style="display: inline-block;" [style.width.%]="76"
+              [NgSelectParams]="RequestedPersonParams" [Items]="RequestedPersonItems"
+              (Open)="OnOpenNgSelectRequestedPerson($event)" [CheckValidate]="CheckValidate">
+            </app-ng-select-virtual-scroll>
+          </td>
+          <td width="50%">
+            <span style="color: red;">*</span>
+            <span class="table-cell-Lable">تاریخ درخواست</span>
+            <app-jalali-datepicker [WidthPC]="73.2" [CurrMiladiDateValue]="ProductRequestDate" [Disabled]="!InsertMode"
+              (Change)="OnProductRequestDateChange($event)" [Required]="true" [CheckValidate]="CheckValidate">
+            </app-jalali-datepicker>
+          </td>
+
+        </tr>
+        <tr>
+
+          <td width="50%">
+            <span style="color: red;">*</span>
+            <span class="table-cell-Lable">عنوان فرصت</span>
+            <textarea [disabled]="!InsertMode" [ngStyle]="{'border-color': CheckValidate && !Subject ? 'red':''}"
+              placeholder="{{CheckValidate && !Subject ? 'پر کردن مقدار این فیلد الزامیست': ''}}" [(ngModel)]="Subject"
+              name="Subject" class="form-control input-style" rows="1"
+              style="display: inline-block;height: 27px;width: 75.7%;" id="indicator-text_note"></textarea>
+
+
+            <!-- <input style="width: 75.7%;" class="form-control input-style"  type="text"
+              name="Subject" [(ngModel)]="Subject" [CheckValidate]="CheckValidate" /> -->
+          </td>
+
+          <td width="50%">
+            <span class="table-cell-Lable">ارزش</span>
+            <div class="redio-div" style="width: 71%; text-align:right; padding-right: 10px;">
+              <div class="custom-control custom-radio custom-control-inline">
+                <input [disabled]="!InsertMode" [checked]="Less" type="radio" class="custom-control-input" id="rdoLess"
+                  name="ChoosenValue" (click)="rdoValueClick(true)">
+                <label style="margin: auto;" class="custom-control-label redio-label" for="rdoLess">کمتر از 75 میلیارد
+                </label>
+              </div>
+              <div class="custom-control custom-radio custom-control-inline">
+                <input [disabled]="!InsertMode" [checked]="!Less" type="radio" class="custom-control-input" id="rdoMore"
+                  name="ChoosenContractorType">
+                <label style="margin: auto;" class="custom-control-label redio-label" for="rdoMore"
+                  (click)="rdoValueClick(false)">بیشتر از 75 میلیارد</label>
+              </div>
+            </div>
+
+
+          </td>
+
+        </tr>
+      </table>
+    </fieldset>
+  </form>
+
+
+  <ul style="margin-top: 10px" class="nav nav-tabs" role="tablist">
+    <li *ngIf="false" class="nav-item">
+      <a class="nav-link active" href="#request-item" role="tab" data-toggle="tab">آورده شهرداری</a>
+    </li>
+    <li *ngIf="FileMode" class="nav-item">
+      <a class="nav-link " [ngClass]="{'active': !IsArchiveActive}" href="#file-item" role="tab" data-toggle="tab">فایل
+        ها</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" [ngClass]="{'active': IsArchiveActive}" href="#archive-item" role="tab"
+        data-toggle="tab">آرشیو</a>
+    </li>
+    <li *ngIf="ExtraMode" class="nav-item">
+      <a class="nav-link" href="#information" role="tab" data-toggle="tab">سایر اطلاعات</a>
+    </li>
+  </ul>
+
+  <div class="tab-content" style=" width: 100%; margin-top: 5px;padding: 5px;" [style.height.%]="TabHeight">
+
+    <div *ngIf="false" role="tabpanel" class="tab-pane fade show active" id="request-item" [style.height.%]="96">
+      <app-grid [HaveBorder]="true" [columns]="columnDef" [rowsData]="rowsData" (GridReady)="onGridReady($event)"
+        [IsEditable]="InsertMode" (cellEditingStarted)="oncellEditingStarted($event)"
+        (CellValueChanged)="onCellValueChanged($event)" [gridHeight]="96" (RowClick)="RowClick($event)">
+      </app-grid>
+    </div>
+
+    <div *ngIf="FileMode" role="tabpanel" [ngClass]="{'active':!IsArchiveActive , 'show': !IsArchiveActive}"
+      class="tab-pane fade" id="file-item" [style.height.%]="96">
+      <app-grid [HaveBorder]="true" (GridReady)="onGridReadyMenu($event)" [columns]="SelectedColumnDef"
+        [rowsData]="rowData" (RowClick)="MenuRowClick($event)" [gridHeight]=96 [gridHeader]="'لیست فایل ها'">
+      </app-grid>
+    </div>
+
+    <div role="tabpanel" [ngClass]="{'active':IsArchiveActive , 'show': IsArchiveActive}" class="tab-pane fade"
+      id="archive-item" style="margin-bottom: 5px;" [style.height.%]="96">
+      <app-grid [HaveBorder]="true" (GridReady)="onSubGridReadyMenu($event)" [columns]="ArchiveColumnDef"
+        [rowsData]="ArchiverowData" (RowClick)="ArchiveRowClick($event)" [gridHeight]=96 [gridHeader]="'لیست مستندات'">
+      </app-grid>
+    </div>
+
+
+    <div *ngIf="ExtraMode" role="tabpanel" class="tab-pane fade" id="information" [style.height.%]="100"
+      style="margin-bottom: 5px;">
+      <div class="MoreTab" [style.height.%]="100">
+        <table style="width: 100%; margin-top: 5px;">
+          <tr>
+            <td *ngIf="ProfitEntry" style="width: 50%">
+              <span class="table-cell-Lable">سود اقتصادی</span>
+              <app-number-input-component [id]="'Economic-Profit-Amount'" [Value]="EconomicProfitAmount"
+                (ValueChange)="EconomicProfitAmountChange($event)" [IsFloat]="false" [PerCentWidth]="80.5"
+                [PixelHeight]="25" class="col-form-label" [HaveThousand]="true" [ReadOnly]= EditableProfit>
+              </app-number-input-component>
+            </td>
+            <td *ngIf="ProfitEntry && !InvestTypeEntry" style="width: 50%">
+            </td>
+
+            <td *ngIf="InvestTypeEntry" style="width: 50%">
+              <span class="table-cell-Lable">روش مشارکت</span>
+              <app-ng-select-virtual-scroll style="display: inline-block;" [style.width.%]="80"
+                [NgSelectParams]="InvestTypeParams" [Items]="InvestTypeItems" (Open)="OpenInvestTypeParam($event)"
+                [Disabled]="DisabledInvest">
+              </app-ng-select-virtual-scroll>
+            </td>
+          </tr>
+          <tr *ngIf="ShareValueEntry">
+            <td style="width: 50%">
+              <span class="table-cell-Lable">قدر السهم شهرداری</span>
+              <app-number-input-component [id]="'Base-Share-Value'" [Value]="BaseShareValue" [IsFloat]="true"
+                [MaxLength]="5" [FloatMaxLength]="2" [PerCentWidth]="72" [PixelHeight]="25"
+                (ValueChange)="BaseShareValueChange($event)" class="col-form-label" [HaveThousand]="false"
+                [ReadOnly]="DisabledShareValue">
+              </app-number-input-component>
+              <span class="table-cell-Lable">درصد</span>
+            </td>
+            <td style="width: 50%">
+              <span class="table-cell-Lable">قدر السهم شریک</span>
+              <app-number-input-component [id]="'Copartner-Share-Value'" [Value]="CopartnerShareValue" [IsFloat]="true"
+                [MaxLength]="5" [FloatMaxLength]="2" [PerCentWidth]="71.5" [PixelHeight]="25" class="col-form-label"
+                [HaveThousand]="false" [ReadOnly]=true>
+              </app-number-input-component>
+              <span class="table-cell-Lable">درصد</span>
+            </td>
+
+          </tr>
+
+        </table>
+
+      </div>
+    </div>
+
+
+
+  </div>
+  <fieldset *ngIf="MunicipalityEstate" style="display: inherit;min-height: 38px;margin-top: 2px;" class="feild-set1">
+    <table style="width: 100%;">
+      <tr>
+        <td width="30%" *ngIf="true">
+          <app-radio-box-component [BoxWidth]="87" [Mode]="'Dual'" [Params]="McRadioTypes" [Display]="'inline'"
+            [Bordered]="false" [DefaultSelected]='IsMunicipalityEstate ? IsMunicipalityEstate : false'
+            [Title]="IsMunicipalityEstateQuestion" [QuestionStyle]="true" [Title_Width]="120" [Disabled]="false"
+            (SelectedOption)="IsMunicipalityEstateRedioClick($event)"></app-radio-box-component>
+        </td>
+
+      </tr>
+    </table>
+  </fieldset>
+
+  <fieldset *ngIf="HasReturnQuestion" style="display: inherit;min-height: 38px;margin-top: 2px;" class="feild-set1">
+    <table style="width: 100%;">
+      <tr>
+        <td width="30%" *ngIf="true">
+          <app-radio-box-component [BoxWidth]="87" [Mode]="'Dual'" [Params]="McRadioTypes" [Display]="'inline'"
+            [Bordered]="false" [DefaultSelected]='IsReturn ? IsReturn : false' [Title]="ReturnQuestion"
+            [QuestionStyle]="true" [Title_Width]="120" [Disabled]="false"
+            (SelectedOption)="ReturnQuestionRedioClick($event)"></app-radio-box-component>
+        </td>
+
+      </tr>
+    </table>
+  </fieldset>
+
+</div>
+
+<div style="margin: 5px;">
+  <div class="buttons-place" style="float: right;margin: auto; width: 53%; overflow: auto;">
+    <button *ngIf="InsertModeBtn" (click)="onSave()" id="btnSave" class="btn btn-primary btnGreen">
+      <img width="15px" height="15px" src="assets/Icons/save.png" />
+      ثبت
+    </button>
+    <button *ngIf="HasExtraSaveBtn" (click)="onSaveExtra()" id="btnSave" class="btn btn-primary btnGreen">
+      <img width="15px" height="15px" src="assets/Icons/save.png" />
+      ثبت
+    </button>
+    <button *ngIf="UpLoadEnable" (click)="onUpload()" id="btnSave" class="btn btn-primary btnGreen">
+      <img width="15px" height="15px" src="assets/Icons/TechnicalArchive.png" />
+      مستندات
+    </button>
+    <button *ngIf="btnProposal" id="btnRequestSuggestion" class="btn btn-primary btnGreen" (click)="onProposalClick()">
+      <img width="15px" height="15px" src="assets/Icons/Suggestion.png" />
+      متقاضیان
+    </button>
+    <button *ngIf="HasCommition" id="btnRequestSuggestion" class="btn btn-primary btnGreen"
+      (click)="onCommitionClick()">
+      <img width="15px" height="15px" src="assets/Icons/Suggestion.png" />
+      دریافت پاکات
+    </button>
+    <button *ngIf="HasCreateContractBtn" (click)="onCreateContract()" id="btn2" class="btn btn-primary btnGreen">
+      <img width="15px" height="15px" src="assets/Icons/add.png" />
+      انعقاد قرارداد
+    </button>
+    <button *ngIf="HasCreateContractBtn" id="btnCoef" (click)="onInvestClick()" class="btn btn-primary btnGreen">
+      <img width="15px" height="15px" src="assets/Icons/coef1.png" />
+      اطلاعات مشارکت
+    </button>
+    <button *ngIf="HaveAcceptArchive" (click)="BtnArchiveClick()" id="btn1" class="btn btn-primary btnGreen">
+      <img width="15px" height="15px" src="assets/Icons/TechnicalArchive.png" />
+      متن امضا شده و شماره شده قرارداد
+    </button>
+    <button *ngIf="HaveAutomation" id="btnClose" class="btn btn-primary btnGreen" (click)="onAutomationClick()">
+      <img width="15px" height="15px" src="assets/Icons/ok.png" />
+      اتصال نامه
+    </button>
+    <button (click)="close()" id="btn4" class="btn btn-primary btnGreen">
+      <img width="15px" height="15px" src="assets/Icons/exit.png" />
+      خروج
+    </button>
+  </div>
+
+  <div *ngIf="true" class="buttons-place" style="float:left;margin: auto;" [style.width.%]="46">
+    <button [disabled]="BTNsShow" (click)="onConfirm()" id="btn2" class="btn btn-primary btnGreen" style="margin: 2px;">
+      <img width="15px" height="15px" src="assets/Icons/{{btnConfirmIcon}}.png" />
+      {{btnConfirmName}}
+    </button>
+    <button [disabled]="BTNsShow" (click)="onConfirmAndSend()" id="btn2" class="btn btn-primary btnGreen"
+      style="margin: 2px;">
+      <img width="15px" height="15px" src="assets/Icons/Approve.png" />
+      تایید و ارسال </button>
+    <button [disabled]="BTNsShow" (click)="onUnConfirmAndReturn()" id="btn2" class="btn btn-primary btnGreen"
+      style="margin: 2px;">
+      <img width="15px" height="15px" src="assets/Icons/DisApprove.png" />
+      {{btnConfirmAndReturnName}} </button>
+    <button [disabled]="BTNsShow" (click)="OnClickPrintFlow()" class="btn btn-primary btnGreen">
+      <img width="15px" height="15px" src="assets/Icons/print.png" />
+      گردش
+    </button>
+  </div>
+</div>
+
+<ng-template #fileExtCell let-row>
+  <span> {{ row.FileNameWithoutExtension}} &nbsp; </span>
+  <img width="20px" height="20px" src={{row.Image_Url}} />
+</ng-template>
+
+<ng-template #ArchiveType let-row>
+  <span> {{ row.FileNameWithoutExtension}} &nbsp; </span>
+  <img width="20px" height="20px" src={{row.Image_Url}} />
+</ng-template>
+
+<ng-template #DownloadBtn let-row>
+  <img [ngClass]="'img-def'" width="16px" height="16px" style="cursor: pointer;" [src]="'assets/Icons/Download.png'"
+    (click)="Download(row)" />
+</ng-template>
+
+<app-over-popup *ngIf="btnclicked" [PopupType]="type" [HeightPercentWithMaxBtn]="OverHeightPercent"
+  [HaveMaxBtn]="HaveMaxBtn" [PopupParam]="type === 'message-box' ? alertMessageParams : paramObj"
+  (popupclosed)="popupclosed($event)" [startLeftPosition]="startLeftPosition" [startTopPosition]="startTopPosition"
+  [HaveHeader]="HaveHeader" [MainMinwidthPixel]="OverMainMinwidthPixel" [MainMaxwidthPixel]="MainMaxwidthPixel"
+  [PercentWidth]="PopUpType === 'message-box' ? '' : PercentWidth">
+</app-over-popup>

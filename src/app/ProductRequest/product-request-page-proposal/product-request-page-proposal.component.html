@@ -1,0 +1,21 @@
+<div id="container" class="row" style="clear: both">
+  <div id="content" style="height: 100%;width: 100%;">
+    <div class="main-form-body" style="margin: 5px;">
+      <form>
+        <app-radio-box-component [Params]="RadioTypes" [Display]="RadioTypeDisplay" 
+        [Bordered] = "true" [Mode] ="'Box'" [Display]="RadioTypeDisplay" [Title] = "'نوع نمایش'" 
+        [Title_Width]= "100" (SelectedOption)="GetSelectedOption($event)" ></app-radio-box-component>
+      </form>
+  <div class="buttons-place" style="margin: unset;">
+    <button (click)="Save()" id="btn4" class="btn btn-primary btnGreen">
+      <img width="15px" height="15px" src="assets/Icons/ok.png" />
+      تایید
+    </button>
+    <button (click)="closeModal()" id="btn4" class="btn btn-primary btnGreen">
+      <img width="15px" height="15px" src="assets/Icons/exit.png" />
+      خروج
+    </button>
+  </div>
+</div>
+</div>
+</div>

@@ -1,0 +1,196 @@
+<div class="main-form-body" style="margin-top: 5px; height: 85%;">
+    <fieldset class="feild-set" style="display: inherit">
+      <table style="margin-bottom: 5px; width: 90%;">
+        <tr>
+          <td width="25%" style="text-align: left;">
+            <span class="table-cell-Lable">واحد اجرایی</span>
+            <app-ng-select-virtual-scroll [Disabled]=true style="display: inline-block;width: 60%; min-height: 25;"
+              [NgSelectParams]="RegionParams" (selectedChange)="onChangeRegion($event)" [Items]="RegionItems">
+            </app-ng-select-virtual-scroll>
+          </td>
+          <td width="25%" style="text-align: left;">
+
+            <span class="table-cell-Lable">گروه دارایی پایه</span>
+            <app-ng-select-virtual-scroll [Disabled]=true style="display: inline-block;width: 60%; min-height: 25;"
+              [NgSelectParams]="NgSelectBaseAssetGroupParams" [Items]="BaseAssetGroupListSet"
+              (FetchMore)="FetchMoreBaseAssetGroup($event)" (Open)="BaseAssetGroupOpened()"
+              (doSearch)="FetchBaseAssetGroupByTerm($event)">
+            </app-ng-select-virtual-scroll>
+          </td>
+          <td width="25%" style="text-align: left;">
+            <span class="table-cell-Lable">کد اموال</span>
+            <input style="display: inline-block;width: 60%; min-height: 25;" readonly class="form-control input-style"
+              type="text" name="AssetCode" [(ngModel)]="AssetCode" />
+          </td>
+        </tr>
+        <tr>
+          <td width="25%" style="text-align: left;">
+            <span class="table-cell-Lable">شماره تنظیم سند مرتبط</span>
+            <input style="display: inline-block;width: 60%; min-height: 25;" readonly class="form-control input-style"
+              type="text" name="VoucherCode" [(ngModel)]="VoucherCode" />
+          </td>
+          <!-- <td width="25%" style="text-align: left;">
+          <span class="table-cell-Lable">گروه دارایی </span>
+          <app-ng-select-virtual-scroll style="display: inline-block;width: 60%; min-height: 25;"
+            [NgSelectParams]="NgSelectShareTypeParams" [Items]="ShareTypeItems" (Open)="OnOpenNgSelectShareType()">
+          </app-ng-select-virtual-scroll>
+        </td> -->
+          <td width="25%" style="text-align: left;">
+            <span class="table-cell-Lable">گروه دارایی</span>
+            <input style="display: inline-block;width: 60%; min-height: 25;" readonly class="form-control input-style"
+              type="text" name="AssetGroup" [(ngModel)]="AssetGroup" />
+          </td>
+          <!-- <td width="25%" style="text-align: left;">
+          <span class="table-cell-Lable">گروه اصلی کالا</span>
+          <app-ng-select-virtual-scroll style="display: inline-block;width: 60%; min-height: 25;"
+            [NgSelectParams]="NgSelectParentsArticlePatternParams" [Items]="ParentsArticlePatternItems"
+            (Open)="OnOpenNgSelectParentsArticlePattern()">
+          </app-ng-select-virtual-scroll>
+        </td> -->
+          <td width="25%" style="text-align: left;">
+            <span class="table-cell-Lable">گروه اصلی کالا</span>
+            <input style="display: inline-block;width: 60%; min-height: 25;" readonly class="form-control input-style"
+              type="text" name="GrantParentGood" [(ngModel)]="GrantParentGood" />
+          </td>
+        </tr>
+        <tr>
+          <td width="25%" style="text-align: left;">
+            <span class="table-cell-Lable">نوع اموال</span>
+            <app-ng-select-virtual-scroll [Disabled]=true style="display: inline-block;width: 60%; min-height: 25;"
+              [NgSelectParams]="NgSelectAssetTypeParams" [Items]="AssetTypeItems" (Open)="OnOpenNgSelectAssetType()">
+            </app-ng-select-virtual-scroll>
+          </td>
+          <!-- <td width="25%" style="text-align: left;">
+          <span class="table-cell-Lable">کالا</span>
+          <app-ng-select-virtual-scroll style="display: inline-block;width: 60%; min-height: 25;"
+            [NgSelectParams]="NgSelectArticlePatternParams" [Items]="ArticlePatternItems"
+            (Open)="OnOpenNgSelectChildArticlePattern()">
+          </app-ng-select-virtual-scroll>
+        </td> -->
+          <td width="25%" style="text-align: left;">
+            <span class="table-cell-Lable">کالا</span>
+            <input style="display: inline-block;width: 60%; min-height: 25;" readonly class="form-control input-style"
+              type="text" name="GoodObject" [(ngModel)]="GoodObject" />
+          </td>
+          <td width="25%" style="text-align: left;">
+            <span class="table-cell-Lable">نرخ اسقاط</span>
+            <input style="display: inline-block;width: 60%; min-height: 25;" readonly class="form-control input-style"
+              type="text" name="ScrapAmount" [(ngModel)]="ScrapAmount" />
+          </td>
+        </tr>
+        <tr>
+          <td width="25%" style="text-align: left;">
+            <span class="table-cell-Lable">روش استهلاک گیری</span>
+            <input style="display: inline-block;width: 60%; min-height: 25;" readonly class="form-control input-style"
+              type="text" name="DepreciationMethodName" [(ngModel)]="DepreciationMethodName" />
+          </td>
+          <!-- <td width="25%" style="text-align: left;">
+          <span class="table-cell-Lable">شناسه اموال مرتبط</span>
+          <app-ng-select-virtual-scroll style="display: inline-block;width: 60%; min-height: 25;"
+            [NgSelectParams]="NgSelectelRelatedAssetParams" [Items]="RelatedAssetItems"
+            (Open)="OnOpenNgSelectRelatedAsset()" (FetchMore)="FetchMoreRelatedAsset($event)"
+            (doSearch)="FetchRelatedAssetByTerm($event)">
+          </app-ng-select-virtual-scroll>
+        </td> -->
+          <td width="25%" style="text-align: left;">
+            <span class="table-cell-Lable">شناسه اموال مرتبط</span>
+            <input style="display: inline-block;width: 60%; min-height: 25;" readonly class="form-control input-style"
+              type="text" name="RelatedAsset" [(ngModel)]="RelatedAsset" />
+          </td>
+          <td width="25%" style="text-align: left;">
+            <span class="table-cell-Lable">برچسب اموال</span>
+            <input style="display: inline-block;width: 60%; min-height: 25;" readonly class="form-control input-style"
+              type="text" name="AssetTag" [(ngModel)]="AssetTag" />
+          </td>
+        </tr>
+        <tr>
+          <td width="25%" style="text-align: left;">
+            <span class="table-cell-Lable">شناسه دسترسی</span>
+            <input style="display: inline-block;width: 60%; min-height: 25;" readonly class="form-control input-style"
+              type="text" name="RefrenceNo" [(ngModel)]="RefrenceNo" />
+          </td>
+          <!-- <td width="25%" style="text-align: left;">
+          <span class="table-cell-Lable">محل هزینه </span>
+          <app-ng-select-virtual-scroll style="display: inline-block;width: 60%;" [NgSelectParams]="VWExeUnitParams"
+            (selectedChange)="onChangeExeUnit()" [Items]="ExeUnitItems" (Open)="OnOpenExeUnit()">
+          </app-ng-select-virtual-scroll>
+        </td> -->
+          <td width="25%" style="text-align: left;">
+            <span class="table-cell-Lable">محل هزینه</span>
+            <input style="display: inline-block;width: 60%; min-height: 25;" readonly class="form-control input-style"
+              type="text" name="UnitPatternObject" [(ngModel)]="UnitPatternObject" />
+          </td>
+          <td width="25%" style="text-align: left;">
+            <span class="table-cell-Lable">شماره پشتیبانی</span>
+            <input style="display: inline-block;width: 60%; min-height: 25;" readonly class="form-control input-style"
+              type="text" name="SupportNo" [(ngModel)]="SupportNo" />
+          </td>
+        </tr>
+        <tr>
+          <td width="25%" style="text-align: left;">
+            <span class="table-cell-Lable">بارکد</span>
+            <input style="display: inline-block;width: 60%; min-height: 25;" readonly class="form-control input-style"
+              type="text" name="Barcode" [(ngModel)]="Barcode" />
+          </td>
+          <td width="25%" style="text-align: left;">
+            <span class="table-cell-Lable">اموال دار</span>
+            <app-ng-select-virtual-scroll [Disabled]=true style="display: inline-block;width: 60%; min-height: 25;"
+              [NgSelectParams]="NgSelectExeUnitPersonParams" [Items]="ExeUnitPersonItems"
+              (Open)="OnOpenNgSelectExeUnitPerson()" (FetchMore)="FetchMoreExeUnitPerson($event)"
+              (doSearch)="SearchExeUnitPerson($event)">
+
+            </app-ng-select-virtual-scroll>
+          </td>
+          <td width="25%" style="text-align: left;">
+            <span class="table-cell-Lable">توضیحات</span>
+            <input style="display: inline-block;width: 60%; min-height: 25;" readonly class="form-control input-style"
+              type="text" name="Note" [(ngModel)]="Note" />
+          </td>
+        </tr>
+      </table>
+    </fieldset>
+
+    <div class="box-dev" style="width: 100%;"  [style.height.%]="64">
+
+      <app-grid (RowClick)="RowClick($event)" [columns]="columnDef" [rowsData]="rowData" [gridHeight]="90"
+        (cellEditingStarted)="onCellEditingStarted($event)" (GridReady)="onGridReady($event)">
+      </app-grid>
+    </div>
+</div>
+
+ <div>
+
+  <div class="buttons-place" style="float: right;margin: auto; width: 50%;">
+   
+    <button id="btnClose" class="btn btn-primary btnGreen" (click)="Close()">
+      <img width="15px" height="15px" src="assets/Icons/exit.png" />
+      خروج
+    </button>
+  </div>
+
+  <div *ngIf="true" class="buttons-place" style="float:left;margin: auto;" [style.width.%]="49.5">
+    <button [disabled]="BTNsShow" (click)="onConfirm()" id="btn2" class="btn btn-primary btnGreen" style="margin: 2px;">
+      <img width="15px" height="15px" src="assets/Icons/{{btnConfirmIcon}}.png" />
+      {{btnConfirmName}}
+    </button>
+    <button [disabled]="BTNsShow" (click)="onConfirmAndSend()" id="btn2" class="btn btn-primary btnGreen"
+      style="margin: 2px;">
+      <img width="15px" height="15px" src="assets/Icons/Approve.png" />
+      تایید و ارسال
+    </button>
+    <button (click)="onUnConfirmAndReturn()" id="btn2" class="btn btn-primary btnGreen" style="margin: 2px;">
+      <img width="15px" height="15px" src="assets/Icons/DisApprove.png" />
+      {{btnConfirmAndReturnName}}
+    </button>
+    <button (click)="OnClickAssetPrintFlow()" class="btn btn-primary btnGreen">
+      <img width="15px" height="15px" src="assets/Icons/print.png" />
+      گردش
+    </button>
+
+  </div>
+
+  <app-over-popup *ngIf="isClicked" [PopupType]="PopUpType" [startLeftPosition]="startLeftPosition"
+    [startTopPosition]="startTopPosition" [minHeightPixel]="MinHeightPixel" [PercentWidth]="PercentWidth"
+    [MainMaxwidthPixel]="MainMaxwidthPixel" [HeightPercentWithMaxBtn]="HeightPercentWithMaxBtn" [PopupType]="type"
+    [PopupParam]="PopUpType === 'message-box' ? alertMessageParams : PopupParam" (popupclosed)="popupclosed($event)">
+  </app-over-popup>

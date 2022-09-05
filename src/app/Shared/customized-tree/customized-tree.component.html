@@ -1,0 +1,8 @@
+<div id="tree" style="min-width: -moz-max-content;" [style.height.%]="TreeHeight ? TreeHeight: 79.8">
+  <app-tree 
+    (selectedchange)="onSelectedchange($event)" 
+    [FirstID]="FirstID"
+    [SecondID]="SecondID"
+    [InputParam] = "InputParam"
+    [HasFilter] ="HasFilter"></app-tree>
+</div>

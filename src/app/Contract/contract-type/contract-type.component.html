@@ -1,0 +1,42 @@
+
+<div class="main-form-body" style="margin-top: 5px; height: 84%;">
+    <div id="container" style="clear: both;padding-bottom: 5px;">
+      <div class="box-dev" style=" width: 100%;">
+        <app-grid
+        [columns]="columnDef"
+        [rows]="ContractTypeRow"
+        [gridHeightPxel]="420"
+        (GridReady)="onGridReady($event)"
+        [IsEditable]="true"
+        [AutoNumberField] = "'ContractTypeCode'"
+        (RowClick)="RowClick($event)"></app-grid>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="buttons-place" style="margin: auto; height: 44px; padding: 10px; padding-bottom: 7px;">
+    <button (click)="onSave()" id="btn1" class="btn btn-primary btnGreen">
+        <img width="15px" height="15px" src="assets/Icons/save.png" />
+        ثبت 
+      </button>
+    <button (click)="closeModal()" id="btn2" class="btn btn-primary btnGreen">
+      <img width="15px" height="15px" src="assets/Icons/exit.png" />
+      خروج</button>
+</div>
+<ng-template #IsValid let-row>
+  <img width="16px" height="16px" [src]= "row.IsValid ? 'assets/Icons/TrueCheckBox.png':'assets/Icons/Uncheck.png'" />
+ </ng-template> 
+
+ <ng-template #IsIncome let-row>
+  <img width="16px" height="16px" [src]= "row.IsIncome ? 'assets/Icons/TrueCheckBox.png':'assets/Icons/Uncheck.png'" />
+ </ng-template> 
+
+<app-over-popup
+  *ngIf="btnclicked"
+  [PopupType]="type"
+  [startLeftPosition]="449"
+  [startTopPosition]="247"
+  (popupclosed)="popupclosed($event)"
+  [PopupParam]="alertMessageParams">
+</app-over-popup>

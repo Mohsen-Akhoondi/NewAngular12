@@ -1,0 +1,810 @@
+<div style="width: 100%;height: 100%;position: fixed;z-index: 10000000;">
+    <div class="overal-modal" id="modal-{{PopupType}}" [ngStyle]="{'z-index':zIndex ? zIndex : '' }"
+        [style.left.px]="startLeftPosition" [style.top.px]="startTopPosition"
+        [style.height.%]="HaveMaxBtn && HeightPercentWithMaxBtn ? HeightPercentWithMaxBtn:HaveMaxBtn ?'85':''"
+        [style.height.px]="PixelHeight ? PixelHeight:''" [style.min-height.px]="minHeightPixel ? minHeightPixel:''"
+        [style.width.px]="PixelWidth ? PixelWidth:''" [style.width.%]="PercentWidth ? PercentWidth:''"
+        [style.min-width.px]="minWidthPixel ? minWidthPixel:''" style="border: solid steelblue;">
+        <div [style.min-width.px]="MainMinwidthPixel ? MainMinwidthPixel:''"
+            [style.max-width.px]="MainMaxwidthPixel" class="over-popup-modal-container"
+            style=" background: white;" [style.height.%]="HaveMaxBtn ? 100:''">
+            <div class="row">
+                <div id="header">
+                    <span *ngIf="HaveHeader">{{HeaderName}}</span>
+                    <div>
+                        <button *ngIf="HaveExitBtn" style="outline: none" (click)="closeModal()" id="btnClose"
+                            class="btnControlBox fa fa-close"></button>
+                    </div>
+                    <div>
+                        <button style="outline: none" (click)="MaximizeModal()" *ngIf="HaveMaxBtn"
+                            id="btnMax-{{PopupType}}" class=" btnControlBox fa fa-expand"></button>
+                    </div>
+                </div>
+            </div>
+
+            <app-price-list-analayse (PriceListAnalayseClosed)="closeModal()" *ngIf="PopupType == 'PriceListAnalayze'"
+                [PopupParam]=PopupParam>
+            </app-price-list-analayse>
+
+            <app-modal-archive (ModalArchiveClosed)="closeModal()" [ArchiveParam]="PopupParam"
+                *ngIf="PopupType == 'archive-details'" (PopupOutPut)="getOutPutParam($event)">
+            </app-modal-archive>
+
+            <app-product-request-archive-detail (ProductArchiveDetailClosed)="closeModal()" [ArchiveParam]="PopupParam"
+                *ngIf="PopupType == 'product-request-archive-detail'">
+            </app-product-request-archive-detail>
+
+            <app-contract-estimate-page (ContractEstimateClosed)="closeModal()" [PopupMaximized]="popupMaximized"
+                [PopupParam]="PopupParam"
+                *ngIf="PopupType == 'PriceList_contract_estimate' && (ModuleCode == 2645 || ModuleCode == 2842) || PopupType == 'Cartable_contract_estimate'">
+            </app-contract-estimate-page>
+
+            <app-contract-page (ContractEstimateClosed)="closeModal()" [PopupMaximized]="popupMaximized"
+                [PopupParam]="PopupParam"
+                *ngIf="PopupType == 'PriceList_contract_estimate' && (ModuleCode == 2501 || ModuleCode == 3008) || PopupType == 'contract-page'">
+            </app-contract-page>
+
+            <app-contract-person-page (ContractEstimateClosed)="closeModal()" [rowSelected]="PopupParam"
+                (OutPutParam)="getOutPutParam($event)" *ngIf="PopupType == 'contract-person'">
+            </app-contract-person-page>
+
+            <app-excel-load-data (ExcelLoadDataClosed)="closeModal()" *ngIf="PopupType == 'app-excel-load-data'"
+                [Excel_Header_Param]="PopupParam" (ExcelData)="getOutPutParam($event)">
+            </app-excel-load-data>
+
+            <app-message-box *ngIf="PopupType == 'message-box'" [InputMessageBox]="PopupParam"
+                (messageBoxClosed)="closeModal($event)" (messageBoxResult)="getOutPutParam($event)">
+            </app-message-box>
+
+            <app-group-message-box *ngIf="PopupType == 'group-message-box'" [InputGroupMessageBox]="PopupParam"
+                (groupmessageBoxClosed)="closeModal()" (groupmessageBoxResult)="getOutPutParam($event)">
+            </app-group-message-box>
+
+            <app-workflow-send *ngIf="PopupType == 'work-flow-send'" (workFlowSendClosed)="closeModal()"
+                [InputParam]="PopupParam" (ISworkFlowSend)="getOutPutParam($event)">
+            </app-workflow-send>
+
+            <app-price-list (PriceListClosed)="closeModal()" (RowSelected)="getOutPutParam($event)"
+                [PopUpParam]="PopupParam" [NeedSelected]="true" [treeHeight]="80" [MainContentHeight]="98"
+                *ngIf="PopupType == 'editor-select-price-list'">
+            </app-price-list>
+
+            <app-update-workflow-status *ngIf="PopupType == 'update-workflow-status'"
+                (UpdateWorkflowStatusClosed)="closeModal()" [InputParam]="PopupParam">
+            </app-update-workflow-status>
+
+            <app-choose-report (CloseChooseReport)="closeModal()" [ReportParam]="PopupParam"
+                *ngIf="PopupType == 'choose-report'">
+            </app-choose-report>
+
+            <app-contract-coef (ContractCoefClosed)="closeModal()" *ngIf="PopupType == 'contract-coef'"
+                [InputParam]="PopupParam">
+            </app-contract-coef>
+
+            <app-contract-orderitem-coef (ContractCoefClosed)="closeModal()"
+                *ngIf="PopupType == 'contract-orderitem-coef'" [InputParam]="PopupParam"
+                (ReturnedCoefLevelCode)="getOutPutParam($event)">
+            </app-contract-orderitem-coef>
+
+            <app-price-list-topic-dataentry-page (PriceListTopicClosed)="closeModal()"
+                *ngIf="PopupType == 'price-list-topic-dataentry-page'" [InputParam]="PopupParam"
+                (IsChange)="getOutPutParam($event)">
+            </app-price-list-topic-dataentry-page>
+
+            <app-contract-pay-list *ngIf="PopupType == 'PriceList_contract_estimate' && ModuleCode == 2516"
+                (ContractEstimateClosed)="closeModal()" [PopupMaximized]="popupMaximized" [PopupParam]="PopupParam">
+            </app-contract-pay-list>
+
+            <app-contract-pay-list *ngIf="PopupType == 'PriceList_contract_estimate' && ModuleCode == 2875"
+                (ContractEstimateClosed)="closeModal()" [PopupMaximized]="popupMaximized" [PopupParam]="PopupParam">
+            </app-contract-pay-list>
+
+            <app-contract-pay-list *ngIf="PopupType == 'PriceList_contract_estimate' && ModuleCode == 2755"
+                (ContractEstimateClosed)="closeModal()" [PopupMaximized]="popupMaximized" [PopupParam]="PopupParam">
+            </app-contract-pay-list>
+
+            <app-child-price-list-topic-page *ngIf="PopupType == 'child-price-list-topic-page'"
+                [InputParam]="PopupParam" (PriceListTopicClosed)="closeModal()">
+            </app-child-price-list-topic-page>
+
+            <app-contract-pay-details [PopupParam]="PopupParam" *ngIf="PopupType == 'contract-pay-details'"
+                (Closed)="closeModal()" (Output)="getOutPutParam($event)">
+            </app-contract-pay-details>
+
+            <app-contract-pay-types *ngIf="PopupType == 'contract-pay-types'" (ContractPayTypesClosed)="closeModal()"
+                (PayTypesOutPutPram)="getOutPutParam($event)" [PopupParam]="PopupParam">
+            </app-contract-pay-types>
+
+            <app-selecet-contract-estimate *ngIf="PopupType =='selecet-contract-estimate'" (Closed)="closeModal()"
+                [InputParam]="PopupParam" (OutputParam)="getOutPutParam($event)">
+            </app-selecet-contract-estimate>
+
+            <app-users-search (UsersSearchClosed)="closeModal()" *ngIf="PopupType == 'users-search' "
+                (UsersSearchOutPutPram)="getOutPutParam($event)">
+            </app-users-search>
+
+            <app-contract-case *ngIf="PopupType == 'contract-case'" [PopupParam]="PopupParam"
+                [PopupMaximized]="popupMaximized" (ContractCaseClosed)="closeModal()">
+            </app-contract-case>
+
+            <app-contract-estimate-view *ngIf="PopupType == 'view-estimate'" [PopupMaximized]="popupMaximized"
+                [PopupParam]="PopupParam" (ContractEstimateViewClosed)="closeModal()">
+            </app-contract-estimate-view>
+
+            <app-contract-no-estimate-view *ngIf="PopupType == 'view-no-estimate'" [PopupMaximized]="popupMaximized"
+                [PopupParam]="PopupParam" (ContractNoEstimateViewClosed)="closeModal()">
+            </app-contract-no-estimate-view>
+
+            <app-choosen-contract-pay-rep *ngIf="PopupType == 'choosen-contract-pay-rep'"
+                (ChoosenContractPayClosed)="closeModal()" [PopupParam]="PopupParam">
+            </app-choosen-contract-pay-rep>
+
+            <app-contract-pay-item-estimate-page [PopupParam]="PopupParam"
+                *ngIf="PopupType == 'contract-pay-item-estimate-page'" (Closed)="closeModal()"
+                (OutPutParam)="getOutPutParam($event)">
+            </app-contract-pay-item-estimate-page>
+
+            <app-price-list-pattern-goods (PriceListPatternIDClosed)="closeModal()"
+                *ngIf="PopupType == 'PriceListPatternGoods'" [PopupParam]=PopupParam>
+            </app-price-list-pattern-goods>
+
+            <!-- <app-price-list-related-list *ngIf="PopupType == 'related-price-list'" [PopupParam]="PopupParam" ></app-price-list-related-list> -->
+
+            <app-price-list-related-list *ngIf="PopupType == 'related-price-list'" [PopupParam]="PopupParam"
+                (OutPutParam)="getOutPutParam($event)" (RelatedListClosed)="closeModal()">
+            </app-price-list-related-list>
+
+            <app-summary-quantity-surveying *ngIf="PopupType == 'summary-quantity'" [PopupMaximized]="popupMaximized"
+                [PopupParam]="PopupParam" (Closed)="closeModal()" [ModuleCode]="ModuleCode">
+            </app-summary-quantity-surveying>
+
+            <app-financial-sheet *ngIf="PopupType == 'fin-sheet'" [PopupMaximized]="popupMaximized"
+                [PopupParam]="PopupParam" (Closed)="closeModal()" [ModuleCode]="ModuleCode">
+            </app-financial-sheet>
+
+            <app-select-contract-pay *ngIf="PopupType == 'select-contract-pay'" [PopupParam]="PopupParam"
+                (Closed)="closeModal()" (OutPutParam)="getOutPutParam($event)"> </app-select-contract-pay>
+
+            <app-contract-minutes-list
+                *ngIf="PopupType == 'PriceList_contract_estimate' && (ModuleCode == 2648 || ModuleCode == 2805)"
+                (Closed)="closeModal()" [PopupMaximized]="popupMaximized" [PopupParam]="PopupParam"
+                [ModuleCode]="ModuleCode">
+            </app-contract-minutes-list>
+
+            <app-contract-minutes-item-list-page *ngIf="PopupType == 'contract-minutes-item-list-page'"
+                [PopupParam]="PopupParam" (Closed)="closeModal()">
+            </app-contract-minutes-item-list-page>
+
+            <app-set-contract-price-list-pattern (SetContractPriceListPatternClosed)="closeModal()"
+                *ngIf="PopupType == 'set-contract-price-list-pattern'" [PopupParam]="PopupParam">
+            </app-set-contract-price-list-pattern>
+
+            <app-set-invalid-contract-estimate (SetInvalidContractEstimateOutPutParam)="getOutPutParam($event)"
+                (SetInvalidContractEstimateClosed)="closeModal()" *ngIf="PopupType == 'set-invalid-contract-estimate'"
+                [PopupParam]="PopupParam">
+            </app-set-invalid-contract-estimate>
+
+            <app-transfer-distance-item (TransferDistanceItemClosed)="closeModal()"
+                *ngIf="PopupType == 'transfer-distance-item'" [PopupParam]="PopupParam">
+            </app-transfer-distance-item>
+
+            <app-select-contract-minutes *ngIf="PopupType == 'select-contract-minutes'" [PopupParam]="PopupParam"
+                (Closed)="closeModal()" (OutPutParam)="getOutPutParam($event)">
+            </app-select-contract-minutes>
+
+            <app-select-contract-agent *ngIf="PopupType == 'select-contract-agent'" [PopupParam]="PopupParam"
+                (Closed)="closeModal()" (OutPutParam)="getOutPutParam($event)">
+            </app-select-contract-agent>
+
+            <app-contract-pay-shipment *ngIf="PopupType == 'contract-pay-shipment'" [PopupParam]="PopupParam"
+                (Closed)="closeModal()">
+            </app-contract-pay-shipment>
+
+            <app-contract-pay-distance-result (Closed)="closeModal()"
+                *ngIf="PopupType == 'contract-pay-distance-result'" [PopUpParam]="PopupParam">
+            </app-contract-pay-distance-result>
+
+            <app-choosen-contract-estimate-rep *ngIf="PopupType == 'choosen-contract-estimate-rep'"
+                (ChoosenContractPayClosed)="closeModal()" [PopupParam]="PopupParam">
+            </app-choosen-contract-estimate-rep>
+
+            <app-contract-person-estimate *ngIf="PopupType == 'contract_person_estimate'" [PopupParam]="PopupParam"
+                (ContractPersonEstimateClosed)="closeModal()">
+            </app-contract-person-estimate>
+
+            <app-contract-pay-item-hour *ngIf="PopupType == 'contract-pay-item-hour'" [PopupParam]="PopupParam"
+                (Closed)="closeModal()" [ModuleCode]="ModuleCode">
+            </app-contract-pay-item-hour>
+
+            <app-contract-supervision-list
+                *ngIf="PopupType == 'PriceList_contract_estimate' && (ModuleCode == 2654 || ModuleCode == 3071)"
+                (Closed)="closeModal()" [PopupMaximized]="popupMaximized" [PopupParam]="PopupParam">
+            </app-contract-supervision-list>
+
+            <app-contract-supervision-item-list *ngIf="PopupType == 'contract-supervision-item-list'"
+                [PopupParam]="PopupParam" (Closed)="closeModal()">
+            </app-contract-supervision-item-list>
+
+            <app-contract-work-order-list *ngIf="PopupType == 'PriceList_contract_estimate' && ModuleCode == 2647"
+                (Closed)="closeModal()" [PopupMaximized]="popupMaximized" [PopupParam]="PopupParam">
+            </app-contract-work-order-list>
+
+            <app-contract-work-order-item-list *ngIf="PopupType == 'contract-work-order-item-list'"
+                [PopupParam]="PopupParam" (Closed)="closeModal()">
+            </app-contract-work-order-item-list>
+
+            <app-contract-vehicle-estimate *ngIf="PopupType == 'vehicle'" [PopupParam]="PopupParam"
+                (ContractVehicleEstimateClosed)="closeModal()">
+            </app-contract-vehicle-estimate>
+
+            <app-contract-order-item-deduction *ngIf="PopupType == 'contract-order-item-deduction'"
+                [PopupParam]="PopupParam" (ContractOrderClosed)="closeModal()">
+            </app-contract-order-item-deduction>
+
+            <app-contract-pay-fee-details *ngIf="PopupType == 'contract-pay-fee-details'" (Closed)="closeModal()"
+                [PopupMaximized]="popupMaximized" [PopupParam]="PopupParam">
+            </app-contract-pay-fee-details>
+
+            <app-contract-pay-transport *ngIf="PopupType == 'transport'" [PopupParam]="PopupParam"
+                (ContractPayTransportClosed)="closeModal()">
+            </app-contract-pay-transport>
+
+            <app-contract-pay-voucher-details *ngIf="PopupType == 'pay-voucher-details'" [PopupParam]="PopupParam"
+                (ContractPayVoucherDetailstClosed)="closeModal()">
+            </app-contract-pay-voucher-details>
+
+            <app-workflow-type-form *ngIf="PopupType == 'workflow-type'" [PopupParam]="PopupParam"
+                (WorkflowTypeOutPutPram)="getOutPutParam($event)" (WorkflowTypeClosed)="closeModal()">
+            </app-workflow-type-form>
+
+            <app-product-request-suggestion *ngIf="PopupType == 'product-request-suggestion'" [PopupParam]="PopupParam"
+                (PopupOutPut)="getOutPutParam($event)" (ProductRequestSuggestionClosed)="closeModal()">
+            </app-product-request-suggestion>
+
+            <app-product-request-show-details-page *ngIf="PopupType == 'product-request-show-details-page'"
+                [PopupParam]="PopupParam" (PopupOutPut)="getOutPutParam($event)"
+                (ProductRequestShowDetailsPageClosed)="closeModal()">
+            </app-product-request-show-details-page>
+
+            <app-product-request-coef *ngIf="PopupType == 'product-request-coef'" [PopupParam]="PopupParam"
+                (ProductRequestCoefClosed)="closeModal()" (PopupOutPut)="getOutPutParam($event)">
+            </app-product-request-coef>
+
+            <!-- <app-product-request-cost   *ngIf="PopupType == 'product-request-cost'" (ProductRequestCostClosed) ="closeModal()" [PopupParam]="PopupParam"></app-product-request-cost> -->
+            <!-- <app-product-request-person-item *ngIf="PopupType == 'product-request-person-item'" (ProductRequestPersonClosed) ="closeModal()" [PopupParam]="PopupParam"></app-product-request-person-item> -->
+
+            <app-user-work-log-detail *ngIf="PopupType=='user-work-log-details'" [PopupParam]="PopupParam"
+                (UserWorkLogDetailViewClosed)="closeModal()">
+            </app-user-work-log-detail>
+
+            <app-product-request-cost *ngIf="PopupType == 'product-request-cost'"
+                (ProductRequestCostClosed)="closeModal()" [PopupParam]="PopupParam"
+                (PopupOutPut)="getOutPutParam($event)">
+            </app-product-request-cost>
+
+            <app-product-request-person-item *ngIf="PopupType == 'product-request-person-item'"
+                (ProductRequestPersonClosed)="closeModal()" [PopupParam]="PopupParam"
+                (PopupOutPut)="getOutPutParam($event)">
+            </app-product-request-person-item>
+
+            <app-product-request-contract *ngIf="PopupType == 'product-request-contract'" (Closed)="closeModal()"
+                [PopupParam]="PopupParam">
+            </app-product-request-contract>
+
+            <app-request-contract-without-flow *ngIf="PopupType == 'request-contract-without-flow'"
+                [PopupParam]="PopupParam" (PopupOutPut)="getOutPutParam($event)"
+                (ProductRequestSuggestionClosed)="closeModal()">
+            </app-request-contract-without-flow>
+
+            <app-product-request-page *ngIf="PopupType == 'product-request-page'" [PopupMaximized]="popupMaximized"
+                [InputParam]="PopupParam" (Closed)="closeModal()" (Output)="getOutPutParam($event)">
+            </app-product-request-page>
+
+            <app-researcher-product-request-list *ngIf="PopupType == 'researcher-product-request-list'"
+                (Closed)="closeModal()" (PopupOutPut)="getOutPutParam($event)">
+            </app-researcher-product-request-list>
+
+            <app-product-request-page-without-flow *ngIf="PopupType == 'product-request-page-without-flow'"
+                [PopupMaximized]="popupMaximized" [InputParam]="PopupParam" (Closed)="closeModal()"
+                (Output)="getOutPutParam($event)">
+            </app-product-request-page-without-flow>
+
+            <app-request-proposal-item *ngIf="PopupType == 'request-proposal-item'"
+                (ProductRequestCostClosed)="closeModal()" [PopupParam]="PopupParam"
+                (PopupOutPut)="getOutPutParam($event)">
+            </app-request-proposal-item>
+
+            <app-product-request-estimate *ngIf="PopupType == 'request-estimate'"
+                (ProductRequestEstimateClosed)="closeModal()" [PopupParam]="PopupParam"
+                (PopupOutPut)="getOutPutParam($event)">
+            </app-product-request-estimate>
+
+            <app-product-request-person-estimate *ngIf="PopupType == 'request-person'"
+                (ProductRequestPersonClosed)="closeModal()" [PopupParam]="PopupParam"
+                (PopupOutPut)="getOutPutParam($event)">
+            </app-product-request-person-estimate>
+
+            <app-proposal-item-estimate *ngIf="PopupType == 'proposal-item-estimate'" (Closed)="closeModal()"
+                [PopupParam]="PopupParam" (ProposalItemEstimateOutPutPram)="getOutPutParam($event)">
+            </app-proposal-item-estimate>
+
+            <app-proposal-person-estimate *ngIf="PopupType == 'proposal-person-estimate'" (Closed)="closeModal()"
+                [PopupParam]="PopupParam">
+            </app-proposal-person-estimate>
+
+            <app-select-product-request-estimate *ngIf="PopupType == 'select-product-request-estimate'"
+                (Closed)="closeModal()" [InputParam]="PopupParam" (OutputParam)="getOutPutParam($event)">
+            </app-select-product-request-estimate>
+
+            <app-product-request-provision *ngIf="PopupType == 'product-request-provision'" (Closed)="closeModal()"
+                [PopupParam]="PopupParam" (PopupOutPut)="getOutPutParam($event)">
+            </app-product-request-provision>
+
+            <app-automation *ngIf="PopupType == 'app-automation'" [PopupParam]="PopupParam" (Closed)="closeModal()"
+                (PopupOutPutParam)="getOutPutParam($event)">
+            </app-automation>
+
+            <app-provision *ngIf="PopupType == 'app-provision'" (Closed)="closeModal()" [PopupParam]="PopupParam"
+                (PopupOutPut)="getOutPutParam($event)">
+            </app-provision>
+
+            <app-advertising *ngIf="PopupType == 'app-advertising'" (Closed)="closeModal()" [InputParam]="PopupParam"
+                (OutPutParam)="getOutPutParam($event)">
+            </app-advertising>
+
+            <app-general-tender *ngIf="PopupType == 'general-tender'" (ProductRequestCostClosed)="closeModal()"
+                [PopupParam]="PopupParam" (PopupOutPut)="getOutPutParam($event)">
+            </app-general-tender>
+
+            <app-general-tender-read-only-mode *ngIf="PopupType == 'general-tender-read-only'"
+                (ProductRequestCostClosed)="closeModal()" [PopupParam]="PopupParam"
+                (PopupOutPut)="getOutPutParam($event)">
+            </app-general-tender-read-only-mode>
+
+            <app-contract-pay-coef *ngIf="PopupType == 'contract-pay-coef'" (ContractPayCoefClosed)="closeModal()"
+                [InputParam]="PopupParam">
+            </app-contract-pay-coef>
+
+            <app-advertising-search *ngIf="PopupType == 'advertising-search'" [PopupParam]="PopupParam"
+                (Closed)="closeModal()" (OutPutParam)="getOutPutParam($event)">
+            </app-advertising-search>
+
+            <app-inuiry-search-list *ngIf="PopupType == 'inuiry-search-list'" [PopupParam]="PopupParam"
+                (Closed)="closeModal()" (OutPutParam)="getOutPutParam($event)">
+            </app-inuiry-search-list>
+
+            <app-actor-inquiry *ngIf="PopupType == 'app-actor-inquiry'" (Closed)="closeModal()"
+                [InputParam]="PopupParam">
+            </app-actor-inquiry>
+
+            <app-commition *ngIf="PopupType == 'app-commition'" (ProductRequestCostClosed)="closeModal()"
+                [PopupParam]="PopupParam" (PopupOutPut)="getOutPutParam($event)">
+            </app-commition>
+
+            <app-inquiry-list *ngIf="PopupType == 'app-inquiry-list'" [PopupParam]="PopupParam" (Closed)="closeModal()"
+                (OutPutParam)="getOutPutParam($event)">
+            </app-inquiry-list>
+
+            <app-send-letter-page *ngIf="PopupType == 'send-letter-page'" (SendLetterClosed)="closeModal()"
+                (OutPutParam)="getOutPutParam($event)">
+            </app-send-letter-page>
+
+            <app-user-select [PopupParam]='PopupParam' *ngIf="PopupType == 'user-select'"
+                (SearchResult)="getOutPutParam($event)" (Closed)="closeModal()">
+            </app-user-select>
+
+            <app-cumulative-contract-pay-list *ngIf="PopupType == 'PriceList_contract_estimate' && ModuleCode == 2769"
+                (ContractEstimateClosed)="closeModal()" [PopupMaximized]="popupMaximized" [PopupParam]="PopupParam">
+            </app-cumulative-contract-pay-list>
+
+            <app-cumulative-contract-pay-list *ngIf="PopupType == 'PriceList_contract_estimate' && ModuleCode == 2876"
+                (ContractEstimateClosed)="closeModal()" [PopupMaximized]="popupMaximized" [PopupParam]="PopupParam">
+            </app-cumulative-contract-pay-list>
+
+            <app-cumulative-contract-pay-item-estimate [PopupParam]="PopupParam"
+                *ngIf="PopupType == 'cumulative-contract-pay-item-estimate'" (Closed)="closeModal()">
+            </app-cumulative-contract-pay-item-estimate>
+
+            <app-cumulative-contract-pay-details [PopupParam]="PopupParam"
+                *ngIf="PopupType == 'cumulative-contract-pay-details'" (Closed)="closeModal()">
+            </app-cumulative-contract-pay-details>
+
+            <app-contract-person-rep *ngIf="PopupType == 'contract-person-rep'"
+                (ContractPersonRepClosed)="closeModal()">
+            </app-contract-person-rep>
+
+            <app-product-request-estate *ngIf="PopupType == 'product-request-estate'" (Closed)="closeModal()"
+                (PopupOutPutParam)="getOutPutParam($event)" [PopupParam]="PopupParam">
+            </app-product-request-estate>
+
+            <app-estate-search *ngIf="PopupType == 'estate-search'" (Closed)="closeModal()"
+                (PopupOutPutParam)="getOutPutParam($event)" [PopupParam]="PopupParam">
+            </app-estate-search>
+
+            <app-product-request-invest-page *ngIf="PopupType == 'product-request-invest-page'"
+                [PopupParam]="PopupParam" (Closed)="closeModal()" (PopupOutPut)="getOutPutParam($event)">
+            </app-product-request-invest-page>
+
+            <app-user-work-log-Contract-Order *ngIf="PopupType == 'user-work-log-Contract-Order'"
+                [PopupParam]="PopupParam" (UserWorkLogContractOrderClosed)="closeModal($event)"
+                (OutPutParam)="getOutPutParam($event)">
+            </app-user-work-log-Contract-Order>
+
+            <app-create-contract-on-flow *ngIf="PopupType == 'create-contract-on-flow'" [PopupParam]="PopupParam"
+                (PopupOutPut)="getOutPutParam($event)" (ProductRequestSuggestionClosed)="closeModal()">
+            </app-create-contract-on-flow>
+
+            <app-corporate2 *ngIf="PopupType == 'corporate2'" (Corporate2Closed)="closeModal()"
+                [InputParam]="PopupParam" (Output)="getOutPutParam($event)">
+            </app-corporate2>
+
+            <app-ground-delivery-minutes *ngIf="PopupType == 'ground-delivery-minutes'" [InputParam]="PopupParam"
+                (Closed)="closeModal()">
+            </app-ground-delivery-minutes>
+
+            <app-fee-page *ngIf="PopupType == 'fee-page'" [InputParam]="PopupParam" (Closed)="closeModal()">
+            </app-fee-page>
+
+            <app-deal-details *ngIf="PopupType == 'DealsDetail'" [InputParams]="PopupParam"
+                (DealDetailsClosed)="closeModal()">
+            </app-deal-details>
+
+            <app-login *ngIf="PopupType == 'advertising-login'" [InputParams]="PopupParam"
+                (LoginClosed)="closeModal($event)">
+            </app-login>
+
+            <app-deal-upload-docs *ngIf="PopupType == 'deal-upload-docs'" [InputParams]="PopupParam"
+                (DealDetailsClosed)="closeModal($event)">
+            </app-deal-upload-docs>
+
+            <app-advertising-archive (AdvertisingArchiveClosed)="closeModal()" [ArchiveParam]="PopupParam"
+                *ngIf="PopupType == 'advertising-archive-details'">
+            </app-advertising-archive>
+
+            <app-contract-minutes-type *ngIf="PopupType == 'contract-minutes-type'"
+                (ContractMinuteTypesClosed)="closeModal()" (ContractMinuteTypesOutPutPram)="getOutPutParam($event)"
+                [PopupParam]="PopupParam">
+            </app-contract-minutes-type>
+
+            <app-accept-rules [InputParams]="PopupParam" (AcceptRulesClosed)="closeModal($event)"
+                *ngIf="PopupType == 'advertising-accept-rules'">
+            </app-accept-rules>
+
+            <app-warranty-item *ngIf="PopupType == 'warranty-item'" [PopupParam]="PopupParam"
+                (WarrantyItemClosed)="closeModal($event)">
+            </app-warranty-item>
+
+            <app-commition-print [PopupParam]="PopupParam" (ChoosenContractPayClosed)="closeModal($event)"
+                *ngIf="PopupType == 'commition-print'">
+            </app-commition-print>
+
+            <app-choose-report-product-request-item (CloseChooseReport)="closeModal()" [ReportParam]="PopupParam"
+                *ngIf="PopupType == 'choose-report-product-request-item'">
+            </app-choose-report-product-request-item>
+
+            <app-choosen-request-revocation *ngIf="PopupType == 'choosen-request-revocation'" (Closed)="closeModal()"
+                [PopupParam]="PopupParam" (PopupOutPutParam)="getOutPutParam($event)">
+            </app-choosen-request-revocation>
+
+            <app-product-request-page-proposal (Closed)="closeModal()"
+                *ngIf="PopupType == 'app-product-request-page-proposal'" (PopupOutPut)="closeModal($event)">
+            </app-product-request-page-proposal>
+
+            <app-estate-recognition-search *ngIf="PopupType == 'estate-recognition-search'" (Closed)="closeModal()"
+                (PopupOutPutParam)="getOutPutParam($event)" [PopupParam]="PopupParam">
+            </app-estate-recognition-search>
+
+            <app-application-note *ngIf="PopupType == 'application-note'" (Closed)="closeModal()"
+                [PopupParam]="PopupParam">
+            </app-application-note>
+
+            <app-pdfviewer *ngIf="PopupType == 'pdf-viewer'" (Closed)="closeModal()" [PDFParam]="PopupParam">
+            </app-pdfviewer>
+
+            <app-created-user-log (UsersSearchClosed)="closeModal()" *ngIf="PopupType == 'created-user-log' ">
+            </app-created-user-log>
+
+            <app-users-roles-in-region-list (UsersRoleRegionClosed)="closeModal()"
+                *ngIf="PopupType == 'user-role-in-region' ">
+            </app-users-roles-in-region-list>
+
+            <app-product-request-item-coef *ngIf="PopupType == 'product-request-item-coef'" [InputParam]="PopupParam"
+                (ProductReuestitemCoefClosed)="closeModal()" (ReturnedCoefLevelCode)="getOutPutParam($event)">
+            </app-product-request-item-coef>
+
+            <app-price-list-correction *ngIf="PopupType == 'price-list-correction'" [PopupParam]="PopupParam"
+                (PopupOutputParam)="getOutPutParam($event)" (closeModal)="closeModal()">
+            </app-price-list-correction>
+
+            <app-price-list-topic-select *ngIf="PopupType == 'price-list-topic-select'" [PopupParam]="PopupParam"
+                (PopupOutputParam)="getOutPutParam($event)" (closeModal)="closeModal()">
+            </app-price-list-topic-select>
+
+            <app-product-request-page-without-flow-proposal (PopupOutPut)="closeModal($event)"
+                *ngIf="PopupType == 'app-product-request-page-without-flow-proposal'" (Closed)="closeModal()">
+            </app-product-request-page-without-flow-proposal>
+
+            <app-estate-recognition-evaluation *ngIf="PopupType == 'estate-recognition-evaluation'"
+                [PopupParam]="PopupParam" (Closed)="closeModal()">
+            </app-estate-recognition-evaluation>
+
+            <app-product-request-related-items (PopupOutPut)="closeModal($event)" [PopupParam]="PopupParam"
+                *ngIf="PopupType == 'app-product-request-related-items'" (closed)="closeModal()">
+            </app-product-request-related-items>
+
+            <app-adjustment-price-range-formulas-page *ngIf="PopupType == 'adjustment-price-range-formulas-page'"
+                (AdjustmentPriceRangeFormulaClosed)="closeModal()" [PopupParam]="PopupParam">
+            </app-adjustment-price-range-formulas-page>
+
+            <app-corporate-capacity *ngIf="PopupType == 'corporate-capacity'" [InputParam]="PopupParam"
+                (Closed)="closeModal()" (Output)="getOutPutParam($event)">
+            </app-corporate-capacity>
+
+            <app-pure-product-request-page *ngIf="PopupType == 'pure-product-request-page'"
+                [PopupMaximized]="popupMaximized" [InputParam]="PopupParam" (Closed)="closeModal()"
+                (Output)="getOutPutParam($event)">
+            </app-pure-product-request-page>
+
+            <app-global-choose-page *ngIf="PopupType == 'global-choose-page'" [InputParam]="PopupParam"
+                (CloseChoosePage)="closeModal($event)" (PopupOutPutParam)="getOutPutParam($event)">
+            </app-global-choose-page>
+
+            <app-person2 *ngIf="PopupType == 'person2'" (Closed)="closeModal()" [InputParam]="PopupParam"
+                (Output)="getOutPutParam($event)">
+            </app-person2>
+
+            <app-contractor-card-list *ngIf="PopupType == 'contractor-card-list'" (Closed)="closeModal()"
+                [InputParam]="PopupParam">
+            </app-contractor-card-list>
+
+            <app-movable-property-page [InputParam]="PopupParam" *ngIf="PopupType == 'app-movable-property-page'"
+                (MovablePropertyPageClosed)="closeModal()">
+            </app-movable-property-page>
+
+            <app-send-sms [InputParam]="PopupParam" *ngIf="PopupType == 'send-sms'" (Corporate2Closed)="closeModal()">
+            </app-send-sms>
+
+            <app-request-evaluate-list *ngIf="PopupType == 'request-evaluate-list'" [PopupParam]="PopupParam"
+                (Closed)="closeModal()" (OutPutParam)="getOutPutParam($event)"></app-request-evaluate-list>
+
+            <app-request-evaluate *ngIf="PopupType == 'request-evaluate'" (Closed)="closeModal()"
+                (PopupOutPutParam)="getOutPutParam($event)" [PopupParam]="PopupParam">
+            </app-request-evaluate>
+
+            <app-asset-income *ngIf="PopupType == 'asset-income'" (Closed)="closeModal()" [InputParam]="PopupParam"
+                (Output)="getOutPutParam($event)">
+            </app-asset-income>
+
+            <app-supplier-work-flow *ngIf="PopupType == 'supplier-work-flow'" (Closed)="closeModal()"
+                [InputParam]="PopupParam">
+            </app-supplier-work-flow>
+
+            <app-other-contract-docs-list *ngIf="PopupType == 'PriceList_contract_estimate' && ModuleCode == 2921"
+                (Closed)="closeModal()" [PopupMaximized]="popupMaximized" [PopupParam]="PopupParam"
+                [ModuleCode]="ModuleCode">
+            </app-other-contract-docs-list>
+
+            <app-other-contract-documents *ngIf="PopupType == 'other-contract-documents'" [InputParam]="PopupParam"
+                (Closed)="closeModal()">
+            </app-other-contract-documents>
+
+            <app-other-contract-docs-type *ngIf="PopupType == 'other-contract-docs-type'"
+                (ContractMinuteTypesClosed)="closeModal()" (ContractMinuteTypesOutPutPram)="getOutPutParam($event)"
+                [PopupParam]="PopupParam">
+            </app-other-contract-docs-type>
+
+            <app-select-actor-for-sms *ngIf="PopupType == 'select-actor-for-sms'" [InputParam]="PopupParam"
+                (CloseChoosePage)="closeModal($event)">
+            </app-select-actor-for-sms>
+
+            <app-pre-pay [PopupParam]="PopupParam" *ngIf="PopupType == 'pre-pay'" (Closed)="closeModal()"
+                (OutPutParam)="getOutPutParam($event)">
+            </app-pre-pay>
+
+            <app-completion-contract-info *ngIf="PopupType == 'completion-contract-info'" [InputParam]="PopupParam"
+                (Closed)="closeModal()" (PopupOutPut)="getOutPutParam($event)">
+            </app-completion-contract-info>
+
+            <app-single-sale-invoice *ngIf="PopupType == 'single-sale-invoice'" [InputParam]="PopupParam"
+                (Closed)="closeModal()" (PopupOutPut)="getOutPutParam($event)">
+            </app-single-sale-invoice>
+
+            <app-show-under-take-items [PopupParam]="PopupParam" *ngIf="PopupType == 'app-show-under-take-items'"
+                (Closed)="closeModal()">
+            </app-show-under-take-items>
+
+            <app-contract-order-on-without-flow *ngIf="PopupType == 'contract-order-on-without-flow'"
+                [PopupParam]="PopupParam" (PopupOutPut)="getOutPutParam($event)"
+                (ProductRequestSuggestionClosed)="closeModal()">
+            </app-contract-order-on-without-flow>
+
+            <app-contract-list-page *ngIf="PopupType == 'contract-list-page'" [InputParam]="PopupParam"
+                (PopupOutPut)="getOutPutParam($event)" (Closed)="closeModal()">
+            </app-contract-list-page>
+
+            <app-reopening-tender-envekopes *ngIf="PopupType == 'reopening-tender-envekopes'" [InputParam]="PopupParam"
+                (PopupOutPut)="getOutPutParam($event)" (Closed)="closeModal()">
+            </app-reopening-tender-envekopes>
+
+            <app-goods *ngIf="PopupType == 'app-goods'" (Closed)="closeModal()" [InputParam]="PopupParam">
+            </app-goods>
+
+            <app-send-automation-letter *ngIf="PopupType == 'send-automation-letter'" [InputParam]="PopUpParam"
+                (Closed)="closeModal()"></app-send-automation-letter>
+
+            <app-choose-report-contract-pay-item-estimate (CloseChooseReport)="closeModal()" [ReportParam]="PopupParam"
+                *ngIf="PopupType == 'choose-report-contract-pay-item-estimate'">
+            </app-choose-report-contract-pay-item-estimate>
+
+            <app-tender-encrypted-files-list *ngIf="PopupType == 'tender-encrypted-files-list'"
+                [InputParam]="PopupParam" (Closed)="closeModal()">
+            </app-tender-encrypted-files-list>
+
+            <app-view-actor-rank *ngIf="PopupType == 'view-actor-rank'" [InputParam]="PopupParam"
+                (Closed)="closeModal()">
+            </app-view-actor-rank>
+
+            <app-contract-wf-report-level2 *ngIf="PopupType == 'contract-wf-report-level2'" [InputParam]="PopupParam"
+                (Closed)="closeModal()">
+            </app-contract-wf-report-level2>
+
+            <app-contract-wf-report-level3 *ngIf="PopupType == 'contract-wf-report-level3'" [InputParam]="PopupParam"
+                (Closed)="closeModal()">
+            </app-contract-wf-report-level3>
+
+            <app-report-average-workflow-objects *ngIf="PopupType == 'ShowPersons'" [InputParam]="PopupParam"
+                (Closed)="closeModal()">
+            </app-report-average-workflow-objects>
+
+            <app-adjustment-price-range-formulas *ngIf="PopupType == 'adjustment-price-range-formulas'"
+                (Closed)="closeModal()" [PopupParam]="PopupParam">
+            </app-adjustment-price-range-formulas>
+
+            <app-file-viwer-page *ngIf="PopupType == 'file-viwer-page'" (Closed)="closeModal()"
+                [InputParam]="PopupParam">
+            </app-file-viwer-page>
+
+            <app-users-organization-sign *ngIf="PopupType=='users-organization-sign'" [InputParam]="PopupParam"
+                (Closed)="closeModal()" (Output)="getOutPutParam($event)">
+            </app-users-organization-sign>
+
+            <app-goods-request *ngIf="PopupType == 'app-goods-request'" [InputParam]="PopupParam"
+                (Closed)="closeModal()">
+            </app-goods-request>
+
+            <app-input-adjustment-price-range *ngIf="PopupType == 'adjustment-price-range-formulas-input'"
+                (AdjustmentInputClosed)="closeModal()" [PopupParam]="PopupParam">
+            </app-input-adjustment-price-range>
+
+            <app-current-suppliers-contract *ngIf="PopupType == 'current-suppliers-contract'" (Closed)="closeModal()"
+                [PopupParam]="PopupParam">
+            </app-current-suppliers-contract>
+
+            <app-work-flow-transition *ngIf="PopupType == 'work-flow-transition'" [InputParam]="PopupParam"
+                (Closed)="closeModal()" [PopupMaximized]="popupMaximized">
+            </app-work-flow-transition>
+
+            <app-customer-order *ngIf="PopupType == 'customer-order'" [InputParam]="PopupParam" (Closed)="closeModal()"
+                (OutPutParam)="getOutPutParam($event)">
+            </app-customer-order>
+
+            <!-- <app-graph-detail *ngIf="PopupType == 'graph-hover'" 
+            [InputParam]="PopupParam">
+            </app-graph-detail> -->
+
+            <app-user-work-log-detail-graph *ngIf="PopupType == 'user-work-log-detail-graph'" [InputParam]="PopupParam"
+                (Closed)="closeModal()" [PopupMaximized]="popupMaximized">
+            </app-user-work-log-detail-graph>
+
+            <app-user-work-log-detail-graph-line *ngIf="PopupType == 'user-work-log-detail-graph-line'"
+                [InputParam]="PopupParam" (Closed)="closeModal()" [PopupMaximized]="popupMaximized">
+            </app-user-work-log-detail-graph-line>
+
+            <app-product-pattern-product-entry *ngIf="PopupType == 'product-pattern-product-entry'"
+                [InputParam]="PopupParam" (Closed)="closeModal()" (OutPutParam)="getOutPutParam($event)">
+            </app-product-pattern-product-entry>
+
+            <app-product-pattern *ngIf="PopupType == 'product-pattern'" [PopUpParam]="PopupParam" [treeHeight]="80"
+                [NeedSelected]="true" [MainContentHeight]="98" (RowSelected)="getOutPutParam($event)"
+                (Closed)="closeModal()">
+            </app-product-pattern>
+
+            <app-show-contract-list *ngIf="PopupType == 'show-contract-list'" [InputParam]="PopupParam"
+                (Closed)="closeModal()" (Output)="getOutPutParam($event)">
+            </app-show-contract-list>
+
+            <app-product-pattern-entry *ngIf="PopupType == 'product-pattern-entry'" [InputParam]="PopupParam"
+                (Closed)="closeModal()" (OutPutParam)="getOutPutParam($event)">
+            </app-product-pattern-entry>
+
+            <app-product-receive-doc *ngIf="PopupType == 'product-receive-doc'" [InputParam]="PopupParam"
+                (Closed)="closeModal()" (OutPutParam)="getOutPutParam($event)">
+            </app-product-receive-doc>
+
+            <app-customer-order-product-request *ngIf="PopupType == 'customer-order-product-request'"
+                (Closed)="closeModal()" [InputParam]="PopupParam"></app-customer-order-product-request>
+
+            <app-customer-order-list (Closed)="closeModal()" *ngIf="PopupType == 'customer-order-list'"
+                [InputParam]="PopupParam" (OutPutParam)="getOutPutParam($event)">
+            </app-customer-order-list>
+
+            <app-text-request-page *ngIf="PopupType == 'text-request-page'" (Closed)="closeModal()"
+                (TextSelected)="getOutPutParam($event)" [InputParam]="PopupParam">
+            </app-text-request-page>
+
+            <app-asset-page *ngIf="PopupType == 'app-asset'" [InputParam]="PopupParam" (Closed)="closeModal()">
+            </app-asset-page>
+
+            <app-rich-text-box-input-page *ngIf="PopupType == 'rich-text-box-input'" (Closed)="closeModal()"
+                [InputParam]="PopupParam">
+            </app-rich-text-box-input-page>
+
+            <app-inventory-qty-page *ngIf="PopupType == 'inventory-qty-page'" (Closed)="closeModal()"
+                [InputParam]="PopupParam" (OutPutParam)="getOutPutParam($event)">
+            </app-inventory-qty-page>
+
+            <app-customer-product-request-page *ngIf="PopupType == 'customer-product-request-page'"
+                (Closed)="closeModal()" [InputParam]="PopupParam" (OutPutParam)="getOutPutParam($event)">
+            </app-customer-product-request-page>
+
+            <app-application-link-page *ngIf="PopupType == 'application-link'" (Closed)="closeModal()">
+            </app-application-link-page>
+
+            <app-deadline-contract-list *ngIf="PopupType == 'deadline-contract'" (Closed)="closeModal()"
+                [InputParam]="PopupParam">
+            </app-deadline-contract-list>
+
+            <app-show-history-detail *ngIf="PopupType == 'show-history-detail'" (Closed)="closeModal()"
+                [InputParam]="PopupParam"></app-show-history-detail>
+
+            <app-contract-info-limited-change-page *ngIf="PopupType == 'contract-info-limited-change-page'"
+                [InputParam]="PopupParam" (ContractInfoLimitClosed)="closeModal()">
+            </app-contract-info-limited-change-page>
+
+            <app-add-to-group *ngIf="PopupType == 'add-to-group'" (Closed)="closeModal()"
+                (TextSelected)="getOutPutParam($event)" [InputParam]="PopupParam">
+            </app-add-to-group>
+
+            <app-application-note-form *ngIf="PopupType == 'application-note-form'" [InputParam]="PopupParam"
+                (Closed)="closeModal()" (OutPutParam)="getOutPutParam($event)">
+            </app-application-note-form>
+
+            <app-contract-supervision *ngIf="PopupType == 'contract-supervision'" [PopupParam]="PopupParam"
+                (Closed)="closeModal()">
+            </app-contract-supervision>
+
+            <app-set-main-contractor *ngIf="PopupType == 'set-main-contractor'" [InputParam]="PopupParam"
+                (SetMainContractorCLosed)="closeModal()">
+            </app-set-main-contractor>
+
+            <app-actor-note *ngIf="PopupType == 'actor-note'" (Closed)="closeModal()"
+                (TextSelected)="getOutPutParam($event)" [InputParam]="PopupParam">
+            </app-actor-note>
+
+            <app-change-contract-status *ngIf="PopupType == 'change-contract-status'" [InputParam]="PopupParam"
+                (CloseChoosePage)="closeModal($event)" (PopupOutPutParam)="getOutPutParam($event)">
+            </app-change-contract-status>
+
+            <app-proxy-contract-list *ngIf="PopupType == 'proxy-contract-list'" [InputParam]="PopupParam"
+                (Close)="closeModal($event)" (PopupOutPutParam)="getOutPutParam($event)">
+            </app-proxy-contract-list>
+
+            <app-show-contract-relation *ngIf="PopupType == 'show-contract-relation'" [InputParam]="PopupParam"
+                (Closed)="closeModal()">
+            </app-show-contract-relation>
+
+            <app-contract-pay-deduction *ngIf="PopupType == 'app-contract-pay-deduction'" [InputParam]="PopupParam"
+                (Closed)="closeModal()" >
+            </app-contract-pay-deduction>
+
+            <app-contract *ngIf="PopupType == 'contract'" [PopupMaximized]="popupMaximized" [InputParam]="PopupParam"
+                (Closed)="closeModal()" (Output)="getOutPutParam($event)">
+            </app-contract>
+
+            <app-product-request-invest-archive *ngIf="PopupType == 'product-request-invest-archive'"
+                [InputParam]="PopupParam" (ProductArchiveDetailClosed)="closeModal()">
+            </app-product-request-invest-archive>
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,53 @@
+<div id="container" class="row" style="clear: both">
+  <div id="content" class="" style="height: 100%; width: 100%;">
+    <div class="main-form-body" style="margin: 5px;">
+      <form>
+        <fieldset class="feild-set" style="display: inherit">
+          <legend style="width: 6%;margin: 0;"> قرارداد </legend>
+          <table style="width: 100%;">
+            <tr>
+              <td style="width: 20%;">
+                <span class="table-cell-Lable">کد قرارداد</span>
+                <input readonly style="width: 67%;" id="indicator-label-code" class="form-control input-style" type="text"
+                  name="last" value="{{ContractCode}}" />
+              </td>
+              <td style="width: 20%;">
+                <span class="table-cell-Lable">پیمانکار</span>
+                <input readonly style="width: 67%;" id="indicator-label-name" class="form-control input-style" type="text"
+                  name="last" value="{{ContractorName}}" />
+              </td>
+              <td style="width: 60%;">
+                <span class="table-cell-Lable">موضوع</span>
+                <input readonly style="width: 90%;" id="indicator-label-note" class="form-control input-style" type="text"
+                  name="last" value="{{Subject}}" />
+              </td>
+            </tr>
+          </table>
+        </fieldset>
+      </form>
+      <div class="box-grid grid">
+        <app-grid style="width: 100%" 
+          [IsEditable]="IsVisible"
+          [columns]="columnDef1"
+          [rowsData]="rowData1"
+          (GridReady)="onContractCoefGridReady($event)"
+          (CellValueChanged)="onCellValueChanged($event)" 
+          [gridHeight]=90>
+        </app-grid>
+      </div>
+    </div>
+    <div class="buttons-place" style=" margin: 5px">
+      <button *ngIf="IsVisible" (click)="onConfirmClick()" id="btn2" class="btn btn-primary btnGreen" style="margin: 2px">
+        <img width="15px" height="15px" src="assets/Icons/save.png" />
+        ثبت</button>
+      <button (click)="close()" class="btn btn-primary btnGreen">
+        <img width="15px" height="15px" src="assets/Icons/exit.png" />
+        خروج</button>
+    </div>
+  </div>
+</div>
+
+<app-over-popup *ngIf="btnclicked" [PopupType]="type" [startLeftPosition]="startLeftPosition"
+  [startTopPosition]="startTopPosition" [PopupParam]="alertMessageParams" (popupclosed)="popupclosed($event)" 
+  (PopupOutPutParam)="type ==='message-box' ? MessageBoxAction($event) :''">
+</app-over-popup>

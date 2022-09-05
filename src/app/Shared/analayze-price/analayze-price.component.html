@@ -1,0 +1,43 @@
+<div id="container" class="" style="clear: both">
+  <div id="analayze-price-content">
+    <div class="main-form-body" style="display: flex;">
+      <div class="select-with-lable">
+        <label for="analayze-price-fin-year-select" class="col-form-label"
+          >فهرست بها</label
+        >       
+        <app-ng-select-virtual-scroll style="min-width: 176px;"
+        class="select-general-for-lable" [NgSelectParams]="PriceListTopicParams" [Items]="FinYearSet"
+        (selectedChange)="onChangeFinYearObj($event)">
+      </app-ng-select-virtual-scroll>
+      </div>
+      <div class="select-with-lable">
+        <label for="analayze-price-type-select" class="col-form-label">نوع عامل آنالیز</label>
+        <app-ng-select-virtual-scroll style="min-width: 176px;" class="select-general-for-lable"
+          [NgSelectParams]="AnalayzePriceTypeParams" [Items]="AnalayzePriceTypeSet"
+          (selectedChange)="onChangeAnalayzePriceTypeObj($event)">
+        </app-ng-select-virtual-scroll>
+      </div>
+    </div>
+    <div class="main-form-body" style="height: 79%">
+        <app-grid
+          [columns]="columnDefs"
+          [rows]="rowData"
+          [gridHeight]="93"
+        ></app-grid>
+    </div>
+    <div class="buttons-place" style="margin: 0">
+        <button
+          id="btnExit"
+          class="btn btn-primary btnGreen"
+          (click)="close()"
+        >
+          <img
+            width="15px"
+            height="15px"
+            src="assets/Icons/exit.png"
+          />
+          خروج
+        </button>
+      </div>
+  </div>
+</div>

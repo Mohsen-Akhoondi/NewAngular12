@@ -1,0 +1,21 @@
+<div class="main-form-body" style="margin-top: 5px;margin-bottom:1px;">
+  <div id="container" style="clear: both;padding-bottom: 2px;">
+    <div class="box-dev" style="width: 98%;margin: 2px;">
+      <app-grid style="width: 98%;" [columns]="colDef" [rowsData]="rowData" (GridReady)="onGridReady($event)"
+        (CellValueChanged)="onCellValueChanged($event)" [gridHeight]="84" [IsEditable]="IsEditable"></app-grid>
+    </div>
+    <div style="height:18px;margin: 1px;">
+      <button type="submit" (click)="onReceiveDocArchiveClick()"
+        class="btn-gray-border btn btn-primary small-btn btnGreen">
+        <img width="15px" height="15px" src="assets/Icons/TechnicalArchive.png" />
+        مستندات
+      </button>
+    </div>
+  </div>
+</div>
+
+
+<app-over-popup *ngIf="isClicked" [PopupType]="PopUpType" [HaveMaxBtn]="false" [startLeftPosition]="startLeftPosition"
+  [startTopPosition]="startTopPosition" [PopupParam]="PopUpType === 'message-box' ?alertMessageParams:PopupParam"
+  [HaveHeader]="HaveHeader" (popupclosed)="popupclosed($event)">
+</app-over-popup>

@@ -1,0 +1,49 @@
+.input-style{
+    border-radius:3px;
+     height: 25px;
+     width: 150px;
+     display: inline-block;
+}
+.feild-set{
+    border: 1px solid rgb(218, 218, 218);
+    min-height: 50px;
+    margin-bottom: 5px;
+    padding: 5px;
+}
+.legend
+{
+    width: 10%;
+}
+.table-cell-Lable {
+    margin-left: 10px;
+    margin-right: 10px;
+    font-size: 10px;
+  }
+.box-dev{
+    border-radius: 5px;
+    border: 1px solid rgb(218, 218, 218);  
+    padding-top: 5px;
+    height: 60%;
+    width: 1070px;
+}
+.btn{
+    margin-right: 2px !important;
+}
+.select-general-for-lable {
+    margin: 0 !important;
+}
+
+.custom-control-label::before{
+    top:0px;
+    right: -1.5rem;
+}
+.custom-control-label::after{
+    top:0px;
+    right: -1.5rem;
+}
+
+textarea {
+    display: inline-block;
+    height: 40px !important;
+    font-size: 12px
+}

@@ -1,0 +1,129 @@
+<div id="container" style="clear: both;padding: 5px">
+    <div class="main-form-body" style="margin: 5px;height: 86%;">
+      <form>
+        <fieldset class="feild-set" style="display: inherit">
+          <legend class="legend">اطلاعات درخواست</legend>
+          <table style="width: 100%;">
+            <tr>
+              <td width="25%">
+                <span class="table-cell-Lable">شماره درخواست</span><input style="width: 60% "
+                  class="form-control input-style" type="text" value="{{ProductRequestCode}}" readonly />
+              </td>
+              <td width="25%">
+                <span class="table-cell-Lable">تاریخ درخواست</span>
+                <app-jalali-datepicker [WidthPC]="60" 
+                [CurrMiladiDateValue]="ProductRequestDate" 
+                [Disabled] = "true"
+               >
+              </app-jalali-datepicker>
+                </td>
+              <td width="25%">
+                <span class="table-cell-Lable">موضوع</span><input style="width: 80% " class="form-control input-style"
+                  type="text" name="Subject" [(ngModel)]="Subject" readonly />
+              </td>
+            </tr>
+          </table>
+        </fieldset>
+        <fieldset class="feild-set" style="display: inherit">
+            <legend style="width: 3%;" >استعلام</legend>
+            <table style="width: 100%;">
+              <tr>
+                <td width="25%">
+                  <span class="table-cell-Lable">حد معامله</span><input style="width: 60% "
+                    class="form-control input-style" type="text" value="{{DealTypeCode}}" readonly />
+                </td>
+                <td width="25%">
+                    <span class="table-cell-Lable">شماره استعلام</span><input style="width: 60% "
+                      class="form-control input-style" type="text" value="{{InquiryNo}}" readonly />
+                  </td>
+                <td width="25%">
+                  <span class="table-cell-Lable">تاریخ استعلام</span>
+                  <app-jalali-datepicker 
+                  [WidthPC]="79" 
+                  [CurrMiladiDateValue]="InquiryDate" 
+                  [Disabled] = "false"
+                  (Change)="OnInquiryDateChange($event)">
+                </app-jalali-datepicker>
+                </td>
+              </tr>
+              <tr>
+                  <td width="25%">
+                      <span class="table-cell-Lable"> نوع استعلام</span>
+                      <app-ng-select-virtual-scroll style="display: inline-block;width: 60%;" 
+                         class="select-general-for-lable"
+                         [NgSelectParams]="InquiryTypeParams"
+                         [Items]="InquiryTypeItems">
+                      </app-ng-select-virtual-scroll>
+                    </td>
+                    <td width="25%">
+                        <span class="table-cell-Lable">مهلت پاسخ</span>
+                        <app-jalali-datepicker
+                         [WidthPC]="60" 
+                        [CurrMiladiDateValue]="DeadLineDate" 
+                        [Disabled] = "false"
+                        (Change)="OnDeadLineDateChange($event)">
+                      </app-jalali-datepicker>
+                      </td>
+                      <td width="25%">
+                          <span class="table-cell-Lable">ترک تشریفات</span>
+                          <app-ng-select-virtual-scroll style="display: inline-block;width: 79%;" 
+                             class="select-general-for-lable"
+                             [NgSelectParams]="ArticleParams"
+                             [Items]="ArticleItems">
+                          </app-ng-select-virtual-scroll>
+                        </td>
+              </tr>
+              <tr>
+                  <td colspan="3" width="50%">
+                      <span class="table-cell-Lable">موضوع</span><input style="width: 86.6% " class="form-control input-style"
+                        type="text" name="Note" [(ngModel)]="Note" />
+                    </td>
+              </tr>
+            </table>
+          </fieldset>
+      </form>
+      <div class="tab-content box-dev" style="margin-top: 5px;padding: 5px;" [style.height.%]="86">
+          <app-grid 
+          [IsEditable]="true"
+          [columns]="ProductRequestCostColDef" 
+          [rowsData]="PRCostRowData" 
+          (CellValueChanged)="onPRCostCellValueChanged($event)" 
+          (cellEditingStarted) = "onSupplercellEditingStarted($event)"
+          (GridReady)="onPRCostGridReady($event)" 
+          (RowClick)="RowClick($event)"
+          [gridHeightPxel]="300"></app-grid>
+      </div>
+    </div>
+    <div class="buttons-place" style="margin: unset; margin: 5px;">
+      <button *ngIf=" HaveSave" (click)="onSave()" id="btnSave" class="btn btn-primary btnGreen">
+        <img width="15px" height="15px" src="assets/Icons/save.png" />
+        ثبت
+      </button>
+
+      <button *ngIf=" HaveSave" (click)="onPropsalItemClick()" id="btnSave" class="btn btn-primary btnGreen">
+          <img width="15px" height="15px" src="assets/Icons/add.png" />
+          پیشنهاد
+        </button>
+  
+      <button id="btnClose" class="btn btn-primary btnGreen" (click)="Close()">
+        <img width="15px" height="15px" src="assets/Icons/exit.png" />
+        خروج
+      </button>
+    </div>
+  </div>
+  <ng-template #IsWin let-row>
+      <img width="16px" height="16px" [src]= "row.IsWin ? 'assets/Icons/TrueCheckBox.png':'assets/Icons/uncheck.png'" />
+  </ng-template>
+
+  <app-over-popup 
+  *ngIf="isClicked"
+  [PopupType]="type"
+  [HaveMaxBtn]="HaveMaxBtn"
+  [startLeftPosition]="startLeftPosition"
+  [startTopPosition]="startTopPosition"
+  [HeightPercentWithMaxBtn]="95"
+  [PopupParam] ="type ==='message-box'? alertMessageParams : ParamObj "
+  (popupclosed)="popupclosed($event)"
+ >
+  </app-over-popup>
+  

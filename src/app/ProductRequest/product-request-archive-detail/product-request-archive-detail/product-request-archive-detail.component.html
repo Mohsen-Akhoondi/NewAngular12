@@ -1,0 +1,109 @@
+<div id="container" class="row" style="clear: both ">
+  <div id="myContent" class="data-grid">
+    <div id="archiveDiv" style="min-width: 600px; max-width: 800px ; max-height: 500px;">
+      <div class="main-form-body" style="padding-bottom: 1px;">
+        <div class="">
+          <div class="card" style="margin-top: 8px">
+            <app-grid [gridHeader]="'لیست مستندات'" (GridReady)="onGridReady($event)" [columns]="columnDefs"
+              [rowsData]="rowData" [gridHeightPxel]="gridHeightPxel" (RowClick)="onRowClicked($event)"
+              [defaultCol]="defaultColDef"></app-grid>
+          </div>
+          <fieldset *ngIf="!this.ArchiveParam.RealOnlyPage" class="feild-set"
+            style="display: inherit; padding-top: 0px;margin-top: 3px;min-height: 0px;background-color: white !important; ">
+            <div style="float: right;width: 70%;text-align: right;margin-top: 5px;">
+              <span class="table-cell-Lable">گروه مستند</span>
+              <app-ng-select-virtual-scroll style="display: inline-block;width: 60%;" class=""
+                [NgSelectParams]="ParentDocumentTypeParam" [Items]="DocTypeItems">
+              </app-ng-select-virtual-scroll>
+            </div>
+          </fieldset>
+          <fieldset *ngIf="HaveOnlineCommition" class="feild-set"
+            style="display: inherit; padding-top: 0px;margin-top: 3px;min-height: 0px;">
+            <div style="float: right;color: blue;width: 70%;text-align: right;font-weight: bold;margin-top: 5px;">
+              <span>{{QuestionLabel}}</span>
+              <div class="redio-div" style="margin-right: 10px;">
+                <div class="custom-control custom-radio custom-control-inline">
+                  <input type="radio" class="custom-control-input" id="IsAccept" name="IsAccept"
+                    (click)="RedioClick(true)" [checked]="ProductRequestIsOnline">
+                  <label style="margin: auto;" class="custom-control-label redio-label" for="IsAccept">بله</label>
+                </div>
+                <div class="custom-control custom-radio custom-control-inline">
+                  <input type="radio" class="custom-control-input" id="IsNotAccept" name="IsNotAccept"
+                    (click)="RedioClick(false)" [checked]="!ProductRequestIsOnline">
+                  <label style="margin: auto;" class="custom-control-label redio-label" for="IsNotAccept">خیر</label>
+                </div>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+      </div>
+      <div class="buttons-place" style="margin: 0">
+        <div class="card-block" style="padding: 2px 10px">
+          <div class="form-group row" style="margin-bottom:10px ; padding-right:5px">
+            <button id="btnDisplay" class="btn btn-primary btnGreen" (click)="onDisplay()">
+              <img width="15px" height="15px" src="assets/Icons/show.png" />
+              مشاهده
+            </button>
+            <button id="btnDisplayAll" class="btn btn-primary btnGreen" (click)="onDisplayAllDoc()">
+              <img width="15px" height="15px" src="assets/Images/Module/2687.png" />
+              مشاهده پرونده
+            </button>
+            <!-- <button
+              *ngIf="HasDeleteAccess"
+              id="btnDelete"
+              class="btn btn-primary btnGreen"
+              (click)="onDelete($event)"
+
+            >
+              <img
+                width="15px"
+                height="15px"
+                src="assets/Icons/delete.png"
+              />
+              حذف
+            </button> -->
+            <button *ngIf="HaveSaveArchive" (click)="onSave()" [disabled]="false" id="btnSave"
+              class="btn btn-primary btnGreen">
+              <img width="15px" height="15px" src="assets/Icons/save.png" />
+              ثبت
+            </button>
+            <button *ngIf="!this.ArchiveParam.RealOnlyPage" (click)="onUpload()" id="btnUploadArchiveDetail"
+              class="btn btn-primary btnGreen">
+              <img width="15px" height="15px" src="assets/Icons/TechnicalArchive.png" />
+              بارگذاری مستندات
+            </button>
+            <button *ngIf="ModuleCode === 2824" id="BtnSentToAdForum" class="btn btn-primary btnGreen"
+              (click)="onSentToAdForum()">
+              <img width="15px" height="15px" src="assets/Icons/Upload.png" />
+              ارسال به تالار آگهی
+            </button>
+            <button (click)="close()" id="btn4" class="btn btn-primary btnGreen">
+              <img width="15px" height="15px" src="assets/Icons/exit.png" />
+              خروج
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<ng-template #fileExtCell let-row>
+  <img width="24px" height="24px" src={{row.Image_Url}} />
+</ng-template>
+
+<ng-template #IsDocTypeForced let-row>
+  <img width="16px" height="16px" [src]="row.IsValid ? 'assets/Icons/TrueCheckBox.png':'assets/Icons/uncheck.png'" />
+</ng-template>
+<ng-template #IsDocType let-row>
+  <img width="16px" height="16px"
+    [src]="row.USE_IN_ADVERTISING ? 'assets/Icons/TrueCheckBox.png':'assets/Icons/uncheck.png'" />
+</ng-template>
+
+<app-over-popup *ngIf="btnclicked" [PopupType]="type" [HeightPercentWithMaxBtn]="OverHeightPercent"
+  [HaveMaxBtn]="HaveMaxBtn" [PopupParam]="type === 'message-box' ? alertMessageParams : paramObj"
+  (popupclosed)="popupclosed($event)" [PixelHeight]="type === 'warranty-item' ? PixelHeight : ''"
+  [PixelWidth]="type === 'warranty-item' ? PixelWidth : '' " [startLeftPosition]="startLeftPosition"
+  [startTopPosition]="startTopPosition" [HaveHeader]="HaveHeader" [MainMinwidthPixel]="OverMainMinwidthPixel">
+</app-over-popup>

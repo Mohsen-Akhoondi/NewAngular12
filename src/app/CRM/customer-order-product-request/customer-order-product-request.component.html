@@ -1,0 +1,165 @@
+<div class="main-form-body" style="margin-top: 5px; height: 86%;">
+
+  <table style="width: 100%;">
+    <tr>
+      <td style="width: 40%;">
+        <span class="table-cell-Lable"> نام مشتری </span>
+        <input class="form-control input-style" style="width: 85%" type="text" name="first" value="{{CustomerName}}"
+          readonly />
+      </td>
+
+      <td style="width: 40%;">
+        <span class="table-cell-Lable"> شماره سفارش </span>
+        <input class="form-control input-style" style="width: 85%" type="text" name="first"
+          value="{{CustomerOrderCode}}" readonly />
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 40%;">
+        <span class="table-cell-Lable"> تاریخ </span>
+        <input class="form-control input-style" style="width: 85%" type="text" name="first"
+          value="{{CustomerOrderDate}}" readonly />
+      </td>
+
+      <td style="width: 40%;">
+        <span class="table-cell-Lable"> موضوع </span>
+        <input class="form-control input-style" style="width: 85%" type="text" name="first" value="{{Subject}}"
+          readonly />
+      </td>
+    </tr>
+  </table>
+
+  <ul style="margin-top: 10px" class="nav nav-tabs" role="tablist">
+    <li class="nav-item">
+      <a class="nav-link active" href="#request-item" role="tab" data-toggle="tab">اقلام سفارش مشتری جهت تفکیک</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#subrequest-item" role="tab" data-toggle="tab">درخواست های تفکیک شده</a>
+    </li>
+  </ul>
+
+  <div class="tab-content" style=" width: 100%; margin-top: 5px;padding: 5px;" [style.height.%]="87">
+
+    <div role="tabpanel" class="tab-pane fade show active" id="request-item" [style.height.%]="96">
+      <div style="height: 90%;">
+        <app-grid [HaveBorder]="true" (GridReady)="onGridReadyMenu($event)" [columns]="SelectedColumnDef"
+          [rowsData]="rowData" (RowClick)="MenuRowClick($event)" [gridHeight]=92
+          [gridHeader] = "'اقلام سفارش مشتری'">
+        </app-grid>
+        <div style="height: 11%; width: 100%; margin-top: 0.3%;" class="box-dev">
+          <button (click)="BtnRequestClick()" id="btn2" class="btn btn-primary btnGreen">
+            <img width="13px" height="15px" src="assets/Icons/add.png" />
+            ایجاد درخواست
+          </button>
+        </div>
+      </div>
+
+
+      <!-- <div class="box-dev"> -->
+      <!-- <div style="margin: auto;"> -->
+      <!-- <button (click)="addSelectedToFastMenu()" class="btn btnGreen fa fa-angle-left"></button> -->
+      <!-- <button (click)="addSelectedToMenu()" class="btn btnGreen fa fa-angle-right"></button> -->
+      <!-- <button (click)="addAllToFastMenu()" class="btn btnGreen fa fa-angle-double-left"></button>
+      <button (click)="addAllToMenu()" class="btn btnGreen fa fa-angle-double-right"></button> -->
+      <!-- </div> -->
+      <!-- </div> -->
+
+      <!-- <div style=" width: 100%; margin-top: 5px;" [style.height.%]="40">
+        <app-grid [HaveBorder]="true" [columns]="columnDef" [rowsData]="rowsData" [IsEditable]="false"
+          (GridReady)="onGridReadyFastMenu($event)" [gridHeight]="143" (RowClick)="FastMenuRowClick($event)"
+          (cellEditingStarted)="oncellEditingStarted($event)" (AddItems)="onAddItemsClick()" [IsNeedAddItems]="false">
+        </app-grid>
+      </div> -->
+
+
+
+    </div>
+
+    <div role="tabpanel" class="tab-pane fade show" id="subrequest-item" style="margin-bottom: 5px;"
+      [style.height.%]="96">
+      <div style="height: 90%;">
+        <app-grid [HaveBorder]="true" (GridReady)="onSubGridReadyMenu($event)" [columns]="SubSelectedColumnDef"
+          [rowsData]="SubrowData" (RowClick)="SubMenuRowClick($event)" [gridHeight]=92
+          [gridHeader] = "'لیست ریز درخواست'">
+        </app-grid>
+      </div>
+      <div style="margin-top: 3px;">
+        <div style="float: right;height: 11%; width: 50%;" class="box-dev">
+          <button (click)="AddGroup()" id="btn2" class="btn btn-primary btnGreen">
+            <img width="13px" height="15px" src="assets/Icons/add.png" />
+            ایجاد گروه
+          </button>
+          <button (click)="AddToCurrentGroup()" id="btn2" class="btn btn-primary btnGreen">
+            <img width="13px" height="15px" src="assets/Icons/add.png" />
+            اضافه به گروه های جاری
+          </button>
+          <button (click)="DeleteFromGroup()" id="btn2" class="btn btn-primary btnGreen">
+            <img width="13px" height="15px" src="assets/Icons/delete.png" />
+            حذف از گروه
+          </button>
+        </div>
+        <div style="float:left;height: 11%; width: 49.5%;" class="box-dev">
+          <button  (click)="onConfirm()" id="btn2" class="btn btn-primary btnGreen"
+            style="margin: 2px;">
+            <img width="15px" height="15px" src="assets/Icons/{{btnConfirmIcon}}.png" />
+            {{btnConfirmName}}
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- <div role="tabpanel" id="request-item"
+      class="tab-pane fade show active" style="height: 100%; margin-bottom: 1px; padding: 2px 2px">
+      <div style="height: 86%; width: 100%;" class="box-dev">
+        <app-grid [HaveBorder]="true" (GridReady)="onSubGridReadyMenu($event)" [columns]="SubSelectedColumnDef"
+        [rowsData]="SubrowData" (RowClick)="SubMenuRowClick($event)" [gridHeight]=83>
+      </app-grid>
+      </div>
+      <div style="height: 10%; width: 100%; margin-top: 0.3%;" class="box-dev">
+        <button (click)="BtnRequestClick()" id="btn2" class="btn btn-primary btnGreen">
+          <img width="13px" height="15px" src="assets/Icons/add.png" />
+          ایجاد درخواست
+        </button>
+      </div>
+    </div> -->
+
+  </div>
+
+
+
+</div>
+
+<div class="buttons-place" style="margin: unset;">
+  <button id="btnClose" class="btn btn-primary btnGreen" (click)="Close()">
+    <img width="15px" height="15px" src="assets/Icons/exit.png" />
+    خروج
+  </button>
+</div>
+
+<ng-template #IsChosen let-row>
+  <img width="16px" height="16px" [src]="row.IsChosen ? 'assets/Icons/TrueCheckBox.png':'assets/Icons/square.png'" />
+</ng-template>
+<ng-template #HasWorkFlow let-row>
+  <img width="16px" height="16px"
+    [src]="row.HasWorkFlow ? 'assets/Icons/TrueCheckBox.png':'assets/Icons/Uncheck.png'" />
+</ng-template>
+<ng-template #TextBtn let-row>
+  <img [ngClass]="'img-def'" width="16px" height="16px" style="cursor: pointer;" [src]="'assets/Icons/show.png'"
+    (click)="BtnProductReqShowClick(row)" />
+</ng-template>
+<ng-template #DeleteBtn let-row>
+  <img [ngClass]="'img-def'" width="16px" height="16px" style="cursor: pointer;" [src]="'assets/Icons/delete.png'"
+    (click)="onDeleteclick(row)" />
+</ng-template>
+<ng-template #WorkFlowBtn let-row>
+  <img [ngClass]="'img-def'" width="16px" height="16px" style="cursor: pointer;" [src]="'assets/Icons/show.png'"
+    (click)="BtnWorkFlowShowClick(row)" />
+</ng-template>
+
+<app-cfm-over-popup *ngIf="btnclicked" [HaveMaxBtn]="HaveMaxBtn" [startLeftPosition]="startLeftPosition"
+  [startTopPosition]="startTopPosition" [minHeightPixel]="MinHeightPixel" [PercentWidth]="PercentWidth"
+  [MainMaxwidthPixel]="MainMaxwidthPixel" [PopupType]="type" [HeightPercentWithMaxBtn]="HeightPercentWithMaxBtn"
+  [PopupParam]="type === 'message-box' ? alertMessageParams : paramObj" (PopupOutPutParam)="type ==='message-box' ? MessageBoxAction($event) : getOutPutParam($event)"
+  [HaveHeader]="HaveHeader" (popupclosed)="popupclosed($event)">
+</app-cfm-over-popup>

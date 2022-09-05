@@ -1,0 +1,34 @@
+<div id="container" style="clear: both;padding: 5px">
+  <div id="content" style="width:100%;">
+    <div class="main-form-body" style="width:99%;padding: 10px;margin:5px;">
+          <table style="width: 100%; margin-top: 15px;">
+            <tr>
+              <td style="width: 50%;">
+                <span class="table-cell-Lable">تاریخ مهلت دریافت اسناد</span>
+                <app-jalali-datepicker [WidthPC]="50" (Change)="OnDateChange($event,'DeadLine')">
+                </app-jalali-datepicker>
+              </td>
+              <td style="width: 50%;">
+                <span class="table-cell-Lable">تاریخ کمیسیون</span>
+                <app-jalali-datepicker [WidthPC]="50" (Change)="OnDateChange($event,'Commition')">
+                </app-jalali-datepicker>
+              </td>
+            </tr>
+          </table>
+    </div>
+    <div class="buttons-place" style="width: 99%;">
+      <button (click)="onShowFormulaValuesPage()" id="btn4" class="btn btn-primary btnGreen">
+        <img width="15px" height="15px" src="assets/Icons/show.png" />
+        نمایش جزییات
+      </button>
+      <button (click)="onClose()" id="btn4" class="btn btn-primary btnGreen">
+        <img width="15px" height="15px" src="assets/Icons/exit.png" />
+        خروج</button>
+    </div>
+  </div>
+</div>
+
+<app-over-popup *ngIf="isClicked" [PopupType]="PopUpType" [startLeftPosition]="startLeftPosition"
+  [startTopPosition]="startTopPosition" [PopupParam]="PopUpType === 'message-box' ? alertMessageParams : ParamObj"
+  (popupclosed)="popupclosed($event)" [MainMaxwidthPixel]="MainMaxwidthPixel" [HaveMaxBtn]="PopUpType ==='message-box' ? '' : HaveMaxBtn">
+</app-over-popup>

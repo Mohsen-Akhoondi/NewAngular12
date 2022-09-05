@@ -1,0 +1,22 @@
+<div class="advertising-tree">
+  <tree-root (select)="onSelect($event)" (deselect)="onDeselect($event)" #tree [nodes]="nodes" [options]="options" (toggleExpanded)="event($event)" (activate)="event($event)">
+    <ng-template #loadingTemplate>
+        <span style="text-align: right"> درحال بارگذاری...</span>
+    </ng-template>
+    <!-- <ng-template #treeNodeWrapperTemplate let-node let-index="index">
+        <div class="node-wrapper" [style.padding-left]="node.getNodePadding()">
+          <tree-node-expander [node]="node"></tree-node-expander>
+          <div class="node-content-wrapper"
+            [class.node-content-wrapper-active]="node.isActive"
+            [class.node-content-wrapper-focused]="node.isFocused"
+            (click)="node.mouseAction('click', $event)">
+            <img *ngIf="!node.hasChildren" src="assets\Icons\Leaf.png"/>
+            <img *ngIf="node.hasChildren" src="assets\Icons\Branch.png"/>
+           <span> {{node.data.name}}</span>
+  
+          </div>
+        </div>
+      </ng-template> -->
+  </tree-root>
+  </div>
+  

@@ -1,0 +1,13 @@
+
+.main-form-body {
+    z-index: 3;
+    padding: 20px;
+}
+.main-form-body{
+    margin-top: 3px;
+    height: 61%;
+    padding-top: 17px !important;
+    padding-bottom: 3px !important;
+    padding-right: 0px;
+}
+

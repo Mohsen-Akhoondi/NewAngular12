@@ -1,0 +1,32 @@
+<div class="main-form-body" style="margin-top: 5px; height: 84%;">
+  <div id="container" style="clear: both;padding-bottom: 5px;height:100%;">
+    <div class="box-dev" style=" width: 100%;" [style.height.%]="100">
+      <app-grid
+      [columns]="columnDef"
+      [rowsData]="RowData"
+      [gridHeight]="92"
+      (GridReady)="VariableTypeGridReady($event)"
+      [IsEditable]="true"
+      [AutoNumberField] = "'VariableTypeCode'"
+      (RowClick)="RowClick($event)"></app-grid>
+    </div>
+  </div>
+</div>
+<div class="buttons-place" style="margin: auto; height: 44px; padding: 10px; padding-bottom: 7px;">
+    <button *ngIf="HaveSave" (click)="onSave()" id="btn1" class="btn btn-primary btnGreen">
+        <img width="15px" height="15px" src="assets/Icons/save.png" />
+        ثبت
+      </button>
+    <button (click)="closeModal()" id="btn2" class="btn btn-primary btnGreen">
+      <img width="15px" height="15px" src="assets/Icons/exit.png" />
+      خروج</button>
+</div>
+<app-over-popup
+  *ngIf="btnclicked"
+  [PopupType]="type"
+  [startLeftPosition]="449"
+  [startTopPosition]="247"
+  (popupclosed)="popupclosed($event)"
+  [PopupParam]="alertMessageParams">
+</app-over-popup>
+

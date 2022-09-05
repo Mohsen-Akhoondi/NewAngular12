@@ -1,0 +1,251 @@
+<div class="main-form-body" style="margin-top:5px;">
+  <fieldset class="feild-set">
+    <table style="width: 100%;">
+      <tr>
+        <td width="50%" style="text-align: left;">
+          <span class="table-cell-Lable">واحد اجرایی</span>
+          <app-ng-select-virtual-scroll style="display: inline-block;width: 68%;"
+            [NgSelectParams]="RegionParams" (selectedChange)="onChangeRegionObj($event)"
+            [Items]="RegionListSet">
+          </app-ng-select-virtual-scroll>
+        </td>
+          <td style="width: 50%;" style="text-align: left;">
+            <span class="table-cell-Lable">سال مالی</span>
+            <app-ng-select-virtual-scroll  style="display: inline-block;width: 68%;"
+            [NgSelectParams]="FinYearParams" (selectedChange)="onChangeFinYear($event)" 
+            [Items]="FinYearListSet">
+            </app-ng-select-virtual-scroll>
+          </td>
+      </tr>
+      <tr>
+        <td style="text-align: left;" width="50%">
+          <span class="table-cell-Lable">حساب کل از</span>
+          <app-ng-select-virtual-scroll style="display: inline-block;width: 68%;"
+          [NgSelectParams]="LedgerAccFromParams" (selectedChange)="onChangeLedgerAcc($event,'From')"
+          [Items]="LedgerAccFromSet" (Open)="OnOpenNgSelectLedger()">
+        </app-ng-select-virtual-scroll>
+        </td>
+          <td style="text-align: left;" width="50%">
+            <span class="table-cell-Lable">تا</span>
+            <app-ng-select-virtual-scroll style="display: inline-block;width: 68%;"       
+            [NgSelectParams]="LedgerAccToParams" (selectedChange)="onChangeLedgerAcc($event,'To')" 
+            [Items]="LedgerAccToSet" (Open)="OnOpenNgSelectLedger()"  >
+            </app-ng-select-virtual-scroll>
+          </td>
+    </tr>
+    <tr>
+      <td width="50%" style="text-align: left;">
+        <span class="table-cell-Lable">حساب معین از</span>
+        <app-ng-select-virtual-scroll style="display: inline-block;width: 68%;"
+        [NgSelectParams]="SubLedgerAccFromParams" (selectedChange)="onChangeSubLedgerAcc($event,'From')"
+        [Items]="SubLedgerAccFromSet" (Open)="OnOpenNgSelectSubLedger()">
+      </app-ng-select-virtual-scroll>
+      </td>
+        <td width="50%" style="text-align: left;">
+          <span class="table-cell-Lable">تا</span>
+          <app-ng-select-virtual-scroll style="display: inline-block;width: 68%;"
+          [NgSelectParams]="SubLedgerAccToParams" (selectedChange)="onChangeSubLedgerAcc($event,'To')"
+          [Items]="SubLedgerAccToSet" (Open)="OnOpenNgSelectSubLedger()" >
+          </app-ng-select-virtual-scroll>
+        </td>
+    </tr>
+    <tr>
+      <td width="50%" style="text-align: left;">
+        <span class="table-cell-Lable">گروه تفصیلی</span>
+        <app-ng-select-virtual-scroll style="display: inline-block;width: 68%;"
+        [NgSelectParams]="DetailAccGroupFromParams" (selectedChange)="onChangeDetailAccGroup($event,'From')"
+        [Items]="DetailAccGroupFromSet" (Open)="OnOpenNgSelectDetailAccGroup()">
+      </app-ng-select-virtual-scroll>
+      </td>
+        <td width="50%" style="text-align: left;">
+          <span class="table-cell-Lable">تا</span>
+          <app-ng-select-virtual-scroll style="display: inline-block;width: 68%;"
+          [NgSelectParams]="DetailAccGroupToParams" (selectedChange)="onChangeDetailAccGroup($event,'To')"
+          [Items]="DetailAccGroupToSet" (Open)="OnOpenNgSelectDetailAccGroup()" >
+          </app-ng-select-virtual-scroll>
+        </td>
+    </tr>
+    <tr>
+      <td width="50%" style="text-align: left;">
+       <span> حساب تفصیلی </span>
+       <app-ng-select-virtual-scroll style="display: inline-block;width: 68%;" [PageCount] = "DetailAccFromPageCount"
+        [NgSelectParams]="DetailAccFromParam" (selectedChange)="onChangeDetailAcc($event,'From')"
+        [Items]="DetailAccFromSet" (Open)="OnOpenNgSelectDetailAcc('From')"
+        (FetchMore)="FetchMoreDetailAcc($event,'From')" (doSearch)="SearchDetailAcc($event,'From')">
+       </app-ng-select-virtual-scroll>
+      </td>
+        <td width="50%" style="text-align: left;">
+          <span class="table-cell-Lable">تا</span>
+          <app-ng-select-virtual-scroll style="display: inline-block;width: 68%;" [PageCount] = "DetailAccToPageCount"
+          [NgSelectParams]="DetailAccToParam" (selectedChange)="onChangeDetailAcc($event,'To')" (doSearch)="SearchDetailAcc($event,'To')"
+          [Items]="DetailAccToSet" (Open)="OnOpenNgSelectDetailAcc('To')" (FetchMore)="FetchMoreDetailAcc($event,'To')" >
+          </app-ng-select-virtual-scroll>
+        </td>
+    </tr>
+    
+    </table> 
+  </fieldset>
+
+  <fieldset class="feild-set">
+    <table style="width: 100%;">
+      <tr>
+        <td width="50%" style="text-align: left;">
+          <span class="table-cell-Lable">تاریخ ثبت از</span>
+          <app-jalali-datepicker [WidthPC]="68" [Required]="true" (Change)="OnDateChange($event,'From')">
+          </app-jalali-datepicker>
+        </td>
+        <td width="50%" style="text-align: left;">
+          <span class="table-cell-Lable">تا</span>
+          <app-jalali-datepicker [WidthPC]="68" [Required]="true" (Change)="OnDateChange($event,'To')">
+          </app-jalali-datepicker>
+        </td>
+      </tr>
+    </table>
+  </fieldset>
+
+  <fieldset class="feild-set">
+    <table style="width: 100%;">
+      <tr>
+        <td width="50%" style="text-align: left;">
+          <span class="table-cell-Lable">اسناد با وضعیت</span>
+          <app-ng-select-virtual-scroll style="display: inline-block;width: 68%;"
+          [NgSelectParams]="VoucherStatusParams" (selectedChange)="onChangeVoucherStatus($event)"
+          [Items]="VoucherStatusListSet">
+        </app-ng-select-virtual-scroll>
+        </td>
+        <td width="50%" style="text-align: center;">
+          <fieldset class="feild-set">
+            <legend style="width:35%">مرتب سازی شماره سند</legend>
+            <table style="width: 100%;">
+              <tr style="text-align: center;">
+                <td>
+                  <app-ng-select-virtual-scroll style="display: inline-block;width: 68%;"
+                  [NgSelectParams]="NgSortParams" (selectedChange)="onChangeNgSort($event)"
+                  [Items]="NgSortListSet">
+                </app-ng-select-virtual-scroll>
+                </td>
+              </tr>
+              <tr style="text-align: center;">
+                <td>
+                  <app-radio-box-component [Mode]="'Dual'" [Params]="RegisterVoucherRadioTypes" [Display]="'inline'"
+                  [BoxWidth]="80"  [Mode]="'Dual'"[QuestionStyle]="false"  [Disabled] = "RegisterVoucherDisabled"
+                  [BoxAlign]="'center'" [TableAlign]="true" (SelectedOption)="VoucherStatusRadioClick($event)" >
+                </app-radio-box-component>
+                </td>
+              </tr>
+            </table>
+          </fieldset>
+          
+        </td>
+      </tr>
+      <tr>
+        <td width="50%" style="text-align: left;">
+          <span class="table-cell-Lable">شماره ثبت از</span>
+          <app-number-input-component 
+          [id]="'FromVoucherCode'" [Value]="FromVoucherCode" [IsFloat]="false" [MaxLength]="9"
+          [FloatMaxLength]="0" [PerCentWidth]="68" [PixelHeight]="25" [ReadOnly] = "FromToVoucherCodeDisabled"
+          (ValueChange)="getVoucherCode($event,'From')"  [HaveThousand]="false">
+          </app-number-input-component> 
+        </td>
+        <td width="50%" style="text-align: left;">
+          <span class="table-cell-Lable">تا</span>
+          <app-number-input-component 
+          [id]="'ToVoucherCode'" [Value]="ToVoucherCode" [IsFloat]="false" [MaxLength]="9"
+          [FloatMaxLength]="0" [PerCentWidth]="80" [PixelHeight]="25" [ReadOnly] = "FromToVoucherCodeDisabled"
+          (ValueChange)="getVoucherCode($event,'To')"  [HaveThousand]="false">
+          </app-number-input-component> 
+        </td>
+      </tr>
+
+      <tr>
+        <td width="50%" style="text-align: left;">
+          <span class="table-cell-Lable">مبلغ بدهکار از</span>
+          <app-number-input-component 
+          [id]="'FromDebitAmount'" [Value]="FromDebitAmount" [IsFloat]="false" [MaxLength]="20"
+          [FloatMaxLength]="0" [PerCentWidth]="68" [PixelHeight]="25" 
+          (ValueChange)="GetDebitAmount($event,'From')"  [HaveThousand]="true">
+          </app-number-input-component> 
+        </td>
+        <td width="50%" style="text-align: left;">
+          <span class="table-cell-Lable">تا</span>
+          <app-number-input-component 
+          [id]="'ToDebitAmount'" [Value]="ToDebitAmount" [IsFloat]="false" [MaxLength]="20"
+          [FloatMaxLength]="0" [PerCentWidth]="80" [PixelHeight]="25" 
+          (ValueChange)="GetDebitAmount($event,'To')"  [HaveThousand]="true">
+          </app-number-input-component> 
+        </td>
+      </tr>  
+      <tr>
+        <td width="50%" style="text-align: left;">
+          <span class="table-cell-Lable">مبلغ بستانکار از</span>
+          <app-number-input-component 
+          [id]="'FromCreditAmount'" [Value]="FromCreditAmount" [IsFloat]="false" [MaxLength]="20"
+          [FloatMaxLength]="0" [PerCentWidth]="68" [PixelHeight]="25" 
+          (ValueChange)="GetCreditAmount($event,'From')"  [HaveThousand]="true">
+          </app-number-input-component> 
+        </td>
+        <td width="50%" style="text-align: left;">
+          <span class="table-cell-Lable">تا</span>
+          <app-number-input-component 
+          [id]="'ToCreditAmount'" [Value]="ToCreditAmount" [IsFloat]="false" [MaxLength]="9"
+          [FloatMaxLength]="0" [PerCentWidth]="80" [PixelHeight]="25"
+          (ValueChange)="GetCreditAmount($event,'To')"  [HaveThousand]="true">
+          </app-number-input-component> 
+        </td>
+      </tr>  
+      <tr>
+        <td width="50%" style="text-align: left;">
+          <span class="table-cell-Lable">سند افتتاحیه</span>
+          <app-ng-select-virtual-scroll style="display: inline-block;width: 68%;"
+          [NgSelectParams]="NgPrintParams" (selectedChange)="OnChangePrintType($event)"
+          [Items]="NgPrintListSet">
+        </app-ng-select-virtual-scroll>
+        </td>
+        <td width="50%" style="text-align: center;">
+          <table style="width: 100%;">
+            <tr>
+              <td style="text-align: center;">
+                  <span class="table-cell-Lable">سند اختتامیه</span>
+                  <app-custom-check-box style="vertical-align: sub; " [configurationInfo]="CustomCheckBoxConfig"
+                  (PrettyCheckBoxChange)="OnChangeCheckBox1Value($event)">
+                  </app-custom-check-box>
+              </td>
+            </tr>
+            <tr>
+              <td style="text-align: center;">
+                <span class="table-cell-Lable">نقد</span>
+                <app-custom-check-box style="vertical-align: sub; " [configurationInfo]="CustomCheckBoxConfig"
+                (PrettyCheckBoxChange)="OnChangeCheckBoxCash($event,'IsCash')">
+                </app-custom-check-box>
+                <span class="table-cell-Lable">غیر نقد</span>
+                <app-custom-check-box style="vertical-align: sub; " [configurationInfo]="CustomCheckBoxConfig"
+                (PrettyCheckBoxChange)="OnChangeCheckBoxCash($event,'NotCash')">
+                </app-custom-check-box>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+
+    </table>
+  </fieldset>
+  <fieldset>
+    <div class="box-dev" style=" width: 100%;" [style.height.px]="155">
+      <app-grid  
+      [columns]="gridcoldef" [rows]="DetailAccRows" [IsEditable]="false"
+      [gridHeight]="75">
+      </app-grid>
+    </div>
+  </fieldset>
+</div>
+
+<div class="buttons-place" style="margin: unset;">
+  <button (click)="onShowReport()" id="btnPrint" class="btn btn-primary btnGreen">
+    <img width="16px" height="16px" src="assets/Icons/printer-icon.png" />
+    چاپ 
+  </button>
+<button (click)="closeModal()" id="btn4" class="btn btn-primary btnGreen">
+  <img width="15px" height="15px" src="assets/Icons/exit.png" />
+  خروج
+</button>
+</div>

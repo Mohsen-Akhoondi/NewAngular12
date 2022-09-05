@@ -1,0 +1,301 @@
+<div class="main-form-body for-append-date" style="margin: 5px;height: 87%;">
+  <form>
+    <div class="main-form-body" style="display: inherit">
+      <table style="width: 100%;">
+        <tr>
+          <td width="25%">
+            <span style="color: red;">*</span>
+            <span class="table-cell-Lable">واحد اجرایی</span>
+            <app-ng-select-virtual-scroll [Disabled]="!IsEditable" (Open)="OnOpenNgSelect('Region', false)"
+              style="display: inline-block;width: 60%;" class="" [NgSelectParams]="RegionParams"
+              [CheckValidate]="CheckValidate" (selectedChange)="onChangeRegion($event)" [Items]="RegionItems">
+            </app-ng-select-virtual-scroll>
+          </td>
+          <td width="25%">
+            <span style="color: red;">*</span>
+            <span class="table-cell-Lable">سال مالی</span>
+            <app-ng-select-virtual-scroll (Open)="OnOpenNgSelect('FinYear', false)" [Disabled]="!IsEditable"
+              style="display: inline-block;width: 60%;" class="" [NgSelectParams]="FinYearParams"
+              [CheckValidate]="CheckValidate" [Items]="FinYearItems" (selectedChange)="onChangeFinYear($event)">
+            </app-ng-select-virtual-scroll>
+          </td>
+          <td width="25%">
+            <span class="table-cell-Lable">شماره پیش فاکتور</span><input style="width: 60%" [readonly]="true"
+              class="form-control input-style" type="text" name="InvoiceCode" [(ngModel)]="InvoiceObject.InvoiceCode" />
+          </td>
+          <td width="25%">
+            <span *ngIf="!IsDisableRefisterField" style="color: red;">*</span>
+            <span class="table-cell-Lable">شماره فاکتور</span><input style="width: 60%"
+              [readonly]="!IsEditable || IsDisableRefisterField"
+              [ngStyle]="{'border-color': CheckValidate && !InvoiceObject.RegisterInvoiceCode ? 'red':''}"
+              placeholder="{{CheckValidate && !IsDisableRefisterField && !InvoiceObject.RegisterInvoiceCode ? 'پر کردن مقدار این فیلد الزامیست': ''}}"
+              class="form-control input-style" type="text" name="InvoiceObject.RegisterInvoiceCode"
+              [(ngModel)]="InvoiceObject.RegisterInvoiceCode" />
+          </td>
+        </tr>
+        <tr>
+          <td width="25%">
+            <span style="color: red;">*</span>
+            <span class="table-cell-Lable">معاونت مجری</span>
+            <app-ng-select-virtual-scroll [Disabled]="!IsEditable" style="display: inline-block;width: 60%;"
+              [NgSelectParams]="CostCenterParams" (selectedChange)="onChangeCostCenter($event)"
+              [Items]="CostCenterItems" (Open)="OnOpenNgSelect('CostCenter', false)" [CheckValidate]="CheckValidate">
+            </app-ng-select-virtual-scroll>
+          </td>
+          <td width="25%">
+            <span style="color: red;">*</span>
+            <span class="table-cell-Lable">اداره مجری</span>
+            <app-ng-select-virtual-scroll [Disabled]="!IsEditable" style="display: inline-block;width: 60%;"
+              [NgSelectParams]="SubCostCenterParams" [CheckValidate]="CheckValidate" [Items]="SubCostCenterItems"
+              (Open)="OnOpenNgSelect('SubCostCenter', false)" (selectedChange)="onSubCostCenterSelectedChange($event)">
+            </app-ng-select-virtual-scroll>
+          </td>
+          <td width="25%">
+            <span *ngIf="IsMandatory" style="color: red;">*</span>
+            <span class="table-cell-Lable">رئیس امور</span>
+            <app-ng-select-virtual-scroll [Disabled]="!IsEditable" style="display: inline-block;" [style.width.%]="60"
+              [NgSelectParams]="AdministratorActorParams" [Items]="AdministratorActorItems"
+              (Open)="OnOpenNgSelect('AdministratorActor', false)" [CheckValidate]="CheckValidate && IsMandatory"
+              (selectedChange)="onAdministratorActorSelectedchanged($event)">
+            </app-ng-select-virtual-scroll>
+          </td>
+          <td width="25%">
+            <span style="color: red;">*</span>
+            <span class="table-cell-Lable">درخواست کننده</span>
+            <app-ng-select-virtual-scroll [Disabled]="!IsEditable" style="display: inline-block;"
+              [CheckValidate]="CheckValidate" [style.width.%]="60" [NgSelectParams]="RequestedPersonParams"
+              [Items]="RequestedPersonItems" (Open)="OnOpenNgSelect('RequestedPerson', false)"
+              (selectedChange)="onRequestedPersonSelectedchanged($event)">
+            </app-ng-select-virtual-scroll>
+          </td>
+        </tr>
+        <tr>
+          <td width="25%">
+            <span *ngIf="!IsDisableRefisterField" style="color: red;">*</span>
+            <span class="table-cell-Lable">تاریخ فاکتور</span>
+            <app-jalali-datepicker [Disabled]="!IsEditable || IsDisableRefisterField" [WidthPC]="60"
+              [CheckValidate]="CheckValidate && !IsDisableRefisterField"
+              [CurrMiladiDateValue]="InvoiceObject.ShortRegisterInvoiceDate" [Required]="true"
+              (Change)="OnRegisterInvoiceDateChange($event)">
+            </app-jalali-datepicker>
+          </td>
+
+          <td colspan="3" width="75%">
+            <span style="color: red;">*</span>
+            <span class="table-cell-Lable">موضوع</span>
+            <input [readonly]="!IsEditable"
+              [ngStyle]="{'border-color': CheckValidate && !InvoiceObject.Subject ? 'red':''}"
+              placeholder="{{CheckValidate && !InvoiceObject.Subject ? 'پر کردن مقدار این فیلد الزامیست': ''}}"
+              style="width: 86.7%" class="form-control input-style" type="text" name="InvoiceObject.Subject"
+              [(ngModel)]="InvoiceObject.Subject" />
+          </td>
+        </tr>
+        <tr>
+          <td width="25%">
+            <span class="table-cell-Lable">نوع تامین کننده</span>
+            <div class="redio-div" style="width: 60%; text-align: center;">
+              <div class="custom-control custom-radio custom-control-inline">
+                <input [checked]="InvoiceObject.ActorType" type="radio" class="custom-control-input"
+                  [disabled]="!IsEditable" id="rdoPersonContractor" name="ChoosenContractorType"
+                  (click)="rdoActorTypeClick(true)">
+                <label style="margin: auto;" class="custom-control-label redio-label" for="rdoPersonContractor">حقيقي
+                </label>
+              </div>
+              <div class="custom-control custom-radio custom-control-inline">
+                <input [checked]="!InvoiceObject.ActorType" type="radio" class="custom-control-input"
+                  [disabled]="!IsEditable" id="rdoCorporateContractor" name="ChoosenContractorType">
+                <label style="margin: auto;" class="custom-control-label redio-label" for="rdoCorporateContractor"
+                  (click)="rdoActorTypeClick(false)">حقوقي</label>
+              </div>
+            </div>
+          </td>
+
+          <td width="25%">
+            <span style="color: red; margin-left: 5px;">*</span>
+            <span class="table-cell-Lablle">تامین کننده </span>
+            <app-ng-select-virtual-scroll [PageCount]="ActorPageCount" [TotalItemCount]="ActorTotalItemCount"
+              style="display: inline-block;width: 60%;" class="select-general-for-lable" [CheckValidate]="CheckValidate"
+              [Disabled]="!IsEditable" [NgSelectParams]="NgSelectActorParams" [Items]="ActorItems"
+              (FetchMore)="FetchMoreActor($event)" (Open)="OpenActor()" (doSearch)="doActorSearch($event)"
+              (selectedChange)="onActorSelectedchanged($event)">
+            </app-ng-select-virtual-scroll>
+          </td>
+
+          <td style="width: 25%">
+            <span class="table-cell-Lable">تکمیل اطلاعات توسط تامین کننده</span>
+            <app-custom-check-box style="vertical-align: sub;" [configurationInfo]="CustomCheckBoxConfig"
+              [isSelected]="InvoiceObject.IsContractorFill" (PrettyCheckBoxChange)="OnCheckBoxChange($event)"
+              [Disabled]="!IsEditable">
+            </app-custom-check-box>
+          </td>
+          <td width="25%">
+            <span class="table-cell-Lable">نوع فاکتور</span>
+            <div class="redio-div" style="width: 60%; text-align: center;">
+              <div class="custom-control custom-radio custom-control-inline">
+                <input [checked]="!InvoiceObject.IsMultiInvoice" type="radio" class="custom-control-input"
+                  [disabled]="!IsEditable" id="rdoIsNotMulti" name="ChoosenMultiInvoice"
+                  (click)="rdoIsMultiClick(false)">
+                <label style="margin: auto;" class="custom-control-label redio-label" for="rdoIsNotMulti">تک فاکتوره
+                </label>
+              </div>
+              <div class="custom-control custom-radio custom-control-inline">
+                <input [checked]="InvoiceObject.IsMultiInvoice" type="radio" class="custom-control-input"
+                  [disabled]="!IsEditable" id="rdoIsMulti" name="ChoosenMultiInvoice">
+                <label style="margin: auto;" class="custom-control-label redio-label" for="rdoIsMulti"
+                  (click)="rdoIsMultiClick(true)">چند فاکتوره</label>
+              </div>
+            </div>
+          </td>
+
+        </tr>
+
+        <tr>
+          <td width="25%">
+            <span *ngIf="(ModuleViewTypeCode === 1 && IsForcedBankInfo)" style="color: red;">*</span>
+            <span class="table-cell-Lable">بانک</span>
+            <app-ng-select-virtual-scroll [PageCount]="BankPageCount" [TotalItemCount]="BankTotalItemCount"
+              style="display: inline-block;width: 60%;" class="select-general-for-lable" [Disabled]="!IsEditable"
+              [NgSelectParams]="NgSelectBankParams" [Items]="BankItems" (FetchMore)="FetchMoreBank($event)"
+              (Open)="OpenBank()" (doSearch)="doBankSearch($event)" (selectedChange)="onBankSelectedchanged($event)"
+              [CheckValidate]="(ModuleViewTypeCode === 1 && IsForcedBankInfo) ? CheckValidate : false">
+            </app-ng-select-virtual-scroll>
+          </td>
+          <td width="25%">
+            <span *ngIf="(ModuleViewTypeCode === 1 && IsForcedBankInfo)" style="color: red;">*</span>
+            <span class="table-cell-Lable">شعبه</span>
+            <app-ng-select-virtual-scroll [PageCount]="BranchPageCount" [TotalItemCount]="BranchTotalItemCount"
+              style="display: inline-block;width: 60%;" class="select-general-for-lable" [Disabled]="!IsEditable"
+              [NgSelectParams]="NgSelectBranchParams" [Items]="BranchItems" (FetchMore)="FetchMoreBranch($event)"
+              (Open)="OpenBranch()" (doSearch)="doBranchSearch($event)"
+              [CheckValidate]="(ModuleViewTypeCode === 1 && IsForcedBankInfo) ? CheckValidate : false">
+            </app-ng-select-virtual-scroll>
+          </td>
+          <td width="25%">
+            <span *ngIf="(ModuleViewTypeCode === 1 && IsForcedBankInfo)" style="color: red;">*</span>
+            <span class="table-cell-Lable">شماره حساب</span>
+            <input [readonly]="!IsEditable"
+              [ngStyle]="{'border-color':(ModuleViewTypeCode === 1 && IsForcedBankInfo) && CheckValidate && !AccNo ? 'red':''}"
+              placeholder="{{(ModuleViewTypeCode === 1 && IsForcedBankInfo) && CheckValidate && !AccNo ? 'پر کردن مقدار این فیلد الزامیست': ''}}"
+              style="width: 60%" class="form-control input-style" type="text" name="AccNo" [(ngModel)]="AccNo" />
+          </td>
+        </tr>
+
+      </table>
+    </div>
+  </form>
+  <div class="box-dev" style="margin-top: 2px;padding: 2px;" [style.height.%]="32">
+    <div id="div2" class="box-dev reg-inv" [style.height.%]="80">
+      <app-grid (CellValueChanged)="onCellValueChanged($event)" [columns]="InvocieItemcolumnDef"
+        [rowsData]="InvoiceItemList" (GridReady)="onGridReady($event)" [IsEditable]="IsGridEditable && ShowBtn"
+        (cellEditingStarted)="oncellEditingStarted($event)" [gridHeight]="77"
+        (ImportFromExcelClick)="OnImportFromExcelBtnClick()" [IsNeedImportBtn]="false" (RowClick)="RowClick($event)"
+        (FilterChanged)="OnFilterChanged('InvoiceItem')" (RowDataChanged)="OnRowDataChanged('InvoiceItem')"
+        (RowDataUpdated)="OnRowDataUpdated('InvoiceItem')">
+      </app-grid>
+    </div>
+    <div class="box-dev" style=" margin-top: 4px;color: red;height: 32px;padding: 3px; overflow: auto;">
+      <div style="min-width: 80px;font-weight: bold; float: right; margin: 5px;">
+        <span id="sum-final-estimate-amount" class="table-cell-Lable">جمع مبلغ واحد:</span>
+        <label for="sum-final-estimate-amount" style="margin:2px"> {{SumUnitPrice}} </label>
+      </div>
+      <div style="min-width: 80px; font-weight: bold; float: right; margin: 3px;">
+        <span id="sum-final-estimate-amount" class="table-cell-Lable">جمع مبلغ:</span>
+        <label for="sum-final-estimate-amount" style="margin:2px"> {{SumPrice}} </label>
+      </div>
+      <div style="min-width: 80px;font-weight: bold; float: right; margin: 3px;">
+        <span id="sum-final-estimate-amount" class="table-cell-Lable">جمع تخفیف:</span>
+        <label for="sum-final-estimate-amount" style="margin:2px"> {{SumDiscount}} </label>
+      </div>
+      <div style="min-width: 100px;font-weight: bold; float: right; margin: 3px;">
+        <span id="sum-final-estimate-amount" class="table-cell-Lable">جمع مالیات بر ارزش افزوده:</span>
+        <label for="sum-final-estimate-amount" style="margin:2px"> {{SumTaxValue}} </label>
+      </div>
+      <div style="min-width: 80px;font-weight: bold; float: left; margin: 3px;">
+        <span id="sum-final-estimate-amount" class="table-cell-Lable">جمع مبلغ نهایی:</span>
+        <label for="sum-final-estimate-amount" style="margin:2px"> {{SumFinalPrice}} </label>
+      </div>
+    </div>
+  </div>
+  <div class="box-dev" style="margin-top: 2px;padding: 2px;" [style.height.%]="FooterGridDevHeight">
+    <div id="div3" class="box-dev" [style.height.%]="80">
+      <app-grid [columns]="InvoiceFootercolumnDef" [rowsData]="InvoiceFooterList"
+        (GridReady)="onInvocieFooterGridReady($event)" [IsEditable]="IsGridEditable && ShowBtn"
+        (cellEditingStarted)="onInvoiceFootercellEditingStarted($event)" [gridHeight]="FooterGridHeight"
+        (ImportFromExcelClick)="OnImportFromExcelBtnClick()" [IsNeedImportBtn]="false"
+        (FilterChanged)="OnFilterChanged('InvoiceFooter')" (RowDataChanged)="OnRowDataChanged('InvoiceFooter')"
+        (RowDataUpdated)="OnRowDataUpdated('InvoiceFooter')">
+      </app-grid>
+    </div>
+    <div class="box-dev" style=" margin-top: 4px;color: red;height: 32px;padding: 3px; overflow: auto;">
+      <div style="min-width: 80px;font-weight: bold; float: right; margin: 5px;">
+        <span id="sum-final-estimate-amount" class="table-cell-Lable">جمع مبلغ:</span>
+        <label for="sum-final-estimate-amount" style="margin:2px"> {{SumAmount}} </label>
+      </div>
+      <div style="min-width: 80px;font-weight: bold; float: left; margin: 5px;">
+        <span id="sum-final-estimate-amount" class="table-cell-Lable">جمع قابل پرداخت:</span>
+        <label for="sum-final-estimate-amount" style="margin:2px"> {{SumTotal}} </label>
+      </div>
+    </div>
+    <div *ngIf="HaveAlertToFinance" style="float: right;color: red;margin-top: 10px;">
+      <span>لطفا جهت تعهد اعتبار به سیستم جامع مالی مراجعه نمایید</span>
+    </div>
+  </div>
+</div>
+
+<div style="margin: 5px;">
+  <div class="buttons-place" style="float: right;margin: auto;width: 60%;">
+    <button *ngIf="IsEditable && ShowBtn" (click)="onSave()" id="btnSave" class="btn btn-primary btnGreen">
+      <img width="15px" height="15px" src="assets/Icons/save.png" />
+      ثبت
+    </button>
+    <button type="submit" (click)="onArchiveClick()" class="btn btn-primary btnGreen">
+      <img width="15px" height="15px" src="assets/Icons/TechnicalArchive.png" />
+      مستندات
+    </button>
+    <button *ngIf="ModuleViewTypeCode === 5" id="btnClose" class="btn btn-primary btnGreen"
+      (click)="ShowUnderTakeItemClick()">
+      <img width="15px" height="15px" src="assets/Icons/show.png" />
+      مشاهده تعهد اعتبار درخواست پرداخت
+    </button>
+    <button *ngIf="InputParam.InvoiceID !== -1" id="btnPrint" (click)="OnClickPrint()" class="btn btn-primary btnGreen">
+      <img width="15px" height="15px" src="assets/Icons/print.png" />
+      چاپ
+    </button>
+    <button id="btnClose" class="btn btn-primary btnGreen" (click)="Close()">
+      <img width="15px" height="15px" src="assets/Icons/exit.png" />
+      خروج
+    </button>
+  </div>
+
+  <div class="buttons-place" style="float: left;margin: auto;width: 40%;">
+    <div *ngIf="!IsNotShowConfirmBtn">
+      <button *ngIf="IsDisplay" [disabled]="false" (click)="onConfirm()" id="btn2" class="btn btn-primary btnGreen"
+        style="margin: 2px;">
+        <img width="15px" height="15px" src="assets/Icons/{{btnConfirmIcon}}.png" />
+        {{btnConfirmName}} </button>
+      <button *ngIf="IsDisplay && !this.IsEndFlow" [disabled]="false" (click)="onConfirmAndSend()" id="btn2"
+        class="btn btn-primary btnGreen" style="margin: 2px;">
+        <img width="15px" height="15px" src="assets/Icons/Approve.png" />
+        تایید و ارسال </button>
+      <button *ngIf="IsDisplay" [disabled]="false" (click)="onUnConfirmAndReturn()" id="btn2"
+        class="btn btn-primary btnGreen" style="margin: 2px;">
+        <img width="15px" height="15px" src="assets/Icons/DisApprove.png" />
+        عدم تایید و بازگشت </button>
+    </div>
+    <button *ngIf="false" (click)="onRevocationClick()" id="btn2" class="btn btn-primary btnGreen" style="margin: 2px;">
+      <img width="15px" height="15px" src="assets/Icons/{{btnRevocationIcon}}.png" />
+      {{btnRevocationName}}
+    </button>
+    <button *ngIf="true" (click)="OnClickPrintFlow()" [disabled]="false" class="btn btn-primary btnGreen">
+      <img width="15px" height="15px" src="assets/Icons/print.png" />
+      گردش
+    </button>
+  </div>
+</div>
+
+<app-over-popup *ngIf="isClicked" [PopupType]="PopUpType" [HaveMaxBtn]="HaveMaxBtn"
+  [startLeftPosition]="startLeftPosition" [startTopPosition]="startTopPosition"
+  [PopupParam]="PopUpType === 'message-box' ?alertMessageParams:PopupParam" [HaveHeader]="HaveHeader"
+  (popupclosed)="popupclosed($event)" (PopupOutPutParam)="getOutPutParam($event)"
+  [HeightPercentWithMaxBtn]="HeightPercentWithMaxBtn">
+</app-over-popup>

@@ -1,0 +1,305 @@
+<div [ngClass]="{'disable-parent': !IsDown}" id="container" class="row for-append-date" style="clear: both">
+  <div id="content" class="" style="height: 100%;width: 100%;">
+    <div class="main-form-body" style="margin: 5px;min-width: 1118px; height: 85%;">
+      <table style="width: 100%;">
+        <tr>
+          <td [style.width.%]="ContractTotalSize" [attr.colspan]="colspan">
+            <span class="table-cell-Lable">قرارداد</span><input [style.width.%]="ContractSize"
+              class="form-control input-style" type="text" name="first" value="{{ ContractSubLetter }}" readonly />
+          </td>
+          <td *ngIf="Adjustment" width="25%">
+            <span class="table-cell-Lable">نوع تعدیل</span>
+            <app-ng-select-virtual-scroll style="display: inline-block;width: 70%;" class=""
+              [NgSelectParams]="AdjustmentTypeParams" [Items]="AdjustmentTypeItems">
+            </app-ng-select-virtual-scroll>
+
+          </td>
+          <td width="23%">
+            <span class="table-cell-Lable">دوره از تاریخ</span>
+            <app-jalali-datepicker [WidthPC]="52" [Required]="true" [CurrMiladiDateValue]="ContractPayStartDate"
+              (Change)="OnContractPayStartDateChange($event)" [Disabled]="!DisplayControlls">
+            </app-jalali-datepicker>
+          </td>
+          <td width="27%">
+            <span class="table-cell-Lable">تا تاریخ</span>
+            <app-jalali-datepicker [WidthPC]="65" [Required]="true" [CurrMiladiDateValue]="ContractPayEndDate"
+              (Change)="OnContractPayEndDateChange($event)" [Disabled]="!DisplayControlls">
+            </app-jalali-datepicker>
+          </td>
+        </tr>
+
+        <tr>
+          <td width="25%">
+            <span style="margin: 0;margin-left: 5px" class="table-cell-Lable">ضرایب قرارداد</span>
+            <input style="display: inline-table;width: 74% ;min-width: 90px" class="form-control input-style"
+              type="text" name="first" value="{{ MinusCoef }}" readonly />
+          </td>
+          <td width="25%">
+            <span *ngIf="CheckValidate" style="color: red;"> * </span>
+            <span style="margin: 0;margin-left: 5px" class="table-cell-Lable">سال مالی</span>
+            <ng-select [disabled]="IsFinYearDisable" class="select-general-for-lable" [items]="FinYearSet"
+              bindLabel="FinYearCode" bindValue="FinYearCode" [(ngModel)]="selectedFinYearObj"
+              (ngModelChange)="onChangeFinYearObj($event)" id="analayze-price-fin-year-select"
+              style="display: inline-table;width: 30% ;" [disabled]="!DisplayControlls"
+              [ngStyle]="{'border-color': CheckValidate && !selectedFinYearObj ? 'red':''}">
+            </ng-select>
+            <input style="width: 40%; padding-top: 0px !important;" class="form-control input-style" type="text"
+              name="first" value="{{ ContractOperationName }}" readonly />
+          </td>
+          <td width="23%">
+            <span class="table-cell-Lable">شماره درخواست پرداخت</span>
+            <input style="width: 52%" class="form-control input-style" type="text" name="first"
+              value="{{ ContractPayNo }}" readonly />
+          </td>
+          <td width="27%">
+            <span class="table-cell-Lable">تاریخ درخواست پرداخت</span>
+            <app-jalali-datepicker [WidthPC]="65" style="width: 100%;" [Required]="true"
+              [CurrMiladiDateValue]="ContractPayDate" (Change)="OnContractPayDateChange($event)"
+              [Disabled]="(!DisplayControlls || IsMultiInvoice) && DisableForMultiInvoice">
+            </app-jalali-datepicker>
+          </td>
+        </tr>
+
+        <tr>
+          <td [style.width.%]="NoteSize" [attr.colspan]="NoteColspan">
+            <span style="margin: 0;margin-left: 5px" class="table-cell-Lable">توضیحات</span>
+            <input [style.width.%]="NoteInputWidth" class="form-control input-style" type="text" name="first"
+              [(ngModel)]="Note" value="{{ Note }}" [disabled]="!DisplayControlls" />
+          </td>
+          <td *ngIf="HasMainContractor" width="25%">
+            <span style="margin: 0;margin-left: 5px" class="table-cell-Lable">پیمانکار اصلی</span>
+            <input style="width: 70%;" class="form-control input-style" type="text" name="first"
+              value="{{ MainContractorName }}" [disabled]="true" />
+          </td>
+          <td width="23%">
+            <span class="table-cell-Lable">نوع درخواست پرداخت</span>
+            <ng-select class="select-general-for-lable" [items]="ContractPayTypeSet" bindLabel="ContractPayTypeName"
+              bindValue="ContractPayTypeCode" [(ngModel)]="selectedContractPayTypeObj"
+              (ngModelChange)="onChangeContractPayTypeObj($event)" [disabled]="!DisplayControlls"
+              style="width: 52%;display: inline-table;margin: 0">
+            </ng-select>
+          </td>
+          <td width="27%">
+            <span class="table-cell-Lable">صورت وضعیت</span>
+            <input style="width: 65%;" class="form-control input-style" type="text" name="first"
+              [(ngModel)]="ContractPayTechnicalCode" value="{{ ContractPayTechnicalCode }}"
+              [disabled]="(!DisplayControlls || IsMultiInvoice) && DisableForMultiInvoice" />
+          </td>
+        </tr>
+        <tr>
+          <td width="25%">
+            <span class="table-cell-Lable">ناظر قرارداد</span>
+            <input style="width: 74%; font-size: inherit !important;text-align: center !important; "
+              class="form-control input-style" type="text" name="first" value="{{ActorName}}" readonly />
+          </td>
+          <td width="25%">
+            <span class="table-cell-Lable">محل خدمت ناظر</span>
+            <input style="width: 70%; font-size: inherit !important;text-align: center !important; "
+              class="form-control input-style" type="text" name="first" value="{{PlaceActorName}}" readonly
+              title="{{PlaceActorName}}" />
+          </td>
+          <td style="width: 23%">
+            <span class="table-cell-Lable">مبلغ نهایی قرارداد</span>
+            <input style="width: 52%; font-size: inherit !important;text-align: center !important; "
+              class="form-control input-style" type="text" name="first" value="{{sumFinalAmountt}}" readonly />
+          </td>
+          <td style="width: 27%">
+            <span class="table-cell-Lable">تاریخ پایان نهایی قرارداد</span>
+            <input style="width: 65%; font-size: inherit !important;text-align: center !important;"
+              class="form-control input-style" type="text" name="first" value="{{MaxEndDate}}" readonly />
+          </td>
+        </tr>
+        <tr>
+          <td style="width: 25%">
+            <span class="table-cell-Lable">بانک</span>
+            <app-ng-select-virtual-scroll [PageCount]="BankPageCount" [TotalItemCount]="BankTotalItemCount"
+              style="display: inline-block;width: 74%;" class="select-general-for-lable"
+              [Disabled]="!IsEditable && !EditableBankInf" [NgSelectParams]="NgSelectBankParams" [Items]="BankItems"
+              (FetchMore)="FetchMoreBank($event)" (Open)="OpenBank()" (doSearch)="doBankSearch($event)"
+              (selectedChange)="onBankSelectedchanged($event)" [CheckValidate]="false">
+            </app-ng-select-virtual-scroll>
+          </td>
+          <td style="width: 25%">
+            <span class="table-cell-Lable">شعبه</span>
+            <app-ng-select-virtual-scroll [PageCount]="BranchPageCount" [TotalItemCount]="BranchTotalItemCount"
+              style="display: inline-block;width: 70%;" class="select-general-for-lable"
+              [Disabled]="!IsEditable && !EditableBankInf" [NgSelectParams]="NgSelectBranchParams" [Items]="BranchItems"
+              (FetchMore)="FetchMoreBranch($event)" (Open)="OpenBranch()" (doSearch)="doBranchSearch($event)"
+              [CheckValidate]="false">
+            </app-ng-select-virtual-scroll>
+          </td>
+          <td style="width: 23%">
+            <span class="table-cell-Lable">شماره حساب</span>
+            <input [readonly]="!IsEditable && !EditableBankInf" [ngStyle]="{'border-color':''}" placeholder="{{''}}"
+              style="width: 52%" class="form-control input-style" type="text" name="AccNo" [(ngModel)]="AccNo" />
+          </td>
+          <td style="width: 27%">
+            <span class="table-cell-Lable">شماره شبا</span>
+            <input [readonly]="!IsEditable && !EditableBankInf" [ngStyle]="{'border-color':''}" placeholder="{{''}}"
+              style="width: 65%" class="form-control input-style" type="text" name="ShebaNo" [(ngModel)]="ShebaNo" />
+          </td>
+        </tr>
+        <tr *ngIf="ShowConfimChekBox || IsGreenSpace">
+          <td style="width: 25%">
+            <span *ngIf="IsGreenSpace && ShowPenaltyDiv" id="sum-penalty-amount" class="table-cell-Lable">تفاوت
+              اجاره</span>
+            <app-number-input-component *ngIf="IsGreenSpace && ShowPenaltyDiv" [id]="'indicator-label-education'"
+              [Value]="DifferenceAmountStr" [IsFloat]="false" [MaxLength]="15" [FloatMaxLength]="0" [PerCentWidth]="74"
+              [PixelHeight]="25" class="col-form-label" [HaveThousand]="true"
+              (ValueChange)="onDifferenceAmountChange($event)"
+              [ReadOnly]="(!CanEditPenalty && !this.IsAdminToolsModule)">
+            </app-number-input-component>
+          </td>
+          <td colspan="2" style="width: 50%">
+            <span *ngIf="IsGreenSpace && ShowPenaltyDiv" id="sum-penalty-amount" class="table-cell-Lable">توضیحات
+              تفاوت</span>
+            <input *ngIf="IsGreenSpace && ShowPenaltyDiv" style="display: inline-table;width: 84% ;"
+              class="form-control input-style" type="text" name="DiffNote" [(ngModel)]="DifferenceNote"
+              value="{{ DifferenceNote }}" [disabled]="(!CanEditPenalty && !this.IsAdminToolsModule)" />
+          </td>
+          <td *ngIf="ShowConfimChekBox" style="width: 25%">
+            <!--هماهنگی با مهندس حسینی-->
+            <span style="margin: 0;margin-left: 10px" class="table-cell-Lable">تایید شده</span>
+            <div style="display: inline-block; width: 65%; text-align: right;">
+              <app-custom-check-box style="vertical-align: sub; " [configurationInfo]="CustomCheckBoxConfig"
+                [isSelected]="IsConfirm" (PrettyCheckBoxChange)="OnChangeCheckBoxValue($event)">
+              </app-custom-check-box>
+            </div>
+          </td>
+        </tr>
+      </table>
+      <div class="box-grid grid" [style.height.%]="GridBoxHeight">
+        <app-grid style="width: 100%" [IsEditable]="IsEditable" [columns]="columnDef1" [rowsData]="ContractPayItemList"
+          (GridReady)="onContractPayItemGridReady($event)" (CellValueChanged)="onCellValueChanged($event)"
+          (RowClick)="RowClick($event)" [gridHeight]="dgCPHeight" (cellEditingStarted)="oncellEditingStarted($event)"
+          (ImportFromExcelClick)="OnImportFromExcelBtnClick()" [IsNeedImportBtn]="true"
+          (RowDataChanged)="OnRowDataChanged()" (FilterChanged)="OnFilterChanged()"
+          (RowDataUpdated)="OnRowDataUpdated()">
+        </app-grid>
+      </div>
+      <div id="div1" class="box-dev left-dev" style="margin-top: 5px;color: red;overflow: auto;"
+        [style.height.%]="HaveAlertToFinance ? 6 : 8">
+        <div style="min-width: 100px;font-weight: bold; float: right; margin: 3px;">
+          <span id="sum-final-estimate-amount" class="table-cell-Lable">جمع کل مبلغ فعلی:</span>
+          <label for="sum-final-estimate-amount" style="margin:2px"> {{sumContractPayItemAmountStr}} </label>
+        </div>
+        <div style="min-width: 80px; font-weight: bold; float: right; margin: 3px;">
+          <span id="sum-final-estimate-amount" class="table-cell-Lable">جمع کل کسور:</span>
+          <label for="sum-final-estimate-amount" style="margin:2px"> {{SumDeductionAmount}} </label>
+        </div>
+        <div style="min-width: 80px; font-weight: bold; float: right; margin: 3px;">
+          <span id="sum-final-estimate-amount" class="table-cell-Lable">جمع کل مبلغ نهایی:</span>
+          <label for="sum-final-estimate-amount" style="margin:2px"> {{sumFinalAmountStr}} </label>
+        </div>
+        <div *ngIf="ShowPenaltyDiv" style="width: 40%;; font-weight: bold; float: left; margin: 3px;">
+          <!--مبلغ جریمه-->
+          <span id="sum-penalty-amount" class="table-cell-Lable">{{PenaltyTextLableStr}}</span>
+          <app-number-input-component *ngIf="PenaltyDuration && CanEditPenalty" [id]="'indicator-label-education'"
+            [Value]="DurationPenaltyDay" [IsFloat]="false" [MaxLength]="15" [FloatMaxLength]="0" [PerCentWidth]="22"
+            [PixelHeight]="25" class="col-form-label" [HaveThousand]="true" (ValueChange)="onDurationDayChange($event)">
+          </app-number-input-component>
+          <span id="sum-penalty-amount" *ngIf="PenaltyDuration && CanEditPenalty"
+            class="table-cell-Lable">{{PenaltyTextLable}}</span>
+          <app-number-input-component [id]="'indicator-label-education'" [Value]="SumPenaltyAmountStr" [IsFloat]="false"
+            [MaxLength]="15" [FloatMaxLength]="0" [PerCentWidth]="30" [PixelHeight]="25"
+            (ValueChange)="getSumPenaltyAmount($event)" class="col-form-label" [HaveThousand]="true"
+            [ReadOnly]="IsGreenSpace || ((!CanEditPenalty && !this.IsAdminToolsModule) || Coeforvalue)">
+          </app-number-input-component>
+        </div>
+      </div>
+      <div *ngIf="HaveAlertToFinance || HaveAlertToContractPayDate" id="div1" class="box-dev"
+        style="margin-top:40px;color: red;overflow: auto; text-align: right;"
+        [style.height.%]="HaveAlertToFinance && HaveAlertToContractPayDate ? 10 : 6">
+        <div *ngIf="HaveAlertToContractPayDate" style="min-width: 100px; margin: 3px;">
+          <span>لطفا بررسی نمایید تاریخ درخواست پرداخت با تاریخ فاکتور و نیز شماره صورت وضعیت با شماره فاکتور منطبق
+            باشد.</span>
+        </div>
+        <div *ngIf="HaveAlertToFinance" style="color: red;margin-top: 5px;">
+          <span>لطفا جهت تعهد اعتبار به سیستم جامع مالی مراجعه نمایید</span>
+        </div>
+      </div>
+    </div>
+    <div style="margin: 2px;">
+      <div class="buttons-place" [style.width.%]="63" style="float: right;margin: auto; overflow: auto;" >
+        <button *ngIf="(HaveSave && DisplayControlls) || EditableBankInf || HaveModuleViewTypeSave" (click)="onSave()"
+          id="btn2" class="btn btn-primary btnGreen">
+          <img width="15px" height="15px" src="assets/Icons/save.png" />
+          ثبت
+        </button>
+
+        <button *ngIf="ShowSaveBtn" (click)="UpdateContractPayItems()"
+        id="btn2" class="btn btn-primary btnGreen">
+        <img width="15px" height="15px" src="assets/Icons/save.png" />
+        ثبت
+      </button>
+
+
+        <button *ngIf="HaveDelete && DisplayControlls" id="btn3" class="btn btn-primary btnGreen">
+          <img width="15px" height="15px" src="assets/Icons/delete.png" />
+          حذف
+        </button>
+
+        <button (click)="BtnDeductionInsert()" id="btnClose" class="btn btn-primary btnGreen">
+          <img width="15px" height="15px" src="assets/Icons/add.png" />
+          درج کسورات
+        </button>
+
+        <button *ngIf="DisplayControlls" (click)="onContractPayCoef()" id="btn2" class="btn btn-primary btnGreen">
+          <img width="15px" height="15px" src="assets/Icons/TechnicalArchive.png" />
+          ضرایب پرداخت قرارداد
+        </button>
+
+        <!-- <button *ngIf="HaveLoadExcel && DisplayControlls" [disabled]="IsDisable || !IsEditable" >
+          <img width="15px" height="15px" src="assets/Icons/excel.png" />
+          خواندن از فایل
+        </button> -->
+
+        <button (click)="BtnArchiveClick()" id="btn1" class="btn btn-primary btnGreen">
+          <img width="15px" height="15px" src="assets/Icons/TechnicalArchive.png" />
+          {{ArchiveBtnText}}
+        </button>
+        <button *ngIf="!ISIRVersion" (click)="ShowContractCase()" class="btn btn-primary btnGreen">
+          <img width="15px" height="15px" src="assets/Icons/show.png" />
+          مشاهده پرونده قرارداد
+        </button>
+        <button id="btnClose" class="btn btn-primary btnGreen" (click)="ShowUnderTakeItemClick()">
+          <img width="15px" height="15px" src="assets/Icons/ok.png" />
+          مشاهده تعهد اعتبار
+        </button>
+        <button id="btnPrint" class="btn btn-primary btnGreen" (click)="OnPrinContractPayClick()">
+          <img width="15px" height="15px" src="assets/Icons/print.png" />
+          چاپ
+        </button>
+        <button (click)="close()" id="btn4" class="btn btn-primary btnGreen">
+          <img width="15px" height="15px" src="assets/Icons/exit.png" />
+          خروج
+        </button>
+      </div>
+      <div *ngIf="ShowWorkflowButtons" class="buttons-place" style="float: left;margin: auto;" [style.width.%]="36">
+        <!--RFC 52262-->
+        <button *ngIf="ShowWfButton" [disabled]="IsDisableWorkflow" (click)="onConfirms()" id="btn2"
+          class="btn btn-primary btnGreen">
+          <img width="15px" height="15px" src="assets/Icons/{{btnConfirmIcon}}.png" />
+          {{btnConfirmName}} </button>
+        <button *ngIf="ShowWfButton" [disabled]="IsDisableWorkflow || IsEndFlow " (click)="onConfirmAndSend()" id="btn2"
+          class="btn btn-primary btnGreen">
+          <img width="15px" height="15px" src="assets/Icons/Approve.png" />
+          تاييد و ارسال </button>
+        <button *ngIf="ShowWfButton" [disabled]="IsDisableWorkflow" (click)="onUnConfirmAndReturn()" id="btn2"
+          class="btn btn-primary btnGreen">
+          <img width="15px" height="15px" src="assets/Icons/DisApprove.png" />
+          {{btnConfirmAndReturnName}} </button>
+        <button (click)="OnClickPrintFlow()" [disabled]="IsDisableWorkflow" class="btn btn-primary btnGreen">
+          <img width="15px" height="15px" src="assets/Icons/print.png" />
+          گردش
+        </button>
+        <!--به درخواست خ احمدی گردش به تاریخچه تغییر کرد-->
+      </div>
+    </div>
+  </div>
+</div>
+<app-over-popup *ngIf="btnclicked" [PopupType]="type" [startLeftPosition]="startLeftPosition" [HaveMaxBtn]="HaveMaxBtn"
+  [startTopPosition]="startTopPosition" [PopupParam]="ParamObj" (popupclosed)="popupclosed($event)"
+  (PopupOutPutParam)="type ==='message-box' ? MessageBoxAction($event) : getOutPutParam($event)"
+  [HeightPercentWithMaxBtn]="HeightPercentWithMaxBtn">
+</app-over-popup>

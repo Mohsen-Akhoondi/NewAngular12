@@ -1,0 +1,81 @@
+<div id="container" class="row" style="clear: both">
+  <div id="content" style="height: 100%;width: 100%;">
+    <div class="main-form-body" style="margin: 5px;" [style.height.%]="mainBodyHeight">
+      <form>
+        <fieldset class="feild-set" style="display: inherit; text-align: left;">
+          <legend style="width: 7%; font-size: 10px;">جستجو</legend>
+          <table style="margin-bottom: 10px;width: 100% ">
+            <tr style="height: 50px;">
+              <td style="width: 50%">
+                <app-radio-box-component [Mode]="'Dual'" [Params]="ContractorTypeRadioParam" [Display]="'inline'"
+                  [Bordered]="false" [BoxWidth]="80" [DefaultSelected]='false' [Title]="'نوع'" [QuestionStyle]="false"
+                  [TableAlign]="true" (SelectedOption)="rdoContractorTypeClick($event)">
+                </app-radio-box-component>
+              </td>
+              <td style="width: 50%">
+                <span class="table-cell-Lable">نام شخص</span>
+                <app-ng-select-virtual-scroll *ngIf="!TypeContractor" style="display: inline-block;width: 75%;"
+                  class="select-general-for-lable" [NgSelectParams]="NgSelectPersonParams" [Items]="PersonItems"
+                  (FetchMore)="Person_FetchMore($event)" (Open)="PersonOpened()" (doSearch)="Person_DoSearch($event)">
+                </app-ng-select-virtual-scroll>
+                <app-ng-select-virtual-scroll *ngIf="TypeContractor" style="display: inline-block;width: 75%;"
+                  [NgSelectParams]="NgSelectCorporateParams" [Items]="CorporateItems"
+                  (FetchMore)="Corporate_FetchMore($event)" (Open)="CorporateOpened()"
+                  (doSearch)="Corporate_DoSearch($event)">
+                </app-ng-select-virtual-scroll>
+              </td>
+            </tr>
+            <tr>
+              <td style="width: 50%;">
+                <app-radio-box-component [Mode]="'Dual'" [Params]="UserDomain" [Display]="'inline'" [Bordered]="false"
+                  [BoxWidth]="80" [DefaultSelected]="External" [Title]="'دامنه'" [Mode]="'Dual'" [QuestionStyle]="false"
+                  [TableAlign]="true" (SelectedOption)="onRadioClick($event)">
+                </app-radio-box-component>
+              </td>
+              <td style="width: 50%">
+                <span class="table-cell-Lable">نام کاربری</span>
+                <input style="display: inline-block;width: 75%;" name="LoginName" [(ngModel)]="LoginName"
+                  class="form-control input-style" type="text" />
+              </td>
+            </tr>
+          </table>
+          <table style="text-align: center; width: 100%;">
+            <tr>
+              <td style="width: 100%; text-align: center; padding-right: 40%;">
+                <!-- <button (click)="onSearch()" class="btn btn-primary btnGreen btn-gray-border">
+                  <img width="15px" height="15px" src="assets/Icons/search-blue-icon.png" />
+                  جستجو
+                </button> -->
+                <button type="submit" (click)="onSearch()" style="width: 80px;height: 30px;"
+                  class="select-general-for-lable btn-gray-border btn btn-primary btnGreen">
+                  <img width="15px" height="15px" src="assets/Icons/search-blue-icon.png" />
+                  جستجو
+                </button>
+              </td>
+            </tr>
+          </table>
+        </fieldset>
+      </form>
+      <div class="buttons-place" style="margin: unset;">
+        <button (click)="onSelect()" [disabled]="!UserID" id="btnSelect" class="btn btn-primary btnGreen">
+          <img width="15px" height="15px" src="assets/Icons/ok.png" />
+          تأیید
+        </button>
+        <button (click)="onChangeMenu()" [disabled]="!UserID" id="btnSelect" class="btn btn-primary btnGreen">
+          <img width="15px" height="15px" src="assets/Icons/ok.png" />
+          تغییر منوی کاربر
+        </button>
+        <button (click)="onClose()" id="btn4" class="btn btn-primary btnGreen">
+          <img width="15px" height="15px" src="assets/Icons/exit.png" />
+          خروج
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-over-popup *ngIf="btnclicked" [PopupType]="type" [PopupParam]="alertMessageParams"
+  (popupclosed)="popupclosed($event)" [HaveMaxBtn]="HaveMaxBtn" [HeightPercentWithMaxBtn]="HeightPercentWithMaxBtn"
+  (PopupOutPutParam)="type === 'message-box' ? getOutPutParam($event) : ''" [startLeftPosition]="startLeftPosition"
+  [startTopPosition]="startTopPosition">
+</app-over-popup>

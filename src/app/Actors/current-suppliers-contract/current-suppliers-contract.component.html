@@ -1,0 +1,19 @@
+<div class="main-form-body" style="margin-top: 5px;height: 85%;">
+  <div id="container" style="clear: both;padding-bottom: 5px;height:100%">
+    <div class="box-dev" style=" width: 100%;height:100%">
+      <app-grid [columns]="columnDef" [IsEditable]="false" [HaveBorder]="true" (GridReady)="onGridReady($event)"
+        [rowsData]="rowData" [gridHeight]=95>
+      </app-grid>
+    </div>
+  </div>
+</div>
+<div class="buttons-place" style="margin: unset; height: 8%;">
+  <button (click)="close()" id="btn4" class="btn btn-primary btnGreen">
+    <img width="15px" height="15px" src="assets/Icons/exit.png" />
+    خروج
+  </button>
+</div>
+
+<app-over-popup *ngIf="isClicked" [startLeftPosition]="startLeftPosition" [startTopPosition]="startTopPosition"
+  [PopupType]="PopUpType" [PopupParam]="alertMessageParams" (popupclosed)="popupclosed($event)">
+</app-over-popup>

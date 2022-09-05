@@ -1,0 +1,148 @@
+<div id="container" style="clear: both;padding: 5px">
+  <div id="price-list-sidebar" malihu-scrollbar [scrollbarOptions]="scrollbarOptions"
+    style="width: 475px !important;min-width: 475px !important;">
+    <div style="margin: 5px;">
+      <table width="100%">
+        <tr>
+          <td width="25%"><span class="table-cell-Lable">فهرست بها</span></td>
+          <td width="55%">
+            <app-ng-select-virtual-scroll style="display: inline-block;width:100%;" [NgSelectParams]="NgSelectParams"
+              [Items]="PriceListTopicItems" (selectedChange)="onChangePriceListTopic($event)">
+            </app-ng-select-virtual-scroll>
+          </td>
+          <td width="9%">
+            ستاره دار
+          </td>
+          <td width="6%">
+            <app-custom-check-box style="vertical-align: sub;" [configurationInfo]="CustomCheckBoxConfig"
+              [isSelected]="IsStar" (PrettyCheckBoxChange)="OnCheckBoxChange($event)">
+            </app-custom-check-box>
+          </td>
+          <td width="5%">
+          </td>
+        </tr>
+      </table>
+      <table width="100%">
+        <tr>
+          <td width="25%"><span class="table-cell-Lable">جستجو فهرست بها کد/نام </span></td>
+          <td width="70%">
+            <input class="form-control input-style" type="text" name="PricelistTopicSearch"
+              [(ngModel)]="PricelistTopicSearch" />
+          </td>
+          <td width="5%">
+            <img height="15px" src="assets/Icons/blue-search-icon_2.png" (click)="OnSearchPriceListCodeClick()"
+              title="جستجوی کد فهرست بها" style="cursor: pointer;margin: 5px 3px 0 0px;" />
+          </td>
+        </tr>
+      </table>
+    </div>
+    <!-- <div id="tree" style="min-width: -moz-max-content;" [style.height.%]="treeHeight">
+      <app-tree (selectedchange)="tree_selectedchange($event)" [PriceListTopicID]="NgSelectParams.selectedObject"
+        [DefPriceListPatternID]="ContactPriceListPatternID"></app-tree>
+    </div> -->
+
+    <app-customized-tree [TreeHeight]="treeHeight" [SecondID]="ContactPriceListPatternID" [InputParam]="TreeInputParam"
+      [FirstID]="NgSelectParams.selectedObject" (selectedchange)="tree_selectedchange($event)">
+    </app-customized-tree>
+
+    <div id="buttons-right">
+      <button *ngIf="ModuleCode != 2681 || NeedSelected " (click)="Btnclick('archive-details')" id="btn1"
+        class="btn btn-primary btnGreen">
+        <img width="15px" height="15px" src="assets/Icons/TechnicalArchive.png" />
+        {{ArchiveBtnText}}
+      </button>
+      <button *ngIf="ModuleCode === 2681" id="btn5" class="btn btn-primary btnGreen"
+        (click)="OnCreateChildPriceListTopic()" [disabled]="NewChildDisable">
+        <img width="15px" height="15px" src="assets/Icons/ok.png" />
+        ایجاد فرزند
+      </button>
+      <button *ngIf="ModuleCode === 2681" id="btn5" class="btn btn-primary btnGreen"
+        (click)="OnDeleteChildPriceListTopic()">
+        <img width="15px" height="15px" src="assets/Icons/delete.png" />
+        حذف فرزند
+      </button>
+    </div>
+  </div>
+  <div id="content">
+    <div class="main-content" [style.height.%]="MainContentHeight">
+      <div id="data-grid" class="data-grid">
+        <app-grid [columns]="gridcolumns" [rowsData]="gridrows" [isPagination]="false" [gridHeight]="95"
+          (GridReady)="onGridReady($event)" (RowDoubleClick)="onRowDoubleClicked($event)" (RowClick)="RowClick($event)">
+        </app-grid>
+      </div>
+      <div class="buttons-place">
+        <button (click)="Btnclick('PriceListAnalayze')" class="btn btn-primary btnGreen">
+          <img width="15px" height="15px" src="assets/Icons/analyze_s.png" />
+          آنالیز فهرست بها
+        </button>
+
+        <button id="btn3" (click)="Btnclick('Related')" class="btn btn-primary btnGreen">
+          <img width="15px" height="15px" src="assets/Icons/relation_s.png" />
+          ردیف های مرتبط
+        </button>
+
+        <button id="btn4" class="btn btn-primary btnGreen">
+          <img width="15px" height="15px" src="assets/Icons/index_s.png" />
+          فصل تعدیل
+        </button>
+
+        <button id="btnPrint" (click)="onPrint()" class="btn btn-primary btnGreen">
+          <img width="15px" height="15px" src="assets/Icons/print.png" />
+          چاپ لیست
+        </button>
+
+        <button id="btnPrint" (click)="Btnclick('RelatedGoods')" class="btn btn-primary btnGreen">
+          <img width="15px" height="15px" src="assets/Icons/relation_s.png" />
+          کالاهای مرتبط
+        </button>
+
+        <button *ngIf="NeedSelected" id="btn5" class="btn btn-primary btnGreen" (click)="OnSelectedRow()">
+          <img width="15px" height="15px" src="assets/Icons/ok.png" />
+          تایید
+        </button>
+        <button *ngIf="ModuleCode === 2682" [disabled]="IsDisable" id="btn5" class="btn btn-primary btnGreen"
+          (click)="OnCreatePriceListTopic()">
+          <img width="15px" height="15px" src="assets/Icons/ok.png" />
+          ایجاد ردیف
+        </button>
+        <button *ngIf="ModuleCode === 2682" id="btn5" class="btn btn-primary btnGreen"
+          (click)="OnUpdatePriceListTopic()">
+          <img width="15px" height="15px" src="assets/Icons/update.png" />
+          اصلاح ردیف
+        </button>
+
+        <button *ngIf="ModuleCode === 2682" id="btn5" class="btn btn-primary btnGreen"
+          (click)="OnDeletePriceListTopic()">
+          <img width="15px" height="15px" src="assets/Icons/delete.png" />
+          حذف ردیف
+        </button>
+        <!-- <app-ng-select-virtual-scroll (doSearch) = "doNgSelectSearch($event)" style="display: inline-block;" (FetchMore) = "FetchMorePerson($event)" [Items] = "NgSelectItems" [NgSelectParams]="NgSelectVSParams">
+          </app-ng-select-virtual-scroll> -->
+        <!--  <button *ngIf="ModuleCode === 2681" id="btn5" class="btn btn-primary btnGreen" (click)="OnCreateChildPriceListTopic()">
+              <img
+                width="15px"
+                height="15px"
+                src="assets/Icons/ok.png"
+              />
+              ایجاد فرزند
+            </button>
+            <button *ngIf="ModuleCode === 2681" id="btn5" class="btn btn-primary btnGreen" (click)="OnDeleteChildPriceListTopic()">
+              <img
+                width="15px"
+                height="15px"
+                src="assets/Icons/delete.png"
+              />
+              حذف فرزند
+            </button>-->
+      </div>
+    </div>
+  </div>
+</div>
+<app-over-popup *ngIf="btnclicked" [PopupType]="type" [HaveMaxBtn]="type === 'PriceListAnalayze' && ModuleCode === 2501"
+  [startLeftPosition]="OverstartLeftPosition" [startTopPosition]="OverstartTopPosition"
+  [PixelHeight]="type === 'child-price-list-topic-page'? 550 :'' "
+  [PixelWidth]="type === 'child-price-list-topic-page'? 1100 :'' "
+  [PopupParam]="type === 'message-box' ? alertMessageParams : paramObj" [HaveHeader]="HaveHeader"
+  (PopupOutPutParam)="type === 'price-list-topic-dataentry-page' ? IsChangedPrcieListTopic($event) : ''"
+  (popupclosed)="popupclosed($event)">
+</app-over-popup>

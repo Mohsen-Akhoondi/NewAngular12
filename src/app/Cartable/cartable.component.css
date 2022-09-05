@@ -1,0 +1,17 @@
+.main{
+    padding-top: 5px;
+    padding-right: 5px;
+    padding-left: 5px;
+    height: 100%;
+}
+.devBox{
+    border-radius: 5px;
+    border: 1px solid rgb(214, 214, 214);
+    margin-bottom: 5px;
+    text-align:right;
+}
+.table-cell-Lable {
+    margin-left: 10px;
+    margin-right: 10px;
+    font-size: 10px;
+  }

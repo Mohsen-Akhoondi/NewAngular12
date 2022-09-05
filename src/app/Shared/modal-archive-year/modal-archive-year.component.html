@@ -1,0 +1,48 @@
+<div id="container" class="row" style="clear: both">
+  <div id="myContent" class="data-grid">
+    <div class="main-form-body" style="height: 7%">
+      <div class="select-with-lable" style="margin-bottom:5px; width: 30%;">
+        <label for="modal-archive-year-select" class="ol-form-label">سال فهرست بها</label>
+        <app-ng-select-virtual-scroll style="display: inline-block;width: 70%;"
+          class="select-general-for-lable" [NgSelectParams]="PriceListTopicParams" [Items]="rowDataYears"
+          (selectedChange)="onChange($event)">
+        </app-ng-select-virtual-scroll>
+      </div>
+    </div>
+
+    <div class="main-form-body" style="height: 80%;">
+      <app-grid [columns]="columnDefs" [rowsData]="rowData" [gridHeight]="93" (RowDoubleClick)="onDoubleDisplay($event)"
+        (RowClick)="onRowClicked($event)" [defaultCol]="defaultColDef" (GridReady)="onGridReady($event)">
+      </app-grid>
+    </div>
+    <div class="buttons-place" style="margin: 0">
+      <!-- <button (click)="onDocArchiveClick()" id="btn2" class="btn btn-primary btnGreen">
+        <img width="15px" height="15px" src="assets/Icons/add.png" />
+        ایجاد
+      </button>
+      <button *ngIf="true" (click)="onSave()" id="btn2" class="btn btn-primary btnGreen" style="margin: 2px">
+        <img width="15px" height="15px" src="assets/Icons/save.png" />
+        ثبت
+      </button> -->
+      <button id="btnDisplay" class="btn btn-primary btnGreen" (click)="onDisplay($event)">
+        <img width="15px" height="15px" src="assets/Icons/show.png" />
+        مشاهده
+      </button>
+      <button (click)="close()" id="btn4" class="btn btn-primary btnGreen">
+        <img width="15px" height="15px" src="assets/Icons/exit.png" />
+        خروج
+      </button>
+    </div>
+  </div>
+</div>
+<ng-template #fileExtCell let-row>
+  <img width="24px" height="24px" src={{row.Image_Url}} />
+</ng-template>
+<app-over-popup *ngIf="isClicked" [PopupType]="PopUpType" [HaveMaxBtn]="false" [startLeftPosition]="startLeftPosition"
+  [startTopPosition]="startTopPosition" [PopupParam]="PopUpType === 'message-box' ? alertMessageParams : PopupParam"
+  [HaveHeader]="HaveHeader" (popupclosed)="popupclosed($event)"
+  [PixelWidth]="PopUpType === 'message-box'? '' : OverPixelWidth"
+  [PixelHeight]="PopUpType === 'person2' ? PixelHeight : ''"
+  (ModalArchiveClosed)="type ==='message-box' ? '' : PopupOutPutAction($event)"
+  (PopupOutPutParam)="onPopupOutPutParam($event)">
+</app-over-popup>

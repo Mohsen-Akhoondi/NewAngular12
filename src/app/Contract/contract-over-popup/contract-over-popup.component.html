@@ -1,0 +1,61 @@
+<div style="width: 100%; height: 100%; position: fixed; z-index: 10000000">
+  <div
+    class="overal-modal"
+    id="modal-{{ PopupType }}"
+    [ngStyle]="{ 'z-index': zIndex ? zIndex : '' }"
+    [style.left.px]="startLeftPosition"
+    [style.top.px]="startTopPosition"
+    [style.height.%]="
+      HaveMaxBtn && HeightPercentWithMaxBtn
+        ? HeightPercentWithMaxBtn
+        : HaveMaxBtn
+        ? '85'
+        : ''
+    "
+    [style.height.px]="PixelHeight ? PixelHeight : ''"
+    [style.min-height.px]="minHeightPixel ? minHeightPixel : ''"
+    [style.width.px]="PixelWidth ? PixelWidth : ''"
+    [style.width.%]="PercentWidth ? PercentWidth : ''"
+    [style.min-width.px]="minWidthPixel ? minWidthPixel : ''"
+    style="border: solid steelblue"
+  >
+    <div
+      [style.min-width.px]="MainMinwidthPixel ? MainMinwidthPixel : ''"
+      [style.max-width.px]="MainMaxwidthPixel ? MainMaxwidthPixel : '1140'"
+      class="over-popup-modal-container"
+      style="background: white"
+      [style.height.%]="HaveMaxBtn ? 100 : ''"
+    >
+      <div class="row">
+        <div id="header">
+          <span *ngIf="HaveHeader">{{ HeaderName }}</span>
+          <div>
+            <button
+              *ngIf="HaveExitBtn"
+              style="outline: none"
+              (click)="closeModal()"
+              id="btnClose"
+              class="btnControlBox fa fa-close"
+            ></button>
+          </div>
+          <div>
+            <button
+              style="outline: none"
+              (click)="MaximizeModal()"
+              *ngIf="HaveMaxBtn"
+              id="btnMax-{{ PopupType }}"
+              class="btnControlBox fa fa-expand"
+            ></button>
+          </div>
+        </div>
+      </div>
+      <app-message-box
+        *ngIf="PopupType == 'message-box'"
+        [InputMessageBox]="PopupParam"
+        (messageBoxClosed)="closeModal($event)"
+        (messageBoxResult)="getOutPutParam($event)"
+      >
+      </app-message-box>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,225 @@
+<div class="modal" id="modal-name" style="min-height: 655px;">
+  <div class="modal-container" style="background: white;" [style.width.%]="MainwidthPC" [style.max-width.px]="widthPX"
+    [style.height.%]="heightPC" [style.min-width.px]="minwidthPX" [style.max-height.px]="maxheightPX"
+    [style.min-height.px]="minheightPX" [style.top.px]="TopPX">
+
+    <div class="row">
+      <div id="header">
+        <span>{{ModuleName}}</span>
+        <div>
+          <button style="outline: none" (click)="closeModal()" id="btnClose" class="btnControlBox fa fa-close"></button>
+        </div>
+        <div>
+          <button (click)="ModalMaximized()" *ngIf="(ModuleCode != 2660 && ModuleCode != 1109 && 
+                          ModuleCode != 2676 && ModuleCode !=2677 && 
+                          ModuleCode != 2691 && ModuleCode !=2692 && 
+                          ModuleCode != 2695 && ModuleCode !=2696 && 
+                          ModuleCode != 2697 && ModuleCode !=2698 &&
+                          ModuleCode != 2707 && ModuleCode !=2711 &&
+                          ModuleCode != 1204 && ModuleCode !=1206 &&
+                          ModuleCode != 2807 && ModuleCode !=2854 &&
+                          ModuleCode != 2808 && ModuleCode !=2809 && 
+                          ModuleCode != 2810 && ModuleCode !=2850 && 
+                          ModuleCode != 2774 && ModuleCode !=2811 &&
+                          ModuleCode != 3025 && ModuleCode !=2899 &&
+                          ModuleCode != 2922 && ModuleCode !=2943 && 
+                          ModuleCode != 2950 && ModuleCode != 2979 &&
+                          ModuleCode != 2950 && ModuleCode != 3001 &&
+                          ModuleCode != 2950 && ModuleCode != 3007 &&
+                          ModuleCode != 2987 && ModuleCode != 3009 &&
+                          ModuleCode != 3003 && ModuleCode != 3004 )" style="outline: none" id="btnMax"
+            class=" btnControlBox fa fa-expand"></button>
+        </div>
+      </div>
+    </div>
+
+
+    <app-price-list *ngIf="ModuleCode == 2627  || ModuleCode == 2682 || ModuleCode == 2681" [ModuleCode]="ModuleCode">
+    </app-price-list>
+    <app-analayze-price *ngIf="ModuleCode == 2650"></app-analayze-price>
+    <app-modal-appr-price-index *ngIf="ModuleCode == 2649"></app-modal-appr-price-index>
+    <app-contract-coef-type *ngIf="ModuleCode == 2677"></app-contract-coef-type>
+    <app-workflow-action *ngIf="ModuleCode == 3001"></app-workflow-action>
+    <app-cost-center-page-rep *ngIf="ModuleCode == 3007"></app-cost-center-page-rep>
+    <app-workflow-status *ngIf="ModuleCode == 3000"></app-workflow-status>
+    <app-workflow-object *ngIf="ModuleCode == 3002"></app-workflow-object>
+    <app-rank-parameter *ngIf="ModuleCode == 2935"></app-rank-parameter>
+    <app-workflow-type-form *ngIf="ModuleCode == 2676"></app-workflow-type-form>
+    <app-sacle *ngIf="ModuleCode == 1271"></app-sacle>
+    <app-workflow-transition-page *ngIf="ModuleCode == 2699|| ModuleCode == 3088 "></app-workflow-transition-page>
+    <app-workflow-status-page *ngIf="ModuleCode == 2695"></app-workflow-status-page>
+    <app-workflow-node-page *ngIf="ModuleCode == 2696"></app-workflow-node-page>
+    <app-workflow-operation-page *ngIf="ModuleCode == 2697"></app-workflow-operation-page>
+    <app-road-type *ngIf="ModuleCode == 2698"></app-road-type>
+    <app-contract-agent *ngIf="ModuleCode == 2691"></app-contract-agent>
+    <app-contract-agent-role *ngIf="ModuleCode == 2692"></app-contract-agent-role>
+    <app-contract-list-page *ngIf="(ModuleCode == 2501 || ModuleCode == 2876 || ModuleCode == 2516 ||
+            ModuleCode == 3008 || ModuleCode == 2654 || ModuleCode == 3096 ||
+            ModuleCode == 2645 || ModuleCode == 3071 || ModuleCode == 2805 ||
+            ModuleCode == 2646 || ModuleCode == 2769 || ModuleCode == 2687 ||
+            ModuleCode == 2647 || ModuleCode == 2921 || ModuleCode == 2648
+            ) && IsShow" [ModuleName]="ModuleName" [ModuleCode]="ModuleCode" [InputParam]="poutputParam">
+    </app-contract-list-page>
+    <app-user-role *ngIf="ModuleCode == 1109"></app-user-role>
+    <app-customized-menu *ngIf="ModuleCode == 2660" [ModuleName]="ModuleName" [ModuleCode]="ModuleCode">
+    </app-customized-menu>
+    <app-price-list-topic *ngIf="ModuleCode == 2628"></app-price-list-topic>
+    <app-transfer-distance-item *ngIf="ModuleCode == 2704"></app-transfer-distance-item>
+    <app-workglow-type-module *ngIf="ModuleCode == 2700" [ModuleName]="ModuleName" [ModuleCode]="ModuleCode">
+    </app-workglow-type-module>
+    <app-consult-person *ngIf="ModuleCode == 2711 "></app-consult-person>
+    <app-month-work-hour *ngIf="ModuleCode == 2707"></app-month-work-hour>
+    <app-user-work-log-Contract-Order *ngIf="ModuleCode == 2727 || ModuleCode == 2705">
+    </app-user-work-log-Contract-Order>
+    <app-user-work-log-Product-Request
+      *ngIf="ModuleCode == 2756 || ModuleCode == 2793  || ModuleCode == 2824 || ModuleCode == 2838 || ModuleCode == 2896 || ModuleCode == 2980 || ModuleCode == 2996 || ModuleCode == 3033">
+    </app-user-work-log-Product-Request>
+    <app-user-work-log-Contract-Pay *ngIf="ModuleCode == 2755 || ModuleCode == 2875"></app-user-work-log-Contract-Pay>
+    <app-document-type-master-mandatory (DocumentTypeComponentClosed)="closeModal()" *ngIf="ModuleCode == 2764">
+    </app-document-type-master-mandatory>
+    <app-document-type-master (DocumentTypeComponentClosed)="closeModal()" *ngIf="ModuleCode == 2763">
+    </app-document-type-master>
+    <app-corporate-personnel-type (Closed)="closeModal()" *ngIf="ModuleCode == 2856"></app-corporate-personnel-type>
+    <app-invest-type (InvestTypeComponentClosed)="closeModal()" *ngIf="ModuleCode == 2775"> </app-invest-type>
+    <app-consultant-select-type (ConsultantSelectTypeComponentClosed)="closeModal()" *ngIf="ModuleCode == 2866">
+    </app-consultant-select-type>
+    <app-deal-method *ngIf="ModuleCode == 2734"></app-deal-method>
+    <app-contract-type *ngIf="ModuleCode == 1560"> </app-contract-type>
+    <app-product-request-coef-type *ngIf="ModuleCode == 2733"></app-product-request-coef-type>
+    <app-product-request-list *ngIf="ModuleCode == 2730 || ModuleCode == 2773 
+                                     || ModuleCode == 2862 || ModuleCode == 2895
+                                     || ModuleCode == 2910 || ModuleCode == 2939 
+                                     || ModuleCode == 2951 || ModuleCode == 3090 
+                                     || ModuleCode == 3095 || ModuleCode == 3094">
+    </app-product-request-list>
+    <app-contract-without-flow-list
+      *ngIf="ModuleCode == 2739 || ModuleCode == 2776 || ModuleCode == 2840 || ModuleCode == 2901  || ModuleCode == 2934 || ModuleCode == 3034 || ModuleCode == 3037">
+    </app-contract-without-flow-list>
+    <app-order-page [PopupMaximized]="IsMaximized" *ngIf="ModuleCode == 2741"></app-order-page>
+    <app-advertising-list *ngIf="ModuleCode == 2760"></app-advertising-list>
+    <app-person *ngIf="ModuleCode == 1204"></app-person>
+    <app-person2 *ngIf="ModuleCode == 2784" (Closed)="closeModal()"></app-person2>
+    <app-corporate *ngIf="ModuleCode == 1206"></app-corporate>
+    <app-corporate2 (Corporate2Closed)="closeModal()" *ngIf="ModuleCode == 2785"></app-corporate2>
+    <app-users *ngIf="ModuleCode == 2674"></app-users>
+    <app-product-request-article-48-page *ngIf="ModuleCode == 2787" [ModuleCode]="ModuleCode">
+    </app-product-request-article-48-page>
+    <app-invest-usage-type *ngIf="ModuleCode == 2774"></app-invest-usage-type>
+    <app-field *ngIf="ModuleCode == 2807"></app-field>
+    <app-grade *ngIf="ModuleCode == 2808"></app-grade>
+    <app-univercity *ngIf="ModuleCode == 2809"></app-univercity>
+    <app-share-type *ngIf="ModuleCode == 2810"></app-share-type>
+    <app-price-list-business-pattern *ngIf="ModuleCode == 2811"></app-price-list-business-pattern>
+    <app-commition-type *ngIf="ModuleCode == 2822" (CommitionTypeComponentClosed)="closeModal()"></app-commition-type>
+    <app-commition-member *ngIf="ModuleCode == 2823" (CommitionMemberComponentClosed)="closeModal()">
+    </app-commition-member>
+    <app-deal-type-method *ngIf="ModuleCode == 2816"></app-deal-type-method>
+    <app-product-request-wf-detail *ngIf="ModuleCode == 2835"></app-product-request-wf-detail>
+    <app-urban-services-activities-log *ngIf="ModuleCode == 2844"></app-urban-services-activities-log>
+    <!-- Jostojoo-MoavenatKhadamatShahri -->
+    <app-correction-contract-estimate *ngIf="ModuleCode == 2842" (UserWorkLogContractOrderClosed)="closeModal()">
+    </app-correction-contract-estimate>
+    <app-article31-page *ngIf="ModuleCode == 2850"></app-article31-page>
+    <app-filter-document-type *ngIf="ModuleCode == 2854"></app-filter-document-type>
+    <app-contract-person-rep *ngIf="ModuleCode == 2855"></app-contract-person-rep>
+    <app-remove-contract-from-clarification *ngIf="ModuleCode == 2861"></app-remove-contract-from-clarification>
+    <app-corporate-capacity-list *ngIf="ModuleCode == 2863"></app-corporate-capacity-list>
+    <app-contract-period-report *ngIf="ModuleCode == 2864"></app-contract-period-report>
+    <!-- this.widthPX = 510;this.heightPC = 70; -->
+    <app-daily-book (DailyBookClosed)="closeModal()" *ngIf="ModuleCode == 0000"></app-daily-book>
+    <!-- this.widthPX = 510;this.heightPC = 75; -->
+    <app-ledger-acc-book (LedgerAccBookClosed)="closeModal()" *ngIf="ModuleCode == 0000"></app-ledger-acc-book>
+    <!-- this.widthPX = 510;this.heightPC = 75; -->
+    <app-sub-ledger-acc-book (SubLedgerAccBookClosed)="closeModal()" *ngIf="ModuleCode == 0000">
+    </app-sub-ledger-acc-book>
+    <!-- this.widthPX = 800;this.heightPC = 95; -->
+    <app-detail-acc-book *ngIf="ModuleCode == 0000"></app-detail-acc-book>
+    <app-account-turnover (Closed)="closeModal()" *ngIf="ModuleCode == 0000"></app-account-turnover>
+    <app-provider-asset-type *ngIf="ModuleCode == 2870"></app-provider-asset-type>
+    <app-contracting-card-search *ngIf="ModuleCode == 2872"></app-contracting-card-search>
+    <app-request-item-entity-page *ngIf="ModuleCode == 2883"></app-request-item-entity-page>
+    <app-entity-type *ngIf="ModuleCode == 2912"></app-entity-type>
+    <app-providers-search-page *ngIf="ModuleCode == 2885 || ModuleCode == 2893  || ModuleCode == 3092">
+    </app-providers-search-page>
+    <app-management-type-page *ngIf="ModuleCode == 2894"></app-management-type-page>
+    <app-responsibility-type-page *ngIf="ModuleCode == 2899"></app-responsibility-type-page>
+    <app-product-entity-page *ngIf="ModuleCode == 2898" (Closed)="closeModal()"></app-product-entity-page>
+    <app-end-of-contract *ngIf="ModuleCode == 3003 || ModuleCode == 3004 || ModuleCode == 3025"
+      (Output)="MessageBoxAction($event)"></app-end-of-contract>
+    <app-civil-project-page *ngIf="ModuleCode == 2907"></app-civil-project-page>
+    <app-control-project-bgt-info-page *ngIf="ModuleCode == 2908"></app-control-project-bgt-info-page>
+    <app-estate-property-type-page *ngIf="ModuleCode == 2904"></app-estate-property-type-page>
+    <app-evaluate-type-page *ngIf="ModuleCode == 2903"></app-evaluate-type-page>
+    <app-evaluate-method-page *ngIf="ModuleCode == 2902"></app-evaluate-method-page>
+    <app-asset-income-list *ngIf="ModuleCode == 2913"></app-asset-income-list>
+    <app-modal-archive-year *ngIf="ModuleCode == 2651"></app-modal-archive-year>
+    <app-archive-year-document *ngIf="ModuleCode == 2918"></app-archive-year-document>
+    <app-variable-type *ngIf="ModuleCode == 2924"></app-variable-type>
+    <app-commition-proceed-variable *ngIf="ModuleCode == 2925"></app-commition-proceed-variable>
+    <app-comprehensive-status-report *ngIf="ModuleCode == 2922" (Closed)="closeModal()">
+    </app-comprehensive-status-report>
+    <app-contract-pay-work-report *ngIf="ModuleCode == 2926" (Closed)="closeModal()">
+    </app-contract-pay-work-report>
+    <app-rank-calc (Closed)="closeModal()" *ngIf="ModuleCode == 2938 || ModuleCode == 2945 || ModuleCode == 2946">
+    </app-rank-calc>
+    <app-send-to-clarification-rep *ngIf="ModuleCode == 2936" (Closed)="close()"></app-send-to-clarification-rep>
+    <app-invoice-list *ngIf="ModuleCode == 2942"></app-invoice-list>
+    <app-pdfviewer [PDFParam]="poutputParam" *ngIf="ModuleCode == 2943" (Closed)="closeModal()"></app-pdfviewer>
+    <app-user-work-log-invoice *ngIf="ModuleCode == 2948 || ModuleCode == 2949"
+      (UserWorkLogContractOrderClosed)="closeModal()"> </app-user-work-log-invoice>
+    <app-contractor-send-sms *ngIf="ModuleCode == 2950" (Closed)="closeModal()"> </app-contractor-send-sms>
+    <app-data-dictionary-page *ngIf="ModuleCode == 2962"></app-data-dictionary-page>
+    <app-complete-contract-list-report *ngIf="ModuleCode == 2964 || ModuleCode == 2965">
+    </app-complete-contract-list-report>
+    <app-report-average-workflow-objects *ngIf="ModuleCode == 2967" (Closed)="closeModal()">
+    </app-report-average-workflow-objects>
+    <app-user-work-log-invoice *ngIf="ModuleCode == 2972" (UserWorkLogContractOrderClosed)="closeModal()">
+    </app-user-work-log-invoice>
+    <app-contract-status-summary-rep-page (ContStatusSummRepClosed)="closeModal()" *ngIf="ModuleCode == 2979">
+    </app-contract-status-summary-rep-page>
+    <app-contract-status-summary-search-page *ngIf="ModuleCode == 2987"></app-contract-status-summary-search-page>
+    <app-users-organization-sign *ngIf="ModuleCode == 2998"></app-users-organization-sign>
+    <app-module-view-type *ngIf="ModuleCode == 2993"></app-module-view-type>
+    <app-module-view-type-document *ngIf="ModuleCode == 2999" (Closed)="closeModal()"></app-module-view-type-document>
+    <app-module *ngIf="ModuleCode == 1105"></app-module>
+    <app-corporate *ngIf="ModuleCode == 3010 || ModuleCode == 3011"></app-corporate>
+    <app-person *ngIf=" ModuleCode == 3012"></app-person>
+    <app-external-user-detail *ngIf="ModuleCode == 3009" (onClose)="closeModal()"></app-external-user-detail>
+    <app-customer-order-list *ngIf="ModuleCode == 1646"></app-customer-order-list>
+    <app-product-pattern *ngIf="ModuleCode == 3016"></app-product-pattern>
+    <app-applicant-out-cost-center-rep *ngIf="ModuleCode == 3005" (Closed)="closeModal()">
+    </app-applicant-out-cost-center-rep>
+    <app-product-search *ngIf="ModuleCode == 1273"></app-product-search>
+    <app-customer-order-search *ngIf="ModuleCode == 3017 || ModuleCode == 3029"></app-customer-order-search>
+    <app-asset-page-search *ngIf="ModuleCode == 1618"></app-asset-page-search>
+    <app-letter-type *ngIf="ModuleCode == 3018"></app-letter-type>
+    <app-change-cartable-user *ngIf="ModuleCode == 3028" (Closed)="closeModal()"></app-change-cartable-user>
+    <app-deadline-contract-list
+      *ngIf="ModuleCode == 3031 || ModuleCode == 3042 || ModuleCode == 3043 || ModuleCode == 3044 || ModuleCode == 3052">
+    </app-deadline-contract-list>
+    <app-show-open-contract *ngIf="ModuleCode == 3040" (Closed)="closeModal()"></app-show-open-contract>
+    <app-application-note-list *ngIf="ModuleCode == 1960"></app-application-note-list>
+    <app-maintenance-volume-green-space *ngIf="ModuleCode == 3045" (Closed)="closeModal()">
+    </app-maintenance-volume-green-space>
+    <app-renew-requests-rep *ngIf="ModuleCode == 3051"></app-renew-requests-rep>
+    <app-request-period-report *ngIf="ModuleCode == 2944"></app-request-period-report>
+    <app-mutual-contract-info *ngIf="ModuleCode == 3053 || ModuleCode == 3073" (Closed)="closeModal()">
+    </app-mutual-contract-info>
+    <app-customer-file *ngIf="ModuleCode == 3056"></app-customer-file>
+    <app-produt-request-commition-member-report *ngIf="ModuleCode == 3065 || ModuleCode == 3067"
+      (Closed)="closeModal()">
+    </app-produt-request-commition-member-report>
+    <app-contract-deal-method-base-report *ngIf="ModuleCode == 3077" (Closed)="closeModal()">
+    </app-contract-deal-method-base-report>
+    <app-customer-experts-entry *ngIf="ModuleCode == 3086">
+    </app-customer-experts-entry>
+    <app-corporate-without-inquiry *ngIf="ModuleCode == 2375"></app-corporate-without-inquiry>
+    <app-person-without-inquiry *ngIf="ModuleCode == 2114"></app-person-without-inquiry>
+    <app-contract-archive-list *ngIf="ModuleCode == 3087"> </app-contract-archive-list>
+    <app-general-search-contract-request *ngIf="ModuleCode == 2803" (Closed)="closeModal()">
+    </app-general-search-contract-request>
+    <app-show-history *ngIf="ModuleCode == 3097"></app-show-history>
+    <app-product-request-invest-archive-list *ngIf="ModuleCode == 3098" ></app-product-request-invest-archive-list>
+  </div>
+
+</div>

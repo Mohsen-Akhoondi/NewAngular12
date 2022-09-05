@@ -1,0 +1,81 @@
+<div class="row" style="clear: both;height: 96%;">
+  <div id="content" class="" style="width: 100%;">
+    <div class="main-form-body" style="margin: 5px;height: 90%;">
+      <form>
+        <fieldset align="right" class="feild-set" style="display: inherit">
+          <legend style="width: 7%;margin: 0;"> اطلاعات پیشنهاد </legend>
+          <table style="line-height: 12px; width: 100%;">
+            <tr>
+              <td width="20%">
+                <span class="table-cell-Lable">نام شخص</span><input style="width: 70% "
+                  class="form-control input-style" type="text"  value="{{ActorName}}" readonly /></td>
+              <td width="20%">
+                <span class="table-cell-Lable"> تاریخ پیشنهاد</span><input style="width: 66% "
+                  class="form-control input-style" type="text" value="{{ProposalDate}}" readonly /></td>
+              <td width="20%">
+                <span class="table-cell-Lable"> شماره نامه </span><input style="width: 70% "
+                  class="form-control input-style" type="text"  value="{{LetterNo}}" readonly /></td>
+              <td width="20%">
+                <span class="table-cell-Lable"> تاریخ نامه </span><input style="width: 70% "
+                  class="form-control input-style" type="text"  value="{{LetterDate}}" readonly /></td>
+              <td width="20%">
+                <span class="table-cell-Lable"> تاریخ اعتبار </span><input style="width: 66%; " class="form-control input-style"
+                  type="text"  value="{{ExpireDate}}" readonly /></td>
+            </tr>
+            <tr>
+              <td colspan="5">
+                <span class="table-cell-Lable"> توضیحات </span><input style="width: 94%; display: inline-block; "
+                  class="form-control" id="subject-style" type="text"  value="{{Note}}" readonly /></td>
+            </tr>
+          </table>
+        </fieldset>
+      </form>
+      <div style="padding-bottom: 5px; height: 85%;">
+
+        <div id="div1" class="box-dev left-dev" [style.max-width.px] = "MaxWidth" [style.width.px] = "Width">
+          <app-grid style="width: 100%;" 
+            [columns]="columnDef1" 
+            [rowsData]="rowData1" 
+            [defaultSelectedRowIndex]="0"
+            (RowClick)="RowClick($event)"
+            (GridReady)="onItemGridReady($event)" 
+            [gridHeight]=93>
+          </app-grid>
+        </div>
+
+        <div *ngIf="HaveToGrid" id="div2" class="box-dev right-dev">
+            <app-grid style="width: 100%;"
+             [columns]="columnDef_Person"
+             [IsEditable]="true"
+             [rowsData]="rowData2" 
+             [IsDisable]="IsDisable" 
+             (GridReady)="GridReady_Person($event)" 
+             [gridHeight]="93"
+             (cellEditingStarted)="oncellEditingStarted($event)"
+             (RowClick)="RowClick_Person($event)">
+          </app-grid>
+        </div>
+    </div>
+  </div>
+    <div class="buttons-place" style=" margin: 5px">
+      <button *ngIf="!ReadOnly" (click)="onSave()" id="btn2" class="btn btn-primary btnGreen" style="margin: 2px">
+        <img width="15px" height="15px" src="assets/Icons/save.png" />
+        ثبت </button>
+
+      <button (click)="close()" id="btn4" class="btn btn-primary btnGreen">
+        <img width="15px" height="15px" src="assets/Icons/exit.png" />
+        خروج</button>
+
+    </div>
+</div>
+<app-over-popup *ngIf="btnclicked"
+  [PopupType]="type"
+  [HaveMaxBtn]="HaveMaxBtn"
+  [startLeftPosition]="OverstartLeftPosition"
+  [startTopPosition]="OverstartTopPosition"
+  [PopupParam]=" type === 'message-box'? alertMessageParams:paramObj"
+  (popupclosed)="popupclosed($event)"
+  [HaveHeader]="HaveHeader"
+  (PopupOutPutParam)="type ==='message-box' ? MessageBoxAction($event) : getOutPutParam($event)"
+  >
+</app-over-popup>

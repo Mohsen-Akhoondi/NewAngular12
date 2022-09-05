@@ -1,0 +1,166 @@
+<div [ngClass]="{'disable-parent': !IsDown}" id="container" class="row" style="clear: both ; ">
+  <div id="content" class="" style="height: 100%;width: 100%;">
+    <div class="main-form-body" style=" margin: 5px;min-width: 1130px; height: 87%;">
+      <table style="width: 100%;">
+        <tr>
+          <td width="50%" colspan="2">
+            <span class="table-cell-Lable">قرارداد</span><input style="width: 88%" class="form-control input-style"
+              type="text" name="first" value="{{ ContractSubLetter }}" readonly />
+          </td>
+          <td width="25%">
+            <span class="table-cell-Lable">دوره درخواست پرداخت از تاریخ</span>
+            <app-jalali-datepicker [WidthPx]="122" [Required]="true" [CurrMiladiDateValue]="ContractPayStartDate"
+              (Change)="OnContractPayStartDateChange($event)" [Disabled]="!DisplayControlls"></app-jalali-datepicker>
+          </td>
+          <td width="25%">
+            <span class="table-cell-Lable">تا تاریخ</span>
+            <app-jalali-datepicker [WidthPx]="122" [Required]="true" [CurrMiladiDateValue]="ContractPayEndDate"
+              (Change)="OnContractPayEndDateChange($event)" [Disabled]="!DisplayControlls"></app-jalali-datepicker>
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <span style="margin: 0;margin-left: 5px" class="table-cell-Lable">سال مالی</span>
+            <app-ng-select-virtual-scroll style="display: inline-table;width: 77% ; min-width: 150px;"
+              [Disabled]="IsFinYearDisable && !DisplayControlls" class="select-general-for-lable" [NgSelectParams]="FinYearParams"
+              [Items]="FinYearSet" (selectedChange)="onChangeFinYearObj($event)">
+            </app-ng-select-virtual-scroll>
+          </td>
+          <td>
+            <input style="width: 100%;" class="form-control input-style" type="text" name="first"
+              value="{{ ContractOperationName }}" readonly />
+          </td>
+          <td>
+            <span class="table-cell-Lable">شماره درخواست پرداخت</span>
+            <input style="width: 122px" class="form-control input-style" type="text" name="first"
+              value="{{ ContractPayNo }}" readonly />
+          </td>
+          <td>
+            <span class="table-cell-Lable">تاریخ درخواست پرداخت</span>
+            <app-jalali-datepicker [WidthPx]="122" style="width: 100%;" [Required]="true" [Disabled]="!DisplayControlls"
+              [CurrMiladiDateValue]="ContractPayDate" (Change)="OnContractPayDateChange($event)">
+            </app-jalali-datepicker>
+          </td>
+        </tr>
+
+        <tr>
+          <td colspan="2">
+            <span style="margin: 0px; margin-left: 5px" class="table-cell-Lable">عامل قرارداد</span>
+            <app-ng-select-virtual-scroll style="display: inline-table;width: 88% ; min-width: 150px;" [Disabled]="true"
+              class="select-general-for-lable" [NgSelectParams]="ContractAgentParams" [Items]="ContractAgentSet"
+              (selectedChange)="onChangeContractAgentObj($event)">
+            </app-ng-select-virtual-scroll>
+          </td>
+
+          <td>
+            <span class="table-cell-Lable">نوع درخواست پرداخت</span>
+            <app-ng-select-virtual-scroll style="min-width: 44%;display: inline-table;margin: 0" [Disabled]="!DisplayControlls"
+              class="select-general-for-lable" [NgSelectParams]="ContractPayTypeParams" [Items]="ContractPayTypeSet"
+              (selectedChange)="onChangeContractPayTypeObj($event)">
+            </app-ng-select-virtual-scroll>
+          </td>
+          <td>
+            <span class="table-cell-Lable">صورت وضعیت</span>
+            <input style="width: 44%;" class="form-control input-style" type="text" name="first"
+              [(ngModel)]="ContractPayTechnicalCode" value="{{ ContractPayTechnicalCode }}"
+              [disabled]="!DisplayControlls" />
+          </td>
+        </tr>
+        <tr>
+          <td colspan="4">
+            <span style="margin: 0;margin-left: 5px" class="table-cell-Lable">توضیحات</span>
+            <input style="width: 94%;" class="form-control input-style" type="text" name="first" [(ngModel)]="Note"
+              value="{{ Note }}" [disabled]="!DisplayControlls" />
+          </td>
+        </tr>
+      </table>
+
+      <div style="padding-bottom: 5px; margin-top: 5px;" [style.height.%]="84">
+        <div id="div1" class="box-dev left-dev" [style.height.%]="HaveAlertToFinance ? 88 : 93">
+          <app-grid style="width: 100%;" [IsEditable]="IsEditable" [IsDisable]="HaveWorkFlow" [columns]="columnDef1"
+            [defaultSelectedRowIndex]="0" [rowsData]="ContractPayItemList"
+            (RowClick)="dgContractPayItemRowClick($event)" (CellValueChanged)="onCellValueChanged($event)"
+            (GridReady)="onContractPayItemGridReady($event)" [gridHeight]="dgCPHeight"></app-grid>
+        </div>
+        <div id="div2" class="box-dev right-dev" [style.height.%]="HaveAlertToFinance ? 88 : 93">
+          <app-grid style="width: 100%;" [columns]="columnDef2" [IsEditable]="IsEditable" [IsDisable]="IsDisable"
+            [rowsData]="ContractPayItemEstimateList" [IsNeedImportBtn]="true"
+            (ImportFromExcelClick)="OnImportFromExcelBtnClick()"
+            (GridReady)="onContractPayItemEstimateGridReady($event)"
+            (CellValueChanged)="onContractPayItemEstimateCellValueChanged($event)"
+            (RowClick)="dgContractPayItemEstimateRowClick($event)" [gridHeight]="dgCPEHeight"></app-grid>
+        </div>
+        <div *ngIf="HaveAlertToFinance" style="float: right;color: red;margin-top: 5px;text-align: left;">
+          <span>لطفا جهت تعهد اعتبار به سیستم جامع مالی مراجعه نمایید</span>
+        </div>
+      </div>
+
+    </div>
+    <div style="margin: 5px;">
+      <div class="buttons-place" [style.width.%]="60" style="float: right;margin: auto;">
+        <button *ngIf="HaveSave && DisplayControlls" (click)="onSave()" id="btn2" class="btn btn-primary btnGreen"
+          style="margin: 2px">
+          <img width="15px" height="15px" src="assets/Icons/save.png" />
+          ثبت
+        </button>
+
+        <button *ngIf="DisplayControlls" [disabled]="HaveID" (click)="showVehicle()" id="btn4"
+          class="btn btn-primary btnGreen">
+          <img width="15px" height="15px" src="assets/Icons/car.png" />
+          خودرو</button>
+
+        <button *ngIf="HaveDelete && DisplayControlls" id="btn3" class="btn btn-primary btnGreen">
+          <img width="15px" height="15px" src="assets/Icons/delete.png" />
+          حذف
+        </button>
+
+        <button *ngIf="ModuleViewTypeCode === 4" id="btnClose" class="btn btn-primary btnGreen"
+          (click)="ShowUnderTakeItemClick()">
+          <img width="15px" height="15px" src="assets/Icons/ok.png" />
+          مشاهده تعهد اعتبار صورت وضعیت
+        </button>
+
+        <button *ngIf="DisplayControlls" (click)="BtnArchiveClick()" id="btn1" class="btn btn-primary btnGreen">
+          <img width="15px" height="15px" src="assets/Icons/TechnicalArchive.png" />
+          {{ArchiveBtnText}}
+        </button>
+        <button *ngIf="DisplayControlls" (click)="BtnDetailArchiveClick()" id="btn1" class="btn btn-primary btnGreen">
+          <img width="15px" height="15px" src="assets/Icons/TechnicalArchive.png" />
+          {{DetailArchiveBtnText}}
+        </button>
+        <button (click)="onPrint()" id="btn2" class="btn btn-primary btnGreen" style="margin: 2px">
+          <img width="15px" height="15px" src="assets/Icons/TechnicalArchive.png" />
+          چاپ
+        </button>
+        <button (click)="close()" id="btn4" class="btn btn-primary btnGreen">
+          <img width="15px" height="15px" src="assets/Icons/exit.png" />
+          خروج
+        </button>
+      </div>
+      <div *ngIf="ShowWorkflowButtons" class="buttons-place" style="float: left;margin: auto;" [style.width.%]="39">
+        <!--// RFC 52262-->
+        <button *ngIf="true" [disabled]="IsDisableWorkflow" (click)="onConfirms()" id="btn2"
+          class="btn btn-primary btnGreen" style="margin: 2px;">
+          <img width="15px" height="15px" src="assets/Icons/{{btnConfirmIcon}}.png" />
+          {{btnConfirmName}} </button>
+        <button *ngIf="true" [disabled]="IsDisableWorkflow" (click)="onConfirmAndSend()" id="btn2"
+          class="btn btn-primary btnGreen" style="margin: 2px;">
+          <img width="15px" height="15px" src="assets/Icons/Approve.png" />
+          تاييد و ارسال </button>
+        <button *ngIf="true" [disabled]="IsDisableWorkflow" (click)="onUnConfirmAndReturn()" id="btn2"
+          class="btn btn-primary btnGreen" style="margin: 2px;">
+          <img width="15px" height="15px" src="assets/Icons/DisApprove.png" />
+          {{btnConfirmAndReturnName}} </button>
+        <button (click)="OnClickPrintFlow()" [disabled]="IsDisableWorkflow" class="btn btn-primary btnGreen">
+          <img width="15px" height="15px" src="assets/Icons/print.png" />
+          گردش
+        </button>
+      </div>
+    </div>
+  </div>
+  <app-over-popup *ngIf="btnclicked" [PopupType]="type" [HaveMaxBtn]="HaveMaxBtn"
+    [PixelHeight]="type === 'contract-pay-shipment' ? 600 : '' " [startLeftPosition]="OverstartLeftPosition"
+    [startTopPosition]="OverstartTopPosition" [PopupParam]="type ==='message-box' ?alertMessageParams  : paramObj"
+    (popupclosed)="popupclosed($event)"
+    (PopupOutPutParam)="type ==='message-box' ? MessageBoxAction($event) : getOutPutParam($event)"></app-over-popup>

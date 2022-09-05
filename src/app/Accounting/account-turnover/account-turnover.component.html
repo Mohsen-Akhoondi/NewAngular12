@@ -1,0 +1,98 @@
+<div class="main-form-body" style="margin-top: 5px; height: 85%;">
+  <fieldset class="feild-set" style="display: inherit;height: 10%;">
+    <table style="margin-bottom: 10px;width: 100%">
+      <tr>
+        <td style="width: 40%">
+          <span class="table-cell-Lable">واحد اجرایی</span>
+          <app-ng-select-virtual-scroll style="display: inline-block;width: 70%; min-height: 25;"
+            [NgSelectParams]="RegionParams" (selectedChange)="onChangeRegionObj($event)"
+            [Items]="ReigonListSet">
+          </app-ng-select-virtual-scroll>
+        </td>
+        <td style="width: 50%">
+          <span class="table-cell-Lable">سال مالی</span>
+          <app-ng-select-virtual-scroll style="display: inline-block;width: 60%; min-height: 25;" [NgSelectParams]="FinYearParams"
+            [Items]="FinYearItems" (selectedChange)="onChangeFinYear($event)">
+          </app-ng-select-virtual-scroll>
+        </td>        
+      </tr>
+    </table>
+  </fieldset>
+  <fieldset class="feild-set" style="display: inherit;height: 25%;">
+    <table style="margin-bottom: 10px;width: 100%">
+      <tr>
+        <td style="width: 40%">
+          <span  class="table-cell-Lable">ماه</span>
+          <app-ng-select-virtual-scroll style="display: inline-block;width: 70%; min-height: 25;" [NgSelectParams]="MonthsParams"
+            [Items]="MonthsItems">
+          </app-ng-select-virtual-scroll>
+        </td>
+        <td style="width: 50%">
+        </td>       
+      </tr>
+      <tr>
+        <td style="width: 40%">
+          <span class="table-cell-Lable">حساب کل</span>
+          <app-ng-select-virtual-scroll style="display: inline-block;width: 70%; min-height: 25;"
+          [NgSelectParams]="LedgerAccParams" (selectedChange)="onChangeLedgerAcc($event)"
+          [Items]="LedgerAccSet" (Open)="OnOpenNgSelectLedger()">
+           </app-ng-select-virtual-scroll>
+        </td>
+        <td style="width: 50%">
+          <span class="table-cell-Lable">حساب معین</span>
+          <app-ng-select-virtual-scroll style="display: inline-block;width: 70%; min-height: 25;"
+          [NgSelectParams]="SubLedgerAccParams"  (selectedChange)="OnOpenNgSelectSubLedger()"
+          [Items]="SubLedgerAccSet" (Open)="OnOpenNgSelectSubLedger()">
+           </app-ng-select-virtual-scroll>
+        </td>       
+      </tr>
+      <tr>
+        <td style="width: 40%">
+          <span class="table-cell-Lable">گروه تفضیلی</span>
+          <app-ng-select-virtual-scroll style="display: inline-block;width: 70%; min-height: 25;"
+          [NgSelectParams]="DetailAccGroupParams"  (selectedChange)="onChangeDetailAccGroupObj($event)"
+          [Items]="DetailAccGroupListSet" (Open)="OnOpenNgSelectDetailAccGroup()">
+           </app-ng-select-virtual-scroll>
+        </td>
+        <td style="width: 50%">
+          <span class="table-cell-Lable">حساب تفصیلی</span>
+          <app-ng-select-virtual-scroll style="display: inline-block;width: 70%; min-height: 25;"
+          [NgSelectParams]="DetailAccParams" 
+          [Items]="DetailAccSet" (Open)="OnOpenNgSelectDetailAcc()">
+           </app-ng-select-virtual-scroll>
+        </td>       
+      </tr>
+    </table>
+  </fieldset>
+    <div class="box-dev" style=" width: 100%;" [style.height.%]="63">
+    <app-grid [columns]="columnDef" [rowsData]="rowsData" (GridReady)="onGridReady($event)"
+     [gridHeight]="80"  
+    >
+   </app-grid>
+  </div>
+
+</div>
+
+<div class="buttons-place" style="margin: unset;">
+  <button (click)="report()" id="btnSave" class="btn btn-primary btnGreen">
+    <img width="15px" height="15px" src="assets/Icons/save.png" />
+    مشاهده
+  </button>
+
+  <button (click)="onClose()"  id="btn4" class="btn btn-primary btnGreen">
+    <img width="15px" height="15px" src="assets/Icons/exit.png" />
+   انصراف
+  </button>
+</div>
+
+<app-over-popup 
+*ngIf="isClicked"
+ [PopupType]="PopUpType" 
+ [HaveMaxBtn]="false" 
+ [startLeftPosition]="startLeftPosition" 
+ [startTopPosition]="startTopPosition"
+ [PopupParam]="alertMessageParams"
+ [HaveHeader]="HaveHeader"
+ (popupclosed)="popupclosed($event)">
+
+ 

@@ -1,0 +1,12 @@
+<div class="right-side">
+    <div malihu-scrollbar [scrollbarOptions]="scrollbarOptions" class="sidebar">
+        <div class="fast-item row">
+           <div class="card card-bady" *ngFor = "let item of FastAccessMenu">
+               <a [routerLink]="['',{ outlets: { PopUp: ['PopUp',item.ModuleCode,item.ModuleName] } }]" skipLocationChange = "true">
+                <img style="height: 48px;width: 48px;" src="assets/Images/Module/{{item.ImageName}}" class=""/>
+                <span class="caption">{{item.ModuleName}}</span>
+            </a>
+          </div>
+        </div>
+    </div>
+    </div>

@@ -1,0 +1,189 @@
+<div [ngClass]="{'disable-parent': !IsDown}" id="container" class="row" style="clear: both">
+  <div id="content" class="" style="height: 100%;width: 100%;">
+    <div class="main-form-body" style=" margin: 5px;min-width: 1130px; height: 85%;">
+      <form>
+        <fieldset class="feild-set" style="display: inherit">
+          <legend class="legend" style="width:8%;">اطلاعات قرارداد</legend>
+          <table style="width: 100%;">
+            <tr>
+              <td width="20%">
+                <span class="table-cell-Lable">واحد اجرایی</span>
+                <input style="width: 60%;display: inline-block;" class="form-control input-style" type="text"
+                  name="RegionName" value="{{RegionName}}" readonly />
+              </td>
+              <td width="20%">
+                <span class="table-cell-Lable">کد قرارداد</span>
+                <input style="width: 60%;display: inline-block;" class="form-control input-style" type="text"
+                  value="{{ ContractCode }}" readonly />
+              </td>
+              <td width="20%">
+                <span class="table-cell-Lable">نوع قرارداد</span>
+                <input style="width: 60%;display: inline-block;" class="form-control input-style" type="text"
+                  value="{{ ContractTypeName }}" readonly />
+              </td>
+              <td width="20%">
+                <span class="table-cell-Lable">شماره نامه</span>
+                <input style="width: 60%;display: inline-block;" class="form-control input-style" type="text"
+                  value="{{ LetterNo }}" readonly />
+              </td>
+              <td width="20%">
+                <span class="table-cell-Lable">تاریخ نامه</span>
+                <input style="width: 60%;display: inline-block;" class="form-control input-style" type="text"
+                  value="{{ LetterDate }}" readonly />
+              </td>
+
+            </tr>
+            <tr>
+              <td width="20%">
+                <span class="table-cell-Lable">مبلغ</span>
+                <input style="width: 60%;display: inline-block;" class="form-control input-style" type="text"
+                  name="ContractAmount" value="{{ContractAmount}}" readonly />
+              </td>
+              <td colspan="2" width="40%">
+                <span class="table-cell-Lable">پیمانکار</span>
+                <input style="width: 80%;display: inline-block;" class="form-control input-style" type="text"
+                  name="ContractorName" value="{{ContractorName}}" readonly />
+              </td>
+              <td width="20%">
+                <span class="table-cell-Lable">تاریخ شروع</span>
+                <input style="width: 60%;display: inline-block;" class="form-control input-style" type="text"
+                  name="FromContractDatePersian" value="{{FromContractDatePersian}}" readonly />
+              </td>
+              <td width="20%">
+                <span class="table-cell-Lable">تاریخ پایان</span>
+                <input style="width: 60%;display: inline-block;" class="form-control input-style" type="text"
+                  name="ToContractDatePersian" value="{{ToContractDatePersian}}" readonly />
+              </td>
+            </tr>
+            <tr>
+              <td width="80%" colspan="4">
+                <span class="table-cell-Lable">موضوع</span>
+                <input style="width: 90%;display: inline-block;" class="form-control input-style" type="text"
+                  name="Subject" value="{{Subject}}" readonly />
+              </td>
+              <td width="20%">
+                <span class="table-cell-Lable">شماره قرارداد</span>
+                <input style="width: 60%;display: inline-block;" class="form-control input-style" type="text"
+                  name="ContractNo" value="{{ContractNo}}" readonly />
+              </td>
+            </tr>
+          </table>
+        </fieldset>
+        <fieldset class="feild-set" style="display: inherit; min-height: 370px;">
+          <legend style="width:7%;">سایر اسناد</legend>
+          <table style="width: 100%;">
+            <tr>
+              <td width="33%">
+                <span class="table-cell-Lable">شماره سند</span>
+                <input style="width: 75%; display: inline-block;" class="form-control input-style" type="text"
+                  name="first" value="{{ ContractMinutesCode }}" readonly />
+              </td>
+              <td style="width: 33%;">
+                <span class="table-cell-Lable">نوع تنبیه</span>
+                <app-ng-select-virtual-scroll style="display: inline-block;width: 75%;" [NgSelectParams]="PunishmentTypeParams"
+                  [Items]="PunishmentTypeItems" (Open)="OnOpenPunishmentType()">
+                </app-ng-select-virtual-scroll>
+              </td>
+
+              <td style="width: 33%;">
+                <span class="table-cell-Lable">مرتبه</span>
+                <app-ng-select-virtual-scroll style="display: inline-block;width: 75%;" [NgSelectParams]="RepetitionParams"
+                  [Items]="RepetitionItems" (Open)="OnOpenRepetition()">
+                </app-ng-select-virtual-scroll>
+              </td>
+
+              <td width="60%"></td>
+            </tr>
+            <tr>
+              <td style="width: 33%;">
+                <span class="table-cell-Lable">نوع زمان جریمه</span>
+                <div class="redio-div">
+                  <div class="custom-control custom-radio custom-control-inline">
+                    <input  [checked]="IsDefined" type="radio" class="custom-control-input" 
+                     id="ISDefinedRadio" name="ChoosenISDefinedRadio" (click)="RedioClick(true)">
+                    <label style="margin: auto;" class="custom-control-label redio-label" for="ISDefinedRadio">مشخص</label>
+                  </div>
+                  <div class="custom-control custom-radio custom-control-inline">
+                    <input [checked]="!IsDefined" type="radio" class="custom-control-input" 
+                     id="ISIndeterminateRadio" name="ChoosenISDefinedRadio">
+                    <label style="margin: auto;" class="custom-control-label redio-label" for="ISIndeterminateRadio"
+                      (click)="RedioClick(false)">نامشخص</label>
+                  </div>
+                </div>
+              </td>
+               <td width="33%">
+                <span class="table-cell-Lable">تاریخ</span>
+                <app-jalali-datepicker [WidthPC]="75" [Required]="true"
+                  [CurrMiladiDateValue]="ContractMinutesDate" (Change)="OnContractMinutesDateChange($event)"
+                  [Disabled]="!DisplayControlls || DisabledContractMinutesDate ">
+                </app-jalali-datepicker>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="3" style="width: 100%; height: 146px;">
+                <span style="vertical-align: top; margin: 0;margin-left: 5px" class="table-cell-Lable">موضوع سند</span>
+                <textarea  [(ngModel)]="Note" name="Note" class="form-control input-style" rows="2"
+                  style="display: inline-block;height: 124px;width: 92%;font-size: small;" id="indicator-text_note"
+                  [disabled]="!DisplayControlls"></textarea>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="3" style="width: 100%;">
+                <span style="vertical-align: top; margin: 0;margin-left: 5px" class="table-cell-Lable">توضیحات</span>
+                <textarea  [(ngModel)]="ContractMinutesSubject" name="ContractMinutesSubject" class="form-control input-style" rows="2"
+                  style="display: inline-block;height: 124px;width: 92%;font-size: small;" id="indicator-text_note"
+                  [disabled]="!DisplayControlls"></textarea>
+              </td>
+            </tr>
+          </table>
+        </fieldset>
+      </form>
+    </div>
+    <div [ngClass]="{'disable-parent': !IsDown}" style="margin: 5px;">
+      <div class="buttons-place" style="float: right;margin: auto;width:49.8%;">
+        <button *ngIf="DisplayControlls" (click)="onSave()" id="btn2" class="btn btn-primary btnGreen"
+          style="margin: 2px">
+          <img width="15px" height="15px" src="assets/Icons/save.png" />
+          ثبت
+        </button>
+        <button [disabled]="true" (click)="onPrint()" id="btn3" class="btn btn-primary btnGreen"
+          style="margin: 2px">
+          <img width="15px" height="15px" src="assets/Icons/print.png" />
+          چاپ
+        </button>
+        <button *ngIf="DisplayControlls" (click)="onUploadDocClick()" [disabled]="ContractMinutesID < 1 ? true : false"
+          id="btnUploaddoc" class="btn btn-primary btnGreen">
+          <img width="15px" height="15px" src="assets/Icons/TechnicalArchive.png" />
+          بارگذاری اسناد
+        </button>
+        <button (click)="close()" id="btn4" class="btn btn-primary btnGreen">
+          <img width="15px" height="15px" src="assets/Icons/exit.png" />
+          خروج
+        </button>
+      </div>
+      <div class="buttons-place" style="float: left;margin: auto;" [style.width.%]="WorkflowButtonsWidth">
+        <button *ngIf="DisplayControlls" [disabled]="IsDisable" (click)="onConfirm()" id="btn2"
+          class="btn btn-primary btnGreen" style="margin: 2px;">
+          <img width="15px" height="15px" src="assets/Icons/{{btnConfirmIcon}}.png" />
+          {{btnConfirmName}} </button>
+        <button *ngIf="DisplayControlls" [disabled]="IsDisable || IsEndFlow" (click)="onConfirmAndSend()" id="btn2"
+          class="btn btn-primary btnGreen" style="margin: 2px;">
+          <img width="15px" height="15px" src="assets/Icons/Approve.png" />
+          تاييد و ارسال </button>
+        <button *ngIf="DisplayControlls" [disabled]="IsDisable" (click)="onUnConfirmAndReturn()" id="btn2"
+          class="btn btn-primary btnGreen" style="margin: 2px;">
+          <img width="15px" height="15px" src="assets/Icons/DisApprove.png" />
+          عدم تاييد و بازگشت </button>
+        <button (click)="OnClickPrintFlow()" [disabled]="IsDisable" class="btn btn-primary btnGreen">
+          <img width="15px" height="15px" src="assets/Icons/print.png" />
+          گردش
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<app-over-popup *ngIf="btnclicked" [PopupType]="type" [HaveMaxBtn]="HaveMaxBtn" [startLeftPosition]="startLeftPosition"
+  [startTopPosition]="startTopPosition" [PopupParam]="type ==='message-box' ?alertMessageParams  : ParamObj"
+  (popupclosed)="popupclosed($event)" [MainMinwidthPixel]="type === 'editor-select-price-list'? 1240:''"
+  [MainMaxwidthPixel]="type === 'editor-select-price-list'? 1240:''"
+  (PopupOutPutParam)="type ==='message-box' ? MessageBoxAction($event) : getOutPutParam($event)"></app-over-popup>

@@ -1,0 +1,18 @@
+<div class="main-form-body" style="margin-top: 5px; height:80%;">
+  <div style="clear: both;padding-bottom: 5px; height: 100%;">
+    <div class="box-dev" style=" width: 100%;" [style.height.%]="100">
+      <app-grid 
+        (GridReady)="onGridReady($event)" 
+        [columns]="MaincolumnDef"
+        [rowsData]="rowData"
+        [gridHeight]="90">
+      </app-grid>
+    </div>
+  </div>
+</div>
+
+<div class="buttons-place" style="margin: unset;">
+  <button (click)="closeModal()" id="btn4" class="btn btn-primary btnGreen">
+    <img width="15px" height="15px" src="assets/Icons/exit.png" />
+    خروج</button>
+</div>

@@ -1,0 +1,129 @@
+<div class="main-form-body" style="margin-top: 5px; height: 85%;">
+    <fieldset class="feild-set" style="display: inherit">
+        <table style="margin-bottom: 5px; width: 100%;">
+            <tr>
+                <td colspan="3" width="75%">
+                    <span class="table-cell-Lablle">واحد اجرایی</span>
+                    <div style="width: 80%; display: inline-block;">
+                        <app-ng-select-virtual-scroll style="display: inline-block;width: 100%; min-height: 25;"
+                            [NgSelectParams]="RegionParams" [Items]="ReigonListSet"
+                            (selectedChange)="onChangeRegionObj($event)" [multiple]="true">
+                        </app-ng-select-virtual-scroll>
+                    </div>
+                    <div style="width: 12%; display: inline-block;">
+                        <span class="table-cell-Lable">انتخاب همه</span>
+                        <app-custom-check-box style="vertical-align: sub;" [isSelected]="SelectAll"
+                            [configurationInfo]="CustomCheckBoxConfig"
+                            (PrettyCheckBoxChange)="OnChangeCheckBoxValue($event)">
+                        </app-custom-check-box>
+                    </div>
+                </td>
+
+                <td width="25%">
+                    <span class="table-cell-Lablle">ماهیت قرارداد</span>
+                    <div class="redio-div">
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input [checked]="IsCost" type="radio" class="custom-control-input" id="ISCostRadio"
+                                name="ChoosenISCostRadioName" (click)="RedioClick(true)">
+                            <label style="margin: auto;" class="custom-control-label redio-label"
+                                for="ISCostRadio">هزینه
+                                ای</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input [checked]="!IsCost" type="radio" class="custom-control-input" id="ISIncomeRadio"
+                                name="ChoosenISCostRadioName">
+                            <label style="margin: auto;" class="custom-control-label redio-label" for="ISIncomeRadio"
+                                (click)="RedioClick(false)">درآمدی</label>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td width="25%">
+                    <span class="table-cell-Lablle">از سال مالی</span>
+                    <app-ng-select-virtual-scroll style="display: inline-block;width: 75%; min-height: 25;"
+                        [NgSelectParams]="FromFinYearParams" [Items]="FinYearItems"
+                        (selectedChange)="onChangeFromFinYearObj($event)">
+                    </app-ng-select-virtual-scroll>
+                </td>
+                <td width="25%">
+                    <span class="table-cell-Lablle">تا</span>
+                    <app-ng-select-virtual-scroll style="display: inline-block;width: 75%; min-height: 25;"
+                        [NgSelectParams]="ToFinYearParams" [Items]="FinYearItems">
+                    </app-ng-select-virtual-scroll>
+                </td>
+                <td width="25%">
+                    <span class="table-cell-Lablle">از قرارداد </span>
+                    <app-ng-select-virtual-scroll style="display: inline-block;width: 72%;"
+                        [TotalItemCount]="FromContractTotalItemCount" [PageCount]="FromContractPageCount"
+                        [NgSelectParams]="NgSelectContractParamsFrom" [Items]="ContractListSetFrom"
+                        (FetchMore)="FetchMoreFromContract($event)" (doSearch)="doFromContractSearch($event)"
+                        (selectedChange)="FromContractChanged($event)" (Open)="FromContractOpened()">
+                    </app-ng-select-virtual-scroll>
+                </td>
+                <td width="25%">
+                    <span class="table-cell-Lablle">تا</span>
+                    <app-ng-select-virtual-scroll style="display: inline-block;width: 72%;"
+                        [TotalItemCount]="ToContractTotalItemCount" [PageCount]="ToContractPageCount"
+                        [NgSelectParams]="NgSelectContractParamsTo" [Items]="ContractListSetTo"
+                        (FetchMore)="FetchMoreToContract($event)" (doSearch)="doToContractSearch($event)"
+                        (Open)="ToContractOpened()">
+                    </app-ng-select-virtual-scroll>
+                </td>
+            </tr>
+            <tr>
+                <td width="25%">
+                    <span class="table-cell-Lablle"> تاريخ انعقاد از</span>
+                    <app-jalali-datepicker [WidthPC]="75" (Change)="OnFromContractDateChange($event)">
+                    </app-jalali-datepicker>
+                </td>
+                <td width="25%">
+                    <span class="table-cell-Lablle">تا</span>
+                    <app-jalali-datepicker [WidthPC]="75" (Change)="OnToContractDateChange($event)">
+                    </app-jalali-datepicker>
+                </td>
+                <td width="25%">
+                    <span class="table-cell-Lablle"> مبلغ قراداد از</span>
+                    <app-number-input-component [id]="'indicator-label-from-amount'" [Value]="FromContractAmountStr"
+                        [PerCentWidth]=" 72" [PixelHeight]="25" (ValueChange)="getFromAmount($event)" class="col-form-label"
+                        [IsFloat]="true" [HaveThousand]="true" [MaxLength]="15" [FloatMaxLength] = "3">
+                    </app-number-input-component>
+                </td>
+                <td width="25%">
+                    <span class="table-cell-Lablle">تا</span>
+                    <app-number-input-component [id]="'indicator-label-to-amount'" [Value]="ToContractAmountStr" [IsFloat]="true"
+                        [PerCentWidth]=" 72" [PixelHeight]="25" (ValueChange)="getToAmount($event)" class="col-form-label"
+                        [HaveThousand]="true" [MaxLength]="15" [FloatMaxLength] = "3">
+                    </app-number-input-component>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4" width="100%">
+                    <span class="table-cell-Lablle">موضوع</span>
+                    <input style="display: inline-block; width: 93.8%;" class="form-control input-style" type="text"
+                        name="Subject" [(ngModel)]="Subject" />
+                </td>
+            </tr>
+        </table>
+        <div style="width: 100%; display: flex; justify-content: center; padding: 5px 10px; ">
+            <button (click)="Search()" style="width: 150px;height: 30px;"
+                class="select-general-for-lable btn-gray-border btn btn-primary btnGreen">
+                <img width="15px" height="15px" src="assets/Icons/Search.png" />
+                جستجو
+            </button>
+        </div>
+    </fieldset>
+    <div class="box-dev" style=" width: 100%;" [style.height.%]="62">
+        <app-grid (GridReady)="onGridReady($event)" [columns]="columnDef" [rowsData]="rowData" [gridHeight]="89">
+        </app-grid>
+      </div>
+</div>
+<div class="buttons-place" style="margin: auto;">
+    <button (click)="close()" id="btn4" class="btn btn-primary btnGreen">
+        <img width="15px" height="15px" src="assets/Icons/exit.png" />
+        خروج
+    </button>
+</div>
+<ng-template #HasVAT let-row>
+    <img width="16px" height="16px" [src]="row.HasVAT ? 'assets/Icons/TrueCheckBox.png':'assets/Icons/uncheck.png'" />
+</ng-template>

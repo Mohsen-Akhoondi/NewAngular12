@@ -1,0 +1,14 @@
+<div *ngIf="NeedsPhoneNumber === 0" class="home-container">
+  <app-user-menu></app-user-menu>
+  <div class="body-container">
+    <app-sidebar></app-sidebar>
+    <div class="main-container">
+      <div class="main-body">
+        <app-cartable></app-cartable>
+      </div>
+    </div>
+  </div>
+</div>
+<router-outlet></router-outlet>
+<app-user-confirm-phone-number *ngIf="NeedsPhoneNumber === 1">
+</app-user-confirm-phone-number>

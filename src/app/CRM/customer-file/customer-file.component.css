@@ -1,0 +1,24 @@
+.feild-set {
+    border: 1px solid rgb(218, 218, 218);
+    min-height: 50px;
+    margin-bottom: 5px;
+    padding: 5px;
+    text-align: right;
+}
+
+.table-cell-Lable {
+    margin-left: 5px;
+    margin-right: 5px;
+    font-size: 10px;
+}
+
+.input-style {
+    border-radius: 3px;
+    height: 25px;
+    width: 150px;
+    display: inline-block;
+}
+.nav-link {
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+}

@@ -1,0 +1,67 @@
+.data-grid
+{
+    flex: 1;
+    background-color: transparent;
+    height: 550px;
+    padding: 5px;
+    text-align: right;
+}
+
+.input-style{
+    border-radius:3px;
+     height: 25px;
+}
+.box-dev{
+    border-radius: 5px;
+    border: 1px solid rgb(218, 218, 218);
+    margin-bottom: 0.5%;
+}
+
+.input-style{
+    border-radius:3px;
+     height: 25px;
+     display: inline-block;
+  }
+  
+  .table-cell-Lable {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+  
+.feild-set{
+      border: 1px solid rgb(218, 218, 218);
+      min-height: 50px;
+      margin-bottom: 5px;
+      padding: 5px;
+      display: inherit;
+  }
+  
+.legend {
+    width: auto; 
+    margin: 0; 
+    font-weight: bold;
+  }
+  
+.table-cell-Lable {
+    margin-left: 10px;
+    margin-right: 10px;
+    font-size: 10px;
+  }
+
+.left-dev{
+  overflow: hidden; 
+  min-width: 200px;
+
+}
+.right-dev{
+  float: right;
+  margin-left: 5px;
+  width: 700px; 
+  max-width: 850px;
+  min-width: 300px !important;
+}
+.table-cell-Lable {
+    margin-left: 10px;
+    margin-right: 10px;
+    font-size: 10px;
+  }

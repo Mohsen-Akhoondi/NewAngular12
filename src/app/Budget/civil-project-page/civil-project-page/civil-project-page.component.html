@@ -1,0 +1,71 @@
+<div class="main-form-body" style="margin:5px; height: 85%;">
+
+  <table style="width: 100%">
+    <tr style="height: 35px;">
+      <td width="45%">
+        <span class="table-cell-Lable">واحد اجرایی</span>
+        <app-ng-select-virtual-scroll style="display: inline-block; width: 70%;" [NgSelectParams]="RegionParams"
+          [Items]="RegionItems" (Open)="OnOpenNgSelect('Region')" (selectedChange)="onChangeReigonObj($event)">
+        </app-ng-select-virtual-scroll>
+      </td>
+      <td width="55%">
+        <span class="table-cell-Lable">محل هزینه</span>
+        <app-ng-select-virtual-scroll style="display: inline-block;width: 65%;" (Open)="OnOpenNgSelect('ExeUnit')" 
+          [NgSelectParams]="VWExeUnitParams" [Items]="VWExeUnitItems">
+        </app-ng-select-virtual-scroll>
+      </td>
+    </tr>
+    <tr style="height: 35px;">
+      <td width="45%">
+        <span class="table-cell-Lable">معاونت متولی</span>
+        <app-ng-select-virtual-scroll style="display: inline-block; width: 70%;" [NgSelectParams]="CostCenterParams"
+          [Items]="CostCenterItems" (Open)="OnOpenNgSelect('CostCenter')">
+        </app-ng-select-virtual-scroll>
+      </td>
+      <td width="55%">
+        <span class="table-cell-Lable">عنوان پروژه</span>
+        <input name="BgtTopicName" style="display: inline-block;width: 65%; height: 25px;" [(ngModel)]="BgtTopicName"
+          class="form-control" type="text" />
+      </td>
+    </tr>
+    <tr style="height: 35px;">
+      <td width="45%">
+        <span class="table-cell-Lable">کد پروژه</span>
+        <input name="BgtTopicCode" style="display: inline-block; width: 70%; height: 25px;" [(ngModel)]="BgtTopicCode"
+          class="form-control" type="text" />
+      </td>
+      <td width="55%">
+        <span class="table-cell-Lable">نمایش در گزارشات پایه</span>
+        <app-ng-select-virtual-scroll style="display: inline-block;width: 65%;" [NgSelectParams]="ShowBaseReportParams"
+          [Items]="ShowBaseReportItems">
+        </app-ng-select-virtual-scroll>
+      </td>
+    </tr>
+    <tr style="height: 35px;">
+      <td width="45%">
+        <span class="table-cell-Lable">وضعیت پروژه</span>
+        <app-ng-select-virtual-scroll style="display: inline-block;width: 70%;" [NgSelectParams]="BgtStatusParams"
+          [Items]="BgtStatusItems">
+        </app-ng-select-virtual-scroll>
+      </td>
+      <td width="55%">
+        <span class="table-cell-Lable">محاسبه بر اساس</span>
+        <app-ng-select-virtual-scroll style="display: inline-block;width: 65%;"
+          [NgSelectParams]="ComputingBasedOnParams" [Items]="ComputingBasedOnItems">
+        </app-ng-select-virtual-scroll>
+      </td>
+    </tr>
+  </table>
+
+  <div style="width: 100%; display: flex; justify-content: center; padding: 10px; ">
+    <button type="submit" (click)="report()" class="select-general-for-lable btn-gray-border btn btn-primary btnGreen">
+      <img width="15px" height="15px" src="assets/Icons/print.png" />
+      چاپ
+    </button>
+    <button type="submit" (click)="closeModal()"
+      class="select-general-for-lable btn-gray-border btn btn-primary btnGreen">
+      <img width="15px" height="15px" src="assets/Icons/exit.png" />
+      خروج
+    </button>
+  </div>
+</div>

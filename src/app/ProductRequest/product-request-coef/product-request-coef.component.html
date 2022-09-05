@@ -1,0 +1,47 @@
+<div id="container" class="row" style="clear: both">
+  <div id="content" class="" style="height: 100%; width: 100%;">
+    <div class="main-form-body" style="margin: 5px;">
+
+      <fieldset align="right" class="feild-set" style="display: inherit">
+        <legend class="legend" style="margin: 0;">قرارداد</legend>
+
+        <div class="input-with-lable" style="margin:auto">
+          <label for="indicator-label-code" class="col-form-label">شماره درخواست</label>
+          <input readonly style="display: inline-block;" id="indicator-label-code" class="form-control" type="text"
+            name="last" value="{{ProductRequestCode}}" />
+        </div>
+
+        <div class="input-with-lable" style="margin:auto">
+          <label for="indicator-label-name" class="col-form-label FontSize12">وضعیت درخواست</label>
+          <input readonly style="display: inline-block;" id="indicator-label-name" class="form-control " type="text"
+            name="last" value="{{ProductRequestStatusName}}" />
+        </div>
+
+        <div class="input-with-lable" style="margin:auto">
+          <label for="indicator-label-note" class="col-form-label FontSize12">موضوع</label>
+          <input readonly style="display: inline-block; width: 550px; " id="indicator-label-note" class="form-control "
+            type="text" name="last" value="{{Subject}}" />
+        </div>
+      </fieldset>
+
+      <div class="box-grid grid">
+        <app-grid style="width: 100%" [IsEditable]="IsVisible" [columns]="columnDef" [rowsData]="rowData"
+          (GridReady)="onPRCoefGridReady($event)" (CellValueChanged)="onCellValueChanged($event)" [gridHeight]=90>
+        </app-grid>
+      </div>
+    </div>
+    <div class="buttons-place" style=" margin: 5px">
+      <button *ngIf="IsVisible" (click)="onSave()" id="btn2" class="btn btn-primary btnGreen" style="margin: 2px">
+        <img width="15px" height="15px" src="assets/Icons/save.png" />
+        ثبت</button>
+      <button (click)="close()" class="btn btn-primary btnGreen">
+        <img width="15px" height="15px" src="assets/Icons/exit.png" />
+        خروج</button>
+    </div>
+  </div>
+</div>
+
+<app-over-popup *ngIf="btnclicked" [PopupType]="type" [startLeftPosition]="startLeftPosition"
+  [startTopPosition]="startTopPosition" [PopupParam]="alertMessageParams" (popupclosed)="popupclosed($event)"
+  (PopupOutPutParam)="type ==='message-box' ? MessageBoxAction($event) :''">
+</app-over-popup>

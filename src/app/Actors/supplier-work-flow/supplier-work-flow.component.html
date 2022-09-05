@@ -1,0 +1,36 @@
+<div id="container" class="row" style="clear: both">
+  <div id="content" class="" style="height: 100%; width: 100%;">
+    <div class="main-form-body" style="margin: 5px;">
+      <div class="box-grid grid">
+        <app-grid [columns]="WorkFlowColDef" [rowsData]="WorkFlowRows" [IsEditable]="false" [gridHeightPxel]="320">
+        </app-grid>
+      </div>
+      <ng-template #RevokeProcess let-row>
+        <img [ngClass]="'img-def'" width="16px" height="16px" style="cursor: pointer;"
+          [src]="!row.HaveCancleStatus ? 'assets/Icons/revocation.png' :'assets/Icons/ok.png'"
+          (click)="!row.HaveCancleStatus ?  onRevokeProcessClick(row) : '' " />
+      </ng-template>
+      <ng-template #WorkLogDetail let-row>
+        <img [ngClass]="'img-def'" width="16px" height="16px" style="cursor: pointer;" [src]="'assets/Icons/show.png'"
+          (click)="onWorkLogDetailClick(row)" />
+      </ng-template>
+      <ng-template #PrintFlow let-row>
+        <img [ngClass]="'img-def'" width="16px" height="16px" style="cursor: pointer;" [src]="'assets/Icons/print.png'"
+          (click)="onPrintFlowClick(row)" />
+      </ng-template>
+    </div>
+    <div class="buttons-place" style="margin: auto; height: 44px; padding: 10px; padding-bottom: 7px;">
+      <button (click)="onClose()" id="btn2" class="btn btn-primary btnGreen">
+        <img width="15px" height="15px" src="assets/Icons/exit.png" />
+        خروج</button>
+    </div>
+  </div>
+</div>
+
+
+<app-over-popup *ngIf="isClicked" [PopupType]="PopUpType" [HaveMaxBtn]="false" [startLeftPosition]="startLeftPosition"
+  [startTopPosition]="startTopPosition" [PopupParam]="PopUpType === 'message-box' ? alertMessageParams : PopupParam"
+  [HaveHeader]="HaveHeader" (popupclosed)="popupclosed($event)"
+  [PixelWidth]="PopUpType === 'message-box'? '' : OverPixelWidth"
+  (PopupOutPutParam)="PopUpType ==='message-box' ? MessageBoxAction($event) : getOutPutParam($event)">
+</app-over-popup>

@@ -1,0 +1,109 @@
+<div class="main-form-body" style="margin: 5px; height: 450px;">
+  <form>
+    <div class="main-form-body" style="display: inherit">
+      <table style="width: 100%;">
+        <tr>
+          <td width="25%" style="display: inline-block">
+            <span class="table-cell-Lable">شماره بلوک</span>
+            <input class="form-control input-style" style="width: 60%; display: inline-block" type="text" name="BlockNo"
+              [(ngModel)]="BlockNo" />
+          </td>
+          <td width="25%" style="display: inline-block">
+            <span class="table-cell-Lable">شماره ملک</span>
+            <input class="form-control input-style" style="width: 60%; display: inline-block " type="text" name="LandNo"
+              [(ngModel)]="LandNo" />
+          </td>
+          <td width="25%" style="display: inline-block">
+            <span class="table-cell-Lable">شماره آپارتمان</span>
+            <input class="form-control input-style" style="width: 60%; display: inline-block " type="text"
+              name="ApartmentNo" [(ngModel)]="ApartmentNo" />
+          </td>
+          <td width="25%" style="display: inline-block">
+            <span class="table-cell-Lable">شماره پیشه ور</span>
+            <input class="form-control input-style" style="width: 60%; display: inline-block " type="text"
+              name="BusinessNo" [(ngModel)]="BusinessNo" />
+          </td>
+        </tr>
+        <tr>
+          <td width="25%" style="display: inline-block">
+            <span class="table-cell-Lable"> منطقه</span>
+            <input class="form-control input-style" style="width:60%; display: inline-block" type="text" name="ZoneNo"
+              [(ngModel)]="ZoneNo" />
+          </td>
+          <td width="25%" style="display: inline-block">
+            <span class="table-cell-Lable">ناحیه</span>
+            <input class="form-control input-style" style="width:60%; display: inline-block" type="text" name="RegionNo"
+              [(ngModel)]="RegionNo" />
+          </td>
+          <td width="25%" style="display: inline-block">
+            <span class="table-cell-Lable">پلاک ثبتی ترکیبی</span>
+            <input class="form-control input-style" style="width:60%;display: inline-block " type="text" name="OldRegNo"
+              [(ngModel)]="OldRegNo" />
+          </td>
+          <td width="25%" style="display: inline-block">
+            <span class="table-cell-Lable">کد پستی </span>
+            <input class="form-control input-style" style="width:60%; display: inline-block" type="text"
+              name="NewPostCode" [(ngModel)]="NewPostCode" />
+          </td>
+        </tr>
+        <tr>
+          <td width="25%" style="display: inline-block">
+            <span class="table-cell-Lable">محدوده</span>
+            <input class="form-control input-style" style="width:60%; display: inline-block" type="text"
+              name="DistrictNo" [(ngModel)]="DistrictNo" />
+          </td>
+          <td width="25%" style="display: inline-block">
+            <span class="table-cell-Lable">ردیف مالک</span>
+            <input class="form-control input-style" style="width:60%;display: inline-block " type="text" name="OwnerNo"
+              [(ngModel)]="OwnerNo" />
+          </td>
+          <td width="25%" style="display: inline-block">
+            <span class="table-cell-Lable"> نام مالک</span>
+            <input class="form-control input-style" style="width:60%; display: inline-block" type="text"
+              name="FirstName" [(ngModel)]="FirstName" />
+          </td>
+          <td width="25%" style="display: inline-block">
+            <span class="table-cell-Lable">نام خانوادگی مالک</span>
+            <input class="form-control input-style" style="width:60%; display: inline-block" type="text" name="LastName"
+              [(ngModel)]="LastName" />
+          </td>
+        </tr>
+        <tr>
+          <td width="100%">
+            <span class="table-cell-Lable">آدرس</span>
+            <input class="form-control input-style" style="width:90%; display: inline-block" type="text" name="PAddress"
+              [(ngModel)]="PAddress" />
+          </td>
+        </tr>
+      </table>
+    </div>
+  </form>
+  
+  <div style="margin: auto;">
+    <button style="width: 100% !important;" class="select-general-for-lable btn-gray-border btn btn-primary btnGreen"
+      (click)="onSearch()">
+      <img width="15px" height="15px" src="assets/Icons/exit.png" />
+      جستجو
+    </button>
+  </div>
+
+  <div style="clear: both;padding-bottom: 5px; height: 62%; margin-top: 5px; ">
+    <div class="box-dev" style=" width: 100%;" [style.height.%]="100">
+      <app-grid style="width: 90%;" (GridReady)="onEstateGridReady($event)" [columns]="EstateColDef"
+        [IsEditable]="false" [rowsData]="EstateRowData" (RowClick)="onEstateRowClick($event)" [gridHeight]="95">
+      </app-grid>
+    </div>
+  </div>
+
+</div>
+<div class="buttons-place" style="margin: unset; margin: 5px;">
+  <button (click)="onAdd()" id="btnSave" class="btn btn-primary btnGreen">
+    <img width="15px" height="15px" src="assets/Icons/Add.png" />
+    تایید
+  </button>
+
+  <button class="btn btn-primary btnGreen" (click)="onClose()">
+    <img width="15px" height="15px" src="assets/Icons/exit.png" />
+    خروج
+  </button>
+</div>

@@ -1,0 +1,58 @@
+#content
+{
+    background-color: transparent;
+    flex: 1;
+    padding: 0;
+    overflow: hidden;
+    float: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+}
+
+.middleDiv{
+    display: table-caption;
+    border-radius: 5px;
+    border: 1px solid rgb(204, 204, 204);
+   /* margin-bottom: 5px;*/
+    margin-left: 2px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-right: 2px;
+    margin-right: 5px; 
+    width: 5%;
+    height:100% ;
+}
+
+.box-dev{
+    display: table-caption;
+    border-radius: 5px;
+    border: 1px solid rgb(204, 204, 204);
+    margin-bottom: 5px;
+    margin-left: 2px;
+    padding-top: 2px;
+    padding-bottom: 15px;
+    padding-right: 2px;
+    padding-left: 2px;
+    margin-right: 5px; 
+    height:100% ;
+    width: 45.25%;
+    margin: auto;
+}
+
+.buttons-in-column {
+    display: flex; 
+    flex-direction: column;
+  }
+  .arrow-key{
+    width: 5%;
+    margin: 0px 10px 0px 10px;
+    padding-right:0px;
+    padding-top:120px;
+  }
+  .main-form-body{
+    display: flex ;
+    margin: 5px;
+    height:455px;
+  }

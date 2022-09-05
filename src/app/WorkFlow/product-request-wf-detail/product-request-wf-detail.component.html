@@ -1,0 +1,114 @@
+<div class="main-form-body" style="margin-top: 5px; height:87%; ">
+  <table style="width: 100%;">
+    <tr>
+      <td width="25%">
+        <span class="table-cell-Lable">واحد اجرایی</span>
+        <app-ng-select-virtual-scroll style="display: inline-block;width: 68%;" [NgSelectParams]="NgSelectRegionParams"
+          (selectedChange)="onChangeReigonObj($event)" [Items]="ReigonListSet">
+        </app-ng-select-virtual-scroll>
+      </td>
+      <td width="25%">
+        <span class="table-cell-Lable">محل هزینه</span>
+        <app-ng-select-virtual-scroll (Open)="OnOpenNgSelect('ExeUnit')" style="display: inline-block;width: 70%;"
+          [NgSelectParams]="VWExeUnitParams" [Items]="VWExeUnitItems">
+        </app-ng-select-virtual-scroll>
+      </td>
+      <td width="25%">
+        <span class="table-cell-Lable">نوع درخواست</span>
+        <div style="width: 68%;display: inline-block;text-align: right">
+          <div style="width: 40%;display: inline-block; text-align: left; ">
+            <span class="table-cell-Lable" style="margin: 0 ;margin-left: 5px">جدید</span>
+            <app-custom-check-box style="vertical-align: sub; " [configurationInfo]="CustomCheckBoxConfig"
+              [isSelected]="IsNew" (PrettyCheckBoxChange)="OnChangeCheckBoxValue($event,'IsNew')">
+            </app-custom-check-box>
+          </div>
+          <div style="width: 50%;display: inline-block;text-align: right;margin-right: 7px;">
+            <span class="table-cell-Lable" style="margin-left: 5px;">تمدید</span>
+            <app-custom-check-box style="vertical-align: sub; display: inline-block;" [isSelected]="IsExtended"
+              [configurationInfo]="CustomCheckBoxConfig"
+              (PrettyCheckBoxChange)="OnChangeCheckBoxValue($event,'IsExtended')">
+            </app-custom-check-box>
+          </div>
+        </div>
+      </td>
+      <td width="25%">
+        <span class="table-cell-Lablle"> تاریخ درخواست از</span>
+        <app-jalali-datepicker [WidthPC]="32" [Required]="true" (Change)="OnFromProductRequestDateChange($event)">
+        </app-jalali-datepicker>
+        <span class="table-cell-Lablle">تا</span>
+        <app-jalali-datepicker [WidthPC]="32" [Required]="true" (Change)="OnToProductRequestDateChange($event)">
+        </app-jalali-datepicker>
+      </td>
+    </tr>
+    <tr>
+      <td width="25%">
+        <span class="table-cell-Lable">از درخواست</span>
+        <app-ng-select-virtual-scroll [TotalItemCount]="FromRequestTotalItemCount" [PageCount]="FromRequestPageCount"
+          (Open)="OnOpenNgSelect('FromRequest')" style="display: inline-block;width: 68%;"
+          [NgSelectParams]="FromRequestParams" (FetchMore)="FetchMoreRequest($event,'From')"
+          (doSearch)="doRequestSearch($event,'From')" (selectedChange)="onChangeNgSelect($event,'FromRequest')"
+          [Items]="FromRequestItems">
+        </app-ng-select-virtual-scroll>
+      </td>
+      <td width="25%">
+        <span class="table-cell-Lable">تا درخواست</span>
+        <app-ng-select-virtual-scroll [TotalItemCount]="ToRequestTotalItemCount" [PageCount]="ToRequestPageCount"
+          (Open)="OnOpenNgSelect('ToRequest')" style="display: inline-block;width: 70%;"
+          [NgSelectParams]="ToRequestParams " (FetchMore)="FetchMoreRequest($event,'TO')"
+          (doSearch)="doRequestSearch($event,'TO')" [Items]="ToRequestItems">
+        </app-ng-select-virtual-scroll>
+      </td>
+      <td width=" 25%">
+        <span class="table-cell-Lable">کاربر گردش کار</span>
+        <app-ng-select-virtual-scroll style="display: inline-block;width: 70%;"
+          [NgSelectParams]="NgSelectPersonRoleParams" [Items]="PersonRoleItems"
+          (FetchMore)="Person_Role_FetchMore($event)" (Open)="PersonRoleOpened()"
+          (doSearch)="Person_Role_DoSearch($event)" (selectedChange)="PersonRoleSelectedChange($event)">
+        </app-ng-select-virtual-scroll>
+      </td>
+      <td width=" 25%">
+      </td>
+    </tr>
+  </table>
+  <table>
+    <tr>
+      <td wdith="25%" colspan="2">
+        <button type="submit" (click)="Search()"
+          class="select-general-for-lable btn-gray-border btn btn-primary btnGreen">
+          <img width="15px" height="15px" src="assets/Icons/Search.png" />
+          جستجو
+        </button>
+      </td>
+    </tr>
+  </table>
+  <div style="clear: both;padding-bottom: 5px; height: 85%;">
+    <div class="box-dev" style=" width: 100%;" [style.height.%]="98">
+      <app-grid 
+        (GridReady)="onGridReady($event)" 
+        [columns]="MaincolumnDef" 
+        [rowsData]="rowData" 
+        [gridHeight]="93">
+      </app-grid>
+    </div>
+  </div>
+</div>
+<div class="buttons-place" style="margin: unset;">
+  <!-- <button (click)="report()" id="btn4" class="btn btn-primary btnGreen">
+    <img width="15px" height="15px" src="assets/Icons/print.png" />
+    چاپ</button> -->
+  <button (click)="closeModal()" id="btn4" class="btn btn-primary btnGreen">
+    <img width="15px" height="15px" src="assets/Icons/exit.png" />
+    خروج</button>
+</div>
+<ng-template #IsPostedToClean let-row>
+  <img width="16px" height="16px"
+    [src]="row.IsPostedToClean ? 'assets/Icons/TrueCheckBox.png':'assets/Icons/uncheck.png'" />
+</ng-template>
+<app-over-popup *ngIf="btnclicked" [HaveMaxBtn]="HaveMaxBtn" [startLeftPosition]="startLeftPosition"
+  [startTopPosition]="startTopPosition" [minHeightPixel]="type === 'message-box' ? '' : MinHeightPixel"
+  [PopupType]="type" [HeightPercentWithMaxBtn]="type === 'message-box' ? '' : HeightPercentWithMaxBtn"
+  [PopupParam]="type === 'message-box' ? alertMessageParams : paramObj" [HaveHeader]="HaveHeader"
+  [PixelWidth]="type === 'message-box'? '' : OverPixelWidth"
+  [MainMaxwidthPixel]="type === 'message-box'? '' : OverPixelWidth" (popupclosed)="popupclosed($event)"
+  (PopupOutPutParam)="type ==='message-box' ? MessageBoxAction($event) : ''">
+</app-over-popup>

@@ -1,0 +1,148 @@
+<div class="main-form-body" style="margin-top: 5px; height: 85%;">
+  <fieldset class="feild-set" style="display: inherit">
+    <table style="margin-bottom: 5px; width: 100%;">
+
+      <!-- <td width="25%">
+          <span class="table-cell-Lablle" > شماره سفارش </span>
+          <input style="display: inline-block; width: 60%;" class="form-control input-style" type="text"
+            name="CustomerOrderCode" [(ngModel)]="CustomerOrderCode" />
+        </td> -->
+
+      <tr>
+        <td width="50%">
+          <span class="table-cell-Lable">نوع مشتری</span>
+          <div class="redio-div" style="width: 31%; text-align:right; padding-right: 10px;">
+            <div class="custom-control custom-radio custom-control-inline">
+              <input [checked]="ContractorType" type="radio" class="custom-control-input" id="rdoPersonContractor"
+                name="ChoosenContractorType" (click)="rdoContractorTypeClick(true)">
+              <label style="margin: auto;" class="custom-control-label redio-label" for="rdoPersonContractor">حقيقي
+              </label>
+            </div>
+            <div class="custom-control custom-radio custom-control-inline">
+              <input [checked]="!ContractorType" type="radio" class="custom-control-input" id="rdoCorporateContractor"
+                name="ChoosenContractorType">
+              <label style="margin: auto;" class="custom-control-label redio-label" for="rdoCorporateContractor"
+                (click)="rdoContractorTypeClick(false)">حقوقي</label>
+            </div>
+          </div>
+
+          <span class="table-cell-Lable">نام مشتری</span>
+          <app-ng-select-virtual-scroll style="display: inline-block;width: 40%;"
+            [NgSelectParams]="NgSelectPersonReqParams" [Items]="PersonReqItems"
+            (FetchMore)="PersonReq_FetchMore($event)" (Open)="PersonReqOpened()"
+            (doSearch)="Person_Req_DoSearch($event)">
+          </app-ng-select-virtual-scroll>
+        </td>
+       <td width="50%">
+          <span class="table-cell-Lable">ریز درخواست از</span>
+          <app-ng-select-virtual-scroll [TotalItemCount]="FromRequestTotalItemCount"
+            [PageCount]="FromRequestPageCount" (Open)="OnOpenNgSelect('FromRequest')"
+            style="display: inline-block;width: 39%;" [NgSelectParams]="FromRequestParams"
+            (FetchMore)="FetchMoreRequest($event,'From')" (doSearch)="doRequestSearch($event,'From')"
+            (selectedChange)="onChangeNgSelect($event,'FromRequest')" [Items]="FromRequestItems">
+          </app-ng-select-virtual-scroll>
+          <span class="table-cell-Lable" style="margin-right:5px; margin-left: 3px;"   >تا</span>
+          <app-ng-select-virtual-scroll [TotalItemCount]="ToRequestTotalItemCount"
+            [PageCount]="ToRequestPageCount" (Open)="OnOpenNgSelect('ToRequest')"
+            style="display: inline-block;width: 39%;" [NgSelectParams]="ToRequestParams "
+            (FetchMore)="FetchMoreRequest($event,'TO')" (doSearch)="doRequestSearch($event,'TO')"
+            [Items]="ToRequestItems" (selectedChange)="onChangeNgSelect($event,'To')">
+          </app-ng-select-virtual-scroll>
+        </td> 
+        <!-- <td width="50%">
+          <span class="table-cell-Lablle"> شماره ریز درخواست از </span>
+          <input style="display: inline-block; width: 39%;" class="form-control input-style" type="text"
+            name="FromProductRequestNO" [(ngModel)]="FromProductRequestNO" />
+          <span class="table-cell-Lablle"> تا </span>
+          <input style="display: inline-block; width: 39%;" class="form-control input-style" type="text"
+            name="ToProductRequestNO" [(ngModel)]="ToProductRequestNO" />
+        </td> -->
+      </tr>
+      <tr>
+        <td width="50%">
+          <span class="table-cell-Lable">شماره سفارش از</span>
+          <input style="display: inline-block; width: 40%;" class="form-control input-style" type="text"
+            name="FromOrderRequestCode" [(ngModel)]="FromOrderRequestCode" />
+          <span class="table-cell-Lable">تا</span>
+          <input style="display: inline-block; width: 40%;" class="form-control input-style" type="text"
+            name="ToOrderRequestCode" [(ngModel)]="ToOrderRequestCode" />
+        </td>
+
+        <td width="50%">
+          <span class="table-cell-Lable">تاریخ سفارش از</span>
+          <app-jalali-datepicker [WidthPC]="39" [Required]="true" (Change)="OnFromOrderRequestDateChange($event)">
+          </app-jalali-datepicker>
+          <span class="table-cell-Lable">تا</span>
+          <app-jalali-datepicker [WidthPC]="39" [Required]="true" (Change)="OnToOrderRequestDateChange($event)">
+          </app-jalali-datepicker>
+        </td>
+      </tr>
+
+
+    </table>
+
+    <div style="width: 100%; display: flex; justify-content: center; padding: 10px; ">
+      <button (click)="Search()" style="width: 160px;height: 30px;"
+        class="select-general-for-lable btn-gray-border btn btn-primary btnGreen">
+        <img width="15px" height="15px" src="assets/Icons/Search.png" />
+        جستجوی سفارش مشتری
+      </button>
+      <button *ngIf="true" [disabled]="false" title="در این جستجو ریز درخواست ها نمایش داده می شود." type="submit"
+        (click)="partialSearch()" style="width: 160px;height: 30px;"
+        class="select-general-for-lable btn-gray-border btn btn-primary btnGreen">
+        <img width="15px" height="15px" src="assets/Icons/Search.png" />
+        جستجو ریز درخواست
+      </button>
+    </div>
+  </fieldset>
+
+
+  <div class="box-dev" style=" width: 100%;" [style.height.%]="84">
+    <app-grid [columns]="columnDef" [rowsData]="rowData" [gridHeight]="86" (GridReady)="onGridReady($event)"
+      (RowClick)="RowClick($event)">
+    </app-grid>
+  </div>
+
+</div>
+
+
+<div class="buttons-place" style="margin: unset;">
+  <!-- <button *ngIf="ModuleCode === 3029" [disabled]="WorkFlowDisable" (click)="BtnVeiwclick()"
+    class="btn btn-primary btnGreen">
+    <img width="15px" height="15px" src="assets/Icons/show.png" />
+    جزییات گردش
+  </button> -->
+  <button (click)="Updateclick()" id="btn2" class="btn btn-primary btnGreen">
+    <img width="15px" height="15px" src="assets/Icons/show.png" />
+    {{btnViewOrder}} </button>
+  <button (click)="ReqUpdateclick()" id="btn2" class="btn btn-primary btnGreen">
+    <img width="15px" height="15px" src="assets/Icons/show.png" />
+    {{btnReqViewOrder}} </button>
+  <button *ngIf="ModuleCode === 3029" id="btn2" class="btn btn-primary btnGreen" (click)="onDeleteclick()">
+    <img width="15px" height="15px" src="assets/Icons/delete.png" />
+    حذف
+  </button>
+  <button (click)="close()" id="btn4" class="btn btn-primary btnGreen">
+    <img width="15px" height="15px" src="assets/Icons/exit.png" />
+    خروج</button>
+</div>
+
+<ng-template #HasWorkFlow let-row>
+  <img width="16px" height="16px"
+    [src]="row.HasWorkFlow ? 'assets/Icons/TrueCheckBox.png':'assets/Icons/Uncheck.png'" />
+</ng-template>
+<ng-template #RequestRevoction let-row>
+  <img [ngClass]="'img-def'" width="16px" height="16px" style="cursor: pointer;" [src]="'assets/Icons/delete.png'"
+    (click)="onClickRequestRevoke(row)" />
+</ng-template>
+<ng-template #OrderRevoction let-row>
+  <img [ngClass]="'img-def'" width="16px" height="16px" style="cursor: pointer;" [src]="'assets/Icons/delete.png'"
+    (click)="onClickOrderRevoke(row)" />
+</ng-template>
+
+<app-cfm-over-popup *ngIf="btnclicked" [HaveMaxBtn]="HaveMaxBtn" [startLeftPosition]="startLeftPosition"
+  [startTopPosition]="startTopPosition" [minHeightPixel]="MinHeightPixel" [PercentWidth]="PercentWidth"
+  [MainMaxwidthPixel]="MainMaxwidthPixel" [PopupType]="type" [HeightPercentWithMaxBtn]="HeightPercentWithMaxBtn"
+  [PopupParam]="type === 'message-box' ? alertMessageParams : paramObj" [HaveHeader]="HaveHeader"
+  (popupclosed)="popupclosed($event)" (PopupOutPutParam)="type ==='message-box' ? MessageBoxAction($event) : getOutPutParam($event)">
+</app-cfm-over-popup>

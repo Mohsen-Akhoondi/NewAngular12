@@ -1,0 +1,109 @@
+<div id="container" class="row" style="clear: both">
+  <div id="content" class="" style="height: 97%; width: 100%;">
+    <div class="main-form-body" style="margin: 5px;">
+      <form>
+          <fieldset class="feild-set" style="display: inherit">
+              <legend style="width: 7%;margin: 0;"> اطلاعات قرارداد </legend>
+              <table style="line-height: 12px; width: 100%;">
+                <tr>
+                  <td width="20%">
+                    <span class="table-cell-Lable">سال مالی</span><input style="width: 70% "
+                      class="form-control input-style" type="text"  value="{{FinYearCode}}" readonly /></td>
+                  <td width="20%">
+                    <span class="table-cell-Lable"> کد قرارداد</span><input style="width: 70% "
+                      class="form-control input-style" type="text"  value="{{ContractCode}}" readonly /></td>
+                  <td width="20%">
+                    <span class="table-cell-Lable"> پیمانکار </span><input style="width: 70% "
+                      class="form-control input-style" type="text"  value="{{ContractorName}}" readonly /></td>
+                  <td width="20%">
+                    <span class="table-cell-Lable"> شماره نامه </span><input style="width: 70% "
+                      class="form-control input-style" type="text"  value="{{LetterNo}}" readonly /></td>
+                  <td width="20%">
+                    <span class="table-cell-Lable"> مبلغ </span><input style="width: 70%; " class="form-control input-style"
+                      type="text" value="{{ContractAmount}}" readonly /></td>
+                </tr>
+                <tr>
+                  <td colspan="5">
+                    <span class="table-cell-Lable"> موضوع </span><input style="width: 94%; display: inline-block; "
+                      class="form-control" id="subject-style" type="text" name="first" value="{{Subject}}" readonly /></td>
+                </tr>
+              </table>
+            </fieldset>
+        <fieldset class="feild-set" style="display: inherit">
+          <legend style="width: 7%;margin: 0;"> اطلاعات پرداخت </legend>
+          <table style="line-height: 1px; width: 100%;">
+            <tr>
+              <td width="20%">
+                <span class="table-cell-Lable"> صورت وضعیت </span>
+                <input style="width: 64% " class="form-control input-style"
+                  type="text"  value="{{ContractPayTechnicalCode}}" readonly /></td>
+              <td width="25%">
+                <span class="table-cell-Lable"> تاریخ درخواست پرداخت </span>
+                <app-jalali-datepicker
+                [WidthPx]="100"              
+                [Required]="false"
+                [CurrMiladiDateValue] = "ContractPayDate"
+                ></app-jalali-datepicker></td>
+              <td width="25%">
+                <span class="table-cell-Lable"> دوره درخواست پرداخت از تاریخ </span>
+                <app-jalali-datepicker
+                [WidthPx]="100"              
+                [Required]="false"
+                [CurrMiladiDateValue] = "ContractPayStartDate"
+                ></app-jalali-datepicker></td>
+              <td width="20%">
+                <span class="table-cell-Lable">تا تاریخ </span>
+                <app-jalali-datepicker
+                [WidthPx]="100"              
+                [Required]="false"
+                [CurrMiladiDateValue] = "ContractPayEndDate"
+                ></app-jalali-datepicker></td>
+              <td width="10%"></td>
+            </tr>
+          </table>
+        </fieldset>
+      </form>
+      <div class="box-dev" style=" width: 100%; border: 1px solid rgb(214, 214, 214);" >
+          <app-grid style="width: 100%;" 
+          [columns]="columnDef_Transport"
+          [IsEditable]="true"
+          [rowsData]="rowData"
+          [IsDisable]="IsDisable" 
+          (GridReady)="GridReady($event)"
+          [gridHeight]="90"
+          (CellValueChanged)="onCellValueChanged($event)"
+         >
+        </app-grid>  
+      </div>
+    </div>
+    <div class="buttons-place" style=" margin: 5px">
+      <button *ngIf="HaveSave" (click)="onSave()" id="btn2" class="btn btn-primary btnGreen" style="margin: 2px">
+        <img width="15px" height="15px" src="assets/Icons/save.png" />
+        ثبت </button>
+
+      <button (click)="close()" id="btn4" class="btn btn-primary btnGreen">
+        <img width="15px" height="15px" src="assets/Icons/exit.png" />
+        خروج</button>
+
+    </div>
+  </div>
+</div>
+
+<ng-template #Is4WDValid let-row>
+  <img width="16px" height="16px" [src]= "row.Is4wd ? 'assets/Icons/TrueCheckBox.png':'assets/Icons/uncheck.png'" />
+ </ng-template>
+
+ <ng-template #WithDriverValid let-row>
+  <img width="16px" height="16px" [src]= "row.WithDriver ? 'assets/Icons/TrueCheckBox.png':'assets/Icons/uncheck.png'" />
+ </ng-template>
+
+
+ <app-over-popup *ngIf="btnclicked" 
+  [PopupType]="type" 
+  [HaveMaxBtn]="false"
+  [startLeftPosition]="OverstartLeftPosition"
+  [startTopPosition]="OverstartTopPosition"
+  [PopupParam]="alertMessageParams"
+  (popupclosed)="popupclosed($event)">
+</app-over-popup>
+ 

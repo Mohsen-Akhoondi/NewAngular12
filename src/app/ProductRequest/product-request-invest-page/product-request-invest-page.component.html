@@ -1,0 +1,232 @@
+<div id="container" style="clear: both;padding: 5px">
+  <div class="main-form-body" style="margin: 5px;height: 86%;">
+    <form>
+      <fieldset class="feild-set" style="display: inherit">
+        <legend class="legend">اطلاعات درخواست</legend>
+        <table style="width: 100%;">
+          <tr>
+            <td width="50%">
+              <span class="table-cell-Lable">شماره درخواست</span>
+              <input style="width: 71.2% " class="form-control input-style" type="text" value="{{ProductRequestNo}}"
+                readonly />
+            </td>
+            <td width="50%">
+              <span class="table-cell-Lable">تاریخ درخواست</span>
+              <app-jalali-datepicker [WidthPC]="71.2" [CurrMiladiDateValue]="ProductRequestDate"
+                (Change)="OnProductRequestDateChange($event)" [Disabled]="true">
+              </app-jalali-datepicker>
+            </td>
+          </tr>
+          <tr>
+            <td width="100%" colspan="2">
+              <span class="table-cell-Lable">موضوع</span>
+              <input style="width: 85.7%;" class="form-control input-style" type="text" name="Subject"
+                [(ngModel)]="Subject" readonly />
+            </td>
+          </tr>
+        </table>
+      </fieldset>
+    </form>
+    <div class="tab-content box-dev" style="margin-top: 5px;padding: 5px;" [style.height.%]="86">
+      <table style="width: 100%;">
+        <tr>
+          <td style="width: 30%">
+            <span style="color: red;">*</span>
+            <span class="table-cell-Lable">روش مشارکت</span>
+            <app-ng-select-virtual-scroll style="display: inline-block;width: 61.2%;" class="select-general-for-lable"
+              [NgSelectParams]="InvestTypeParams" [Items]="InvestTypeItems" [Disabled]="IsInvestArchive"
+              (selectedChange)="onChangeInvestType($event)" [CheckValidate]="CheckValidate">
+            </app-ng-select-virtual-scroll>
+          </td>
+          <td style="width: 30%">
+            <span class="table-cell-Lable">تاریخ ابلاغ</span>
+            <app-jalali-datepicker [WidthPC]="66.2" [CurrMiladiDateValue]="CommunicteDate"
+              (Change)="OnProductRequestDateChange($event)">
+            </app-jalali-datepicker>
+          </td>
+          <td style="width: 35%">
+            <span class="table-cell-Lable">کارمزد فروش</span>
+            <input style="width: 66.2%;" class="form-control input-style" type="text" [(ngModel)]="SalesCommition" />
+          </td>
+
+        </tr>
+
+        <tr>
+          <td style="width: 30%">
+            <span style="color: red;">*</span>
+            <span class="table-cell-Lable">آورده شهرداری</span>
+            <input style="width: 61.2%;" class="form-control input-style" type="text" [(ngModel)]="MunicipalityFound"
+              [ngStyle]="{'border-color': CheckValidate && !MunicipalityFound ? 'red':''}"
+              placeholder="{{CheckValidate && !MunicipalityFound ? 'پر کردن مقدار این فیلد الزامیست': ''}}" />
+          </td>
+          <td style="width: 30%">
+            <span class="table-cell-Lable">به مبلغ</span>
+            <app-number-input-component [id]="'Municipality-Found-Amount'" [Value]="MunicipalityFoundAmount"
+              [IsFloat]="false" [PerCentWidth]="66.2" [PixelHeight]="25"
+              (ValueChange)="MunicipalityFoundAmountChange($event)" class="col-form-label" [HaveThousand]="true">
+            </app-number-input-component>
+          </td>
+          <td style="width: 30%">
+            <span *ngIf="HasRent" style="color: red;">*</span>
+            <span class="table-cell-Lable">مبلغ اجاره بها</span>
+            <input style="width: 66.2% " class="form-control input-style" type="text" name="MonthlyRentAmount"
+              [(ngModel)]="MonthlyRentAmount"
+              [ngStyle]="{'border-color': CheckValidate && HasRent && !MonthlyRentAmount ? 'red':''}"
+              placeholder="{{CheckValidate && HasRent && !MonthlyRentAmount ? 'پر کردن مقدار این فیلد الزامیست': ''}}" />
+          </td>
+        </tr>
+        <tr>
+          <td style="width: 30%">
+            <span style="color: red;">*</span>
+            <span class="table-cell-Lable">آورده ثابت سرمایه گذار</span>
+            <input style="width: 61.2%;" class="form-control input-style" type="text" [(ngModel)]="InvestorFound"
+              [ngStyle]="{'border-color': CheckValidate && !InvestorFound ? 'red':''}"
+              placeholder="{{CheckValidate && !InvestorFound ? 'پر کردن مقدار این فیلد الزامیست': ''}}" />
+          </td>
+          <td style="width: 30%">
+            <span class="table-cell-Lable">به مبلغ</span>
+            <app-number-input-component [id]="'Investor-Found-Amount'" [Value]="InvestorFoundAmount" [IsFloat]="false"
+              [PerCentWidth]="66.2" [PixelHeight]="25" (ValueChange)="InvestorFoundAmountChange($event)"
+              class="col-form-label" [HaveThousand]="true">
+            </app-number-input-component>
+          </td>
+          <td style="width: 30%">
+            <span class="table-cell-Lable">دوره بهره برداری</span>
+            <input style="width: 66.2%;" class="form-control input-style" type="text" [(ngModel)]="UseDuration" />
+          </td>
+        </tr>
+        <tr>
+          <td style="width: 100%" colspan="2">
+            <span class="table-cell-Lable">مشخصات فنی</span>
+            <input style="width: 81%;" class="form-control input-style" type="text" [(ngModel)]="TechnicalSpec" />
+          </td>
+          <td style="width: 30%">
+            <span *ngIf="HasPeriod" style="color: red;">*</span>
+            <span class="table-cell-Lable">مدت بهره برداری پایه</span>
+            <app-number-input-component [id]="'Basic-Operation-Period'" [Value]="BasicOperationPeriod" [IsFloat]="false"
+              [PerCentWidth]="59" [PixelHeight]="25" (ValueChange)="BasicOperationPeriodChange($event)"
+              class="col-form-label" [HaveThousand]="false"
+              [CheckValidate]="HasPeriod && !BasicOperationPeriod ? CheckValidate : false">
+            </app-number-input-component>
+            <span class="table-cell-Lable">ماه</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td style="width: 30%">
+            <span class="table-cell-Lable">قدر السهم شهرداری</span>
+            <app-number-input-component [id]="'Base-Share-Value'" [Value]="BaseShareValue" [IsFloat]="true"
+              [MaxLength]="5" [FloatMaxLength]="2" [PerCentWidth]="50.2" [PixelHeight]="25"
+              (ValueChange)="BaseShareValueChange($event)" class="col-form-label" [HaveThousand]="false"
+              [ReadOnly]="IsInvestArchive">
+            </app-number-input-component>
+            <span class="table-cell-Lable">درصد</span>
+          </td>
+          <td style="width: 30%">
+            <span class="table-cell-Lable">قدر السهم شریک</span>
+            <app-number-input-component [id]="'Copartner-Share-Value'" [Value]="CopartnerShareValue" [IsFloat]="true"
+              [MaxLength]="5" [FloatMaxLength]="2" [PerCentWidth]="54.2" [PixelHeight]="25" class="col-form-label"
+              [HaveThousand]="false" [ReadOnly]=true>
+            </app-number-input-component>
+            <span class="table-cell-Lable">درصد</span>
+          </td>
+          <td style="width: 30%">
+            <span *ngIf="HasInvestor" style="color: red;">*</span>
+            <span class="table-cell-Lable">نام سرمایه گذار</span>
+            <app-ng-select-virtual-scroll [PageCount]="ContractorPageCount" [TotalItemCount]="ContractorTotalItemCount"
+              style="display: inline-block;width: 66.2%;" class="select-general-for-lable"
+              [NgSelectParams]="NgSelectContractorParams" [Items]="ContractorItems"
+              (FetchMore)="FetchMoreContractor($event)" (doSearch)="doContractorSearch($event)"
+              [CheckValidate]="CheckValidate && HasInvestor">
+            </app-ng-select-virtual-scroll>
+          </td>
+
+        </tr>
+
+        <tr>
+          <td style="width: 30%">
+            <span class="table-cell-Lable">نوع ذینفع</span>
+            <div class="redio-div" style="width: 69%;text-align: right;  margin-right: 10px;">
+              <div class="custom-control custom-radio custom-control-inline">
+                <input [checked]="ContractorType" type="radio" class="custom-control-input" id="rdoPerson"
+                  name="ChoosenActorType" (click)="rdoContractorTypeClick(true)">
+                <label style="margin: auto;" class="custom-control-label redio-label" for="rdoPerson">حقيقي
+                </label>
+              </div>
+              <div class="custom-control custom-radio custom-control-inline">
+                <input [checked]="!ContractorType" type="radio" class="custom-control-input" id="rdoCorporate"
+                  name="ChoosenActorType" (click)="rdoContractorTypeClick(false)">
+                <label style="margin: auto;" class="custom-control-label redio-label" for="rdoCorporate">حقوقي</label>
+              </div>
+            </div>
+          </td>
+          <td style="width: 30%">
+            <span class="table-cell-Lable">ارزش کل قرارداد</span>
+            <div class="redio-div" style="width: 69%;text-align: right;  margin-right: 10px;">
+              <div class="custom-control custom-radio custom-control-inline">
+                <input [checked]="IsPercentValue" type="radio" class="custom-control-input" id="rdoContract"
+                  name="ChoosenContractType" (click)="IsPerecentClick(true)">
+                <label style="margin: auto;" class="custom-control-label redio-label" for="rdoContract">درصدی
+                </label>
+              </div>
+              <div class="custom-control custom-radio custom-control-inline">
+                <input [checked]="!IsPercentValue" type="radio" class="custom-control-input" id="rdoCoContract"
+                  name="ChoosenContractType" (click)="IsPerecentClick(false)">
+                <label style="margin: auto;" class="custom-control-label redio-label" for="rdoCoContract">مبلغی</label>
+              </div>
+            </div>
+          </td>
+          <td style="width: 30%">
+            <span *ngIf="HasPercent" style="color: red;">*</span>
+            <span class="table-cell-Lable">درصد</span>
+            <input style="width: 66.2%;" class="form-control input-style" type="text" [(ngModel)]="Percent"
+              [ngStyle]="{'border-color': CheckValidate && HasPercent && !Percent ? 'red':''}"
+              placeholder="{{CheckValidate && HasPercent && !Percent ? 'پر کردن مقدار این فیلد الزامیست': ''}}" />
+          </td>
+
+        </tr>
+        <tr>
+          <td *ngIf="HasVoucher" style="width: 30%">
+            <span style="color: red;">*</span>
+            <span class="table-cell-Lable">مساحت زمین طبق سند</span>
+            <input style="width: 59.2%;" class="form-control input-style" type="text" [(ngModel)]="VoucherArea"
+              [ngStyle]="{'border-color': CheckValidate && !VoucherArea ? 'red':''}"
+              placeholder="{{CheckValidate && !VoucherArea ? 'پر کردن مقدار این فیلد الزامیست': ''}}" />
+          </td>
+          <td *ngIf="HasArea" style="width: 30%">
+            <span style="color: red;">*</span>
+            <span class="table-cell-Lable">مساحت زیربنا</span>
+            <input style="width: 66.2%;" class="form-control input-style" type="text" [(ngModel)]="Area"
+              [ngStyle]="{'border-color': CheckValidate && !Area ? 'red':''}"
+              placeholder="{{CheckValidate && !Area ? 'پر کردن مقدار این فیلد الزامیست': ''}}" />
+          </td>
+        </tr>
+
+      </table>
+
+  </div>
+    <div class="for-append-date" style="width: 100%; height: 220px;" >
+      <app-grid [HaveBorder]="true" [columns]="columnDef" [rowsData]="rowsData" (GridReady)="onGridReady($event)"
+        [IsEditable]=true [gridHeight]= 80>
+      </app-grid>
+    </div>
+
+  </div>
+
+  <div class="buttons-place" style="margin: unset; margin: 5px;">
+    <button (click)="onSave()" id="btnSave" class="btn btn-primary btnGreen">
+      <img width="15px" height="15px" src="assets/Icons/save.png" />
+      ثبت
+    </button>
+
+    <button id="btnClose" class="btn btn-primary btnGreen" (click)="Close()">
+      <img width="15px" height="15px" src="assets/Icons/exit.png" />
+      خروج
+    </button>
+  </div>
+</div>
+
+<app-over-popup *ngIf="btnclicked" [PopupType]="PopUpType" [HaveMaxBtn]="HaveMaxBtn" [startLeftPosition]="449"
+  [startTopPosition]="247" (popupclosed)="popupclosed($event)"
+  [PopupParam]="PopUpType === 'message-box' ?alertMessageParams:PopupParam">
+</app-over-popup>

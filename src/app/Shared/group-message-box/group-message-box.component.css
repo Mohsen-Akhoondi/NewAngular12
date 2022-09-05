@@ -1,0 +1,13 @@
+.header-message{
+    text-align: right ;
+    margin-right: 22px;
+    margin-top: 15px;
+}
+.alert-image{
+    float: right;
+    margin-top: 15px;
+}
+.main-message-body{
+    margin: 5px ;
+    height: 60px;
+}

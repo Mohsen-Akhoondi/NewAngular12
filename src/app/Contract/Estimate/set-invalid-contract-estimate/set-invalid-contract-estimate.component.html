@@ -1,0 +1,32 @@
+<div id="container" class="row" style="clear: both">
+  <div id="content" class="" style="height: 300px;width: 100%;">
+    <div class="main-form-body" style="margin: 5px;" [style.height.%]="81">
+      <div style="padding-bottom: 5px;">
+        <div id="div2" class="box-dev right-dev" style="height: 250px">
+          <app-grid style="width: 100%;" [columns]="EstimatecolumnDef" [rowsData]="EstimateRowData"
+            (RowClick)="RowClick($event)" (GridReady)="onGridReady($event)" [gridHeight]="80"></app-grid>
+        </div>
+      </div>
+
+
+    </div>
+    <div class="buttons-place" style=" margin: 5px">
+      <button [disabled]="!RowValidation" (click)="onFillEstimate()" id="btn2" class="btn btn-primary btnGreen"
+        style="margin: 2px">
+        <img width="15px" height="15px" src={{BtnIconPath}} />
+        {{AddBtnName}}</button>
+      <button *ngIf="this.PopupParam.HaveSave" (click)="onClose()" id="btn2" class="btn btn-primary btnGreen"
+        style="margin: 2px">
+        <img width="15px" height="15px" src="assets/Icons/ok.png" />
+        تایید </button>
+      <button (click)="onClose()" id="btn4" class="btn btn-primary btnGreen">
+        <img width="15px" height="15px" src="assets/Icons/exit.png" />
+        خروج</button>
+
+    </div>
+  </div>
+</div>
+<app-over-popup *ngIf="btnclicked" [PopupType]="type" [startLeftPosition]="startLeftPosition"
+  [startTopPosition]="startTopPosition" [PopupParam]="OverPopUpParams" [HaveMaxBtn]="false"
+  (popupclosed)="popupclosed($event)" (PopupOutPutParam)="SetEstimateParam($event)">
+</app-over-popup>

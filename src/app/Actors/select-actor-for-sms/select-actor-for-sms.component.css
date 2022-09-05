@@ -1,0 +1,12 @@
+.custom-control-label::before{
+    top:0px;
+    right: -1.5rem;
+}
+.custom-control-label::after{
+    top:0px;
+    right: -1.5rem;
+}
+.header-message {
+    text-align: right;
+    padding-right: 25px;
+}

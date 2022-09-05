@@ -1,0 +1,1713 @@
+<div [ngClass]="{'disable-parent': !IsDown}" class="main-form-body for-append-date" style="margin: 5px;height: 87.5%;">
+  <form>
+    <div class="main-form-body" style="display: inherit">
+      <table style="width: 100%;">
+        <tr>
+          <td width="25%">
+            <span style="color: red;">*</span>
+            <span class="table-cell-Lable">واحد اجرایی</span>
+            <app-ng-select-virtual-scroll
+              [Disabled]="(DisableControlles === false ? (RequestedPersonDisable || CheckRegionWritable || (!IsEditable && ProductRequestObject)) && ModuleCode != 2773 : true) && IsdisablebleAdmin"
+              style="display: inline-block;width: 72%;" class="" [NgSelectParams]="RegionParams"
+              [CheckValidate]="CheckValidate" (selectedChange)="onChangeRegion($event)" [Items]="RegionItems"
+              (Open)="OnOpenNgSelect('Region', false)">
+            </app-ng-select-virtual-scroll>
+          </td>
+          <td width="27%">
+            <span style="color: red;">*</span>
+            <span class="table-cell-Lable">محل هزینه</span>
+            <app-ng-select-virtual-scroll style="display: inline-block;width: 68%;" class=""
+              [NgSelectParams]="VWExeUnitParams"
+              [Disabled]="(RequestedPersonDisable || !IsEditable) && IsdisablebleAdmin" [CheckValidate]="CheckValidate"
+              [Items]="VWExeUnitItems" (Open)="OnOpenNgSelect('VWExeUnit', false)">
+            </app-ng-select-virtual-scroll>
+          </td>
+          <td width="23%">
+            <span class="table-cell-Lable">نوع درخواست</span>
+            <input *ngIf="ModuleCode === 2773 || HasProvisionContractID" [disabled]="true" style="width: 60%"
+              class="form-control input-style" type="text" value="تامین مانده اعتبار" />
+            <input *ngIf="ModuleCode === 2787" [disabled]="true" style="width: 60%" class="form-control input-style"
+              type="text" value="ماده 48" />
+            <div *ngIf="(ModuleCode !== 2773 && ModuleCode !== 2787) && !HasProvisionContractID"
+              style="width: 59% !important;" class="redio-div">
+              <div class="custom-control custom-radio custom-control-inline">
+                <input [disabled]="!IsEditable || IsInsert" [checked]="IsNew" type="radio" class="custom-control-input"
+                  id="ISNewRadio" name="ChoosenISNewRadioName" (click)="IsNewRedioClick(true)">
+                <label style="margin: auto;" class="custom-control-label redio-label" for="ISNewRadio">جدید
+                </label>
+              </div>
+              <div class="custom-control custom-radio custom-control-inline">
+                <input [disabled]="!IsEditable || IsInsert" [checked]="!IsNew" type="radio" class="custom-control-input"
+                  id="ISExtendRadio" name="ChoosenISNewRadioName">
+                <label style="margin: auto;" class="custom-control-label redio-label" for="ISExtendRadio"
+                  (click)="IsNewRedioClick(false)">{{NotIsNewHeaderName}}</label>
+              </div>
+            </div>
+          </td>
+          <td width="25%">
+            <span class="table-cell-Lable">قرارداد اصلی </span>
+            <app-ng-select-virtual-scroll style="display: inline-block;width: 65%;"
+              [TotalItemCount]="ContractTotalItemCount" [PageCount]="ContractPageCount"
+              (Open)="OnOpenNgSelect('Contract', false)" [NgSelectParams]="ContractParams"
+              [CheckValidate]="CheckValidate"
+              [Disabled]="DisableControlles === false ? IsNew || IsInsert || !IsEditable &&  ModuleCode !== 2773 : true"
+              [Items]="ContractItems" (selectedChange)="onChangeContract($event)"
+              (FetchMore)="FetchMoreContract($event)" (doSearch)="doContractSearch($event)">
+            </app-ng-select-virtual-scroll>
+            <img width="5%" height="15px" src="assets/Images/Module/2501.png" (click)="onContractViewClick()"
+              title="مشاهده شناسنامه قرارداد مرتبط" style="cursor: pointer;margin: 5px 3px 0 0px;" />
+          </td>
+          <!-- <td style="width:10%;">
+                <img width="15px" height="15px" src="assets/Images/Module/2501.png" (click)="onContractViewClick()"
+                  title="مشاهده شناسنامه قرارداد مرتبط" style="cursor: pointer" />
+              </td> -->
+        </tr>
+      </table>
+    </div>
+    <div class="main-form-body" style="display: inherit">
+      <table style="width: 100%;">
+        <tr>
+          <td width="25%">
+            <span class="table-cell-Lable">ماهیت درخواست</span>
+            <div class="redio-div" style="width: 70% !important;">
+              <div class="custom-control custom-radio custom-control-inline">
+                <input [disabled]="!IsEditable || IsInsert" [checked]="IsCost" type="radio" class="custom-control-input"
+                  id="ISCostRadio" name="ChoosenISCostRadioName" (click)="RedioClick(true)">
+                <label style="margin: auto;" class="custom-control-label redio-label" for="ISCostRadio">هزینه
+                  ای</label>
+              </div>
+              <div class="custom-control custom-radio custom-control-inline">
+                <input [disabled]="!IsEditable || IsInsert" [checked]="!IsCost" type="radio"
+                  class="custom-control-input" id="ISIncomeRadio" name="ChoosenISCostRadioName">
+                <label style="margin: auto;" class="custom-control-label redio-label" for="ISIncomeRadio"
+                  (click)="RedioClick(false)">درآمدی</label>
+              </div>
+            </div>
+          </td>
+          <td width="27%">
+            <span class="table-cell-Lable">نوع درخواست معامله</span>
+            <app-ng-select-virtual-scroll [Disabled]="IsNew ? (!IsEditable || IsInsert) : true"
+              style="display: inline-block;width: 68% !important;" class="select-general-for-lable"
+              [CheckValidate]="CheckValidatePRType"
+              [NgSelectParams]="PRTypeParams" [Items]="PRTypeItems" (selectedChange)="onChangePRType($event)"
+             >
+            </app-ng-select-virtual-scroll>
+          </td>
+          <td width="23%">
+            <span class="table-cell-Lable">رسته</span>
+            <app-ng-select-virtual-scroll [Disabled]="IsNew ? ((!IsEditable || IsInsert) && PriceListTopicRasteDisable) : true"
+              style="display: inline-block;width: 58% !important;" class="select-general-for-lable"
+              [NgSelectParams]="PriceListTopicRasteParams" [Items]="PriceListTopicRasteItems"
+              (Open)="OnOpenNgSelect('PriceListTopicRaste', false)"
+              [CheckValidate]="CheckValidateTopic"
+              (selectedChange)="onChangePriceListTopicRaste($event)">
+            </app-ng-select-virtual-scroll>
+          </td>
+          <td width="25%">
+            <span style="color: red;">*</span>
+            <span class="table-cell-Lable" style="margin-right: 5px !important; margin-left: 5px !important;">تاریخ
+              درخواست</span>
+            <app-jalali-datepicker
+              [Disabled]="DisableControlles === false ? !IsEditable && ModuleCode !== 2773 && !HasProvisionContractID : true"
+              [WidthPC]="27" [CheckValidate]="CheckValidate" [CurrMiladiDateValue]="ProductRequestDate"
+              [Required]="true" (Change)="OnProductRequestDateChange($event)">
+            </app-jalali-datepicker>
+            <span class="table-cell-Lable" style="margin-right: 5px !important; margin-left: 5px !important;">مهلت
+              تامین</span>
+            <app-jalali-datepicker [Disabled]="!IsEditable" [WidthPC]="26" [Required]="CheckValidate"
+              [CurrMiladiDateValue]="DeadLineDate" (Change)="OnDeadLineDateChange($event)">
+            </app-jalali-datepicker>
+          </td>
+        </tr>
+        <tr>
+          <td width="25%">
+            <span style="color: red;">*</span>
+            <span class="table-cell-Lable">معاونت مجری</span>
+            <app-ng-select-virtual-scroll
+              [Disabled]="((!IsEditable && ModuleCode !== 2773  && ModuleCode !== 2787) || IsContractDisable) && IsdisablebleAdmin"
+              style="display: inline-block;width: 72%;" [NgSelectParams]="CostCenterParams"
+              (selectedChange)="onChangeCostCenter($event)" [Items]="CostCenterItems"
+              (Open)="OnOpenNgSelect('CostCenter', false)" [CheckValidate]="CheckValidateCostCenterParams">
+              <!-- IsType114 for RFC 51334 -->
+            </app-ng-select-virtual-scroll>
+          </td>
+          <td width="27%">
+            <span style="color: red;">*</span>
+            <span class="table-cell-Lable">اداره مجری</span>
+            <app-ng-select-virtual-scroll
+              [Disabled]="((!IsEditable && ModuleCode !== 2773 && ModuleCode !== 2787) || IsContractDisable) && IsdisablebleAdmin"
+              style="display: inline-block;width: 68%;" [NgSelectParams]="SubCostCenterParams"
+              [CheckValidate]="CheckValidateCostCenterParams" [Items]="SubCostCenterItems"
+              (Open)="OnOpenNgSelect('SubCostCenter', false)" (selectedChange)="onSubCostCenterSelectedChange($event)">
+              <!-- IsType114 for RFC 51334 -->
+            </app-ng-select-virtual-scroll>
+          </td>
+          <td *ngIf="InputParam.ResearcherID || ResearcherID" colspan="1" width="23%" style="vertical-align: initial;">
+            <span class="table-cell-Lable">کد پژوهش </span><input style="width: 60% " class="form-control input-style"
+              type="text" value="{{ResearcherID}}" readonly />
+          </td>
+          <td [attr.colspan]="InputParam.ResearcherID || ResearcherID ? 1 : 2"
+            width="InputParam.ResearcherID || ResearcherID ? 25% : 50%">
+            <span style="color: red;">*</span>
+            <span class="table-cell-Lable">درخواست کننده</span>
+            <app-ng-select-virtual-scroll
+              [Disabled]="(DisableControlles === false ? (RequestedPersonDisable || (!IsEditable && ModuleCode !== 2773  && ModuleCode !== 2787)) : true) && IsdisablebleAdmin"
+              style="display: inline-block;" [CheckValidate]="CheckValidateCostCenterParams"
+              [style.width.%]="InputParam.ResearcherID || ResearcherID ? 66 : 80"
+              [NgSelectParams]="RequestedPersonParams" [Items]="RequestedPersonItems"
+              (Open)="OnOpenNgSelect('RequestedPerson', false)"
+              (selectedChange)="onRequestedPersonSelectedchanged($event)">
+            </app-ng-select-virtual-scroll>
+          </td>
+          <!-- RFC 53614 -->
+          <!-- <td width="25%">
+            <span class="table-cell-Lable">سفارش مشتری</span>
+            <app-ng-select-virtual-scroll [Disabled]="!IsEditable" style="display: inline-block;width: 66%;" class=""
+              [NgSelectParams]="CustomerOrderParams" [Items]="CustomerOrderItems"
+              (Open)="OnOpenNgSelect('CustomerOrder', false)" (FetchMore)="FetchMoreCustomerOrder($event)"
+              (doSearch)="doCustomerOrderSearch($event)">
+            </app-ng-select-virtual-scroll>
+          </td> -->
+          <!-- <td width="25%">
+              <span class="table-cell-Lable">رسید/حواله</span><input style="width: 64% " class="form-control input-style"
+                type="text" name="last" value="ss" readonly />
+            </td> -->
+          <!-- <td width="25%">
+                <span class="table-cell-Lable">رسید/حواله</span>
+                <app-ng-select-virtual-scroll style="display: inline-block;width: 60%;" class=""
+                  [NgSelectParams]="IncrementTypeParams" [Items]="IncrementTypeItems">
+                </app-ng-select-virtual-scroll>
+              </td> -->
+        </tr>
+        <tr>
+          <td width="25%">
+            <span style="color: red;">*</span>
+            <span class="table-cell-Lable">معاونت متولی</span>
+            <app-ng-select-virtual-scroll
+              [Disabled]="(IsTMIRegion || (!IsEditable && ModuleCode !== 2773 && ModuleCode !== 2787) || IsContractDisable) && IsdisablebleAdmin"
+              style="display: inline-block;width: 72%;" [NgSelectParams]="RusteeParams"
+              (selectedChange)="onChangeRustee($event)" [Items]="RusteeItems" (Open)="OnOpenNgSelect('Rustee', false)"
+              [CheckValidate]="CheckValidate">
+            </app-ng-select-virtual-scroll>
+          </td>
+          <td width="27%">
+            <span style="color: red;">*</span>
+            <span class="table-cell-Lable">اداره متولی</span>
+            <app-ng-select-virtual-scroll
+              [Disabled]="(IsTMIRegion || (!IsEditable && ModuleCode !== 2773 && ModuleCode !== 2787) || IsContractDisable) && IsdisablebleAdmin"
+              style="display: inline-block;width: 68%;" [NgSelectParams]="SubRusteeParams" [Items]="SubRusteeItems"
+              [CheckValidate]="CheckValidate" (selectedChange)="onChangeSubRustee($event)"
+              (Open)="OnOpenNgSelect('SubRustee', false)">
+            </app-ng-select-virtual-scroll>
+          </td>
+          <td colspan="2" width="48%">
+            <span style="color: red;">*</span>
+            <span class="table-cell-Lable">موضوع</span>
+            <input [readonly]="(!IsEditable && IsDisabledType106) || IsDisableResearch"
+              [ngStyle]="{'border-color': CheckValidate && !Subject ? 'red':''}"
+              placeholder="{{CheckValidate && !Subject ? 'پر کردن مقدار این فیلد الزامیست': ''}}" style="width: 80%"
+              class="form-control input-style" type="text" name="Subject" [(ngModel)]="Subject" />
+          </td>
+        </tr>
+        <tr>
+          <td colspan="1" width="25%" style="vertical-align: initial;">
+            <span class="table-cell-Lable">شماره درخواست </span><input style="width: 72% "
+              class="form-control input-style" type="text" value="{{ProductRequestNo}}" readonly />
+          </td>
+          <td colspan="3" width="75%">
+            <span *ngIf="ModuleViewTypeCode === 89 || (IsType114 && ModuleCode === 2730)"
+              style="vertical-align: top; color: red;">*</span>
+            <span class="table-cell-Lable" style="vertical-align: top;">گزارش توجیهی</span>
+            <textarea [readonly]="!IsEditable && IsDisabledType106"
+              [ngStyle]="{'border-color': CheckValidate && !BriefingReport && (ModuleViewTypeCode === 89 || (IsType114 && ModuleCode === 2730)) ? 'red':''}"
+              placeholder="{{CheckValidate && !BriefingReport && (ModuleViewTypeCode === 89 || (IsType114 && ModuleCode === 2730)) ? 'پر کردن مقدار این فیلد الزامیست': ''}}"
+              [(ngModel)]="BriefingReport" name="BriefingReport" class="form-control input-style" rows="2"
+              style="display: inline-block;height: 40px;width: 88.5%;" id="indicator-text_note"></textarea>
+          </td>
+        </tr>
+        <tr *ngIf="this.RegionParams.selectedObject == 200">
+          <td width="25%">
+            <span class="table-cell-Lable">توافقنامه</span>
+            <app-custom-check-box 
+            style="vertical-align: sub; margin-left: 58%;" 
+            [configurationInfo]="CustomCheckBoxConfig1"
+            [isSelected]="IsChecked"
+            (PrettyCheckBoxChange)="OnCheckBoxChanged($event)">
+            </app-custom-check-box>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <fieldset class="feild-set" style="display: inherit; padding-top: 0px;">
+      <legend style="width: 5%;" class="legend">محل انجام</legend>
+      <table style="width: 100%;">
+        <tr>
+          <td width="25%">
+            <span class="table-cell-Lable">واحد اجرایی</span>
+            <app-ng-select-virtual-scroll [Disabled]="!IsEditable || IsContractSelect"
+              style="display: inline-block;width: 42%;" class="" [NgSelectParams]="OnFilterRegionParams"
+              [Items]="OnFilterRegionItems" (selectedChange)="onChangeFilterRegion($event)"
+              (Open)="OnOpenNgSelect('FilterRegion', false)">
+            </app-ng-select-virtual-scroll>
+            <span class="table-cell-Lable"
+              style="margin-right: 5px !important; margin-left: 5px !important;">ناحیه</span>
+            <app-ng-select-virtual-scroll [Disabled]="!IsEditable || IsContractSelect"
+              style="display: inline-block;width: 20%;" class="" [NgSelectParams]="RegionAreaParams"
+              [Items]="RegionAreaItems" (selectedChange)="onChangeRegionArea($event)"
+              (Open)="OnOpenNgSelect('RegionArea', false)">
+            </app-ng-select-virtual-scroll>
+          </td>
+          <td width="27%">
+            <span class="table-cell-Lable">موقعیت</span>
+            <app-ng-select-virtual-scroll [Disabled]="!IsEditable || IsContractSelect"
+              style="display: inline-block;width: 24%;" class="" [NgSelectParams]="DistrictDirectionParams"
+              [Items]="DistrictDirectionItems" (Open)="OnOpenNgSelect('DistrictDirection', false)">
+            </app-ng-select-virtual-scroll>
+            <span class="table-cell-Lable"
+              style="margin-right: 5px !important; margin-left: 5px !important;">محله</span>
+            <app-ng-select-virtual-scroll [Disabled]="!IsEditable || IsContractSelect"
+              style="display: inline-block;width: 35%;" class="" [NgSelectParams]="RegionAreaDistrictParams"
+              [Items]="RegionAreaDistrictItems" (Open)="OnOpenNgSelect('RegionAreaDistrict', false)">
+            </app-ng-select-virtual-scroll>
+          </td>
+          <td [style.width.%]="ISActLocation ? 33 : 48">
+            <span *ngIf="IsType114 && ModuleCode === 2730" style="vertical-align: top; color: red;">*</span>
+            <span class="table-cell-Lable">آدرس</span><input
+              [readonly]="(!IsEditable || IsContractSelect) && !(IsType114 && ModuleCode === 2730)"
+              [style.width.%]="ISActLocation ? 68 : 80" class="form-control input-style" type="text" name="Address"
+              [ngStyle]="{'border-color': CheckValidate && !Address && (IsType114 && ModuleCode === 2730) ? 'red':''}"
+              placeholder="{{CheckValidate && !Address && (IsType114 && ModuleCode === 2730) ? 'پر کردن مقدار این فیلد الزامیست': ''}}"
+              [(ngModel)]="Address" />
+          </td>
+          <td width="15%">
+            <span *ngIf="ISActLocation" class="table-cell-Lable">محدوده انجام</span>
+            <app-ng-select-virtual-scroll *ngIf="ISActLocation" [Disabled]="!IsEditable && !IsProvideCredit"
+              style="display: inline-block;width: 55%;" [NgSelectParams]="ActLocationParams" [Items]="ActLocationItems"
+              (Open)="OnOpenNgSelect('ActLocation', false)">
+            </app-ng-select-virtual-scroll>
+          </td>
+        </tr>
+      </table>
+    </fieldset>
+
+    <fieldset *ngIf="ShowContractInfo" class="feild-set" style="display: inherit; padding-top: 0px;">
+      <legend style="width: 7%;" class="legend">اطلاعات قرارداد</legend>
+      <table style="width: 100%;">
+        <tr>
+          <td colspan="1" width="25%">
+            <span class="table-cell-Lable">شماره قرارداد</span><input [readonly]="!IsEditable  || IsContractSelect"
+              style="width: 60%; " class="form-control input-style" type="text" name="ContractCode"
+              [(ngModel)]="ContractCode" />
+          </td>
+          <td colspan="3" width="75%">
+            <span class="table-cell-Lable">موضوع</span><input [readonly]="!IsEditable  || IsContractSelect"
+              style="width: 80%; " class="form-control input-style" type="text" name="ContractSubject"
+              [(ngModel)]="ContractSubject" />
+          </td>
+        </tr>
+      </table>
+    </fieldset>
+  </form>
+  <ul style="margin-top: 5px" class="nav nav-tabs" role="tablist">
+    <li class="nav-item">
+      <a class="nav-link" [ngClass]="{'active': (!HaveReceiveDoc || OrginalModuleCode !== 2730) && !HaveArticle48 && !IsShowContractContent}"
+        href="#request-item" role="tab" data-toggle="tab">اقلام درخواست</a>
+    </li>
+    <li *ngIf="HaveArticle48" class="nav-item">
+      <a class="nav-link" [ngClass]="{'active': HaveArticle48}" href="#request-article-48" role="tab"
+        data-toggle="tab">اقلام تامین اعتبار ماده 48</a>
+    </li>
+    <li *ngIf="HaveAsset" class="nav-item">
+      <a class="nav-link" href="#asset2" role="tab" data-toggle="tab">اموال</a>
+    </li>
+    <li *ngIf="HaveReceiveDoc" class="nav-item active">
+      <a class="nav-link" [ngClass]="{'active': HaveReceiveDoc && OrginalModuleCode === 2730}"
+        href="#product-request-warranty" role="tab" data-toggle="tab">اقلام ضمانت نامه</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#request-related-product" role="tab" data-toggle="tab">اقلام تعرفه</a>
+    </li>
+    <li *ngIf="false" class="nav-item">
+      <a class="nav-link" href="#receive-doc-product" role="tab" data-toggle="tab">اسناد دریافتنی</a>
+    </li>
+    <!--<li class="nav-item">
+          <a class="nav-link" href="#request-person-item" role="tab" data-toggle="tab">عوامل اجرایی</a>
+        </li> -->
+    <li *ngIf="IsShowContractContent" class="nav-item">
+      <a class="nav-link" [ngClass]="{'active': IsShowContractContent}" href="#contract-content" role="tab" data-toggle="tab">مفاد قرارداد</a>
+    </li>
+  </ul>
+  <div class="tab-content box-dev" style="margin-top: 5px;padding: 5px;" [style.height.%]="gridHeight">
+    <div role="tabpanel" class="tab-pane fade"
+      [ngClass]="{'show': (!HaveReceiveDoc || OrginalModuleCode !== 2730) && !HaveArticle48 && !IsShowContractContent ,'active': (!HaveReceiveDoc || OrginalModuleCode !== 2730) && !HaveArticle48 && !IsShowContractContent}"
+      id="request-item" style="margin-bottom: 5px;" [style.height.%]="tabpanelHeight">
+      <app-grid [HaveBorder]="true" [columns]="columnDef" [rowsData]="rowsData" (GridReady)="onGridReady($event)"
+        [IsEditable]="IsEditable" (cellEditingStarted)="oncellEditingStarted($event)"
+        (CellValueChanged)="onCellValueChanged($event)" (FilterChanged)="OnFilterChanged()"
+        (RowDataChanged)="OnRowDataChanged()" (RowDataUpdated)="OnRowDataUpdated()" [gridHeight]="PRIgridHeight"
+        (ImportFromExcelClick)="OnImportFromExcelBtnClick()" [IsNeedImportBtn]="true" (RowClick)="RowClick($event)">
+      </app-grid>
+
+      <div class="main-form-body" style=" margin-top: 4px;color: red;height: 31px;padding: 3px;">
+        <div *ngIf="HaseEstimate" style="min-width: 100px;font-weight: bold;display: inline-block"><span
+            id="sum-final-estimate-amount" class="table-cell-Lable">جمع متره: </span>
+          <label for="sum-final-estimate-amount" style="margin:2px"> {{SumEstimateAmountStr}} </label>
+        </div>
+        <div *ngIf="HaseEstimate" style="min-width: 100px;font-weight: bold;display: inline-block">
+          <span id="sum-final-estimate-amount-coef" class="table-cell-Lable">جمع متره با ضرایب: </span>
+          <label for="sum-final-estimate-amount-coef" style="margin:2px"> {{SumEstimateAmountCoefStr}} </label>
+        </div>
+        <div *ngIf="!HaseEstimate && PRTypeParams.selectedObject === 2 && PriceListTopicRasteParams.selectedObject === 402374" style="min-width: 100px;font-weight: bold;display: inline-block">
+          <span id="sum-final-estimate-amount" class="table-cell-Lable">جمع کل مبلغ ماهانه:</span>
+          <label for="sum-final-estimate-amount" style="margin:2px"> {{SumFinalItemAmountWithDuration}} </label>
+        </div>
+        <div *ngIf="!HaseEstimate" style="min-width: 100px;font-weight: bold;display: inline-block">
+          <span id="sum-final-estimate-amount" class="table-cell-Lable">جمع کل با احتساب ضرایب:</span>
+          <label for="sum-final-estimate-amount" style="margin:2px"> {{SumFinalItemAmount}} </label>
+        </div>
+        <div style="min-width: 50px;font-weight: bold;display: inline-block"><span id="sum-final-estimate-amount"
+            class="table-cell-Lable">جمع کل: </span>
+          <label for="sum-final-estimate-amount" style="margin:2px"> {{SumFinalAmountStr}} </label>
+        </div>
+        <div *ngIf="!IsNew && !IsProvideCredit" style="font-weight: bold;display: inline-block">
+          <!-- RFC 52207-->
+          <span id="sum-final-estimate-amount2" class="table-cell-Lable">درصد تغییرات مرحله قرارداد:</span>
+          <input style="width: 15%;color: red;font-weight: bold;" class="form-control input-style" type="text"
+            name="PerecentLevel" [(ngModel)]="PercentageLevelOfChanges"
+            (ngModelChange)="onChangePercentageLevel($event)" [readonly]="!IsEditable" />
+        </div>
+        <div *ngIf="!IsNew && !IsProvideCredit" style="font-weight: bold;display: inline-block">
+          <!-- RFC 51302-->
+          <span id="sum-final-estimate-amount2" class="table-cell-Lable">درصد تغییرات کل قرارداد:</span>
+          <input style="width: 56px;color: red;font-weight: bold;" class="form-control input-style" type="text"
+            name="Perecent" [(ngModel)]="PercentageOfChanges" (ngModelChange)="onChangePercentage($event)"
+            [readonly]="!IsEditable" />
+        </div>
+        <div *ngIf="!IsNew && !IsProvideCredit" style="width: 170px;font-weight: bold;display: inline-block">
+          <!-- RFC 51373-->
+          <span id="sum-final-estimate-amount2" class="table-cell-Lable"> تمدید :</span>
+          <input style="width: 31%; color: red;font-weight: bold;" class="form-control input-style" type="text"
+            name="Perecent" [(ngModel)]="TimeExtensionDay" [readonly]="true" />
+          <span id="sum-final-estimate-amount2" class="table-cell-Lable">روز</span>
+        </div>
+        <div *ngIf="!IsNew && !IsProvideCredit" style="width: 100px;font-weight: bold;display: inline-block">
+          <!-- RFC 51373-->
+          <input style="width: 50%;color: red;font-weight: bold;" class="form-control input-style" type="text"
+            name="Perecent" [(ngModel)]="TimeExtensionMonth" [readonly]="true" />
+          <span id="sum-final-estimate-amount2" class="table-cell-Lable">ماه</span>
+        </div>
+        <div *ngIf="!IsNew && !IsProvideCredit" style="width: 100px;font-weight: bold;display: inline-block">
+          <!-- RFC 51373-->
+          <input style="width: 50%;color: red;font-weight: bold;" class="form-control input-style" type="text"
+            name="Perecent" [(ngModel)]="TimeExtensionYear" [readonly]="true" />
+          <span id="sum-final-estimate-amount2" class="table-cell-Lable">سال</span>
+        </div>
+        <div *ngIf="TopQuestionLabel"
+          style="float: right;color: blue;width: 70%;text-align: right;font-weight: bold;margin-top: 5px;">
+          <span>{{TopQuestionLabel}}</span>
+          <div class="redio-div" style="margin-right: 10px;">
+            <div class="custom-control custom-radio custom-control-inline" style="display: inherit !important;">
+              <input [checked]="IsLawful" type="radio" class="custom-control-input" id="IsLawful" name="IsLawful"
+                (click)="IsLawfulRedioClick(true)">
+              <label style="margin: auto;" class="custom-control-label redio-label" for="IsLawful">بله</label>
+            </div>
+            <div class="custom-control custom-radio custom-control-inline" style="display: inherit !important;">
+              <input [checked]="!IsLawful" type="radio" class="custom-control-input" id="IsNotLawful" name="IsLawful">
+              <label style="margin: auto;" class="custom-control-label redio-label" for="IsNotLawful"
+                (click)="IsLawfulRedioClick(false)">خیر</label>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="HaveTopExpertPerson" style="float: right;color: black;width: 70%;">
+          <table style="width: 100%">
+            <tr>
+              <td style="width: 100%;text-align: right">
+                <span class="table-cell-Lable">کارشناس امور قرارداد ها</span>
+                <app-ng-select-virtual-scroll style="display: inline-block;width: 40%;" (Open)="onExpertOpen()"
+                  [NgSelectParams]="ExpertParams" [Items]="ExpertItems" [Disabled]="!ExpertIsEditable">
+                </app-ng-select-virtual-scroll>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div role="tabpanel" class="tab-pane fade" [ngClass]="{'show': HaveArticle48,'active': HaveArticle48}"
+      id="request-article-48" style="margin-bottom: 5px;" [style.height.%]="tabpanelHeight">
+      <app-grid [HaveBorder]="true" [columns]="Article48ColumnDef" [gridHeight]="100" [rowsData]="Article48RowsData"
+        (GridReady)="onArticle48GridReady($event)" [IsEditable]="IsArticle48Editable">
+      </app-grid>
+    </div>
+    <div role="tabpanel" class="tab-pane fade" id="asset2" style="margin-bottom: 5px;" [style.height.%]="tabpanelHeight"
+      [ngClass]="{'show': HaveAsset}">
+      <!-- اموال  -->
+      <app-grid (cellEditingStarted)="onAssetcellEditingStarted($event)" (GridReady)="onAssetGridReady($event)"
+        [columns]="AssetColDef" [IsEditable]="IsEditable" [rowsData]="AssetRowData"
+        (CellValueChanged)="onAssetValueChanged($event)" [gridHeight]="100"></app-grid>
+    </div>
+    <div role="tabpanel" [style.height.%]="tabpanelWarrantyDocHeight"
+      [ngClass]="{'show': HaveReceiveDoc && OrginalModuleCode === 2730,'active': HaveReceiveDoc && OrginalModuleCode === 2730}"
+      class="tab-pane fade" id="product-request-warranty" style="margin-bottom: 5px;">
+      <app-grid [gridHeight]="WarrantyDocGridHeight" (cellEditingStarted)="onReceiveDocEditingStarted($event)"
+        (RowClick)="onReceiveDocRowClick($event)" (GridReady)="onReceiveDocGridReady($event)"
+        [columns]="ReceiveDocColDef" [IsEditable]="(HaveReceiveDoc && !IsShowType108) && IsEditeSearch"
+        [rowsData]="ReceiveDocRowData" [HaveBorder]="true" [HaveDelete]="HaveDelete">
+      </app-grid>
+    </div>
+    <div role="tabpanel" class="tab-pane fade" id="request-related-product" style="margin-bottom: 5px;"
+     [style.height.%]="tabpanelHeight">
+      <app-grid (RowClick)="RelatedProductRowClick($event)" (GridReady)="onRelatedProductGridReady($event)"
+        [columns]="RequestRelatedProductColDef" [IsEditable]="IsEditable" [rowsData]="RelatedProductRowData"
+        [gridHeight]="100" (cellEditingStarted)="onRelatedProductcellEditingStarted($event)">
+      </app-grid>
+    </div>
+    <div role="tabpanel" class="tab-pane fade" id="receive-doc-product" style="margin-bottom: 5px;"
+      [style.height.%]="tabpanelHeight">
+      <app-grid (RowClick)="ReceiveDocProductRowClick($event)" (GridReady)="onReceiveDocProductGridReady($event)"
+        [columns]="ReceiveDocProductColDef" [IsEditable]="false" [rowsData]="ReceiveDocProductRowData" [gridHeight]="85"
+        (cellEditingStarted)="onReceiveDocProductcellEditingStarted($event)">
+      </app-grid>
+      <div class="main-form-body" style=" margin-top: 4px; height: 35px;padding: 3px;">
+        <button (click)="onAddReceiveDocClick()" id="btnInsert" class="btn btn-primary btnGreen">
+          <img width="15px" height="15px" src="assets/Icons/Add.png" />
+          ایجاد
+        </button>
+        <button (click)="onEditReceiveDocClick()" id="btnInsert" class="btn btn-primary btnGreen">
+          <img width="15px" height="15px" src="assets/Icons/update.png" />
+          اصلاح
+        </button>
+        <button class="btn btn-primary btnGreen" (click)="onDeleteReceiveDocclick()">
+          <img width="15px" height="15px" src="assets/Icons/delete.png" />
+          حذف
+        </button>
+      </div>
+    </div>
+    <div role="tabpanel" class="tab-pane fade" id="contract-content" [style.height.%]="100"
+    [ngClass]="{'show': IsShowContractContent , 'active': IsShowContractContent}"
+      style="margin-bottom: 5px;" >
+      <table style="width: 100%;margin-top: 5px;">
+        <tr>
+          <td style="width: 10%">
+            <span class="table-cell-Lable">مفاد قرارداد</span>
+            <app-custom-check-box style="vertical-align: sub;" [configurationInfo]="CustomCheckBoxConfig"
+              [isSelected]="IsContractContent" (PrettyCheckBoxChange)="OnCheckBoxChange($event)">
+            </app-custom-check-box>
+          </td>
+          <td style="width: 90%">
+            <span class="table-cell-Lable">عنوان مفاد قرارداد</span>
+            <input style="width: 74%; " class="form-control input-style" type="text" name="ContractContentNote"
+              [(ngModel)]="ContractContentNote" />
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <fieldset *ngIf="BoardDecisions" [style.height.px]="WfDetailsShowHeight" class="feild-set"
+    style="display: inherit; padding-top: 0px;margin-top: 3px;min-height: 0px;">
+    <legend [style.width.%]="10" style="width: 11%;" class="legend">
+      مصوبات هیئت مدیره</legend>
+    <!-- <input style="width: 100%;height: 40px;" class="form-control input-style" type="text" name="BoardDecisionsDec"
+      [(ngModel)]="BoardDecisionsDec" /> -->
+    <textarea [(ngModel)]="BoardDecisionsDec" name="BoardDecisionsDec" class="form-control input-style" rows="6"
+      style="display: inline-block;height: 40px;width: 100%;max-height: 40px; min-height: 40px; max-width: 100%;">
+    </textarea>
+  </fieldset>
+  <fieldset *ngIf="WfDetailsShow " [style.height.px]="WfDetailsShowHeight" class="feild-set"
+    style="display: inherit; padding-top: 0px;margin-top: 3px;min-height: 0px;">
+    <legend [style.width.%]="WFLegendWidth" style="width: 11%;" class="legend">
+      {{WFFieldSetLegend}}</legend>
+    <table *ngIf="HaveExpertPerson " style="width: 100%;margin-top: 5px;">
+      <tr>
+        <td style="width: 50%;text-align: right">
+          <!-- RFC 52347 -->
+          <span *ngIf="ModuleViewTypeCode === 7 || ModuleViewTypeCode === 176 || ModuleViewTypeCode === 85 || ModuleViewTypeCode === 170 ||
+          ModuleViewTypeCode === 86 || ModuleViewTypeCode === 87 || ModuleViewTypeCode === 103
+          || ModuleViewTypeCode === 124 || ModuleViewTypeCode === 125 || ModuleViewTypeCode === 126 
+          || (ModuleViewTypeCode === 88 && 
+          ProductRequestObject.DealMethodCode === 3 && 
+          ProductRequestObject.RegionCode === 217 ) || ModuleViewTypeCode === 89"
+            style="vertical-align: top; color: red;">*</span>
+          <span class="table-cell-Lable">{{ExpertPersonLabel}}</span>
+          <app-ng-select-virtual-scroll style="display: inline-block;width: 40%;" (Open)="onExpertOpen()"
+            [NgSelectParams]="ExpertParams" [Items]="ExpertItems" (selectedChange)="onChangeExpert($event)"
+            [Disabled]="!ExpertIsEditable" [CheckValidate]="ExpertCheckValidate">
+          </app-ng-select-virtual-scroll>
+        </td>
+        <td *ngIf="IsUpdateBefore" style="width: 50%;text-align: right">
+          <span class="table-cell-Lable">ارجاع به درخواست کننده جهت اصلاح پیش از آگهی</span>
+          <div class="redio-div">
+            <div class="custom-control custom-radio custom-control-inline" style="display: inherit !important;">
+              <input [checked]="IsUpdateBeforeAdevertising" type="radio" class="custom-control-input"
+                id="IsUpdateBeforeAdevertising" name="IsUpdateBeforeAdevertising"
+                (click)="IsUpdateBeforeAdevertisingRedioClick(true)">
+              <label style="margin: auto;" class="custom-control-label redio-label"
+                for="IsUpdateBeforeAdevertising">بله</label>
+            </div>
+            <div class="custom-control custom-radio custom-control-inline" style="display: inherit !important;">
+              <input [checked]="!IsUpdateBeforeAdevertising" type="radio" class="custom-control-input"
+                id="IsNotUpdateBeforeAdevertising" name="IsUpdateBeforeAdevertising">
+              <label style="margin: auto;" class="custom-control-label redio-label" for="IsNotUpdateBeforeAdevertising"
+                (click)="IsUpdateBeforeAdevertisingRedioClick(false)">خیر</label>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </table>
+    <table *ngIf="HaveContractStyle" style="width: 100%;margin-top: 5px;">
+      <tr>
+        <td style="width: 100%;text-align: right">
+          <span class="table-cell-Lable">تیپ</span>
+          <app-ng-select-virtual-scroll style="display: inline-block;width: 40%;" (Open)="onContractStyleOpen()"
+            [NgSelectParams]="ContractStyleParams" [Items]="ContractStyleItems" [Disabled]="DisableContractStyle">
+          </app-ng-select-virtual-scroll>
+        </td>
+      </tr>
+    </table>
+    <div *ngIf="HaveAlertToFinance" style="float: right;color: red;margin-top: 5px;">
+      <span>لطفا جهت تامین اعتبار به سیستم جامع مالی مراجعه نمایید</span>
+    </div>
+    <div *ngIf="QuestionLabel"
+      style="float: right;color: blue;width: 90%;text-align: right;font-weight: bold;margin-top: 5px;">
+      <span>{{QuestionLabel}}</span>
+      <div class="redio-div" style="margin-right: 10px;">
+        <div class="custom-control custom-radio custom-control-inline">
+          <input [disabled]="HasReturnItem" [checked]="IsLawful" type="radio" class="custom-control-input" id="IsLawful"
+            name="IsLawful" (click)="IsLawfulRedioClick(true)">
+          <label style="margin: auto;" class="custom-control-label redio-label" for="IsLawful">بله</label>
+        </div>
+        <div class="custom-control custom-radio custom-control-inline">
+          <input [disabled]="HasReturnItem" [checked]="!IsLawful" type="radio" class="custom-control-input"
+            id="IsNotLawful" name="IsLawful">
+          <label style="margin: auto;" class="custom-control-label redio-label" for="IsNotLawful"
+            (click)="IsLawfulRedioClick(false)">خیر</label>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="Renewal"
+      style="float: right;color: blue;width: 90%;text-align: right;font-weight: bold;margin-top: 5px;">
+      <span *ngIf="!IsType147"> درخواست تجدید شود؟</span>
+      <span *ngIf="IsType147"> درخواست تجدید شود؟ در صورت تایید تجدید مناقصه دکمه عدم تایید و بازگشت زده شود.</span>
+      <div class="redio-div" style="margin-right: 10px;">
+        <div class="custom-control custom-radio custom-control-inline">
+          <input [checked]="IsRenewal" type="radio" class="custom-control-input" id="IsRenewal" name="IsRenewal"
+            (click)="IsRenewalRadioClick('true')">
+          <label style="margin: auto;" class="custom-control-label redio-label" for="IsRenewal">بله</label>
+        </div>
+        <div class="custom-control custom-radio custom-control-inline">
+          <input [checked]="!IsRenewal" type="radio" class="custom-control-input" id="IsNotRenewal" name="IsRenewal">
+          <label style="margin: auto;" class="custom-control-label redio-label" for="IsNotRenewal"
+            (click)="IsRenewalRadioClick('false')">خیر</label>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="IsHoldOnline"
+      style="float: right;color: blue;width: 90%;text-align: right;font-weight: bold;margin-top: 5px;">
+      <!-- RFC 51374 -->
+      <span>آیا مناقصه / مزائده به صورت برخط برگذار می شود؟</span>
+      <div class="redio-div" style="margin-right: 10px;">
+        <div class="custom-control custom-radio custom-control-inline">
+          <input type="radio" class="custom-control-input" id="IsAccept" name="IsAccept" (click)="HoldOnlineClick(true)"
+            [checked]="ProductRequestIsOnline">
+          <label style="margin: auto;" class="custom-control-label redio-label" for="IsAccept">بله</label>
+        </div>
+        <div class="custom-control custom-radio custom-control-inline">
+          <input type="radio" class="custom-control-input" id="IsNotAccept" name="IsNotAccept"
+            (click)="HoldOnlineClick(false)" [checked]="!ProductRequestIsOnline">
+          <label style="margin: auto;" class="custom-control-label redio-label" for="IsNotAccept">خیر</label>
+        </div>
+      </div>
+    </div>
+    <table *ngIf="ModuleViewTypeCode === 9" style="width: 100%;">
+      <tr>
+        <td style="width: 13%">
+          <span class="table-cell-Lable">قیمت</span>
+          <app-number-input-component [id]="'PR-official-expert-price'" [HaveThousand]="true" [ReadOnly]="false"
+            [fontSize]="12" [PerCentWidth]="70" [PixelHeight]="25" [Value]="OfficialExpertPrice"
+            (ValueChange)="GetOfficialExpertPrice($event)">
+          </app-number-input-component>
+        </td>
+        <td style="width: 13%">
+          <span class="table-cell-Lable">شماره ثبت</span>
+          <input style="width: 55%; " class="form-control input-style" type="text" name="RegisterLetterNo"
+            [(ngModel)]="RegisterLetterNo" readonly />
+        </td>
+        <td style="width: 13%">
+          <span class="table-cell-Lable">شماره سند</span>
+          <input style="width: 55%; " class="form-control input-style" type="text" name="DocumentLetterNo"
+            [(ngModel)]="DocumentLetterNo" readonly />
+        </td>
+        <td style="width: 20%">
+          <span class="table-cell-Lable">تاریخ ثبت دبیرخانه/ثبت</span>
+          <input style="width: 45%; " class="form-control input-style" type="text" name="RegisterLetterDate"
+            [(ngModel)]="RegisterLetterDate" readonly />
+        </td>
+        <td style="width: 10%">
+          <button [disabled]="IsDisable || !IsEditConfirm" id="btnClose"
+            class="btn btn-primary btn-gray-border small-btn btnGreen" (click)="onAutomationClick()">
+            <img width="15px" height="15px" src="assets/Icons/ok.png" />
+            اتصال نامه
+          </button>
+          <button *ngIf="false" [disabled]="IsDisable" id="btnClose"
+            class="btn btn-primary btn-gray-border small-btn btnGreen" (click)="onDeleteLetterClick()">
+            <img width="15px" height="15px" src="assets/Icons/DisApprove.png" />
+            حذف نامه
+          </button>
+          <button *ngIf="false" id="btnShowLetter" class="btn btn-primary btn-gray-border small-btn btnGreen"
+            (click)="onShowLetterClick()">
+            <img width="15px" height="15px" src="assets/Icons/Approve.png" />
+            مشاهده نامه
+          </button>
+          <button *ngIf="false" id="btnShowLetter" class="btn btn-primary btn-gray-border small-btn btnGreen"
+            (click)="onCreateNewLetter()">
+            <img width="15px" height="15px" src="assets/Icons/CreateLetter.png" />
+            نامه جدید
+          </button>
+        </td>
+      </tr>
+    </table>
+    <table *ngIf="HaveOnlyLetter" style="width: 100%;">
+      <tr>
+        <td style="width: 18%">
+          <span class="table-cell-Lable">شماره ثبت نامه</span>
+          <input style="width: 56%; " class="form-control input-style" type="text" name="RegisterLetterNo"
+            [(ngModel)]="RegisterLetterNo" readonly />
+        </td>
+        <td style="width: 18%">
+          <span class="table-cell-Lable">شماره سند نامه</span>
+          <input style="width: 56%; " class="form-control input-style" type="text" name="DocumentLetterNo"
+            [(ngModel)]="DocumentLetterNo" readonly />
+        </td>
+        <td style="width: 22%">
+          <span class="table-cell-Lable">تاریخ ثبت دبیرخانه/ثبت نامه</span>
+          <input style="width: 40%; " class="form-control input-style" type="text" name="RegisterLetterDate"
+            [(ngModel)]="RegisterLetterDate" readonly />
+        </td>
+        <td style="width: 10%">
+          <button [disabled]="IsDisable || !IsEditConfirm" id="btnClose"
+            class="btn btn-primary btn-gray-border small-btn btnGreen" (click)="onAutomationClick()">
+            <img width="15px" height="15px" src="assets/Icons/ok.png" />
+            اتصال نامه
+          </button>
+          <button *ngIf="false" [disabled]="IsDisable" id="btnClose"
+            class="btn btn-primary btn-gray-border small-btn btnGreen" (click)="onDeleteLetterClick()">
+            <img width="15px" height="15px" src="assets/Icons/DisApprove.png" />
+            حذف نامه
+          </button>
+          <button *ngIf="false" id="btnShowLetter" class="btn btn-primary btn-gray-border small-btn btnGreen"
+            (click)="onShowLetterClick()">
+            <img width="15px" height="15px" src="assets/Icons/Approve.png" />
+            مشاهده نامه
+          </button>
+          <button *ngIf="false" id="btnShowLetter" class="btn btn-primary btn-gray-border small-btn btnGreen"
+            (click)="onCreateNewLetter()">
+            <img width="15px" height="15px" src="assets/Icons/CreateLetter.png" />
+            نامه جدید
+          </button>
+        </td>
+      </tr>
+    </table>
+    <table *ngIf="ModuleViewTypeCode === 25" style="margin-bottom: 3px;">
+      <tr>
+        <td style="width: 100%">
+          <span class="table-cell-Lable"> قیمت کارشناس رسمی</span>
+          <app-number-input-component [id]="'PR-official-expert-price'" [HaveThousand]="true" [ReadOnly]="false"
+            [fontSize]="12" [PerCentWidth]="60" [PixelHeight]="25" [Value]="OfficialExpertPrice"
+            (ValueChange)="GetOfficialExpertPrice($event)">
+          </app-number-input-component>
+        </td>
+      </tr>
+    </table>
+    <table *ngIf="ModuleViewTypeCode === 52" style="width: 100%;margin-bottom: 3px;">
+      <tr>
+        <td style="width: 20%">
+          <span class="table-cell-Lable">تاریخ</span>
+          <app-jalali-datepicker [WidthPC]="60" [CurrMiladiDateValue]="ContractLetterDate"
+            (Change)="OnContractLetterDateChange($event)">
+          </app-jalali-datepicker>
+        </td>
+        <td style="width: 20%">
+          <span class="table-cell-Lable">شماره</span>
+          <input style="width: 60%; " class="form-control input-style" type="text" name="ContractLetterNo"
+            [(ngModel)]="ContractLetterNo" />
+        </td>
+        <td style="width: 60%">
+          <span class="table-cell-Lable">امضا کنندگان</span>
+          <app-ng-select-virtual-scroll (Open)="onSignersOpen()" style="display: inline-block;width: 85%;"
+            [NgSelectParams]="ContractSignParams" (FetchMore)="FetchMoreSigners($event)"
+            (doSearch)="doSignersSearch($event)" [Items]="ContractSignItems" [multiple]="true">
+          </app-ng-select-virtual-scroll>
+        </td>
+      </tr>
+    </table>
+    <table *ngIf="ModuleViewTypeCode === 33" style="width: 100%;margin-bottom: 3px;">
+      <!-- فقط نامه اخطاريه -->
+      <tr>
+        <td style="width: 19%">
+          <span class="table-cell-Lable">شماره ثبت نامه</span>
+          <input style="width: 57%; " class="form-control input-style" type="text" name="RegisterLetterNo"
+            [(ngModel)]="SecondRegisterLetterNo" readonly />
+        </td>
+        <td style="width: 19%">
+          <span class="table-cell-Lable">شماره سند نامه</span>
+          <input style="width: 55%; " class="form-control input-style" type="text" name="DocumentLetterNo"
+            [(ngModel)]="SecondDocumentLetterNo" readonly />
+        </td>
+        <td style="width: 23%">
+          <span class="table-cell-Lable">تاریخ ثبت دبیرخانه/ثبت نامه</span>
+          <input style="width: 45%; " class="form-control input-style" type="text" name="RegisterLetterDate"
+            [(ngModel)]="SecondRegisterLetterDate" readonly />
+        </td>
+        <td style="width: 10%">
+          <button [disabled]="IsDisable || !IsEditConfirm" id="btnClose"
+            class="btn btn-primary btn-gray-border small-btn btnGreen" (click)="onAutomationClick(8)">
+            <img width="15px" height="15px" src="assets/Icons/ok.png" />
+            اتصال نامه
+          </button>
+          <button *ngIf="false" [disabled]="IsDisable" id="btnClose"
+            class="btn btn-primary btn-gray-border small-btn btnGreen" (click)="onDeleteLetterClick(8)">
+            <img width="15px" height="15px" src="assets/Icons/DisApprove.png" />
+            حذف نامه
+          </button>
+          <button *ngIf="false" id="btnShowLetter" class="btn btn-primary btn-gray-border small-btn btnGreen"
+            (click)="onShowLetterClick(8)">
+            <img width="15px" height="15px" src="assets/Icons/Approve.png" />
+            مشاهده نامه
+          </button>
+          <button *ngIf="false" id="btnShowLetter" class="btn btn-primary btn-gray-border small-btn btnGreen"
+            (click)="onCreateNewLetter(8)">
+            <img width="15px" height="15px" src="assets/Icons/CreateLetter.png" />
+            نامه جدید
+          </button>
+        </td>
+      </tr>
+    </table>
+    <table *ngIf="HaveSupervisorPerson" style="width: 100%;margin-top: 5px;">
+      <tr>
+        <td style="width: 50%;text-align: right">
+          <span class="table-cell-Lable">ناظر اول</span>
+          <app-ng-select-virtual-scroll style="display: inline-block;width: 80%;" (Open)="onFirstSupervisorOpen()"
+            [NgSelectParams]="ExpertParams" [Items]="ExpertItems" [Disabled]="!IsEditConfirm">
+          </app-ng-select-virtual-scroll>
+        </td>
+        <td style="width: 50%;text-align: right">
+          <span class="table-cell-Lable">ناظر دوم</span>
+          <app-ng-select-virtual-scroll style="display: inline-block;width: 80%;" (Open)="onSecondSupervisorOpen()"
+            [NgSelectParams]="SupervisorParams" [Items]="SupervisorItems" [Disabled]="!IsEditConfirm">
+          </app-ng-select-virtual-scroll>
+        </td>
+      </tr>
+    </table>
+    <table *ngIf="false" style="width: 100%;margin-top: 5px;">
+      <tr>
+        <td style="width: 10%">
+          <span class="table-cell-Lable">مفاد قرارداد</span>
+          <app-custom-check-box style="vertical-align: sub;" [configurationInfo]="CustomCheckBoxConfig"
+            [isSelected]="IsContractContent" (PrettyCheckBoxChange)="OnCheckBoxChange($event)">
+          </app-custom-check-box>
+        </td>
+        <td style="width: 90%">
+          <span class="table-cell-Lable">عنوان مفاد قرارداد</span>
+          <input style="width: 74%; " class="form-control input-style" type="text" name="ContractContentNote"
+            [(ngModel)]="ContractContentNote" />
+        </td>
+      </tr>
+    </table>
+    <div *ngIf="HasThreeInquiries && (ModuleViewTypeCode === 1 || ModuleViewTypeCode === 165)"
+      style="float: right;color: blue;width: 100%;text-align: right;font-weight: bold;margin-top: 5px;">
+      <span> در صورت تجدید شدن درخواست می بایست روش انجام معامله آن به بدون تشریفات تغییر یابد، آیا مایل به تجدید
+        درخواست می باشید؟</span>
+      <div class="redio-div" style="margin-right: 10px; width: 20%;">
+        <div class="custom-control custom-radio custom-control-inline">
+          <input [checked]="IsReturn" type="radio" class="custom-control-input" id="IsReturn" name="IsReturn"
+            (click)="IsReturnRadioClick('true')">
+          <label style="margin: auto;" class="custom-control-label redio-label" for="IsReturn">بله</label>
+        </div>
+        <div class="custom-control custom-radio custom-control-inline">
+          <input [checked]="!IsReturn" type="radio" class="custom-control-input" id="IsNotReturn" name="IsReturn">
+          <label style="margin: auto;" class="custom-control-label redio-label" for="IsNotReturn"
+            (click)="IsReturnRadioClick('false')">خیر</label>
+        </div>
+      </div>
+    </div>
+  </fieldset>
+  <fieldset *ngIf="IsShowContractContentfor222" style="display: inherit;min-height: 20px;margin-top: 2px;"
+    class="feild-set">
+    <table style="width: 100%;">
+      <tr>
+        <td style="width: 10%">
+          <span class="table-cell-Lable">مفاد قرارداد</span>
+          <app-custom-check-box style="vertical-align: sub;" [configurationInfo]="CustomCheckBoxConfig"
+            [Disabled]="true" [isSelected]="IsContractContent" (PrettyCheckBoxChange)="OnCheckBoxChange($event)">
+          </app-custom-check-box>
+        </td>
+        <td style="width: 90%">
+          <span class="table-cell-Lable">عنوان مفاد قرارداد</span>
+          <input style="width: 74%; " class="form-control input-style" type="text" name="ContractContentNote"
+            [disabled]="true" [(ngModel)]="ContractContentNote" />
+        </td>
+      </tr>
+    </table>
+  </fieldset>
+  <div *ngIf="MultiWfDetailsShow" [style.height.px]="MultiWfDetailsShowHeight"
+    style="width: 100%;padding: 3px;margin-top: 2px;margin-bottom: 0;">
+    <div>
+      <fieldset style="padding: 0;min-height:30px;padding-left: 2px" class="feild-set">
+        <legend [style.width.%]="FirstWFLegendWidth" class="legend">
+          {{FirstWFFieldSetLegend}}</legend>
+        <table *ngIf="HaveLetterAndExpertPerson" style="width: 100%;margin-bottom: 3px;">
+          <tr>
+            <td style="width: 19%">
+              <span class="table-cell-Lable">شماره ثبت نامه</span>
+              <input style="width: 57%; " class="form-control input-style" type="text" name="RegisterLetterNo"
+                [(ngModel)]="RegisterLetterNo" readonly />
+            </td>
+            <td style="width: 19%">
+              <span class="table-cell-Lable">شماره سند نامه</span>
+              <input style="width: 55%; " class="form-control input-style" type="text" name="DocumentLetterNo"
+                [(ngModel)]="DocumentLetterNo" readonly />
+            </td>
+            <td style="width: 22%">
+              <span class="table-cell-Lable">تاریخ ثبت دبیرخانه/ثبت نامه</span>
+              <input style="width: 42%; " class="form-control input-style" type="text" name="RegisterLetterDate"
+                [(ngModel)]="RegisterLetterDate" readonly />
+            </td>
+            <td style="width: 10%">
+              <button [disabled]="IsDisable || !IsEditConfirm" id="btnClose"
+                class="btn btn-primary btn-gray-border small-btn btnGreen" (click)="onAutomationClick()">
+                <img width="15px" height="15px" src="assets/Icons/ok.png" />
+                اتصال نامه
+              </button>
+              <button *ngIf="false" [disabled]="IsDisable" id="btnClose"
+                class="btn btn-primary btn-gray-border small-btn btnGreen" (click)="onDeleteLetterClick()">
+                <img width="15px" height="15px" src="assets/Icons/DisApprove.png" />
+                حذف نامه
+              </button>
+              <button *ngIf="false" id="btnShowLetter" class="btn btn-primary btn-gray-border small-btn btnGreen"
+                (click)="onShowLetterClick()">
+                <img width="15px" height="15px" src="assets/Icons/Approve.png" />
+                مشاهده نامه
+              </button>
+              <button *ngIf="false" id="btnShowLetter" class="btn btn-primary btn-gray-border small-btn btnGreen"
+                (click)="onCreateNewLetter()">
+                <img width="15px" height="15px" src="assets/Icons/CreateLetter.png" />
+                نامه جدید
+              </button>
+            </td>
+          </tr>
+        </table>
+        <table *ngIf="ModuleViewTypeCode === 28 || ModuleViewTypeCode === 73" style="width: 100%;margin-bottom: 3px;">
+          <!-- فقط نامه معرفي به بانک -->
+          <tr>
+            <td style="width: 20%">
+              <span class="table-cell-Lable">شماره ثبت نامه</span>
+              <input style="width: 57%; " class="form-control input-style" type="text" name="RegisterLetterNo"
+                [(ngModel)]="RegisterLetterNo" readonly />
+            </td>
+            <td style="width: 20%">
+              <span class="table-cell-Lable">شماره سند نامه</span>
+              <input style="width: 55%; " class="form-control input-style" type="text" name="DocumentLetterNo"
+                [(ngModel)]="DocumentLetterNo" readonly />
+            </td>
+            <td style="width: 20%">
+              <span class="table-cell-Lable">تاریخ ثبت دبیرخانه/ثبت نامه</span>
+              <input style="width: 40%; " class="form-control input-style" type="text" name="RegisterLetterDate"
+                [(ngModel)]="RegisterLetterDate" readonly />
+            </td>
+            <td style="width: 10%">
+              <button [disabled]="IsDisable || !IsEditConfirm" id="btnClose"
+                class="btn btn-primary btn-gray-border small-btn btnGreen" (click)="onAutomationClick(4)">
+                <img width="15px" height="15px" src="assets/Icons/ok.png" />
+                اتصال نامه
+              </button>
+              <button *ngIf="false" [disabled]="IsDisable" id="btnClose"
+                class="btn btn-primary btn-gray-border small-btn btnGreen" (click)="onDeleteLetterClick(4)">
+                <img width="15px" height="15px" src="assets/Icons/DisApprove.png" />
+                حذف نامه
+              </button>
+              <button *ngIf="false" id="btnShowLetter" class="btn btn-primary btn-gray-border small-btn btnGreen"
+                (click)="onShowLetterClick(4)">
+                <img width="15px" height="15px" src="assets/Icons/Approve.png" />
+                مشاهده نامه
+              </button>
+              <button *ngIf="false" id="btnShowLetter" class="btn btn-primary btn-gray-border small-btn btnGreen"
+                (click)="onCreateNewLetter(4)">
+                <img width="15px" height="15px" src="assets/Icons/CreateLetter.png" />
+                نامه جدید
+              </button>
+            </td>
+          </tr>
+        </table>
+        <table *ngIf="HaveArticle18" style="width: 100%;margin-bottom: 3px;">
+          <!-- فقط نامه ارسال به ماده 18 -->
+          <tr>
+            <td style="width: 18%">
+              <span class="table-cell-Lable">شماره ثبت نامه</span>
+              <input style="width: 56%; " class="form-control input-style" type="text" name="RegisterLetterNo"
+                [(ngModel)]="RegisterLetterNo" readonly />
+            </td>
+            <td style="width: 18%">
+              <span class="table-cell-Lable">شماره سند نامه</span>
+              <input style="width: 56%; " class="form-control input-style" type="text" name="DocumentLetterNo"
+                [(ngModel)]="DocumentLetterNo" readonly />
+            </td>
+            <td style="width: 22%">
+              <span class="table-cell-Lable">تاریخ ثبت دبیرخانه/ثبت نامه</span>
+              <input style="width: 40%; " class="form-control input-style" type="text" name="RegisterLetterDate"
+                [(ngModel)]="RegisterLetterDate" readonly />
+            </td>
+            <td style="width: 10%">
+              <button [disabled]="IsDisable || !IsEditConfirm" id="btnClose"
+                class="btn btn-primary btn-gray-border small-btn btnGreen" (click)="onAutomationClick(10)">
+                <img width="15px" height="15px" src="assets/Icons/ok.png" />
+                اتصال نامه
+              </button>
+              <button *ngIf="false" [disabled]="IsDisable" id="btnClose"
+                class="btn btn-primary btn-gray-border small-btn btnGreen" (click)="onDeleteLetterClick(10)">
+                <img width="15px" height="15px" src="assets/Icons/DisApprove.png" />
+                حذف نامه
+              </button>
+              <button *ngIf="false" id="btnShowLetter" class="btn btn-primary btn-gray-border small-btn btnGreen"
+                (click)="onShowLetterClick(10)">
+                <img width="15px" height="15px" src="assets/Icons/Approve.png" />
+                مشاهده نامه
+              </button>
+              <button *ngIf="false" id="btnShowLetter" class="btn btn-primary btn-gray-border small-btn btnGreen"
+                (click)="onCreateNewLetter(10)">
+                <img width="15px" height="15px" src="assets/Icons/CreateLetter.png" />
+                نامه جدید
+              </button>
+            </td>
+          </tr>
+        </table>
+        <table *ngIf="ModuleViewTypeCode === 21 || ModuleViewTypeCode === 75" style="width: 100%;margin-bottom: 3px;">
+          <tr>
+            <td style="width: 20%">
+              <span class="table-cell-Lable">تاریخ</span>
+              <app-jalali-datepicker [WidthPC]="60" [CurrMiladiDateValue]="ContractLetterDate"
+                (Change)="OnContractLetterDateChange($event)">
+              </app-jalali-datepicker>
+            </td>
+            <td style="width: 20%">
+              <span class="table-cell-Lable">شماره</span>
+              <input style="width: 60%; " class="form-control input-style" type="text" name="ContractLetterNo"
+                [(ngModel)]="ContractLetterNo" />
+            </td>
+            <td style="width: 60%">
+              <span class="table-cell-Lable">امضا کنندگان</span>
+              <app-ng-select-virtual-scroll (Open)="onSignersOpen()" style="display: inline-block;width: 85%;"
+                [NgSelectParams]="ContractSignParams" (FetchMore)="FetchMoreSigners($event)"
+                (doSearch)="doSignersSearch($event)" [Items]="ContractSignItems" [multiple]="true">
+              </app-ng-select-virtual-scroll>
+            </td>
+          </tr>
+        </table>
+        <table *ngIf="HaveLetterWithCommitionDate" style="width: 100%;">
+          <tr>
+            <td style="width: 15%">
+              <span class="table-cell-Lable">تاریخ کمیسیون</span>
+              <app-jalali-datepicker [WidthPC]="53" [CurrMiladiDateValue]="CommitionDate"
+                (Change)="OnCommitionDateChange($event)">
+              </app-jalali-datepicker>
+            </td>
+            <td style="width: 13%">
+              <span class="table-cell-Lable">شماره ثبت نامه</span>
+              <input style="width: 41%; " class="form-control input-style" type="text" name="RegisterLetterNo"
+                [(ngModel)]="RegisterLetterNo" readonly />
+            </td>
+            <td style="width: 13%">
+              <span class="table-cell-Lable">شماره سند نامه</span>
+              <input style="width: 42%; " class="form-control input-style" type="text" name="DocumentLetterNo"
+                [(ngModel)]="DocumentLetterNo" readonly />
+            </td>
+            <td style="width: 20%">
+              <span class="table-cell-Lable">تاریخ ثبت دبیرخانه/ثبت نامه</span>
+              <input style="width: 40%; " class="form-control input-style" type="text" name="RegisterLetterDate"
+                [(ngModel)]="RegisterLetterDate" readonly />
+            </td>
+            <td style="width: 10%">
+              <button [disabled]="IsDisable || !IsEditConfirm" id="btnClose"
+                class="btn btn-primary btn-gray-border small-btn btnGreen" (click)="onAutomationClick()">
+                <img width="15px" height="15px" src="assets/Icons/ok.png" />
+                اتصال نامه
+              </button>
+              <button *ngIf="false" [disabled]="IsDisable" id="btnClose"
+                class="btn btn-primary btn-gray-border small-btn btnGreen" (click)="onDeleteLetterClick()">
+                <img width="15px" height="15px" src="assets/Icons/DisApprove.png" />
+                حذف نامه
+              </button>
+              <button *ngIf="false" id="btnShowLetter" class="btn btn-primary btn-gray-border small-btn btnGreen"
+                (click)="onShowLetterClick()">
+                <img width="15px" height="15px" src="assets/Icons/Approve.png" />
+                مشاهده نامه
+              </button>
+              <button *ngIf="false" id="btnShowLetter" class="btn btn-primary btn-gray-border small-btn btnGreen"
+                (click)="onCreateNewLetter()">
+                <img width="15px" height="15px" src="assets/Icons/CreateLetter.png" />
+                نامه جدید
+              </button>
+            </td>
+          </tr>
+        </table>
+        <table *ngIf="ModuleViewTypeCode === 44" style="width: 100%;margin-bottom: 3px;">
+          <tr>
+            <td colspan="2" width="40%">
+              <span class="table-cell-Lable">تیپ</span>
+              <app-ng-select-virtual-scroll style="display: inline-block;width: 80%;" (Open)="onContractStyleOpen()"
+                [NgSelectParams]="ContractStyleParams" [Items]="ContractStyleItems">
+              </app-ng-select-virtual-scroll>
+            </td>
+            <td width="60%">
+              <span class="table-cell-Lable">بارگذاری اسناد</span>
+              <div style="display: inline-block ; width: 85.5%;">
+                <button [disabled]="IsDisable || !IsEditConfirm" (click)="onbtnDocumentUpload()"
+                  style="width: 100%; float: none !important;" id="btnSave"
+                  class="btn btn-primary btnGreen btn-gray-border">
+                  <img width="15px" height="15px" src="assets/Icons/TechnicalArchive.png" />
+                  بارگذاری
+                </button>
+              </div>
+            </td>
+          </tr>
+        </table>
+        <div *ngIf="MultiQuestionLabel"
+          style="float: right;color: blue;width: 70%;text-align: right;font-weight: bold;margin-top: 5px;">
+          <span>{{MultiQuestionLabel}}</span>
+          <div class="redio-div" style="margin-right: 10px;">
+            <div class="custom-control custom-radio custom-control-inline">
+              <input [disabled]="HasProposalItem" [checked]="IsLawful" type="radio" class="custom-control-input"
+                id="IsLawful" name="IsLawful" (click)="IsLawfulRedioClick(true)">
+              <label style="margin: auto;" class="custom-control-label redio-label" for="IsLawful">بله</label>
+            </div>
+            <div class="custom-control custom-radio custom-control-inline">
+              <input [disabled]="HasProposalItem" [checked]="!IsLawful" type="radio" class="custom-control-input"
+                id="IsNotLawful" name="IsLawful">
+              <label style="margin: auto;" class="custom-control-label redio-label" for="IsNotLawful"
+                (click)="IsLawfulRedioClick(false)">خیر</label>
+            </div>
+          </div>
+        </div>
+        <table *ngIf="ModuleViewTypeCode === 66" style="width: 100%;margin-bottom: 3px;">
+          <tr>
+            <td style="width: 20%">
+              <span class="table-cell-Lable">تاریخ</span>
+              <app-jalali-datepicker [WidthPC]="60" [CurrMiladiDateValue]="ContractLetterDate"
+                (Change)="OnContractLetterDateChange($event)">
+              </app-jalali-datepicker>
+            </td>
+            <td style="width: 20%">
+              <span class="table-cell-Lable">شماره</span>
+              <input style="width: 60%; " class="form-control input-style" type="text" name="ContractLetterNo"
+                [(ngModel)]="ContractLetterNo" />
+            </td>
+            <td style="width: 60%">
+              <span class="table-cell-Lable">امضا کنندگان</span>
+              <app-ng-select-virtual-scroll (Open)="onSignersOpen()" style="display: inline-block;width: 85%;"
+                [NgSelectParams]="ContractSignParams" (FetchMore)="FetchMoreSigners($event)"
+                (doSearch)="doSignersSearch($event)" [Items]="ContractSignItems" [multiple]="true">
+              </app-ng-select-virtual-scroll>
+            </td>
+          </tr>
+        </table>
+        <table *ngIf="ModuleViewTypeCode === 33" style="width: 100%;margin-bottom: 3px;">
+          <!-- فقط نامه ضبط سپرده  ModuleViewTypeCode === 33-->
+          <tr>
+            <td style="width: 23%">
+              <span class="table-cell-Lable">شماره ثبت نامه</span>
+              <input style="width: 57%; " class="form-control input-style" type="text" name="RegisterLetterNo"
+                [(ngModel)]="FirstRegisterLetterNo" readonly />
+            </td>
+            <td style="width: 20%">
+              <span class="table-cell-Lable">شماره سند نامه</span>
+              <input style="width: 55%; " class="form-control input-style" type="text" name="DocumentLetterNo"
+                [(ngModel)]="FirstDocumentLetterNo" readonly />
+            </td>
+            <td style="width: 22%">
+              <span class="table-cell-Lable">تاریخ ثبت دبیرخانه/ثبت نامه</span>
+              <input style="width: 45%; " class="form-control input-style" type="text" name="RegisterLetterDate"
+                [(ngModel)]="FirstRegisterLetterDate" readonly />
+            </td>
+            <td style="width: 10%">
+              <button [disabled]="IsDisable || !IsEditConfirm" id="btnClose"
+                class="btn btn-primary btn-gray-border small-btn btnGreen" (click)="onAutomationClick(12)">
+                <img width="15px" height="15px" src="assets/Icons/ok.png" />
+                اتصال نامه
+              </button>
+              <button *ngIf="false" [disabled]="IsDisable" id="btnClose"
+                class="btn btn-primary btn-gray-border small-btn btnGreen" (click)="onDeleteLetterClick(12)">
+                <img width="15px" height="15px" src="assets/Icons/DisApprove.png" />
+                حذف نامه
+              </button>
+              <button *ngIf="false" id="btnShowLetter" class="btn btn-primary btn-gray-border small-btn btnGreen"
+                (click)="onShowLetterClick(12)">
+                <img width="15px" height="15px" src="assets/Icons/Approve.png" />
+                مشاهده نامه
+              </button>
+              <button *ngIf="false" id="btnShowLetter" class="btn btn-primary btn-gray-border small-btn btnGreen"
+                (click)="onCreateNewLetter(12)">
+                <img width="15px" height="15px" src="assets/Icons/CreateLetter.png" />
+                نامه جدید
+              </button>
+            </td>
+          </tr>
+        </table>
+      </fieldset>
+      <fieldset *ngIf="HaveSecondFieldSet" style="padding: 0;min-height:30px;padding-left: 2px" class="feild-set">
+        <legend [style.width.%]="SecondWFLegendWidth" class="legend">
+          {{SecondWFFieldSetLegend}}</legend>
+        <table *ngIf="HaveLetterAndExpertPerson" style="width: 100%;margin-top: 3px;;margin-bottom: 3px;">
+          <tr>
+            <td style="width: 100%;text-align: right">
+              <span class="table-cell-Lable">کارشناس امور قرارداد ها</span>
+              <app-ng-select-virtual-scroll style="display: inline-block;width: 33%;" (Open)="onExpertOpen()"
+                [NgSelectParams]="ExpertParams" [Items]="ExpertItems">
+              </app-ng-select-virtual-scroll>
+            </td>
+          </tr>
+        </table>
+        <table *ngIf="ModuleViewTypeCode === 28 || ModuleViewTypeCode === 73" style="width: 100%;margin-bottom: 3px;">
+          <!-- فقط نامه نامه ابلاغ به برنده -->
+          <tr>
+            <td style="width: 20%">
+              <span class="table-cell-Lable">شماره ثبت نامه</span>
+              <input style="width: 57%; " class="form-control input-style" type="text" name="SecondRegisterLetterNo"
+                [(ngModel)]="SecondRegisterLetterNo" readonly />
+            </td>
+            <td style="width: 20%">
+              <span class="table-cell-Lable">شماره سند نامه</span>
+              <input style="width: 55%; " class="form-control input-style" type="text" name="SecondDocumentLetterNo"
+                [(ngModel)]="SecondDocumentLetterNo" readonly />
+            </td>
+            <td style="width: 20%">
+              <span class="table-cell-Lable">تاریخ ثبت دبیرخانه/ثبت نامه</span>
+              <input style="width: 40%; " class="form-control input-style" type="text" name="SecondRegisterLetterDate"
+                [(ngModel)]="SecondRegisterLetterDate" readonly />
+            </td>
+            <td style="width: 10%">
+              <button [disabled]="IsDisable || !IsEditConfirm" id="btnClose"
+                class="btn btn-primary btn-gray-border small-btn btnGreen" (click)="onAutomationClick(5)">
+                <img width="15px" height="15px" src="assets/Icons/ok.png" />
+                اتصال نامه
+              </button>
+              <button *ngIf="false" [disabled]="IsDisable" id="btnClose"
+                class="btn btn-primary btn-gray-border small-btn btnGreen" (click)="onDeleteLetterClick(5)">
+                <img width="15px" height="15px" src="assets/Icons/DisApprove.png" />
+                حذف نامه
+              </button>
+              <button *ngIf="false" id="btnShowLetter" class="btn btn-primary btn-gray-border small-btn btnGreen"
+                (click)="onShowLetterClick(5)">
+                <img width="15px" height="15px" src="assets/Icons/Approve.png" />
+                مشاهده نامه
+              </button>
+              <button *ngIf="false" id="btnShowLetter" class="btn btn-primary btn-gray-border small-btn btnGreen"
+                (click)="onCreateNewLetter(5)">
+                <img width="15px" height="15px" src="assets/Icons/CreateLetter.png" />
+                نامه جدید
+              </button>
+            </td>
+          </tr>
+        </table>
+        <table *ngIf="HaveAcceptArticle18" style="width: 100%;margin-bottom: 3px;">
+          <!-- فقط نامه تاييد يا عدم تاييد ماده 18 -->
+          <tr>
+            <td style="width: 18%">
+              <span class="table-cell-Lable">شماره ثبت نامه</span>
+              <input style="width: 56%; " class="form-control input-style" type="text" name="SecondRegisterLetterNo"
+                [(ngModel)]="SecondRegisterLetterNo" readonly />
+            </td>
+            <td style="width: 18%">
+              <span class="table-cell-Lable">شماره سند نامه</span>
+              <input style="width: 56%; " class="form-control input-style" type="text" name="SecondDocumentLetterNo"
+                [(ngModel)]="SecondDocumentLetterNo" readonly />
+            </td>
+            <td style="width: 22%">
+              <span class="table-cell-Lable">تاریخ ثبت دبیرخانه/ثبت نامه</span>
+              <input style="width: 40%; " class="form-control input-style" type="text" name="SecondRegisterLetterDate"
+                [(ngModel)]="SecondRegisterLetterDate" readonly />
+            </td>
+            <td style="width: 10%">
+              <button [disabled]="IsDisable || !IsEditConfirm" id="btnClose"
+                class="btn btn-primary btn-gray-border small-btn btnGreen" (click)="onAutomationClick(11)">
+                <img width="15px" height="15px" src="assets/Icons/ok.png" />
+                اتصال نامه
+              </button>
+              <button *ngIf="false" [disabled]="IsDisable" id="btnClose"
+                class="btn btn-primary btn-gray-border small-btn btnGreen" (click)="onDeleteLetterClick(11)">
+                <img width="15px" height="15px" src="assets/Icons/DisApprove.png" />
+                حذف نامه
+              </button>
+              <button *ngIf="false" id="btnShowLetter" class="btn btn-primary btn-gray-border small-btn btnGreen"
+                (click)="onShowLetterClick(11)">
+                <img width="15px" height="15px" src="assets/Icons/Approve.png" />
+                مشاهده نامه
+              </button>
+              <button *ngIf="false" id="btnShowLetter" class="btn btn-primary btn-gray-border small-btn btnGreen"
+                (click)="onCreateNewLetter(11)">
+                <img width="15px" height="15px" src="assets/Icons/CreateLetter.png" />
+                نامه جدید
+              </button>
+            </td>
+          </tr>
+        </table>
+        <table *ngIf="false" style="width: 100%;margin-bottom: 3px;">
+          <!-- فقط نامه ضبط سپرده  ModuleViewTypeCode === 33-->
+          <tr>
+            <td style="width: 23%">
+              <span class="table-cell-Lable">شماره ثبت نامه</span>
+              <input style="width: 57%; " class="form-control input-style" type="text" name="RegisterLetterNo"
+                [(ngModel)]="RegisterLetterNo" readonly />
+            </td>
+            <td style="width: 20%">
+              <span class="table-cell-Lable">شماره سند نامه</span>
+              <input style="width: 55%; " class="form-control input-style" type="text" name="DocumentLetterNo"
+                [(ngModel)]="DocumentLetterNo" readonly />
+            </td>
+            <td style="width: 22%">
+              <span class="table-cell-Lable">تاریخ ثبت دبیرخانه/ثبت نامه</span>
+              <input style="width: 45%; " class="form-control input-style" type="text" name="RegisterLetterDate"
+                [(ngModel)]="RegisterLetterDate" readonly />
+            </td>
+            <td style="width: 10%">
+              <button [disabled]="IsDisable || !IsEditConfirm" id="btnClose"
+                class="btn btn-primary btn-gray-border small-btn btnGreen" (click)="onAutomationClick(12)">
+                <img width="15px" height="15px" src="assets/Icons/ok.png" />
+                اتصال نامه
+              </button>
+              <button *ngIf="false" [disabled]="IsDisable" id="btnClose"
+                class="btn btn-primary btn-gray-border small-btn btnGreen" (click)="onDeleteLetterClick(12)">
+                <img width="15px" height="15px" src="assets/Icons/DisApprove.png" />
+                حذف نامه
+              </button>
+              <button *ngIf="false" id="btnShowLetter" class="btn btn-primary btn-gray-border small-btn btnGreen"
+                (click)="onShowLetterClick(12)">
+                <img width="15px" height="15px" src="assets/Icons/Approve.png" />
+                مشاهده نامه
+              </button>
+              <button *ngIf="false" id="btnShowLetter" class="btn btn-primary btn-gray-border small-btn btnGreen"
+                (click)="onCreateNewLetter(12)">
+                <img width="15px" height="15px" src="assets/Icons/CreateLetter.png" />
+                نامه جدید
+              </button>
+            </td>
+          </tr>
+        </table>
+        <table *ngIf="ModuleViewTypeCode === 21 || ModuleViewTypeCode === 75"
+          style="width: 100%;margin-top: 3px;;margin-bottom: 3px;">
+          <tr>
+            <td style="width: 20%">
+              <span class="table-cell-Lable">ظرفیت ریالی</span><input style="width: 60% "
+                class="form-control input-style" type="text" value="" readonly />
+            </td>
+            <td style="width: 20%">
+              <span class="table-cell-Lable">ظرفیت تعدادی</span><input style="width: 60% "
+                class="form-control input-style" type="text" value="" readonly />
+            </td>
+            <td style="width: 60%">
+              <span class="table-cell-Lable">نام پیمانکار</span><input style="width: 85% "
+                class="form-control input-style" type="text" value="{{PRContractObject?.ContractorFullName}}"
+                readonly />
+            </td>
+          </tr>
+        </table>
+        <table *ngIf="ModuleViewTypeCode === 44" style="width: 100%;margin-bottom: 3px;">
+          <tr>
+            <td style="width: 20%">
+              <span class="table-cell-Lable">تاریخ</span>
+              <app-jalali-datepicker [WidthPC]="60" [CurrMiladiDateValue]="ContractLetterDate"
+                (Change)="OnContractLetterDateChange($event)">
+              </app-jalali-datepicker>
+            </td>
+            <td style="width: 20%">
+              <span class="table-cell-Lable">شماره</span>
+              <input style="width: 60%; " class="form-control input-style" type="text" name="ContractLetterNo"
+                [(ngModel)]="ContractLetterNo" />
+            </td>
+            <td style="width: 60%">
+              <span class="table-cell-Lable">امضا کنندگان</span>
+              <app-ng-select-virtual-scroll (Open)="onSignersOpen()" style="display: inline-block;width: 85.5%;"
+                [NgSelectParams]="ContractSignParams" (FetchMore)="FetchMoreSigners($event)"
+                (doSearch)="doSignersSearch($event)" [Items]="ContractSignItems" [multiple]="true">
+              </app-ng-select-virtual-scroll>
+            </td>
+            <!-- <td  width="30%">
+                  <span class="table-cell-Lable">بارگذاری اسناد</span>
+                  <div style="display: inline-block ; width: 70.5%;">
+                    <button [disabled]="IsDisable" (click)="onbtnDocumentUpload()"
+                      style="width: 100%; float: none !important;" id="btnSave"
+                      class="btn btn-primary btnGreen btn-gray-border">
+                      <img width="15px" height="15px" src="assets/Icons/TechnicalArchive.png" />
+                      بارگذاری
+                    </button>
+                  </div>
+                </td> -->
+          </tr>
+        </table>
+        <table *ngIf="HaveMultiOnlyLetter" style="width: 100%;">
+          <tr>
+            <td style="width: 18%">
+              <span class="table-cell-Lable">شماره ثبت نامه</span>
+              <input style="width: 58%; " class="form-control input-style" type="text" name="SecondRegisterLetterNo"
+                [(ngModel)]="SecondRegisterLetterNo" readonly />
+            </td>
+            <td style="width: 18%">
+              <span class="table-cell-Lable">شماره سند نامه</span>
+              <input style="width: 58%; " class="form-control input-style" type="text" name="SecondDocumentLetterNo"
+                [(ngModel)]="SecondDocumentLetterNo" readonly />
+            </td>
+            <td style="width: 25%">
+              <span class="table-cell-Lable">تاریخ ثبت دبیرخانه/ثبت نامه</span>
+              <input style="width: 49%; " class="form-control input-style" type="text" name="SecondRegisterLetterDate"
+                [(ngModel)]="SecondRegisterLetterDate" readonly />
+            </td>
+            <td style="width: 10%">
+              <button [disabled]="IsDisable || !IsEditConfirm" id="btnClose"
+                class="btn btn-primary btn-gray-border small-btn btnGreen"
+                (click)="onAutomationClick(SecondLetterTypeCode)">
+                <img width="15px" height="15px" src="assets/Icons/ok.png" />
+                اتصال نامه
+              </button>
+              <button *ngIf="false" [disabled]="IsDisable" id="btnClose"
+                class="btn btn-primary btn-gray-border small-btn btnGreen" (click)="onDeleteLetterClick()">
+                <img width="15px" height="15px" src="assets/Icons/DisApprove.png" />
+                حذف نامه
+              </button>
+              <button *ngIf="false" id="btnShowLetter" class="btn btn-primary btn-gray-border small-btn btnGreen"
+                (click)="onShowLetterClick()">
+                <img width="15px" height="15px" src="assets/Icons/Approve.png" />
+                مشاهده نامه
+              </button>
+              <button *ngIf="false" id="btnShowLetter" class="btn btn-primary btn-gray-border small-btn btnGreen"
+                (click)="onCreateNewLetter()">
+                <img width="15px" height="15px" src="assets/Icons/CreateLetter.png" />
+                نامه جدید
+              </button>
+            </td>
+          </tr>
+        </table>
+        <table *ngIf="ModuleViewTypeCode === 33" style="width: 100%;margin-bottom: 3px;">
+          <!-- فقط نامه  اخطاریه  ModuleViewTypeCode === 33-->
+          <tr>
+            <td style="width: 23%">
+              <span class="table-cell-Lable">شماره ثبت نامه</span>
+              <input style="width: 57%; " class="form-control input-style" type="text" name="RegisterLetterNo"
+                [(ngModel)]="SecondRegisterLetterNo" readonly />
+            </td>
+            <td style="width: 20%">
+              <span class="table-cell-Lable">شماره سند نامه</span>
+              <input style="width: 55%; " class="form-control input-style" type="text" name="DocumentLetterNo"
+                [(ngModel)]="SecondDocumentLetterNo" readonly />
+            </td>
+            <td style="width: 22%">
+              <span class="table-cell-Lable">تاریخ ثبت دبیرخانه/ثبت نامه</span>
+              <input style="width: 45%; " class="form-control input-style" type="text" name="RegisterLetterDate"
+                [(ngModel)]="SecondRegisterLetterDate" readonly />
+            </td>
+            <td style="width: 10%">
+              <button [disabled]="IsDisable || !IsEditConfirm" id="btnClose"
+                class="btn btn-primary btn-gray-border small-btn btnGreen" (click)="onAutomationClick(8)">
+                <img width="15px" height="15px" src="assets/Icons/ok.png" />
+                اتصال نامه
+              </button>
+              <button *ngIf="false" [disabled]="IsDisable" id="btnClose"
+                class="btn btn-primary btn-gray-border small-btn btnGreen" (click)="onDeleteLetterClick(8)">
+                <img width="15px" height="15px" src="assets/Icons/DisApprove.png" />
+                حذف نامه
+              </button>
+              <button *ngIf="false" id="btnShowLetter" class="btn btn-primary btn-gray-border small-btn btnGreen"
+                (click)="onShowLetterClick(8)">
+                <img width="15px" height="15px" src="assets/Icons/Approve.png" />
+                مشاهده نامه
+              </button>
+              <button *ngIf="false" id="btnShowLetter" class="btn btn-primary btn-gray-border small-btn btnGreen"
+                (click)="onCreateNewLetter(8)">
+                <img width="15px" height="15px" src="assets/Icons/CreateLetter.png" />
+                نامه جدید
+              </button>
+            </td>
+          </tr>
+        </table>
+      </fieldset>
+    </div>
+  </div>
+  <fieldset *ngIf="HasSecretQuestion" style="display: inherit;min-height: 38px;margin-top: 2px;" class="feild-set">
+    <table style="width: 100%;">
+      <tr>
+        <td width="30%" *ngIf="HasMutualContractQuestion">
+          <app-radio-box-component [BoxWidth]="46" [Mode]="'Dual'" [Params]="McRadioTypes" [Display]="'inline'"
+            [Bordered]="false" [DefaultSelected]='HaveMutualContract ? HaveMutualContract : false'
+            [Title]="MutualContractQuestion" [QuestionStyle]="true" [Title_Width]="120" [Disabled]="ShowQuestion"
+            (SelectedOption)="HaveMutualContractRedioClick($event)"></app-radio-box-component>
+        </td>
+        <td width="30%" *ngIf="!IsSecretQuestion">
+
+        <td width="30%" *ngIf="IsSecretQuestion">
+          <app-radio-box-component [Mode]="'Dual'" [Params]="ScRadioTypes" [Display]="'inline'" [Bordered]="false"
+            [DefaultSelected]='IsSecret ? IsSecret : false' [Title]="'آیا دارای شرایط محرمانگی است؟'"
+            [QuestionStyle]="true" [Disabled]="ShowQuestion" [Title_Width]="120"
+            (SelectedOption)="IsSecretRedioClick($event)">
+          </app-radio-box-component>
+        </td>
+        <td width="30%" *ngIf="!HasMutualContractQuestion">
+        </td>
+
+        <td width="30%" *ngIf="IsUpdateBefore">
+          <app-radio-box-component [BoxWidth]="43" [Mode]="'Dual'" [Params]="IcRadioTypes" [Display]="'inline'"
+            [Bordered]="false" [DefaultSelected]='IsUpdateBeforeAdevertising ?IsUpdateBeforeAdevertising : false'
+            [Title]="'ارجاع به درخواست کننده جهت اصلاح پیش از آگهی'" [QuestionStyle]="true" [Title_Width]="120"
+            (SelectedOption)="IsUpdateBeforeAdevertisingRedioClick($event)">
+          </app-radio-box-component>
+        </td>
+
+      </tr>
+    </table>
+  </fieldset>
+  <fieldset *ngIf="HaveHsePlanQuestion" style="display: inherit;min-height: 38px;margin-top: 2px;padding-left: 770px ;"
+    class="feild-set">
+    <table style="width: 100%;">
+      <tr>
+        <td width="100%">
+          <app-radio-box-component [Mode]="'Dual'" [Params]="ScRadioTypes" [Display]="'inline'" [Bordered]="false"
+            [DefaultSelected]='HaveHsePlan ? HaveHsePlan : false' [Title]="'آیا HSE PLAN نیاز می باشد ؟'"
+            [QuestionStyle]="true" [Disabled]="ShowQuestion" [Title_Width]="120"
+            (SelectedOption)="HaveHsePlanRedioClick($event)">
+          </app-radio-box-component>
+        </td>
+      </tr>
+    </table>
+  </fieldset>
+  <fieldset *ngIf="HavePDFSignersInfo" style="display: inherit;min-height: 38px;margin-top: 8px ;padding-left: 235px;"
+    class="feild-set">
+    <table style="width: 100%;">
+      <tr>
+        <td width="50%" style="float: right;color: red;margin-top: 5px;">
+          <span>کاربر گرامی صورتجلسه کمیسیون توسط شما امضای دیجیتال نشده است لطفا نسبت به امضای صورتجلسه اقدام نمایید
+          </span>
+        </td>
+      </tr>
+    </table>
+  </fieldset>
+  <fieldset *ngIf="HaveUpdateTenderDoc" style="display: inherit;min-height: 38px;margin-top: 2px;padding-left: 700px ;"
+    class="feild-set">
+    <table style="width: 100%;">
+      <tr>
+        <td width="100%">
+          <app-radio-box-component [Mode]="'Dual'" [Params]="TDRadioTypes" [Display]="'inline'" [Bordered]="false"
+            [DefaultSelected]='IsUpdateTenderDoc ? IsUpdateTenderDoc : false'
+            [Title]="'آیا نیاز به اصلاح مفاد اسناد مناقصه می باشد؟'" [QuestionStyle]="true" [Title_Width]="120"
+            (SelectedOption)="IsUpdateTenderDocRedioClick($event)">
+          </app-radio-box-component>
+        </td>
+      </tr>
+    </table>
+  </fieldset>
+  <app-radio-box-component *ngIf="ShowMCSPanel" [Params]="MCSRadioTypes" [Display]="'inline'" [Bordered]="true"
+    [Mode]="'Box'" [Disabled]="!HaveMutualContract || ShowQuestion"
+    [DefaultSelected]='MutualContractStatus ? MutualContractStatus : 1' [Title]="'وضعیت قرارداد منعقده'"
+    [Title_Width]="120" (SelectedOption)="GetRadioBoxSelectedItem($event)">
+  </app-radio-box-component>
+</div>
+<div [ngClass]="{'disable-parent': !IsDown}" style="margin: 5px;">
+  <div class="buttons-place" style="float: right;margin: auto;" [style.width.%]="ButtonsPlaceWidthPercent">
+    <button *ngIf="(HaveSave && IsEditable) || HasCompleteSave" (click)="onSave()" id="btnSave"
+      class="btn btn-primary btnGreen">
+      <img width="15px" height="15px" src="assets/Icons/save.png" />
+      ثبت
+    </button>
+    <button *ngIf="(WfSaveDetailsShow && IsEditConfirm)" (click)="onWFSave()" id="btnSave"
+      class="btn btn-primary btnGreen">
+      <img width="15px" height="15px" src="assets/Icons/save.png" />
+      ثبت
+    </button>
+    <button *ngIf="ShowSave106" (click)="onSave106()" id="btnSave" class="btn btn-primary btnGreen">
+      <img width="15px" height="15px" src="assets/Icons/save.png" />
+      ثبت
+    </button>
+    <button *ngIf="btnshowcontractlist" id="btnshowcontractlist" class="btn btn-primary btnGreen"
+      (click)="showcontractlistclick()">
+      <img width="15px" height="15px" src="assets/Icons/Suggestion.png" />
+      نقل از قرارداد
+    </button>
+    <button *ngIf="HaveDigitalSign" (click)="FinalMinuteDigitalSign()" id="btnTenderRep"
+      class="btn btn-primary btnGreen">
+      <img width="15px" height="15px" src="assets/Icons/SigneDoc.png" />
+      امضای صورتجلسه
+    </button>
+    <button *ngIf="HaveArticle18DigitalSign" (click)="ChooseArticle18Type()" id="btnTenderRep"
+      class="btn btn-primary btnGreen">
+      <img width="15px" height="15px" src="assets/Icons/SigneDoc.png" />
+      امضای ماده 18
+    </button>
+    <button *ngIf="HasAdequacyDoc" (click)="AdequacyDocDigitalSign()" id="btnTenderRep"
+      class="btn btn-primary btnGreen">
+      <img width="15px" height="15px" src="assets/Icons/SigneDoc.png" />
+      امضای نامه کفایت اسناد
+    </button>
+    <!-- RFC 52131 -->
+    <button *ngIf="CommitionSubjectChange" id="btnClose" class="btn btn-primary btnGreen"
+      (click)="SaveCommitionSubject()">
+      <img width="15px" height="15px" src="assets/Icons/save.png" />
+      {{CommitionSubjectChangeBtnText}}
+    </button>
+    <button *ngIf="HasCreateContractBtn" (click)="onCreateContract()" id="btn2" class="btn btn-primary btnGreen"
+      [disabled]="!IsEditConfirm">
+      <img width="15px" height="15px" src="assets/Icons/add.png" />
+      {{HasCreateContractBtnText}}
+    </button>
+    <button *ngIf="HasEditContractInfoBtn" (click)="onOpenUpdateContractLimited()" id="btn2"
+      class="btn btn-primary btnGreen" [disabled]="DisabledEditContractInfoBtn">
+      <img width="15px" height="15px" src="assets/Icons/update.png" />
+      اصلاح قراداد
+    </button>
+    <button *ngIf="VirtualGroupModuleTypeDisplay" [disabled]="false" class="btn btn-primary btnGreen"
+      (click)="onVirtualModuleTypeClick()">
+      <img width="15px" height="15px" src="assets/Icons/Suggestion.png" />
+      {{VirtualGroupModuleTypeName}}
+    </button>
+    <button *ngIf="(IsEditable || ShowRequestSuggestion) && !HasSingDate" [disabled]="IsDisable && IsDisableBtnContract"
+      id="btnRequestSuggestion" class="btn btn-primary btnGreen" (click)="RequestSuggestion()">
+      <img width="15px" height="15px" src="assets/Icons/Suggestion.png" />
+      {{RequestSuggestionBtnText}}
+    </button>
+    <button (click)="OnshowhistorydetailClick()" id="showhistorydetail" class="btn btn-primary btnGreen">
+      <img width="15px" height="15px" src="assets/Icons/Suggestion.png" />
+      مشاهده ریز اصلاحات
+    </button>
+    <button *ngIf="HaveCompleteInfo" [disabled]="IsDisable || !IsEditConfirm" id="btnShowRequestDetailsPage"
+      class="btn btn-primary btnGreen" (click)="btnShowReqDetailsClick()">
+      <img width="15px" height="15px" src="assets/Icons/Suggestion.png" />
+      {{HasCompleteInfoBtnText}}
+    </button>
+    <button *ngIf="false" [disabled]="IsDisable || !IsEditable || !IsEditConfirm" id="btnRequestSuggestion"
+      class="btn btn-primary btnGreen" (click)="RequestCost()">
+      <img width="15px" height="15px" src="assets/Icons/Suggestion.png" />
+      اقلام بهای تمام شده
+    </button>
+
+    <button *ngIf="HaveRequestPerson" [disabled]="IsDisable || !IsEditConfirm" id="btnRequestSuggestion"
+      class="btn btn-primary btnGreen" (click)="RequestPersonItem()">
+      <img width="15px" height="15px" src="assets/Icons/Suggestion.png" />
+      عوامل اجرایی
+    </button>
+    <button *ngIf="HaveAcceptArchive" [disabled]="IsDisable || !IsEditConfirm" (click)="BtnArchiveClick()" id="btn1"
+      class="btn btn-primary btnGreen">
+      <img width="15px" height="15px" src="assets/Icons/TechnicalArchive.png" />
+      {{ArchiveBtnText}}
+    </button>
+    <button *ngIf="HaveCommition || CheckRegionWritable" [disabled]="IsDisable || !IsEditConfirm"
+      id="btnRequestSuggestion" class="btn btn-primary btnGreen" (click)="onCommitionClick()">
+      <img width="15px" height="15px" src="assets/Icons/Suggestion.png" />
+      کمیسیون
+    </button>
+    <button *ngIf="HaveInquiry || CheckRegionWritable" [disabled]="IsDisable || !IsEditConfirm"
+      id="btnRequestSuggestion" class="btn btn-primary btnGreen" (click)="onProposalClick()">
+      <img width="15px" height="15px" src="assets/Icons/Suggestion.png" />
+      {{btnProposalName}}
+    </button>
+
+    <button *ngIf="HaveRevocation" (click)="onRevocation()" id="btn2" class="btn btn-primary btnGreen"
+      style="margin: 2px;" [disabled]="!IsEditConfirm">
+      <img width="15px" height="15px" src="assets/Icons/{{btnRevocationIcon}}.png" />
+      {{btnRevocationName}} </button>
+    <button *ngIf="HaveProvision" [disabled]="IsDisable || !IsEditConfirm" id="btnTenderRep"
+      class="btn btn-primary btnGreen" (click)="onProvisionClick('Suggestion')">
+      <img width="15px" height="15px" src="assets/Icons/Suggestion.png" />
+      {{btnProvisionName}}
+    </button>
+
+    <button *ngIf="HaveArchive" [disabled]="IsDisable || !IsEditConfirm" (click)="BtnArchiveClick2()" id="btn2"
+      class="btn btn-primary btnGreen">
+      <img width="15px" height="15px" src="assets/Icons/TechnicalArchive.png" />
+      {{ConfirmArchiveBtnText}}
+    </button>
+    <button *ngIf="HaveSeenProvision" [disabled]="IsDisable || !IsEditConfirm" id="btnTenderRep"
+      class="btn btn-primary btnGreen" (click)="onProvisionClick('Show')">
+      <img width="15px" height="15px" src="assets/Icons/Suggestion.png" />
+      مشاهده تامین اعتبار
+    </button>
+    <button *ngIf="HasBtnAutomationLetter" [disabled]="IsDisable || !IsEditConfirm" id="btnClose"
+      class="btn btn-primary btnGreen" (click)="onAutomationClick()">
+      <img width="15px" height="15px" src="assets/Icons/ok.png" />
+      {{AutomationLetterBtnText}}
+    </button>
+    <button *ngIf="false" [disabled]="IsDisable || !IsEditConfirm" id="btnSendLetter" class="btn btn-primary btnGreen"
+      (click)="onSendLetter()">
+      <img width="15px" height="15px" src="assets/Icons/confirm24.ico" />
+      ارسال نامه
+    </button>
+    <button *ngIf="HasBtnShowContractors" [disabled]="IsDisable" id="btnClose" class="btn btn-primary btnGreen"
+      (click)="onShowContractorDetailsClick()">
+      <img width="15px" height="15px" src="assets/Icons/ok.png" />
+      مشاهده اطلاعات پیمانکار
+    </button>
+    <!-- LocalProvider -->
+    <button *ngIf="false" [disabled]="IsDisable" id="btnClose" class="btn btn-primary btnGreen"
+      (click)="onShowContractorClick()">
+      <img width="15px" height="15px" src="assets/Icons/ok.png" />
+      مشاهده اطلاعات پیمانکار
+    </button>
+    <button *ngIf="HasPrintBtn" id="btnPrint" class="btn btn-primary btnGreen" (click)="PRProvisionRepShow()">
+      <img width="15px" height="15px" src="assets/Icons/print.png" />
+      چاپ
+    </button>
+    <button id="btnClose" class="btn btn-primary btnGreen" (click)="Close()">
+      <img width="15px" height="15px" src="assets/Icons/exit.png" />
+      خروج
+    </button>
+  </div>
+  <!-- --------------------------- -->
+  <div *ngIf="ShowWorkflowButtons" class="buttons-place" style="float: left;margin: auto;"
+    [style.width.%]="WorkflowButtonsWidth">
+    <button *ngIf="!CheckRegionWritable && !IsShow && ShowConfermBtn"
+      [disabled]="IsDisable || ISSendAndConfirm || !ModuleViewTypeCode" (click)="onConfirm()" id="btn2"
+      class="btn btn-primary btnGreen" style="margin: 2px;">
+      <img width="15px" height="15px" src="assets/Icons/{{btnConfirmIcon}}.png" />
+      <!--RFC 53826-->
+      {{btnConfirmName}}
+    </button>
+    <button *ngIf="!CheckRegionWritable && !IsShow && ShowSendBtn"
+      [disabled]="IsDisable || IsEndFlow || ISSendAndConfirm || !ModuleViewTypeCode" (click)="onConfirmAndSend()"
+      id="btn2" class="btn btn-primary btnGreen" style="margin: 2px;">
+      <img width="15px" height="15px" src="assets/Icons/Approve.png" />
+      تایید و ارسال </button>
+    <button *ngIf="!CheckRegionWritable && !IsShow && ShowReturnBtn"
+      [disabled]="IsDisable || ISDisabledConfirmAndReturnBtn || ISSendAndConfirm " (click)="onUnConfirmAndReturn()"
+      id="btn2" class="btn btn-primary btnGreen" style="margin: 2px;">
+      <img width="15px" height="15px" src="assets/Icons/DisApprove.png" />
+      {{btnConfirmAndReturnName}} </button>
+    <button (click)="OnClickPrintFlow()" [disabled]="IsDisable" class="btn btn-primary btnGreen">
+      <img width="15px" height="15px" src="assets/Icons/print.png" />
+      گردش
+    </button>
+  </div>
+</div>
+
+<ng-template #IsValidity let-row>
+  <img width="16px" height="16px" [src]="row.IsValidity ? 'assets/Icons/TrueCheckBox.png':'assets/Icons/uncheck.png'" />
+</ng-template>
+
+<ng-template #IsReturn let-row>
+  <img width="16px" height="16px" [src]="!row.IsReturn ? 'assets/Icons/TrueCheckBox.png':'assets/Icons/uncheck.png'" />
+</ng-template>
+
+<ng-template #UploadArchive let-row>
+  <img [ngClass]="'img-def'" style="cursor: pointer;" width="16px" height="16px" src="assets/Icons/TechnicalArchive.png"
+    (click)="(row.ReceiveDocID > 0 && !IsNew && 
+    (row.ReceiveDocStatusCode !== 1 && row.ReceiveDocStatusCode !== 3)) ? 
+    '' : onReceiveDocArchiveClick(row)  " />
+</ng-template>
+
+<ng-template #DelRecDoc let-row>
+  <img [ngClass]="'img-def'" style="cursor: pointer;" width="16px" height="16px" src="assets/Icons/delete-icon.png"
+    (click)="(row.ReceiveDocID > 0 && !IsNew && 
+    (row.ReceiveDocStatusCode !== 1 && row.ReceiveDocStatusCode !== 3)) ? '' : onDelRecDocClick(row) " />
+</ng-template>
+
+<app-over-popup *ngIf="isClicked" [PopupType]="PopUpType" [HaveMaxBtn]="HaveMaxBtn"
+  [HeightPercentWithMaxBtn]="HeightPercentWithMaxBtn" [startLeftPosition]="startLeftPosition"
+  [startTopPosition]="startTopPosition" [PopupParam]="PopUpType === 'message-box' ?alertMessageParams:PopupParam"
+  [HaveHeader]="HaveHeader" [PercentWidth]="PopUpType === 'message-box' ? '' : PercentWidth"
+  [MainMaxwidthPixel]="MainMaxwidthPixel" [minHeightPixel]="MinHeightPixel"
+  (PopupOutPutParam)="PopUpType ==='message-box' ? MessageBoxAction($event) : getOutPutParam($event)"
+  (popupclosed)="PopUpType === 'app-product-request-page-proposal' ?  popupProposalClosed($event) : popupclosed($event)"
+  [MainMinwidthPixel]="PopUpType === 'message-box' ? '' : OverMainMinwidthPixel"
+  [PixelHeight]="PixelHeight ? PixelHeight : ''">
+</app-over-popup>

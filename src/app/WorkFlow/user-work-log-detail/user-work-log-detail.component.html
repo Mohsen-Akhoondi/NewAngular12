@@ -1,0 +1,307 @@
+<div class="main-form-body worklog-for-append-date" style="margin-top: 5px;height: 560px;">
+  <fieldset class="feild-set" style="display: inherit; align-items:right;">
+    <legend style="width: 8%;">جزئیات گردش </legend>
+    <table *ngIf="WorkflowType==1" style="width:100%">
+      <tr>
+        <td width="25%">
+          <span class="table-cell-Lable">کد قرارداد</span>
+          <input readonly name="ContractCode" style="display: inline-block;width: 55%;" class="form-control input-style"
+            readonly value="{{ContractCode}}" type="text" />
+        </td>
+        <td width="25%">
+          <span class="table-cell-Lable">نوع قرارداد</span>
+          <input readonly name="ContractType" value="{{ContractTypeName}}" style="display: inline-block;width: 55%;"
+            class="form-control input-style" type="text" />
+        </td>
+        <td width="25%">
+          <span class="table-cell-Lable">پیمانکار</span>
+          <input name="Contractor" style="display: inline-block;width: 55%;" class="form-control input-style" readonly
+            value="{{ContractorName}}" type="text" />
+        </td>
+        <td width="25%">
+          <span class="table-cell-Lable">مبلغ</span>
+          <input readonly name="Price" style="display: inline-block;width: 55%;" value="{{ContractAmount}}"
+            class="form-control input-style" type="text" />
+        </td>
+      </tr>
+      <tr class="Row_Margin">
+        <td width="25%">
+          <span class="table-cell-Lable">شماره نامه</span>
+          <input name="LetterNo" style="display: inline-block;width: 55%;" class="form-control input-style" readonly
+            value="{{LetterNo}}" type="text" />
+        </td>
+        <td width="25%">
+          <span class="table-cell-Lable">تاریخ نامه</span>
+          <input name="LetterDate" style="display: inline-block;width: 55%;" class="form-control input-style"
+            value="{{LetterDatePersian}}" readonly type="text" />
+        </td>
+        <td colspan="2" width="25%">
+          <span class="table-cell-Lable">موضوع</span>
+          <input readonly value="{{Subject}}" name="Subject" style="display: inline-block;width:77.6%"
+            class="form-control input-style" type="text" />
+        </td>
+      </tr>
+      <tr class="Row_Margin">
+        <td width="25%">
+          <span class="table-cell-Lable">شماره مرحله</span>
+          <input name="OrderNo" style="display: inline-block;width: 55%;" class="form-control input-style" readonly
+            value="{{OrderNo}}" type="text" />
+        </td>
+        <td width="25%">
+          <span class="table-cell-Lable">تاریخ مرحله</span>
+          <input name="OrderDate" style="display: inline-block;width: 55%;" class="form-control input-style" readonly
+            value="{{OrderDate}}" type="text" />
+        </td>
+      </tr>
+    </table>
+
+    <table *ngIf="WorkflowType==2">
+      <tr>
+        <td width="25%">
+          <span class="table-cell-Lable">کد قرارداد</span>
+          <input readonly name="ContractCode" style="display: inline-block;width: 55%;" class="form-control input-style"
+            readonly value="{{ContractCode}}" type="text" />
+        </td>
+        <td width="25%">
+          <span class="table-cell-Lable">نوع قرارداد</span>
+          <input readonly name="ContractType" value="{{ContractTypeName}}" style="display: inline-block;width: 55%;"
+            class="form-control input-style" type="text" />
+        </td>
+        <td width="25%">
+          <span class="table-cell-Lable"> پیمانکار</span>
+          <input name="Contractor" style="display: inline-block;width: 55%;" class="form-control input-style" readonly
+            value="{{ContractorName}}" type="text" />
+        </td>
+        <td width="25%">
+          <span class="table-cell-Lable">مبلغ</span>
+          <input readonly name="Price" style="display: inline-block;width: 55%;" value="{{ContractAmount}}"
+            class="form-control input-style" type="text" />
+        </td>
+      </tr>
+      <tr class="Row_Margin">
+        <td width="25%">
+          <span class="table-cell-Lable">شماره نامه</span>
+          <input name="LetterNo" style="display: inline-block;width: 55%;" class="form-control input-style" readonly
+            value="{{LetterNo}}" type="text" />
+        </td>
+        <td width="25%">
+          <span class="table-cell-Lable">تاریخ نامه</span>
+          <input name="LetterDate" style="display: inline-block;width: 55%;" class="form-control input-style"
+            value="{{LetterDatePersian}}" readonly type="text" />
+        </td>
+        <td colspan="2" width="25%">
+          <span class="table-cell-Lable">موضوع</span>
+          <input readonly value="{{Subject}}" name="Subject" style="display: inline-block;width:77.6%"
+            class="form-control input-style" type="text" />
+        </td>
+      </tr>
+      <tr>
+        <td width="25%">
+          <span class="table-cell-Lable">تاریخ صورت وضعیت</span>
+          <input name="ContractPayDate" style="display: inline-block;width: 55%;" class="form-control input-style"
+            readonly value="{{ContractPayDate}}" type="text" />
+        </td>
+        <td width="25%">
+          <span class="table-cell-Lable">شماره صورت وضعیت</span>
+          <input name="ContractPayTechnicalCode" style="display: inline-block;width: 55%;"
+            class="form-control input-style" readonly value="{{ContractPayTechnicalCode}}" type="text" />
+        </td>
+      </tr>
+    </table>
+
+    <table *ngIf="WorkflowType==3 || WorkflowType==4 || WorkflowType==6" style="text-align: justify;">
+      <tr>
+        <td width="25%">
+          <span class="table-cell-Lable">شماره درخواست</span>
+          <input readonly name="ContractType" value="{{ProductRequestCode}}" style="display: inline-block;width: 55%;"
+            class="form-control input-style" type="text" />
+        </td>
+        <td width="25%">
+          <span class="table-cell-Lable">تاریخ درخواست</span>
+          <input name="Contractor" style="display: inline-block;width: 55%;" class="form-control input-style" readonly
+            value="{{PersianProductRequestDate}}" type="text" />
+        </td>
+        <td width="50%">
+          <span class="table-cell-Lable">موضوع</span>
+          <input readonly name="ContractCode" style="display: inline-block;width: 75%;" class="form-control input-style"
+            readonly value="{{Subject}}" type="text" />
+        </td>
+      </tr>
+    </table>
+    <table *ngIf="WorkflowType == 11" style="text-align: justify;">
+      <!--RFC 52927-->
+      <tr>
+        <td width="25%">
+          <span class="table-cell-Lable">{{Name}}</span>
+          <input readonly name="ProviderName" value="{{ProviderName}}" style="display: inline-block;width: 70%;"
+            class="form-control input-style" type="text" />
+        </td>
+        <td width="25%">
+          <span class="table-cell-Lable">{{IdentityNo}}</span>
+          <input name="ProviderIdentityNo" style="display: inline-block;width: 55%;" class="form-control input-style"
+            readonly value="{{ProviderIdentityNo}}" type="text" />
+        </td>
+        <td width="25%">
+          <span class="table-cell-Lable">{{RegisterNo}}</span>
+          <input name="ProviderRegNo" style="display: inline-block;width: 55%;" class="form-control input-style"
+            readonly value="{{ProviderRegNo}}" type="text" />
+        </td>
+        <td width="25%">
+          <span class="table-cell-Lable">{{Date}}</span>
+          <input name="ProviderDate" style="display: inline-block;width: 55%;" class="form-control input-style" readonly
+            value="{{ProviderDate}}" type="text" />
+        </td>
+      </tr>
+    </table>
+
+    <table *ngIf="WorkflowType==17">
+      <tr class="Row_Margin">
+        <td width="25%">
+          <span class="table-cell-Lable">شماره فاکتور</span>
+          <input readonly name="RegisterInvoiceCode" style="display: inline-block;width: 55%;"
+            class="form-control input-style" readonly value="{{RegisterInvoiceCode}}" type="text" />
+        </td>
+        <td width="25%">
+          <span class="table-cell-Lable">تاریخ فاکتور</span>
+          <input readonly name="PersianRegisterInvoiceDate" readonly value="{{PersianRegisterInvoiceDate}}"
+            style="display: inline-block;width: 55%;" class="form-control input-style" type="text" />
+        </td>
+        <td colspan="2" width="50%">
+          <span class="table-cell-Lable">موضوع</span>
+          <input readonly value="{{Subject}}" name="Subject" style="display: inline-block;width:84.6%"
+            class="form-control input-style" type="text" />
+        </td>
+      </tr>
+    </table>
+
+    <table *ngIf="WorkflowType == 655">
+      <tr>
+        <td width="25%">
+          <span class="table-cell-Lable">کد قرارداد</span>
+          <input readonly name="ContractCode" style="display: inline-block;width: 55%;" class="form-control input-style"
+            readonly value="{{ContractCode}}" type="text" />
+        </td>
+        <td width="25%">
+          <span class="table-cell-Lable">نوع قرارداد</span>
+          <input readonly name="ContractType" value="{{ContractTypeName}}" style="display: inline-block;width: 55%;"
+            class="form-control input-style" type="text" />
+        </td>
+        <td width="25%">
+          <span class="table-cell-Lable"> پیمانکار</span>
+          <input name="Contractor" style="display: inline-block;width: 55%;" class="form-control input-style" readonly
+            value="{{ContractorName}}" type="text" />
+        </td>
+        <td width="25%">
+          <span class="table-cell-Lable">مبلغ</span>
+          <input readonly name="Price" style="display: inline-block;width: 55%;" value="{{ContractAmount}}"
+            class="form-control input-style" type="text" />
+        </td>
+      </tr>
+      <tr class="Row_Margin">
+        <td width="25%">
+          <span class="table-cell-Lable">شماره نامه</span>
+          <input name="LetterNo" style="display: inline-block;width: 55%;" class="form-control input-style" readonly
+            value="{{LetterNo}}" type="text" />
+        </td>
+        <td width="25%">
+          <span class="table-cell-Lable">تاریخ نامه</span>
+          <input name="LetterDate" style="display: inline-block;width: 55%;" class="form-control input-style"
+            value="{{LetterDatePersian}}" readonly type="text" />
+        </td>
+        <td colspan="2" width="25%">
+          <span class="table-cell-Lable">موضوع</span>
+          <input readonly value="{{Subject}}" name="Subject" style="display: inline-block;width:77.6%"
+            class="form-control input-style" type="text" />
+        </td>
+      </tr>
+      <tr>
+        <td width="25%">
+          <span class="table-cell-Lable">تاریخ نظارت</span>
+          <input name="ContractSupervisionDate" style="display: inline-block;width: 55%;" class="form-control input-style"
+            readonly value="{{ContractSupervisionDate}}" type="text" />
+        </td>
+        <td width="25%">
+          <span class="table-cell-Lable">شماره نظارت</span>
+          <input name="ContractSupervisionCode" style="display: inline-block;width: 55%;"
+            class="form-control input-style" readonly value="{{ContractSupervisionCode}}" type="text" />
+        </td>
+      </tr>
+    </table>
+
+  </fieldset>
+
+  <div style="padding-bottom: 5px;" [style.height.%]="gridHeight">
+
+    <div id="div1" class="box-dev right-dev" style="height: 100%;">
+      <app-grid style="width: 100%;" (RowClick)="RowClick($event)" [columns]="WorkLogColDef" [rowsData]="rowData"
+        [gridHeight]="appgridheight" (GridReady)="onLogGridReady($event)" [defaultSelectedRowIndex]="DefaultSelectedRow"
+        [IsEditable]="HasSave" (cellEditingStarted)="WorkLog_onCellEditingStarted($event)"
+        (Delete)="Log_onDeletedRow($event)">
+      </app-grid>
+    </div>
+
+    <div id="div2" class="left-dev box-dev" style="height: 100%;">
+      <div class="box-dev row" style="height: 50%; padding-right: 15px; padding-left: 15px;">
+        <app-grid style="width: 100%; height: 100% !important;" (RowClick)="RowClickHistory($event)"
+          [columns]="WorkLogHistoryColDef" [rowsData]="rowDataHistory" [gridHeight]="80"
+          (GridReady)="onHistoryGridReady($event)" (CellValueChanged)="HistoryCellValueChanged($event)"
+          (Delete)="History_onDeletedRow($event)" [IsEditable]="HasSave">
+        </app-grid>
+      </div>
+      <div class="box-dev row" style="height: 50%; padding-right: 15px; padding-left: 15px;">
+        <app-grid style="width: 100%;height: 100%;" [columns]="WorkLogUserColDef" [rowsData]="rowDataWorkflowLogUser"
+          [gridHeight]="85" (GridReady)="onWorkLogUserGridReady($event)"
+          (CellValueChanged)="onWorkLogUserValueChanged($event)"
+          (cellEditingStarted)="onWorkflowLogUsercellEditingStarted($event)" [IsEditable]="HasSave"
+          (Delete)="WorkflowLogUser_onDeletedRow($event)">
+        </app-grid>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="buttons-place" style="margin: 0 0 5px 0;height:40px !important;">
+  <button *ngIf="HasSave" class="btn btn-primary btnGreen" (click)="SaveWorkLogHistory()">
+    <img width="15px" height="15px" src="assets/Icons/save.png" />
+    ثبت
+  </button>
+  <button *ngIf="HaveDelete" class="btn btn-primary btnGreen" (click)="DoDeleteWorkFlowInstance()">
+    <img width="15px" height="15px" src="assets/Icons/delete.png" />
+    حذف گردش
+  </button>
+  <button *ngIf="DisableRevoke" class="btn btn-primary btnGreen" (click)="onClickRevoke()">
+    <img width="15px" height="15px" src="assets/Icons/delete.png" />
+    ابطال درخواست
+  </button>
+  <button (click)="onShowReport()" id="btnPrint" class="btn btn-primary btnGreen">
+    <img width="16px" height="16px" src="assets/Icons/printer-icon.png" />
+    چاپ گردش
+  </button>
+
+  <button (click)="BtnVeiwclick()"  class="btn btn-primary btnGreen">
+    <img width="15px" height="15px" src="assets/Icons/show.png" />
+   مشاهده گراف جزئیات گردش کار
+  </button>
+
+  <button (click)="closeModal()" style="float:right;" class="btn btn-primary btnGreen">
+    <img width="15px" height="15px" src="assets/Icons/exit.png" />
+    خروج
+  </button>
+</div>
+<ng-template #ReadyToConfirm let-row>
+  <img width="16px" height="16px"
+    [src]="row.ReadyToConfirm ? 'assets/Icons/TrueCheckBox.png':'assets/Icons/Uncheck.png'" />
+</ng-template>
+
+<ng-template #isExternal let-row>
+  <img width="16px" height="16px" [src]="row.isExternal ? 'assets/Icons/TrueCheckBox.png':'assets/Icons/Uncheck.png'" />
+</ng-template>
+
+
+<app-shared-over-popup *ngIf="btnclicked" [HaveMaxBtn]="HaveMaxBtn" [startLeftPosition]="startLeftPosition"
+  [startTopPosition]="startTopPosition" [minHeightPixel]="MinHeightPixel" [PopupType]="type"
+  [HeightPercentWithMaxBtn]="HeightPercentWithMaxBtn"     [PixelHeight]="PixelHeight"
+  [PopupParam]="type === 'message-box' ? alertMessageParams : paramObj" [HaveHeader]="HaveHeader" 
+  (PopupOutPutParam)="type ==='message-box' ? MessageBoxAction($event) : 'user-work-log-detail-graph'" (popupclosed)="popupclosed($event)"
+  [HaveMaxBtn]="HaveMaxBtn" >
+</app-shared-over-popup>

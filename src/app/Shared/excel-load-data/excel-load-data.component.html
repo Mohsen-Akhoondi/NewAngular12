@@ -1,0 +1,39 @@
+<div id="container" class="row" style="clear: both">
+  <div id="myContent" class="data-grid">
+    <div id="archiveDiv" class="">
+      <div class="main-form-body" style="padding-bottom: 1px;">
+        <fieldset align="right" class="feild-set" style="display: inherit">
+          <legend class="legend" style="margin: 0;">بارگذاری پیوست</legend>
+          <div class="input-group mb-3" style="margin-top: 15px">
+            <div class="input-group-prepend"></div>
+            <div class="custom-file">
+              <input type="file" accept=".xls,.xlsx" (change)="onFileChanged($event)" class="custom-file-input"
+                id="inputGrpFile01" />
+              <label class="custom-file-label" for="inputGrpFile01"></label>
+            </div>
+          </div>
+          <span>توجه : لطفا نام ستون های گرید با نام ستون های اکسل مشابه باشند</span>
+        </fieldset>
+      </div>
+      <div class="buttons-place" style="margin: 0">
+        <div class="card-block" style="padding: 2px 10px">
+          <div class="form-group row" style="margin-bottom:5px ; padding-right:5px">
+            <button id="btnUpload" class="btn btnGreen" (click)="getTemplate()">
+              <img width="15px" height="15px" src="assets/Icons/template.png" />
+              دریافت قالب
+            </button>
+            <button id="btnUpload" class="btn btnGreen" (click)="onUpload()">
+              <img width="15px" height="15px" src="assets/Icons/excel.png" />
+              بارگذاری
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-shared-over-popup *ngIf="isClicked" [PopupType]="type"
+  [PopupParam]="type === 'message-box' ? alertMessageParams : paramObj" (popupclosed)="popupclosed($event)"
+  [startLeftPosition]="startLeftPosition" [startTopPosition]="startTopPosition" [HaveHeader]="HaveHeader">
+</app-shared-over-popup>

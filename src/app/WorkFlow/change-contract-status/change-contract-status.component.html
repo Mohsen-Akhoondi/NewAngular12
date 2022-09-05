@@ -1,0 +1,50 @@
+<div class="main-form-body" style="margin-top: 5px; height: 47%;">
+    <table style="margin-bottom: 5px; width: 100%;">
+      <tr>
+        <td width="25%" style="text-align: left ;">
+          <span class="table-cell-Lable">وضعیت جاری قرارداد</span>
+          <input style="display: inline-block;width: 70%; min-height: 25;" class="form-control input-style" type="text"
+            name="ContractStatusName" [(ngModel)]="ContractStatusName" readonly/>
+        </td>
+      </tr>
+      <tr>
+        <td width="25%">
+          <span class="table-cell-Lable">وضعيت قرارداد</span>
+          <app-ng-select-virtual-scroll style="display: inline-block;width: 70% !important;"
+            class="select-general-for-lable" [NgSelectParams]="ContractStatusParams" [Items]="ContractStatusItems"
+            (Open)="OnOpenNgSelectContractStatus()">
+          </app-ng-select-virtual-scroll>
+        </td>
+      </tr>
+    </table>
+</div>
+
+<div class="buttons-place" style="margin: unset;">
+  <button (click)="OnChangeClick()" id="btn2" class="btn btn-primary btnGreen">
+    <img width="15px" height="15px" src="assets/Icons/Upload.png" />
+    تغییر وضعیت
+  </button>
+  <button (click)="onClose()" id="btnClose" class="btn btn-primary btnGreen">
+    <img width="15px" height="15px" src="assets/Icons/exit.png" />
+    خروج
+  </button>
+</div>
+
+
+<!-- <app-contract-over-popup *ngIf="btnclicked" [HaveMaxBtn]="HaveMaxBtn" [startLeftPosition]="startLeftPosition"
+[startTopPosition]="startTopPosition"   [PopupType]="PopupType" 
+[HeightPercentWithMaxBtn]="HeightPercentWithMaxBtn" 
+[PopupParam]="PopupType ===  alertMessageParams" [HaveHeader]="HaveHeader"
+(popupclosed)="popupclosed($event)" 
+(PopupOutPutParam)="type ==='message-box' ? MessageBoxAction($event) : getOutPutParam($event)">
+</app-contract-over-popup> -->
+
+
+<app-over-popup *ngIf="btnclicked" 
+  [startLeftPosition]="startLeftPosition" 
+  [startTopPosition]="startTopPosition"
+  [PopupType]="PopupType" 
+  [PopupParam]="PopupType === 'message-box' ? alertMessageParams : paramObj"
+  [HaveHeader]="HaveHeader"
+  (PopupOutPutParam)="PopupType ==='message-box' ? MessageBoxAction($event) : getOutPutParam($event)">
+</app-over-popup>

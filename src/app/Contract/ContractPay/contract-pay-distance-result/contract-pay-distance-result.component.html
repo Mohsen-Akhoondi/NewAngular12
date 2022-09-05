@@ -1,0 +1,43 @@
+<div id="container" class="row" style="clear: both">
+  <div id="content" class="" style="height: 100%;width: 100%;">
+    <div class="main-form-body BodyForm">
+      <form>
+        <table style="width: 100%;">
+          <tr>
+            <td width="50%">
+              <span class="table-cell-Lablle">محصول</span>
+              <input class="form-control input-style" style="width: 85%;" type="text" name="first" value="{{ ProductName }}"
+                readonly />
+            </td>
+            <td width="50%">
+              <span class="table-cell-Lablle">جمع کل مصرفی</span>
+              <input class="form-control input-style" style="width: 85%;" type="text" name="first" value="{{ FinalAmount }}"
+                readonly />
+            </td>
+          </tr>
+        </table>
+      </form>
+      <div class="box-dev1">
+        <app-grid [columns]="columnDef1" [rowsData]="rowData1" [gridHeight]="79" [IsEditable]="HaveSave" (GridReady)="onGridReady($event)"
+          (CellValueChanged)="onCellValueChanged($event)" (RowClick)="ContPayTransRowClick($event)" (RowAdded)="RowAdded($event)"
+          (Delete)="DeletedRow($event)"></app-grid>
+      </div>
+      <div class="box-dev2">
+        <app-grid [columns]="columnDef2" [rowsData]="rowData2" [gridHeight]="85" (GridReady)="onDistanceItemGridReady($event)"
+          (CellValueChanged)="onDistanceItemCellValueChanged($event)" (RowClick)="ContPayTransItemRowClick($event)"></app-grid>
+      </div>
+    </div>
+    <div class="buttons-place" style="margin: 5px">
+      <button *ngIf="HaveSave" (click)="onSave()" id="btn2" class="btn btn-primary btnGreen" style="margin: 2px">
+        <img width="15px" height="15px" src="assets/Icons/save.png" />
+        ثبت
+      </button>
+      <button id="btnExit" class="btn btn-primary btnGreen" (click)="closeModal()">
+        <img width="15px" height="15px" src="assets/Icons/exit.png" />
+        خروج
+      </button>
+    </div>
+  </div>
+</div>
+<app-over-popup *ngIf="btnclicked" [PopupType]="PopupType" [startLeftPosition]="startLeftPosition" [startTopPosition]="startTopPosition"
+  [PopupParam]="alertMessageParams" (popupclosed)="popupclosed($event)"></app-over-popup>

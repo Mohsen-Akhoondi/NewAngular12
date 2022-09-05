@@ -1,0 +1,44 @@
+<div class="main-form-body worklog-for-append-date" style="margin-top: 5px;height: 86%;">
+  <ngx-graph [view]="viewsize" [links]="links" [nodes]="nodes" [autoZoom]="autoZoom" [autoCenter]="autoCenter">
+
+    <ng-template #defsTemplate>
+      <svg:marker id="arrow" viewBox="0 -5 10 10" refX="8" refY="0" markerWidth="4" markerHeight="4" orient="auto">
+        <svg:path d="M0,-5L10,0L0,5" class="arrow-head" />
+      </svg:marker>
+    </ng-template>
+
+    <ng-template #nodeTemplate let-node>
+      <svg:g class="node ">
+        <svg:rect [attr.width]="node.dimension.width +20" [attr.height]="node.dimension.height"
+          [attr.fill]="node.data.color" />
+        <image id="#image" x="node.dimension.width " y="node.dimension.height " width="40" height="50"
+          [attr.href]="node.link" style="float:left"></image>
+        <svg:text alignment-baseline="right" [attr.x]="node.dimension.width +20" [attr.y]="node.dimension.height/2">
+          {{node.label}}</svg:text>
+          <svg:text alignment-baseline="right" [attr.x]="node.dimension.width +20" [attr.y]="node.dimension.height-6">
+            {{node.ActorName}}</svg:text>
+      </svg:g>
+    </ng-template>
+
+    <ng-template #linkTemplate let-link>
+      <svg:g class="edge">
+        <svg:path class="line" stroke-width="2" marker-end="url(#arrow)">
+        </svg:path>
+        <svg:text class="edge-label" text-anchor="middle">
+          <textPath class="text-path" [attr.href]="'#' + link.id" [style.dominant-baseline]="link.dominantBaseline"
+            startOffset="55%">
+            {{link.label}}
+          </textPath>
+        </svg:text>
+      </svg:g>
+    </ng-template>
+    
+  </ngx-graph>
+</div>
+
+<div class="buttons-place" style="margin: unset;">
+  <button (click)="closeModal()" id="btn4" class="btn btn-primary btnGreen">
+    <img width="15px" height="15px" src="assets/Icons/exit.png" />
+    خروج
+  </button> 
+</div>

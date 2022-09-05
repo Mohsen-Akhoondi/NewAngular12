@@ -1,0 +1,9 @@
+<div [className]=" datePickerModel.errors?.required && CheckValidate ? 'required-date'
+        : datePickerModel.errors?.format && CheckValidate ? 'incorrect-format-date' : 'normal-date-picker'"
+  [style.width.px]="WidthPx ? WidthPx : ''" [style.width.%]="WidthPC ? WidthPC : ''">
+  <dp-date-picker [disabled]="Disabled" [style.width.%]="100" [config]="config" [theme]="'dp-material'"
+    mode="{{ShowMode}}" #datePickerModel="ngModel"
+    placeholder="{{datePickerModel.errors?.required && CheckValidate ? 'پر کردن مقدار این فیلد الزامیست' : ''}}"
+    [(ngModel)]="selectedDate" required="Required" (onChange)="OnChange($event)">
+  </dp-date-picker>
+</div>

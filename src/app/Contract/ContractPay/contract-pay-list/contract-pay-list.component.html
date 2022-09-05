@@ -1,0 +1,147 @@
+<div [ngClass]="{'disable-parent': !IsDown}" id="container" class="row" style="clear: both ; ">
+  <div id="content" class="" style="width: 99%; height: 100%;margin-right: 5px;">
+    <div class="main-form-body" [style.height.%]="tableHeight" style="margin: 5px; padding:2px 10px;">
+      <form>
+        <fieldset class="feild-set" style="display: inherit">
+          <legend class="legend">اطلاعات قرارداد</legend>
+          <table style="width: 100%;">
+            <tr>
+              <td width="20%">
+                <span class="table-cell-Lable">سال مالی</span><input style=" width: 70% "
+                  class="form-control input-style" type="text" value="{{FinYearCode}}" readonly />
+              </td>
+              <td width="20%">
+                <span class="table-cell-Lable">کد قرارداد</span><input style=" width: 64% "
+                  class="form-control input-style" type="text" value="{{ContractCode}}" readonly />
+              </td>
+              <td width="20%">
+                <span class="table-cell-Lable">نوع قرارداد</span><input style="width: 64% "
+                  class="form-control input-style" type="text" value="{{ContractTypeName}}" readonly />
+              </td>
+              <td width="20%">
+                <span class="table-cell-Lable">شماره قرارداد</span><input style="width: 64% "
+                  class="form-control input-style" type="text" name="last" value="{{LetterNo}}" readonly />
+              </td>
+              <td width="20%">
+                <span class="table-cell-Lable">مبلغ</span><input style="width: 64% " class="form-control input-style"
+                  type="text" name="last" value="{{ContractAmount}}" readonly />
+              </td>
+            </tr>
+            <tr>
+              <td colspan="3">
+                <span class="table-cell-Lable">پیمانکار</span><input style="width: 90% "
+                  class="form-control input-style" type="text" name="last" value="{{ContractorName}}" readonly />
+              </td>
+              <td>
+                <span class="table-cell-Lable">تاریخ شروع</span><input style="width: 64% "
+                  class="form-control input-style" type="text" name="last" value="{{FromContractDatePersian}}"
+                  readonly />
+              </td>
+              <td>
+                <span class="table-cell-Lable">تاریخ پایان</span><input style="width: 64% "
+                  class="form-control input-style" type="text" name="last" value="{{ToContractDatePersian}}" readonly />
+              </td>
+            </tr>
+            <tr>
+              <td colspan="5">
+                <span class="table-cell-Lable">موضوع</span><input style="width: 94% " class="form-control input-style"
+                  id="subject-style" type="text" name="first" value="{{Subject}}" readonly />
+              </td>
+            </tr>
+          </table>
+        </fieldset>
+     
+      </form>
+
+      <div class="main-form-body" [style.height.%]="gridHeight" style="width: 100%;">
+        <app-grid [columns]="columnDef" [rowsData]="rowData" (RowClick)="RowClick($event)"
+          (GridReady)="onGridReady($event)" [gridHeight]="93" [gridHeader]="'درخواست پرداخت های قرارداد'"></app-grid>
+      </div>
+
+      <div class="main-form-body"  style="margin-top: 3px; height:6%; color: red ;width: 100% ; margin-right: 1px ">
+        <table style=" margin-top: 1px; width: 100%;">   
+          <tr>
+            <td width="25%">
+              <div style="min-width: 80px;font-weight: bold; float: right; padding-right: 20px;">
+                <span id="sum-final-estimate-amount" class="table-cell-Lable">جمع کل مبلغ ناخالص :</span>
+                <label for="sum-final-estimate-amount" style="margin:1px"> {{SumSA}} </label>
+              </div>
+            </td>
+            <td width="25%">
+              <div style="min-width: 80px;font-weight: bold; float: right; padding-right: 45px;">
+                <span id="sum-final-estimate-amount" class="table-cell-Lable"> جمع کل مبلغ :</span>
+                <label for="sum-final-estimate-amount" style="margin:1px"> {{SumSCPA}} </label>
+              </div>
+            </td>
+            <td>
+              <div width="50%" style="float: right">
+                <span style="color: red" *ngIf="!IsNotWorkFlow && currentRowIndex === currentRowCount - 1">این درخواست پرداخت
+                  دارای
+                  گردش کار یا
+                  سند حسابداری بوده لذا امکان حذف یا اصلاح وجود ندارد</span>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>   
+      
+    </div>
+
+    <div class="buttons-place" style="margin: unset; margin: 5px;">
+      <button *ngIf="IsEditable && HaveSave" (click)="onInsert()" id="btnInsert" class="btn btn-primary btnGreen">
+        <img width="15px" height="15px" src="assets/Icons/Add.png" />
+        ایجاد
+      </button>
+      <button *ngIf="((IsEditable && IsEndRow && HaveUpdate) || IsAdmin) && ShowBtn" [disabled]="IsDisable" (click)="onEdit(false)"
+        id="btnEdit" class="btn btn-primary btnGreen">
+        <!--RFC 56042-->
+        <img width="15px" height="15px" src="assets/Icons/update.png" />
+        اصلاح
+      </button>
+      <button *ngIf="(IsEditable && IsEndRow && HaveDelete) || IsAdmin" [disabled]="IsDisable "
+        (click)="onDeleteContractPay()" id="btnDelete" class="btn btn-primary btnGreen">
+        <!--RFC 54198-->
+        <img width="15px" height="15px" src="assets/Icons/delete.png" />
+        حذف
+      </button>
+
+      <button *ngIf="Showable && !ISIRVersion" (click)="ShowContractCase()" class="btn btn-primary btnGreen">
+        <img width="15px" height="15px" src="assets/Icons/show.png" />
+        مشاهده پرونده قرارداد
+      </button>
+
+      <button *ngIf="ShowBtn" id="btnPrint" (click)="onEdit(true)" class="btn btn-primary btnGreen">
+        <img width="15px" height="15px" src="assets/Icons/print.png" />
+        مشاهده
+      </button>
+
+      <button id="btnPrint" (click)="onPrint()" class="btn btn-primary btnGreen">
+        <img width="15px" height="15px" src="assets/Icons/print.png" />
+        چاپ
+      </button>
+      <button id="btnFlowPrint" (click)="OnClickPrintFlow()" class="btn btn-primary btnGreen">
+        <img width="15px" height="15px" src="assets/Icons/print.png" />
+        چاپ گردش
+      </button>
+      <button (click)="OnClickWorkFlowDetail()" id="btnWorkFlowDetail" class="btn btn-primary btnGreen">
+        <img width="15px" height="15px" src="assets/Icons/show.png" />
+        جزئیات گردش
+      </button>
+      <button (click)="onClose()" id="btnClose" class="btn btn-primary btnGreen">
+        <img width="15px" height="15px" src="assets/Icons/exit.png" />
+        خروج
+      </button>
+
+    </div>
+  </div>
+</div>
+<app-over-popup *ngIf="isClicked" [PopupType]="PopUpType" [HaveMaxBtn]="HaveMaxBtn"
+  [HeightPercentWithMaxBtn]="PopUpType === 'contract-pay-item-estimate-page' ? 98 : PopUpType === 'pre-pay' ? 50 : 95"
+  [MainMinwidthPixel]="PopUpType === 'contract-pay-item-estimate-page' ? 1190 : PopUpType === 'contract-pay-details' ? 1335 : ''"
+  (popupclosed)="popupclosed($event)" [PixelWidth]="PixelWidth" [startLeftPosition]="startLeftPosition"
+  [startTopPosition]="startTopPosition"
+  [PopupParam]="PopUpType === 'message-box' ?alertMessageParams : ContractPayPopupParam"
+  (PopupOutPutParam)="PopUpType ==='message-box' ? MessageBoxAction($event) : ReturendContractOperation($event)"
+  [HaveHeader]="HaveHeader" [HeightPercentWithMaxBtn]="HeightPercentWithMaxBtn" [PixelHeight]="PixelHeight"
+  [minHeightPixel]="PopUpType === 'user-work-log-details' ? MinHeightPixel : ''">
+</app-over-popup>

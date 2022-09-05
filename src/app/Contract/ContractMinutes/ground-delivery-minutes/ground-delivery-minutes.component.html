@@ -1,0 +1,170 @@
+<div [ngClass]="{'disable-parent': !IsDown}" id="container" class="row" style="clear: both">
+  <div id="content" class="" style="height: 100%;width: 100%;">
+    <div class="main-form-body" style=" margin: 5px;min-width: 1130px; height: 85%;">
+      <form>
+        <fieldset class="feild-set" style="display: inherit">
+          <legend class="legend" style="width:8%;">اطلاعات قرارداد</legend>
+          <table style="width: 100%;">
+            <tr>
+              <td width="20%">
+                <span class="table-cell-Lable">سال مالي</span>
+                <input style="width: 60%;display: inline-block;" class="form-control input-style" type="text"
+                  value="{{ FinYearCode }}" readonly />
+              </td>
+              <td width="20%">
+                <span class="table-cell-Lable">کد قرارداد</span>
+                <input style="width: 60%;display: inline-block;" class="form-control input-style" type="text"
+                  value="{{ ContractCode }}" readonly />
+              </td>
+              <td width="20%">
+                <span class="table-cell-Lable">نوع قرارداد</span>
+                <input style="width: 60%;display: inline-block;" class="form-control input-style" type="text"
+                  value="{{ ContractTypeName }}" readonly />
+              </td>
+              <td width="20%">
+                <span class="table-cell-Lable">شماره نامه</span>
+                <input style="width: 60%;display: inline-block;" class="form-control input-style" type="text"
+                  value="{{ LetterNo }}" readonly />
+              </td>
+              <td width="20%">
+                <span class="table-cell-Lable">تاریخ نامه</span>
+                <input style="width: 60%;display: inline-block;" class="form-control input-style" type="text"
+                  value="{{ LetterDate }}" readonly />
+              </td>
+
+            </tr>
+            <tr>
+              <td width="20%">
+                <span class="table-cell-Lable">مبلغ</span>
+                <input style="width: 60%;display: inline-block;" class="form-control input-style" type="text"
+                  name="ContractAmount" value="{{ContractAmount}}" readonly />
+              </td>
+              <td colspan="2" width="40%">
+                <span class="table-cell-Lable">پیمانکار</span>
+                <input style="width: 80%;display: inline-block;" class="form-control input-style" type="text"
+                  name="ContractorName" value="{{ContractorName}}" readonly />
+              </td>
+              <td width="20%">
+                <span class="table-cell-Lable">تاریخ شروع</span>
+                <input style="width: 60%;display: inline-block;" class="form-control input-style" type="text"
+                  name="FromContractDatePersian" value="{{FromContractDatePersian}}" readonly />
+              </td>
+              <td width="20%">
+                <span class="table-cell-Lable">تاریخ پایان</span>
+                <input style="width: 60%;display: inline-block;" class="form-control input-style" type="text"
+                  name="ToContractDatePersian" value="{{ToContractDatePersian}}" readonly />
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <span class="table-cell-Lable">واحد اجرایی</span>
+                <input style="width: 60%;display: inline-block;" class="form-control input-style" type="text"
+                  name="RegionName" value="{{RegionName}}" readonly />
+              </td>
+              <td width="40%" colspan="2">
+                <span class="table-cell-Lable">موضوع</span>
+                <input style="width: 80%;display: inline-block;" class="form-control input-style" type="text"
+                  name="Subject" value="{{Subject}}" readonly />
+              </td>
+              <td width="20%">
+                <span style="margin: 0px; margin-left: 5px" class="table-cell-Lable">عامل قرارداد</span>        
+                <app-ng-select-virtual-scroll [Disabled]="!DisplayControlls" style="display: inline-block;width: 60%;"
+                  [NgSelectParams]="ContractAgentParams" [Items]="ContractAgentSet"
+                  (selectedChange)="onChangeContractAgentObj($event)">
+                </app-ng-select-virtual-scroll>
+              </td>
+              <td width="20%">
+                <span class="table-cell-Lable">شماره قرارداد</span>
+                <input style="width: 60%;display: inline-block;" class="form-control input-style" type="text"
+                  name="ContractNo" value="{{ContractNo}}" readonly />
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <span class="table-cell-Lable">شماره ص.ج</span>
+                <input style="width: 60%; display: inline-block;" class="form-control input-style" type="text"
+                  name="first" value="{{ ContractMinutesCode }}" readonly />
+              </td>
+              <td width="40%" colspan="2">
+                <span class="table-cell-Lable">تاریخ ص.ج</span>
+                <app-jalali-datepicker style="width: 72%;" [WidthPx]="355" [Required]="true"
+                  [CurrMiladiDateValue]="ContractMinutesDate" (Change)="OnContractMinutesDateChange($event)"
+                  [Disabled]="!DisplayControlls">
+                </app-jalali-datepicker>
+              </td>
+            </tr>
+
+          </table>
+        </fieldset>
+        <fieldset class="feild-set" style="display: inherit">
+          <legend style="width:7%;">صورت جلسه</legend>
+          <table style="width: 100%;">
+            <tr>
+              <td colspan="2">
+                <span style="vertical-align: top; margin: 0;margin-left: 5px" class="table-cell-Lable">توضيحات</span>
+                <textarea [(ngModel)]="Note" name="Note" class="form-control input-style" rows="2"
+                  style="display: inline-block;height: 95px;width: 92%;font-size: small;" id="indicator-text_note"
+                  disabled="!DisplayControlls"></textarea>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2">
+                <span style="vertical-align: top; margin: 0;margin-left: 5px" class="table-cell-Lable">متن صورت
+                  جلسه</span>
+                <textarea [(ngModel)]="TextMinutes" name="TextMinutes" class="form-control input-style" rows="2"
+                  style="display: inline-block;height: 190px;width: 92%;" id="indicator-text_note"
+                  (ngModelChange)="CheckTextMinutes()" disabled="!DisplayControlls"></textarea>
+              </td>
+            </tr>
+          </table>
+        </fieldset>
+      </form>
+    </div>
+    <div [ngClass]="{'disable-parent': !IsDown}" style="margin: 5px;">
+      <div class="buttons-place" style="float: right;margin: auto;width:49.8%;">
+        <button *ngIf="DisplayControlls" (click)="onSave()" id="btn2" class="btn btn-primary btnGreen"
+          style="margin: 2px">
+          <img width="15px" height="15px" src="assets/Icons/save.png" />
+          ثبت
+        </button>
+        <button [disabled]="Isdisblabe" (click)="onPrint()" id="btn3" class="btn btn-primary btnGreen"
+          style="margin: 2px">
+          <img width="15px" height="15px" src="assets/Icons/print.png" />
+          چاپ
+        </button>
+        <button *ngIf="DisplayControlls" (click)="onUploadDocClick()" [disabled]="ContractMinutesID < 1 ? true : false"
+          id="btnUploaddoc" class="btn btn-primary btnGreen">
+          <img width="15px" height="15px" src="assets/Icons/TechnicalArchive.png" />
+          بارگذاری اسناد
+        </button>
+        <button (click)="close()" id="btn4" class="btn btn-primary btnGreen">
+          <img width="15px" height="15px" src="assets/Icons/exit.png" />
+          خروج
+        </button>
+      </div>
+      <div class="buttons-place" style="float: left;margin: auto;" [style.width.%]="WorkflowButtonsWidth">
+        <button *ngIf="DisplayControlls" [disabled]="IsDisable" (click)="onConfirm()" id="btn2"
+          class="btn btn-primary btnGreen" style="margin: 2px;">
+          <img width="15px" height="15px" src="assets/Icons/{{btnConfirmIcon}}.png" />
+          {{btnConfirmName}} </button>
+        <button *ngIf="DisplayControlls" [disabled]="IsDisable || IsEndFlow" (click)="onConfirmAndSend()" id="btn2"
+          class="btn btn-primary btnGreen" style="margin: 2px;">
+          <img width="15px" height="15px" src="assets/Icons/Approve.png" />
+          تاييد و ارسال </button>
+        <button *ngIf="DisplayControlls" [disabled]="IsDisable" (click)="onUnConfirmAndReturn()" id="btn2"
+          class="btn btn-primary btnGreen" style="margin: 2px;">
+          <img width="15px" height="15px" src="assets/Icons/DisApprove.png" />
+          عدم تاييد و بازگشت </button>
+        <button (click)="OnClickPrintFlow()" [disabled]="IsDisable" class="btn btn-primary btnGreen">
+          <img width="15px" height="15px" src="assets/Icons/print.png" />
+          گردش
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<app-over-popup *ngIf="btnclicked" [PopupType]="type" [HaveMaxBtn]="HaveMaxBtn" [startLeftPosition]="startLeftPosition"
+  [startTopPosition]="startTopPosition" [PopupParam]="type ==='message-box' ?alertMessageParams  : ParamObj"
+  (popupclosed)="popupclosed($event)" [MainMinwidthPixel]="type === 'editor-select-price-list'? 1240:''"
+  [MainMaxwidthPixel]="type === 'editor-select-price-list'? 1240:''"
+  (PopupOutPutParam)="type ==='message-box' ? MessageBoxAction($event) : getOutPutParam($event)"></app-over-popup>

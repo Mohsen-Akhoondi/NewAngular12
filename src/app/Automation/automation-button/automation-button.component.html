@@ -1,0 +1,27 @@
+<div class="buttons-place" style="float: left;margin: auto;" [style.width.%] ="PercentWidth ? PercentWidth:''" >
+<button [disabled]="Disabled"  id="btnClose"  class="btn btn-primary btnGreen" (click)="onAutomationClick()">
+  <img width="15px" height="15px" src="assets/Icons/ok.png" />
+اتصال نامه 
+</button>
+<button [disabled]="Disabled" id="btnClose" class="btn btn-primary btnGreen" (click)="onDeleteLetterClick()">
+  <img width="15px" height="15px" src="assets/Icons/DisApprove.png" />
+  حذف نامه
+</button>
+<button [disabled]="Disabled" id="btnClose" class="btn btn-primary btnGreen" (click)="onShowLetterClick()" >
+  <img width="15px" height="15px" src="assets/Icons/Approve.png" />
+  مشاهده نامه
+</button>
+</div>
+
+<app-over-popup 
+  *ngIf="isClicked" 
+  [PopupType]="PopUpType" 
+  [HaveMaxBtn]="HaveMaxBtn" 
+  [HeightPercentWithMaxBtn]="95"
+  [startLeftPosition]="startLeftPosition" 
+  [startTopPosition]="startTopPosition" 
+  [minHeightPixel]="MinHeightPixel"
+  [PopupParam]="PopUpType === 'message-box' ?alertMessageParams:PopupParam"
+  (popupclosed)="popupclosed($event)"
+  (PopupOutPutParam)="getOutPutParam($event)">
+</app-over-popup>

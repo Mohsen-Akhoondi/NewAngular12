@@ -1,0 +1,203 @@
+<div [ngClass]="{'disable-parent': !IsDown}" class="main">
+  <div class="devBox">
+    <div style="margin: 5px; display:inline-flex">
+      <table>
+        <tr>
+          <td>
+            <button [disabled]="IsDisableConfirm" (click)="onConfirmClick('work-flow-send')" id="btn2"
+              class="btn btn-primary btnGreen">
+              <img width="16px" height="16px" src="assets/Icons/confirm24.ico" />
+              ارسال
+            </button>
+          </td>
+          <td>
+            <button [disabled]="IsDisableReturn" (click)="onReturnClick('work-flow-send')" id="btn4"
+              class="btn btn-primary btnGreen">
+              <img width="16px" height="16px" src="assets/Icons/return24.ico" />
+              بازگشت
+            </button>
+          </td>
+          <td>
+            <button *ngIf="!ISIRVersion" [disabled]="IsDisableFree" (click)="onFreeClick()" id="btn4"
+              class="btn btn-primary btnGreen">
+              <img width="16px" height="16px" src="assets/Icons/Clear.png" />
+              آزاد سازی
+            </button>
+            <!--RFC 56670-->
+          </td>
+          <!-- <td>
+            <button
+              (click)="onRejectClick('work-flow-send')"
+              id="btn4"
+              class="btn btn-primary btnGreen"
+            >
+              <img width="16px" height="16px" src="assets/Icons/finish24.ico" />
+              پایان کار
+            </button>
+          </td> -->
+
+          <td>
+            <button (click)="onShowReport()" id="btnPrint" class="btn btn-primary btnGreen">
+              <img width="16px" height="16px" src="assets/Icons/printer-icon.png" />
+              چاپ گردش
+            </button>
+          </td>
+          <td>
+            <button (click)="onShowWFDetials()" id="btnShowDetails" class="btn btn-primary btnGreen">
+              <img width="16px" height="16px" src="assets/Icons/show.png" />
+              مشاهده جزئیات گردش
+            </button>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div *ngIf="IsAdmin" style="float:left;margin:5px; display:inline-flex">
+      <td *ngIf="NewUserSelected">
+        <button style="float: left !important;" (click)="RemoveSelectedUser()" id="btnPrint"
+          class="btn btn-primary btnGreen">
+          <img width="16px" height="16px" src="assets/Icons/delete.png" />
+          بازگشت به کارتابل جاری
+        </button>
+      </td>
+      <td *ngIf="NewUserMenuSelected">
+        <button style="float: left !important;" (click)="RemoveChangedMenu()" id="btnPrint"
+          class="btn btn-primary btnGreen">
+          <img width="16px" height="16px" src="assets/Icons/delete.png" />
+          بازگشت به منوی جاری
+        </button>
+      </td>
+      <td>
+        <button style="float: left !important;" (click)="ShowUsersList()" id="btnPrint"
+          class="btn btn-primary btnGreen">
+          <img width="16px" height="16px" src="assets/Icons/search.png" />
+          تغییر کاربر
+        </button>
+      </td>
+    </div>
+  </div>
+  <div style="height: 83.85%;">
+    <ul style="margin-top: 5px" class="nav nav-tabs" role="tablist">
+      <li class="nav-item">
+        <a (click)="OnCurrentCartableClick(true)" class="nav-link active" href="#curr-cartable" role="tab"
+          data-toggle="tab">کارتابل جاری</a>
+      </li>
+      <li class="nav-item">
+        <a (click)="OnInProgressCartableClick(true)" class="nav-link" href="#InProgress-cartable" role="tab"
+          data-toggle="tab">کارتابل اقدام شده</a>
+      </li>
+      <li class="nav-item">
+        <a (click)="OnFinishCartableClick(true)" class="nav-link" href="#finish-cartable" role="tab"
+          data-toggle="tab">کارتابل خاتمه یافته</a>
+      </li>
+      <li class="nav-item">
+        <a (click)="OnDeletedCartableClick(true)" class="nav-link" href="#deleted-cartable" role="tab"
+          data-toggle="tab">کارتابل ابطال شده</a>
+      </li>
+    </ul>
+    <div class="tab-content" style="margin-top: 5px;height: 100%;">
+      <div role="tabpanel" class="tab-pane fade show active" id="curr-cartable"
+        style="height: 100%; margin-bottom: 5px;">
+        <table style="width: 100%; margin: 3px;">
+          <tr>
+            <td style="width: 100%;text-align: right;">
+              <span class="table-cell-Lable">نوع گردش کار</span>
+              <app-ng-select-virtual-scroll style="display: inline-block;width: 93%;" class=""
+                [NgSelectParams]="WorkflowObjectParams" (selectedChange)="onChangeWorkflowObject($event)"
+                [Items]="WorkflowObjectItems" [multiple]="true">
+              </app-ng-select-virtual-scroll>
+            </td>
+            <td style="width: 70%;"></td>
+          </tr>
+        </table>
+        <app-grid [HeaderWidth]="93" [columns]="columnDef" [gridHeader]='gridheader' [rowsData]="UserWorkListrowData"
+          [gridHeight]="86" [GridOptionsRowStyle]="GridOptionsRowStyle" (RowClick)="RowClick($event)"
+          (RowDoubleClick)="onRowDoubleClicked($event)"></app-grid>
+      </div>
+      <div role="tabpanel" class="tab-pane fade" id="InProgress-cartable" style="height: 100%; margin-bottom: 5px;">
+        <table style="width: 100%; margin: 3px;">
+          <tr>
+            <td style="width: 100%;text-align: right;">
+              <span class="table-cell-Lable">نوع گردش کار</span>
+              <app-ng-select-virtual-scroll style="display: inline-block;width: 93%;" class=""
+                [NgSelectParams]="InProgressWorkflowObjectParams"
+                (selectedChange)="onChangeInProgressWorkflowObject($event)" [Items]="InProgWorkflowObjectItems"
+                [multiple]="true">
+              </app-ng-select-virtual-scroll>
+            </td>
+            <td style="width: 70%;"></td>
+          </tr>
+        </table>
+        <app-grid [HeaderWidth]="93" [GridOptionsRowStyle]="InProgressGridOptionsRowStyle"
+          [columns]="InProgresscolumnDef" [gridHeader]='gridheader' [rowsData]="UserInProgressrowData" [gridHeight]="86"
+          (RowClick)="InProgressWorkListRowClick($event)" (RowDoubleClick)="onFinishedRowDoubleClicked($event,1)">
+        </app-grid>
+      </div>
+      <div role="tabpanel" class="tab-pane fade" id="finish-cartable" style="height: 100%; margin-bottom: 5px;">
+        <table style="width: 100%; margin: 3px;">
+          <tr>
+            <td style="width: 100%;text-align: right;">
+              <span class="table-cell-Lable">نوع گردش کار</span>
+              <app-ng-select-virtual-scroll style="display: inline-block;width: 93%;" class=""
+                [NgSelectParams]="FinishedWorkflowObjectParams"
+                (selectedChange)="onChangeFinishedWorkflowObject($event)" [Items]="FinishedWorkflowObjectItems"
+                [multiple]="true">
+              </app-ng-select-virtual-scroll>
+            </td>
+            <td style="width: 70%;"></td>
+          </tr>
+        </table>
+        <app-grid [HeaderWidth]="93" [columns]="FinishedcolumnDef" [gridHeader]='gridheader'
+          [rowsData]="UserFinishedWorkListrowData" [gridHeight]="86" (RowClick)="FinishedWorkListRowClick($event)"
+          (RowDoubleClick)="onFinishedRowDoubleClicked($event,2)">
+        </app-grid>
+      </div>
+      <div role="tabpanel" class="tab-pane fade" id="deleted-cartable" style="height: 100%; margin-bottom: 5px;">
+        <table style="width: 100%; margin: 3px;">
+          <tr>
+            <td style="width: 100%;text-align: right;">
+              <span class="table-cell-Lable">نوع گردش کار</span>
+              <app-ng-select-virtual-scroll style="display: inline-block;width: 93%;" class=""
+                [NgSelectParams]="DeletedWorkflowObjectParams" (selectedChange)="onChangeDeletedWorkflowObject($event)"
+                [Items]="DeletedWorkflowObjectItems" [multiple]="true">
+              </app-ng-select-virtual-scroll>
+            </td>
+            <td style="width: 70%;"></td>
+          </tr>
+        </table>
+        <app-grid [HeaderWidth]="93" [columns]="DeletedcolumnDef" [gridHeader]='gridheader'
+          [rowsData]="UserDeletedWorkListrowData" [gridHeight]="86" (RowClick)="DeletedWorkListRowClick($event)"
+          (RowDoubleClick)="onDeletedRowDoubleClicked($event, 3)">
+        </app-grid>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #IsReadyToConfirm let-row>
+  <img *ngIf="row.ReadyToConfirm" width="16px" height="16px"
+    [src]="row.ReadyToConfirm ? 'assets/Icons/TrueCheckBox.png':''" />
+</ng-template>
+<ng-template #IsReturn let-row>
+  <img *ngIf="row.WorkflowOperationCode === 2 || row.WorkflowOperationCode === 4" width="16px" height="16px"
+    [src]="row.WorkflowOperationCode === 2 || row.WorkflowOperationCode === 4 ? 'assets/Icons/Return2.png': ''"
+    title="بازگشتی" />
+</ng-template>
+<app-over-popup *ngIf="isClicked" [PopupType]="type"
+  [PopupParam]="type === 'message-box' ? alertMessageParams : type ==='user-select' ? '' : paramObj"
+  (popupclosed)="popupclosed($event)" [HaveMaxBtn]="HaveMaxBtn" [HeightPercentWithMaxBtn]="HeightPercentWithMaxBtn"
+  (PopupOutPutParam)="getOutPutParam($event)" [startLeftPosition]="startLeftPosition"
+  [startTopPosition]="startTopPosition" [HaveHeader]="HaveHeader"
+  [minHeightPixel]="type === 'product-request-page' || type === 'ground-delivery-minutes' || type === 'user-work-log-details' ? MinHeightPixel :''"
+  [minWidthPixel]="type === 'application-note' ? MinWidthPixel : ''"
+  [PercentWidth]="type === 'user-select' || type === 'ground-delivery-minutes' || type === 'corporate2' || type === 'person2' || type === 'product-request-invest-archive' ? PercentWidth : ''"
+  [MainMaxwidthPixel]="type === 'ground-delivery-minutes' || type === 'product-request-invest-archive' ? MainMaxwidthPixel : type === 'application-note' ? 850: ''"
+  [MainMinwidthPixel]="type === 'message-box' ? '' : MainMinwidthPixel">
+</app-over-popup>
+<!-- <app-over-popup
+  *ngIf="btnclicked"
+  [PopupType]="PopupType"
+  [startLeftPosition]="450"
+  [startTopPosition]="240"
+  (popupclosed)="popupMessageclosed($event)"
+  [PopupParam]="alertMessageParams"
+  (PopupOutPutParam)= "MessageBoxAction($event)" >
+</app-over-popup> -->

@@ -1,0 +1,90 @@
+<div id="container" class="row">
+    <div id="content" class="" style="height: 100%; width: 100%;">
+        <div class="main-form-body" style="margin: 5px;" [style.height.%]= "mainBodyHeight">
+            <fieldset align="right" class="feild-set" style="display: inherit">
+              <legend class="legend" style="margin: 0;width:30%;">نوع چاپ را تعیین کنید</legend>
+                <div class="box-dev">
+                <!--<div class="redio-div">-->
+                  <table>
+                    <tr>
+                      <td>
+                       <div class="custom-control custom-radio custom-control-inline">
+                        <input [checked]="RepLevelCode === 1" type="radio" (click)="onRedioClick(1)" class="custom-control-input"
+                          id="LevelRadio1" name="LevelRadios">
+                        <label class="custom-control-label redio-label" for="LevelRadio1">چاپ لیست</label>
+                       </div>
+                      </td>
+                      <td>
+                          <div class="custom-control custom-radio custom-control-inline">
+                              <input [checked]="RepLevelCode === 2" type="radio" (click)="onRedioClick(2)" class="custom-control-input"
+                               id="LevelRadio2" name="LevelRadios">
+                              <label class="custom-control-label redio-label" for="LevelRadio2">چاپ خالص درخواست پرداخت</label>
+                            </div>
+                      </td>
+                     </tr>
+                     <tr>
+                      <td>
+                          <div class="custom-control custom-radio custom-control-inline">
+                              <input [checked]="RepLevelCode === 3" type="radio" (click)="onRedioClick(3)" class="custom-control-input"
+                              id="LevelRadio3" name="LevelRadios">
+                             <label class="custom-control-label redio-label" for="LevelRadio3">چاپ صورت هزینه خدمات پیمانی</label>
+                          </div>
+                      </td>
+                      <td>
+                          <div class="custom-control custom-radio custom-control-inline">
+                              <input [checked]="RepLevelCode === 4" type="radio" (click)="onRedioClick(4)" class="custom-control-input"
+                               id="LevelRadio4" name="LevelRadios">
+                              <label class="custom-control-label redio-label" for="LevelRadio4">چاپ صورت هزینه خدمات امانی</label>
+                          </div>
+                      </td>
+                     </tr>
+                     <tr>
+                       <td>
+                          <div class="custom-control custom-radio custom-control-inline">
+                              <input [checked]="RepLevelCode === 5" type="radio" (click)="onRedioClick(5)" class="custom-control-input"
+                               id="LevelRadio5" name="LevelRadios">
+                              <label class="custom-control-label redio-label" for="LevelRadio5">حواله حسابداری</label>
+                          </div>
+                       </td>
+                       <td>
+                        <div class="custom-control custom-radio custom-control-inline">
+                           <input [checked]="RepLevelCode === 6" type="radio" (click)="onRedioClick(6)" class="custom-control-input"
+                            id="LevelRadio6" name="LevelRadios">
+                           <label class="custom-control-label redio-label" for="LevelRadio6">چاپ صورت جلسه گواهی انجام کار</label>
+                        </div>
+                       </td>
+                     </tr>
+                </table>
+               </div>
+               <div class="box-dev-pey">
+                 <div>
+                    <input type="checkbox" [(ngModel)]="PeymanCardCheckbox" name="PeymanCardCheckbox" data-md-icheck (change)="PrintPeymanCard($event)"/>
+                     چاپ کارت پیمان
+                 </div>
+                 <div>
+                    <ng-select style="min-width: 150px" [items]="PeymanCardTypeListSet"  bindValue="PeymanCardType" [(ngModel)]="selectedRegion"
+                    (ngModelChange)="onChangePeymanCardObj($event)" >
+                  </ng-select>
+                 </div>
+               </div>
+               <div>
+                  <input type="checkbox" [(ngModel)]="ColorfulBackgroundCheckbox" name="ColorfulBackgroundCheckbox" data-md-icheck (change)="PrintColorfulBackground($event)"/>
+                     چاپ با پس زمینه رنگی
+               </div>  
+            </fieldset>
+          </div>
+          <div class="buttons-place" style=" margin: 5px">
+            <button (click)="onPrintClick()" id="btn2" class="btn btn-primary btnGreen" style="margin: 2px">
+              <img width="15px" height="15px" src="assets/Icons/save.png" />
+              چاپ</button>
+            <button (click)="close()" class="btn btn-primary btnGreen">
+              <img width="15px" height="15px" src="assets/Icons/exit.png" />
+              انصراف</button>
+          </div>
+    </div>
+  </div>
+  
+  <app-over-popup *ngIf="btnclicked" [PopupType]="type" [startLeftPosition]="startLeftPosition"
+    [startTopPosition]="startTopPosition" [PopupParam]="alertMessageParams" (popupclosed)="popupclosed($event)"
+    (PopupOutPutParam)="type ==='message-box' ? MessageBoxAction($event) :''">
+  </app-over-popup>

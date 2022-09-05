@@ -1,0 +1,102 @@
+<div [ngClass]="{'disable-parent': !IsDown}" id="container" class="row" style="clear: both">
+  <div id="myContent" class="data-grid">
+    <div id="archiveDiv" style="min-width: 600px; max-width: 800px ; max-height: 500px;">
+      <div class="main-form-body" style="padding-bottom: 1px;">
+        <div class="">
+
+          <div class="card" style="margin:auto;height: 170px; width: 100%;">
+            <app-grid [gridHeader]="'نوع مستند'" [columns]="DocTypecolumnDef" [rowsData]="DocTypeData"
+              [gridHeightPxel]="143" (RowClick)="onDocTypeRowClicked($event)"></app-grid>
+          </div>
+          <fieldset *ngIf="HasArchiveAccess === true" align="right" class="feild-set" style="display: inherit">
+            <legend style="width: 15%;">بارگذاری پیوست</legend>
+            <!-- <div class="input-group mb-3" style="margin-top: 15px;margin-bottom: 3px !important;height: 100px;"> -->
+            <table class="input-group mb-3" style="margin-top: 15px;margin-bottom: 3px !important;width: 100%;">
+              <tr>
+                <td colspan="3">
+                  <input type="file" (change)="onFileChanged($event)" class="custom-file-input" id="inputGrpFile01" />
+                  <label class="custom-file-label" for="inputGrpFile01" style="height: 30px;"></label>
+                </td>
+              </tr>
+              <tr>
+                <td style="width: 20%;">
+                  <span class="table-cell-Lable">توضیحات </span>
+                </td>
+                <td style="width:70%;">
+                  <input id="indicator-label-name" class="form-control " style="display: inline-block; width: 625px;"
+                    type="text" [(ngModel)]="selectedNote" name="selectedNote" />
+                </td>
+                <td style="width: 10%;">
+                  <button id="btnUpload" class="btn btnGreen" (click)="onUpload()">
+                    <img width="15px" height="15px" src="assets/Icons/Upload.png" />
+                    <span style="font-size: 10px;"> بارگذاری </span>
+                  </button>
+                </td>
+              </tr>
+              <tr *ngIf="ShowAdvertising === true">
+                <td style="width: 20%;">
+                  <span class="table-cell-Lable">آگهی </span>
+                </td>
+                <td style="width: 70%;">
+                  <app-custom-check-box id="advertising-label-name"
+                    style="display: inline-block;width: 50px;margin-top: 8px;"
+                    [configurationInfo]="CustomCheckBoxConfig" [isSelected]="UseInAdvertising"
+                    (PrettyCheckBoxChange)="OnCheckBoxChange($event)">
+                  </app-custom-check-box>
+                </td>
+                <td style="width: 10%;">
+
+                </td>
+              </tr>
+            </table>
+            <!-- </div> -->
+          </fieldset>
+          <div class="card" style="margin-top: 15px">
+            <app-grid [gridHeader]="'لیست مستندات'" [columns]="columnDefs" [rows]="rowData" [gridHeightPxel]="170"
+              (RowDoubleClick)="onDisplay()" (RowClick)="onRowClicked($event)" [defaultCol]="defaultColDef"></app-grid>
+          </div>
+
+        </div>
+      </div>
+      <div class="buttons-place" style="margin: 0">
+        <div class="card-block" style="padding: 2px 10px">
+          <div class="form-group row" style="margin-bottom:5px ; padding-right:5px">
+            <button id="btnDisplay" class="btn btn-primary btnGreen" (click)="onDisplay()">
+              <img width="15px" height="15px" src="assets/Icons/show.png" />
+              مشاهده
+            </button>
+
+            <button *ngIf="HasArchiveAccess === true" id="btnDelete" class="btn btn-primary btnGreen"
+              (click)="onDelete($event)">
+              <img width="15px" height="15px" src="assets/Icons/delete.png" />
+              حذف
+            </button>
+            <button (click)="close()" id="btn4" class="btn btn-primary btnGreen">
+              <img width="15px" height="15px" src="assets/Icons/exit.png" />
+              خروج
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<ng-template #fileExtCell let-row>
+  <img width="24px" height="24px" src={{row.Image_Url}} />
+</ng-template>
+
+<ng-template #IsDocTypeForced let-row>
+  <img width="16px" height="16px" [src]="row.IsValid ? 'assets/Icons/TrueCheckBox.png':'assets/Icons/uncheck.png'" />
+</ng-template>
+
+<ng-template #IsDocType let-row>
+  <img width="16px" height="16px"
+    [src]="row.USE_IN_ADVERTISING ? 'assets/Icons/TrueCheckBox.png':'assets/Icons/uncheck.png'" />
+</ng-template>
+
+<app-over-popup *ngIf="isClicked" [PopupType]="type"
+  [PopupParam]="type === 'message-box' ? alertMessageParams : paramObj" (popupclosed)="popupclosed($event)"
+  [startLeftPosition]="startLeftPosition" [startTopPosition]="startTopPosition" [HaveHeader]="HaveHeader">
+</app-over-popup>

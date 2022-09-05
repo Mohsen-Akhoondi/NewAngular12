@@ -1,0 +1,77 @@
+<div class="main-form-body"
+  style="margin-top: 3px; height:63%; padding-top: 25px !important; padding-bottom: 3px !important;padding-right: 0px;">
+
+  <table style="width: 100%;">
+
+    <tr>
+
+      <td width="50%" style="text-align: left;">
+
+        <span class="table-cell-Lable">واحد اجرایی</span>
+        <app-ng-select-virtual-scroll style="display: inline-block;width: 60%;" class="" [NgSelectParams]="RegionParams"
+          (selectedChange)="onChangeRegion($event)" [Items]="RegionItems">
+        </app-ng-select-virtual-scroll>
+      </td>
+
+      <td width="50%" style="text-align: left;">
+      </td>
+
+    </tr>
+
+    <tr>
+
+      <td width="50%" style="text-align: left;">
+        <span class="table-cell-Lable">از مرکز هزینه</span>
+        <app-ng-select-virtual-scroll style="display: inline-block;width: 60%;" [Items]="FromCostCenterItems"
+          [NgSelectParams]="FromCostCenterParams" (selectedChange)="onChangeCostCenter($event,'From')"
+          (Open)="OnOpenNgSelect('CostCenter', false)">
+        </app-ng-select-virtual-scroll>
+      </td>
+
+      <td width="50%" style="text-align: left;">
+        <span class="table-cell-Lable">تا مرکز هزینه</span>
+        <app-ng-select-virtual-scroll style="display: inline-block;width: 60%;" [Items]="ToCostCenterItems"
+          [NgSelectParams]="ToCostCenterParams" (selectedChange)="onChangeCostCenter($event,'To')"
+          (Open)="OnOpenNgSelect('CostCenter', false)">
+        </app-ng-select-virtual-scroll>
+      </td>
+
+    </tr>
+
+    <tr>
+
+      <td width="50%" style="text-align: left;">
+        <span class="table-cell-Lable">از مرکز هزینه فرعی</span>
+        <app-ng-select-virtual-scroll style="display: inline-block;width: 60%;" [Items]="FromSubCostCenterItems"
+          [NgSelectParams]="FromSubCostCenterParams" (selectedChange)="onSubCostCenterSelectedChange($event)"
+          (Open)="OnOpenNgSelect('SubCostCenter', false)">
+        </app-ng-select-virtual-scroll>
+      </td>
+
+      <td width="50%" style="text-align: left;">
+        <span class="table-cell-Lable">تا مرکز هزینه فرعی</span>
+        <app-ng-select-virtual-scroll style="display: inline-block;width: 60%;" [Items]="ToSubCostCenterItems"
+          [NgSelectParams]="ToSubCostCenterParams"
+          (Open)="OnOpenNgSelect('SubCostCenter', false)">
+        </app-ng-select-virtual-scroll>
+      </td>
+
+    </tr>
+
+  </table>
+
+</div>
+
+<div class="buttons-place" style="margin: unset ;">
+
+  <button type="submit" (click)="report()" class="select-general-for-lable  btn btn-primary btnGreen">
+    <img width="15px" height="15px" src="assets/Icons/printer-icon.png" />
+    مشاهده
+  </button>
+
+  <button (click)="closeModal()" id="btn4" class="btn btn-primary btnGreen">
+    <img width="15px" height="15px" src="assets/Icons/exit.png" />
+    خروج
+  </button>
+
+</div>

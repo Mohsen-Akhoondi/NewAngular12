@@ -75,7 +75,6 @@ export class AdjustmentPriceRangeFormulasPageComponent implements OnInit {
         this.c = ress[0].C.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
         this.HasCPInGrid = ress[0].HasCPInGrid;
         this.rowData = ress[0].AdjustmentPriceRangeSPsList;
-        console.log('ress',ress);
 
         this.ColDefine();
       }
@@ -119,8 +118,36 @@ export class AdjustmentPriceRangeFormulasPageComponent implements OnInit {
         hide: this.PriceListTypeCode !== '02',
       },
       {
+        headerName: 'سال فهرست بها SPl',
+        field: 'MaxFinYearSPl',
+        editable: false,
+        width: 150,
+        resizable: true
+      },
+      {
+        headerName: 'دوره SPl',
+        field: 'DurationSPl',
+        editable: false,
+        width: 100,
+        resizable: true
+      },
+      {
         headerName: 'SPl',
         field: 'SPl',
+        editable: false,
+        width: 100,
+        resizable: true
+      },
+      {
+        headerName: 'سال فهرست بها SPb ',
+        field: 'MaxFinYearSPb',
+        editable: false,
+        width: 150,
+        resizable: true
+      },
+      {
+        headerName: 'دوره SPb',
+        field: 'DurationSPb',
         editable: false,
         width: 100,
         resizable: true

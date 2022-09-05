@@ -2090,6 +2090,15 @@ export class CommitionComponent implements OnInit {
     }
 
     if (ValidateForm) {
+      
+      var SumFinalAmount = 0 ; 
+      if (!this.ExpertCoef && this.ExpertAmount && this.ExpertAmount > 0) {
+        this.ProductRequestObject.ProductRequestItemList.forEach(element =>  {
+            SumFinalAmount = SumFinalAmount + parseFloat(element.AmountCOEFPact)     
+        });
+        this.ExpertCoef = (this.ExpertAmount / SumFinalAmount) ;
+      }
+
       const OrderCommitionObj = {
         OrderCommitionID: this.OrderCommitionID ? this.OrderCommitionID : -1,
         CostFactorID: this.OrdersObject.CostFactorID,
@@ -2973,8 +2982,6 @@ export class CommitionComponent implements OnInit {
       this.MainMaxwidthPixel = 1200;
       this.MinHeightPixel = 200;
       this.PixelHeight = 800;
-      console.log('ParamObj',this.ParamObj);
-      
       this.ParamObj = {
         HeaderName: 'جزییات متغیرهای صورتجلسه',
         ProductRequestObject: this.ProductRequestObject,

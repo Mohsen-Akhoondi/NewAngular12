@@ -14,6 +14,7 @@ import { JalaliDatepickerComponent } from 'src/app/Shared/jalali-datepicker/jala
 import { ProductRequestService } from 'src/app/Services/ProductRequest/ProductRequestService';
 import { NumberInputComponentComponent } from 'src/app/Shared/CustomComponent/InputComponent/number-input-component/number-input-component.component';
 import { UserSettingsService } from 'src/app/Services/BaseService/UserSettingsService';
+import { CustomCheckBoxModel } from 'src/app/Shared/custom-checkbox/src/public_api';
 
 @Component({
   selector: 'app-maintenance-volume-green-space',
@@ -23,6 +24,7 @@ import { UserSettingsService } from 'src/app/Services/BaseService/UserSettingsSe
 export class MaintenanceVolumeGreenSpaceComponent implements OnInit {
   @ViewChild('IsInsertBtn') IsInsertBtn: TemplateRef<any>;
   @ViewChild('IsSelectedValid') IsSelectedValid: TemplateRef<any>;
+  @ViewChild('HasNoItem') HasNoItem: TemplateRef<any>;
   PREgridApi;
   EntityTitle = 'موجودیت قلم';
   EntityItemTitle = 'مقدار موجودیت قلم';
@@ -147,6 +149,9 @@ export class MaintenanceVolumeGreenSpaceComponent implements OnInit {
   };
   PatternID;
   IsAdmin = false;
+  CustomCheckBoxConfig: CustomCheckBoxModel = new CustomCheckBoxModel();
+  AllEIsChecked = false;
+  AllIIsChecked = false;
 
   constructor(private router: Router,
     private ProductPattern: ProductPatternService,
@@ -174,6 +179,11 @@ export class MaintenanceVolumeGreenSpaceComponent implements OnInit {
     });
   }
   ngOnInit() {
+    this.CustomCheckBoxConfig.color = 'state p-primary';
+    this.CustomCheckBoxConfig.icon = 'fa fa-check';
+    this.CustomCheckBoxConfig.styleCheckBox = 'pretty p-icon p-rotate';
+    this.CustomCheckBoxConfig.AriaWidth = 14.5;
+
     this.PEntityItemrowData = [];
     this.PREntityrowData = [];
     this.ShowGrid = this.PopUpParam ? this.PopUpParam.ShowGrid : true;
@@ -193,169 +203,23 @@ export class MaintenanceVolumeGreenSpaceComponent implements OnInit {
     this.PercentWidth = null;
   }
   tree_selectedchange(event) {
-    this.SelectedProductPattern = "";
+    this.SelectedProductPattern = '';
     this.hasChildren = event.hasChildren;
     this.SelectedID = event.id;
     if (!this.hasChildren) {
       this.SelectedProductPattern = this.SelectedID;
       this.FillGridData(this.SelectedID);
     } else {
-      this.SelectedProductPattern = "";
+      this.SelectedProductPattern = '';
       this.gridrows = [];
       this.gridPriceRows = [];
       this.hasCreate = false;
     }
   }
   onChangeRegionGroup(event) {
-
   }
   // tslint:disable-next-line:use-life-cycle-interface
   ngAfterViewInit(): void {
-    this.gridcolumns = [
-      {
-        headerName: 'ردیف',
-        field: 'ItemNo',
-        sortable: true,
-        filter: true,
-        width: 60,
-        resizable: true
-      },
-      {
-        headerName: 'کد قلم',
-        field: 'GoodsCode',
-        sortable: true,
-        filter: true,
-        width: 85,
-        resizable: true,
-        editable: true,
-      },
-      {
-        headerName: 'نام قلم',
-        field: 'ProductName',
-        sortable: true,
-        filter: true,
-        width: 354,
-        resizable: true,
-        editable: (event) => {
-          if (event.data.ArticlePatternGoodsID > 0)
-            return false;
-          else
-            return true;
-        },
-        cellEditorFramework: NgSelectVirtualScrollComponent,
-        cellEditorParams: {
-          Params: this.NgSelectVSParams,
-          Items: [],
-          MoreFunc: this.FetchMoreProduct,
-          FetchByTerm: this.FetchProductByTerm,
-          Owner: this
-        },
-        cellRenderer: 'SeRender',
-        valueFormatter: function currencyFormatter(params) {
-          if (params.value) {
-            return params.value.ProductName;
-          } else {
-            return '';
-          }
-        },
-        valueSetter: (params) => {
-          if (params.newValue && params.newValue.ProductName) {
-            params.data.ProductID = params.newValue.ProductID;
-            params.data.ProductName = params.newValue.ProductName;
-            params.data.ProductCode = params.newValue.ProductCode;
-            params.data.GoodsCode = params.newValue.ProductCode;
-            return true;
-          } else {
-            params.data.ProductID = null;
-            params.data.ProductName = null;
-            params.data.ProductCode = null;
-            return false;
-          }
-        },
-      },
-    ];
-    this.gridPriceColumns = [
-      {
-        headerName: 'ردیف',
-        field: 'ItemNo',
-        sortable: true,
-        filter: true,
-        width: 60,
-        resizable: true
-      },
-      {
-        headerName: 'مبلغ',
-        field: 'Price',
-        sortable: true,
-        filter: true,
-        width: 85,
-        resizable: true,
-        editable: (event) => {
-          if (this.IsProduct) {
-            if (event.data.GoodPriceID > 0 && !this.IsAdmin) {
-              return false;
-            } else {
-              return true;
-            }
-          } else {
-            if (event.data.ServicePriceID > 0 && !this.IsAdmin) {
-              return false;
-            } else {
-              return true;
-            }
-          }
-        },
-      },
-      {
-        headerName: 'تاریخ',
-        field: 'PersianGoodPriceDate',
-        sortable: true,
-        filter: true,
-        width: 120,
-        cellEditorFramework: JalaliDatepickerComponent,
-        cellEditorParams: {
-          CurrShamsiDateValue: 'PersianGoodPriceDate',
-          DateFormat: 'YYYY/MM/DD',
-          WidthPC: 100,
-          AppendTo: '.for-append-date'
-        },
-        cellRenderer: 'SeRender',
-        valueFormatter: function currencyFormatter(params) {
-          if (params.value) {
-            return params.value.SDate;
-          } else {
-            return '';
-          }
-        },
-        valueSetter: (params) => {
-          if (params.newValue && params.newValue.MDate) {
-            params.data.ShortGoodPriceDate = params.newValue.MDate;
-            params.data.PersianGoodPriceDate = params.newValue.SDate;
-            return true;
-          } else {
-            params.data.ShortGoodPriceDate = null;
-            params.data.PersianGoodPriceDate = '';
-            return false;
-          }
-        },
-        resizable: true,
-        editable: (event) => {
-          if (this.IsProduct) {
-            if (event.data.GoodPriceID > 0 && !this.IsAdmin) {
-              return false;
-            } else {
-              return true;
-            }
-          } else {
-            if (event.data.ServicePriceID > 0 && !this.IsAdmin) {
-              return false;
-            } else {
-              return true;
-            }
-          }
-        },
-      },
-    ];
     this.PREntitycolumnDef = [
       {
         headerName: 'ردیف',
@@ -380,6 +244,11 @@ export class MaintenanceVolumeGreenSpaceComponent implements OnInit {
             this.ProductRequest.GetAllEntityTypeItem(params.data.EntityTypeID, this.selectedRow.ProductID).subscribe(res => {
               this.PEntityItemrowData = res;
               params.data.ProductEntityItemList = this.PEntityItemrowData;
+              if (this.PEntityItemrowData.find(x => x.IsSelected !== true)) {
+                this.AllIIsChecked = false;
+              } else {
+                this.AllIIsChecked = true;
+              }
             });
             return true;
           } else {
@@ -395,7 +264,7 @@ export class MaintenanceVolumeGreenSpaceComponent implements OnInit {
         headerName: 'اهميت وزني',
         field: 'Value',
         HaveThousand: true,
-        width: 120,
+        width: 100,
         resizable: true,
         editable: true,
         cellEditorFramework: NumberInputComponentComponent,
@@ -411,6 +280,28 @@ export class MaintenanceVolumeGreenSpaceComponent implements OnInit {
           if (params.newValue) {
             params.data.Value = params.newValue;
           }
+        },
+      },
+      {
+        headerName: 'بدون اقلام',
+        field: 'HasNoItem',
+        width: 100,
+        resizable: true,
+        editable: true,
+        cellStyle: function (params) {
+          return { 'text-align': 'center' };
+        },
+        cellEditorFramework: CheckboxFieldEditableComponent,
+        valueFormatter: function isValidFormer(params) {
+          if (params.value) {
+            return 'معتبر';
+          } else {
+            return 'نامعتبر';
+          }
+        },
+        cellRendererFramework: TemplateRendererComponent,
+        cellRendererParams: {
+          ngTemplate: this.HasNoItem
         },
       },
     ];
@@ -451,15 +342,6 @@ export class MaintenanceVolumeGreenSpaceComponent implements OnInit {
         editable: false,
         width: 220,
         resizable: true,
-        // valueSetter: (params) => {
-        //   if (params.newValue) {
-        //     params.data.Subject = params.newValue;
-        //     return true;
-        //   } else {
-        //     params.data.Subject = '';
-        //     return false;
-        //   }
-        // },
       },
     ];
   }
@@ -485,9 +367,6 @@ export class MaintenanceVolumeGreenSpaceComponent implements OnInit {
     } else {
       this.gridPriceRows = [];
     }
-    // } else {
-    //   this.gridPriceRows = [];
-    // }
     this.selectedRow = event.data;
   }
   RowClick(InputValue) {
@@ -509,6 +388,16 @@ export class MaintenanceVolumeGreenSpaceComponent implements OnInit {
       if (InputValue.data.ProductRequestEntityList[0].ProductEntityItemList &&
         InputValue.data.ProductRequestEntityList[0].ProductEntityItemList.length > 0) {
         this.PEntityItemrowData = InputValue.data.ProductRequestEntityList[0].ProductEntityItemList;
+        if (this.PEntityItemrowData.find(x => x.IsSelected !== true)) {
+          this.AllIIsChecked = false;
+        } else {
+          this.AllIIsChecked = true;
+        }
+      }
+      if (this.PREntityrowData.find(x => x.HasNoItem !== true)) {
+        this.AllEIsChecked = false;
+      } else {
+        this.AllEIsChecked = true;
       }
     }
     this.selectedRow = InputValue.data;
@@ -778,7 +667,7 @@ export class MaintenanceVolumeGreenSpaceComponent implements OnInit {
     this.gridPriceRows = [];
     this.PREntityrowData = [];
     this.PEntityItemrowData = [];
-    if (this.IsProduct === true) {
+    if (this.IsProduct) {
       this.gridcolumns = [
         {
           headerName: 'ردیف',
@@ -927,6 +816,68 @@ export class MaintenanceVolumeGreenSpaceComponent implements OnInit {
           },
         },
       ];
+      this.PREntitycolumnDef = [
+        {
+          headerName: 'ردیف',
+          field: 'ItemNo',
+          width: 60,
+          resizable: true
+        },
+        {
+          headerName: ' موضوع',
+          field: 'Subject',
+          cellEditorFramework: NgSelectVirtualScrollComponent,
+          cellEditorParams: {
+            Params: this.EntityTypeParams,
+            Items: [],
+          },
+          cellRenderer: 'SeRender',
+          valueSetter: (params) => {
+            if (params.newValue) {
+              params.data.Subject = params.newValue.Subject;
+              params.data.EntityTypeID = params.newValue.EntityTypeID;
+              this.ProductRequest.GetAllEntityTypeItem(params.data.EntityTypeID, this.selectedRow.ProductID).subscribe(res => {
+                this.PEntityItemrowData = res;
+                params.data.ProductEntityItemList = this.PEntityItemrowData;
+                if (this.PEntityItemrowData.find(x => x.IsSelected !== true)) {
+                  this.AllIIsChecked = false;
+                } else {
+                  this.AllIIsChecked = true;
+                }
+              });
+              return true;
+            } else {
+              params.data.Subject = '';
+              return false;
+            }
+          },
+          editable: true,
+          width: 300,
+          resizable: true,
+        },
+        {
+          headerName: 'اهميت وزني',
+          field: 'Value',
+          HaveThousand: true,
+          width: 100,
+          resizable: true,
+          editable: true,
+          cellEditorFramework: NumberInputComponentComponent,
+          cellRenderer: 'SeRender',
+          valueFormatter: function currencyFormatter(params) {
+            if (params.value) {
+              return params.value;
+            } else {
+              return '';
+            }
+          },
+          valueSetter: (params) => {
+            if (params.newValue) {
+              params.data.Value = params.newValue;
+            }
+          },
+        },
+      ];
     } else {
       this.gridcolumns = [
         {
@@ -954,10 +905,11 @@ export class MaintenanceVolumeGreenSpaceComponent implements OnInit {
           width: 354,
           resizable: true,
           editable: (event) => {
-            if (event.data.ServicePatternItemID > 0)
+            if (event.data.ServicePatternItemID > 0) {
               return false;
-            else
+            } else {
               return true;
+            }
           },
           cellEditorFramework: NgSelectVirtualScrollComponent,
           cellEditorParams: {
@@ -1075,6 +1027,91 @@ export class MaintenanceVolumeGreenSpaceComponent implements OnInit {
           },
         },
       ];
+      this.PREntitycolumnDef = [
+        {
+          headerName: 'ردیف',
+          field: 'ItemNo',
+          width: 60,
+          resizable: true
+        },
+        {
+          headerName: ' موضوع',
+          field: 'Subject',
+          cellEditorFramework: NgSelectVirtualScrollComponent,
+          cellEditorParams: {
+            Params: this.EntityTypeParams,
+            Items: [],
+          },
+          cellRenderer: 'SeRender',
+          valueSetter: (params) => {
+            if (params.newValue) {
+              params.data.Subject = params.newValue.Subject;
+              params.data.EntityTypeID = params.newValue.EntityTypeID;
+
+              this.ProductRequest.GetAllEntityTypeItem(params.data.EntityTypeID, this.selectedRow.ProductID).subscribe(res => {
+                this.PEntityItemrowData = res;
+                params.data.ProductEntityItemList = this.PEntityItemrowData;
+                if (this.PEntityItemrowData.find(x => x.IsSelected !== true)) {
+                  this.AllIIsChecked = false;
+                } else {
+                  this.AllIIsChecked = true;
+                }
+              });
+              return true;
+            } else {
+              params.data.Subject = '';
+              return false;
+            }
+          },
+          editable: true,
+          width: 300,
+          resizable: true,
+        },
+        {
+          headerName: 'اهميت وزني',
+          field: 'Value',
+          HaveThousand: true,
+          width: 100,
+          resizable: true,
+          editable: true,
+          cellEditorFramework: NumberInputComponentComponent,
+          cellRenderer: 'SeRender',
+          valueFormatter: function currencyFormatter(params) {
+            if (params.value) {
+              return params.value;
+            } else {
+              return '';
+            }
+          },
+          valueSetter: (params) => {
+            if (params.newValue) {
+              params.data.Value = params.newValue;
+            }
+          },
+        },
+        {
+          headerName: 'بدون اقلام',
+          field: 'HasNoItem',
+          width: 100,
+          resizable: true,
+          editable: true,
+          cellStyle: function (params) {
+            return { 'text-align': 'center' };
+          },
+          cellEditorFramework: CheckboxFieldEditableComponent,
+          valueFormatter: function isValidFormer(params) {
+            if (params.value) {
+              return 'معتبر';
+            } else {
+              return 'نامعتبر';
+            }
+          },
+          cellRendererFramework: TemplateRendererComponent,
+          cellRendererParams: {
+            ngTemplate: this.HasNoItem
+          },
+        },
+      ];
     }
   }
   OnInsertEntiry(row) {
@@ -1184,6 +1221,11 @@ export class MaintenanceVolumeGreenSpaceComponent implements OnInit {
     const GridRows = [];
 
     this.gridApi.forEachNode(function (node) {
+      if (node.data.ServicePriceList.length > 0) {
+        node.data.ServicePriceList.forEach(el => {
+          el.ServicePriceDate = el.ShortServicePriceDate ? el.ShortServicePriceDate : null;
+        });
+      }
       GridRows.push(node.data);
       node.data.ProductRequestEntityList.forEach(node2 => {
         ProductRequestEntityList.push(node2);
@@ -1206,7 +1248,6 @@ export class MaintenanceVolumeGreenSpaceComponent implements OnInit {
       });
     }
   }
-
   onPREGridReady(Param) {
     this.PREgridApi = Param.api;
   }
@@ -1216,9 +1257,19 @@ export class MaintenanceVolumeGreenSpaceComponent implements OnInit {
       this.ProductRequest.GetAllEntityTypeItem(event.data.EntityTypeID ? event.data.EntityTypeID : -1, this.selectedRow.ProductID).subscribe(res => {
         event.data.ProductEntityItemList = res;
         this.PEntityItemrowData = event.data.ProductEntityItemList;
+        if (this.PEntityItemrowData.find(x => x.IsSelected !== true)) {
+          this.AllIIsChecked = false;
+        } else {
+          this.AllIIsChecked = true;
+        }
       });
     } else {
       this.PEntityItemrowData = event.data.ProductEntityItemList;
+      if (this.PEntityItemrowData.find(x => x.IsSelected !== true)) {
+        this.AllIIsChecked = false;
+      } else {
+        this.AllIIsChecked = true;
+      }
     }
   }
   PREntityCellValueChanged(event) {
@@ -1244,6 +1295,11 @@ export class MaintenanceVolumeGreenSpaceComponent implements OnInit {
         items.push(node.data);
       });
       this.PREntityrowData = items;
+      if (this.PREntityrowData.find(x => x.HasNoItem !== true)) {
+        this.AllEIsChecked = false;
+      } else {
+        this.AllEIsChecked = true;
+      }
       this.gridApi.forEachNode(Node => {
         if (Node.data.ItemNo === this.selectedRow.ItemNo) {
           Node.data.ProductRequestEntityList = items;
@@ -1290,49 +1346,61 @@ export class MaintenanceVolumeGreenSpaceComponent implements OnInit {
   }
   onChangedPriceGrid(event) {
     const ParentItemNo = this.selectedRow.ItemNo;
-    
-      this.gridApi.stopEditing();
-      this.gridPriceApi.stopEditing();
-      const Res = [];
-      const itemsToUpdate = [];
-      if (this.IsProduct) {
-        this.gridPriceApi.forEachNode(function (node) {
-          node.data.ParentItemNo = ParentItemNo;
-          node.data.GoodPriceDate = node.data.ShortGoodPriceDate ? node.data.ShortGoodPriceDate : null;
-          Res.push(node.data);
-        });
-        this.gridApi.forEachNode(function (node) {
-          if (node.data.ItemNo === ParentItemNo) {
-            node.data.GoodPriceList = Res;
-          } else {
-            if (node.data.GoodPriceList && node.data.GoodPriceList.length > 0) {
-              node.data.GoodPriceList.forEach((gpi) => {
-                gpi.GoodPriceDate = gpi.ShortGoodPriceDate;
-              });
-            }
-          }
-          itemsToUpdate.push(node.data);
-        });
-      } else {
-        this.gridPriceApi.forEachNode(function (node) {
-          node.data.ParentItemNo = ParentItemNo;
-          node.data.ServicePriceDate = node.data.ShortServicePriceDate ? node.data.ShortServicePriceDate : null;
-          Res.push(node.data);
-        });
-        this.gridApi.forEachNode(function (node) {
-          if (node.data.ItemNo === ParentItemNo) {
-            node.data.ServicePriceList = Res;
-          } else {
-            if (node.data.ServicePriceList && node.data.ServicePriceList.length > 0) {
-              node.data.ServicePriceList.forEach((spi) => {
-                spi.ServicePriceDate = spi.ShortServicePriceDate;
-              });
-            }
-          }
-          itemsToUpdate.push(node.data);
-        });
-      }
-      this.gridApi.updateRowData({ update: itemsToUpdate });
 
+    this.gridApi.stopEditing();
+    this.gridPriceApi.stopEditing();
+    const Res = [];
+    const itemsToUpdate = [];
+    if (this.IsProduct) {
+      this.gridPriceApi.forEachNode(function (node) {
+        node.data.ParentItemNo = ParentItemNo;
+        node.data.GoodPriceDate = node.data.ShortGoodPriceDate ? node.data.ShortGoodPriceDate : null;
+        Res.push(node.data);
+      });
+      this.gridApi.forEachNode(function (node) {
+        if (node.data.ItemNo === ParentItemNo) {
+          node.data.GoodPriceList = Res;
+        } else {
+          if (node.data.GoodPriceList && node.data.GoodPriceList.length > 0) {
+            node.data.GoodPriceList.forEach((gpi) => {
+              gpi.GoodPriceDate = gpi.ShortGoodPriceDate;
+            });
+          }
+        }
+        itemsToUpdate.push(node.data);
+      });
+    } else {
+      this.gridPriceApi.forEachNode(function (node) {
+        node.data.ParentItemNo = ParentItemNo;
+        node.data.ServicePriceDate = node.data.ShortServicePriceDate ? node.data.ShortServicePriceDate : null;
+        Res.push(node.data);
+      });
+      this.gridApi.forEachNode(function (node) {
+        if (node.data.ItemNo === ParentItemNo) {
+          node.data.ServicePriceList = Res;
+        } else {
+          if (node.data.ServicePriceList && node.data.ServicePriceList.length > 0) {
+            node.data.ServicePriceList.forEach((spi) => {
+              spi.ServicePriceDate = spi.ShortServicePriceDate;
+            });
+          }
+        }
+        itemsToUpdate.push(node.data);
+      });
+    }
+    this.gridApi.updateRowData({ update: itemsToUpdate });
+
+  }
+  OnPRECheckBoxChanged(event) {
+    this.AllEIsChecked = event;
+    this.PREgridApi.forEachNode(node => {
+      node.data.HasNoItem = event;
+    });
+  }
+  OnEICheckBoxChanged(event) {
+    this.AllIIsChecked = event;
+    this.PEIgridApi.forEachNode(node => {
+      node.data.IsSelected = event;
+    });
   }
 }

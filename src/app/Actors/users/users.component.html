@@ -133,7 +133,7 @@
 
     </div> <!--  main-form-body -->
     <div class="buttons-place" style="margin: 5px;">
-      <button (click)="onSave()" [disabled]="false" id="btnSave" class="btn btn-primary btnGreen">
+      <button *ngIf="HaveSave"  (click)="onSave()" [disabled]="false" id="btnSave" class="btn btn-primary btnGreen">
         <img width="15px" height="15px" src="assets/Icons/save.png" />
         ثبت
       </button>

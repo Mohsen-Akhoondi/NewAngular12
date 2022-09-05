@@ -500,7 +500,7 @@ export class ActorService {
     return this.http.get(window.location.origin + '/Actor/GetCorporateTypeItems', { ModuleCode });
   }
   UpdateSignImageActorCorporate(CorporatePositionID: number, SignImageStr: string) {
-    return this.http.get(window.location.origin + '/Actor/UpdateSignImageActorCorporate', {
+    return this.http.post(window.location.origin + '/Actor/UpdateSignImageActorCorporate', {
       CorporatePositionID,
       SignImageStr
     }, true);
@@ -674,4 +674,24 @@ export class ActorService {
       ActorID
     }, IsLoading);
   }
+
+  GetLogHistoryList(
+    IsUpdate,
+    FromDate = null,
+    ToDate = null,
+    IsCorporate = null,
+    Person = null,
+    TablesName = null,
+    ObjectCode = null) {
+    return this.http.get(window.location.origin + '/Actor/GetLogHistoryList', {
+      IsUpdate,
+      FromDate,
+      ToDate,
+      IsCorporate,
+      ActorID: Person,
+      TablesName,
+      ObjectID: ObjectCode
+    }, true);
+  }
+
 }

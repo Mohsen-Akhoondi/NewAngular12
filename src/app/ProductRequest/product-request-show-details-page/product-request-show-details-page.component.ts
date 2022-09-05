@@ -1312,62 +1312,62 @@ export class ProductRequestShowDetailsPageComponent implements OnInit {
         this.ConsultantSelectTypeParams.selectedObject = this.ProductRequestObject.ConsultantSelectTypeCode;
         this.ConsultantSelectedWayParams.selectedObject = this.ProductRequestObject.ConsultantSelectedWayCode;
       });
-    if (this.PopupParam.ModuleViewTypeCode === 118) {
-      this.ShowContractorDetails = true;
-    }
-    if (this.PopupParam.ModuleViewTypeCode === 69) {
-      this.IsDisable = true;
-      this.IsEditable = false;
-      this.IsSupplierEditable = true;
-      this.HasSupplierSave = true;
-    }
-    if (this.PopupParam.ModuleViewTypeCode !== 146
-      && this.PopupParam.ModuleViewTypeCode !== 150) {
-      this.ShowProvisionRep = true;
-    }
-    this.ProductRequestObject.ProductRequestItemList.forEach(element => {
-      if (element.ProductRequestEstimateList) {
-        this.HaveEstiamte = true;
+    if (this.ProductRequestObject && this.ProductRequestObject.ProductRequestTypeCode
+      && this.ProductRequestObject.ProductRequestTypeCode !== 3) { // RFC 62290
+      this.ProductRequest.HasProductRequestEstimate(this.ProductRequestObject.CostFactorID).subscribe(res => {
+        if (res) {
+          this.HasTripleReport = true;
+        }
+      });
+      if (this.PopupParam.ModuleViewTypeCode === 118) {
+        this.ShowContractorDetails = true;
       }
-      if (element.RequestPersonEstimateList) {
-        this.HaveConsultation = true;
+      if (this.PopupParam.ModuleViewTypeCode === 69) {
+        this.IsDisable = true;
+        this.IsEditable = false;
+        this.IsSupplierEditable = true;
+        this.HasSupplierSave = true;
       }
-    });
-    if (this.ProductRequestObject.IsBaselineScrolling != null) {
-      this.IsBaselineScrolling = this.ProductRequestObject.IsBaselineScrolling;
-    }
-    if (this.ProductRequestObject.ContractTypeCode === 19) { // RFC 51439
-      this.IsEditable = false;
-      this.SupplierTabPanelHeight = 90;
-      this.IsContractType19 = true;
-      this.ISErrorBilldingSetting = true;
-    }
+      if (this.PopupParam.ModuleViewTypeCode !== 146
+        && this.PopupParam.ModuleViewTypeCode !== 150) {
+        this.ShowProvisionRep = true;
+      }
+      this.ProductRequestObject.ProductRequestItemList.forEach(element => {
+        if (element.ProductRequestEstimateList) {
+          this.HaveEstiamte = true;
+        }
+        if (element.RequestPersonEstimateList) {
+          this.HaveConsultation = true;
+        }
+      });
+      if (this.ProductRequestObject.IsBaselineScrolling != null) {
+        this.IsBaselineScrolling = this.ProductRequestObject.IsBaselineScrolling;
+      }
+      if (this.ProductRequestObject.ContractTypeCode === 19) { // RFC 51439
+        this.IsEditable = false;
+        this.SupplierTabPanelHeight = 90;
+        this.IsContractType19 = true;
+        this.ISErrorBilldingSetting = true;
+      }
 
-    if (this.PopupParam.ModuleViewTypeCode === 400000 ||
-      this.PopupParam.ModuleViewTypeCode === 500000) {
-      this.TabRahbari = true;
-      this.QuestionLabel = 'آیا شرکت کننده ای وجود دارد ؟';
-      this.WinnerQuestion = 'آیا مناقصه عمومی برنده دارد؟';
-      this.ReNewQuestion = 'درخواست تجدید شود؟';
-      if (this.ProductRequestObject.LastInquiryObject.IsReturn != null) {
-        this.IsLawful = !this.ProductRequestObject.LastInquiryObject.IsReturn;
-      } else {
-        this.IsLawful = true;
-      }
-      // tslint:disable-next-line: max-line-length
-      this.ProductRequestObject.HaveWinner !== null ? this.IsYes = this.ProductRequestObject.HaveWinner : this.IsYes = true;
-      if (this.ProductRequestObject.IsRenewal != null) {
-        this.IsRenewal = this.ProductRequestObject.IsRenewal;
-      } else {
-        this.IsRenewal = true;
-      }
-      if (this.ProductRequestObject && this.ProductRequestObject.ProductRequestTypeCode
-        && this.ProductRequestObject.ProductRequestTypeCode !== 3) { // RFC 62290
-        this.ProductRequest.HasProductRequestEstimate(this.ProductRequestObject.CostFactorID).subscribe(res => {
-          if (res) {
-            this.HasTripleReport = true;
-          }
-        });
+      if (this.PopupParam.ModuleViewTypeCode === 400000 ||
+        this.PopupParam.ModuleViewTypeCode === 500000) {
+        this.TabRahbari = true;
+        this.QuestionLabel = 'آیا شرکت کننده ای وجود دارد ؟';
+        this.WinnerQuestion = 'آیا مناقصه عمومی برنده دارد؟';
+        this.ReNewQuestion = 'درخواست تجدید شود؟';
+        if (this.ProductRequestObject.LastInquiryObject.IsReturn != null) {
+          this.IsLawful = !this.ProductRequestObject.LastInquiryObject.IsReturn;
+        } else {
+          this.IsLawful = true;
+        }
+        // tslint:disable-next-line: max-line-length
+        this.ProductRequestObject.HaveWinner !== null ? this.IsYes = this.ProductRequestObject.HaveWinner : this.IsYes = true;
+        if (this.ProductRequestObject.IsRenewal != null) {
+          this.IsRenewal = this.ProductRequestObject.IsRenewal;
+        } else {
+          this.IsRenewal = true;
+        }
       }
     }
   }
@@ -2538,7 +2538,10 @@ export class ProductRequestShowDetailsPageComponent implements OnInit {
     this.MinHeightPixel = 200;
     this.PopupParam = {
       HeaderName: 'ورود اطلاعات پایه پیش نویس کمیسیون',
-      ProductRequestObject: this.ProductRequestObject
+      ProductRequestObject: this.ProductRequestObject,
+      OrderCommitionID: this.ProductRequestObject.LastInquiryObject && this.ProductRequestObject.LastInquiryObject.OrderCommitionObject
+        && this.ProductRequestObject.LastInquiryObject.OrderCommitionObject.OrderCommitionID > 0
+        ? this.ProductRequestObject.LastInquiryObject.OrderCommitionObject.OrderCommitionID : null,
     };
   }
 }

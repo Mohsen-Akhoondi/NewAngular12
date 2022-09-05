@@ -55,12 +55,14 @@ export class ContractSupervisionService {
 
     UpdateContractSupervision(ContractSupervision: any,
         ContractSupervisionItemList: any,
-        IsGreenSpace: boolean = null) {
+        IsGreenSpace: boolean = null,
+        IsOnUpdateMode: boolean = null) {
 
         return this.http.post(window.location.origin + '/ContractSupervision/UpdateContractSupervision', {
             ContractSupervision,
             ContractSupervisionItemList,
-            IsGreenSpace
+            IsGreenSpace,
+            IsOnUpdateMode
         }
         );
     }

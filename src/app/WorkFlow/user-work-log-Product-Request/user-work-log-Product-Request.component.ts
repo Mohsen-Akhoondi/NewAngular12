@@ -998,6 +998,13 @@ export class UserWorkLogProductRequestComponent implements OnInit {
   DisableRConnection = false;
   PercentWidth: number;
   PixelHeight: number;
+  CostFactorID: number;
+  ActorId;
+  IsOrderCommition: boolean;
+  Ckeckexceptions: boolean;
+  OrginalModuleCode: string;
+  IsCompleteContractInfoForSendClarification: boolean;
+  SetWinner: Boolean;
 
   constructor(private router: Router,
     private Workflow: WorkflowService,
@@ -1607,6 +1614,18 @@ export class UserWorkLogProductRequestComponent implements OnInit {
           break;
         case 8: // RFC 65570
           this.SendToBgt();
+          break;
+        case 9:
+          this.OnCallExternal();
+          break;
+        case 10:
+          this.onChangeContract();
+          break;
+        case 11:
+          this.onReturnCancel();
+          break;
+        case 12:
+          this.Mechanized();
           break;
         default:
           break;
@@ -4155,7 +4174,40 @@ export class UserWorkLogProductRequestComponent implements OnInit {
       }
     }
   }
-  OnCallExternalClick() { // RFC 52381
+  OnEditeClick() {
+    this.type = 'global-choose-page';
+    this.HaveHeader = true;
+    this.HaveMaxBtn = false;
+    this.OverPixelWidth = null;
+    this.startLeftPosition = 520;
+    this.startTopPosition = 220;
+    this.HeightPercentWithMaxBtn = null;
+    this.MinHeightPixel = null;
+    this.btnclicked = true;
+    this.paramObj = {
+      HeaderName: 'اصلاح اطلاعات',
+      RadioItems: [
+        {
+          title: ' تایید مجوز اصلاحیه',
+          type: 9
+        },
+        {
+          title: 'تغییر وضعیت قرارداد',
+          type: 10
+        },
+        {
+          title: 'بازگشت از ابطال درخواست',
+          type: 11
+        },
+        {
+          title: 'اجرای مکانیزه تشریفات',
+          type: 12
+        }
+      ]
+    };
+  }
+
+  OnCallExternal() { // RFC 52381
     this.type = 'global-choose-page';
     this.HaveHeader = true;
     this.HaveMaxBtn = false;
@@ -4596,4 +4648,26 @@ export class UserWorkLogProductRequestComponent implements OnInit {
       });
     }
   }
+  Mechanized() {
+    if (this.selectedRow == null) {
+      this.ShowMessageBoxWithOkBtn('ابتدا درخواست مورد نظر را انتخاب نمایید');
+    } else {
+      this.ProductRequest.CallAllMethod(
+        this.selectedRow.data.ProductRequestID,
+        true,
+        true,
+        null,
+        false,
+        true,
+        null).subscribe(res => {
+          if (res) {
+            this.ShowMessageBoxWithOkBtn('با موفقیت انجام شد');
+          } else {
+            this.ShowMessageBoxWithOkBtn('با خطا مواجه شد');
+          }
+        });
+    }
+
+  }
+
 }

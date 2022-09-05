@@ -2119,7 +2119,7 @@ export class CartableComponent implements OnInit {
             });
           }
         }
-        if (Value.data.WorkflowObjectCode === 28) {
+        if (Value.data.WorkflowObjectCode === 28) { // گزارش نظارت
           if (Value.data.WorkflowStatusCode === 1 || !Value.data.RelatedWorkflowLogID) {
             this.type = 'contract-supervision';
             this.HaveMaxBtn = true;

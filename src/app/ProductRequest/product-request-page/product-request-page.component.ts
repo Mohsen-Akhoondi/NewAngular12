@@ -2827,7 +2827,8 @@ export class ProductRequestPageComponent implements OnInit {
         this.ProductRequest.GetActLocationByRegionCode(ProdReqObj.RegionCode),
         this.ProductRequest.GetCostCenterByRegionAndRequestOwner(ProdReqObj.RegionCode,
           ProdReqObj.SubCostCenterObject ? ProdReqObj.SubCostCenterObject.CostCenterId : null, this.ModuleCode, false),
-        this.ProductRequest.GetListByCostCenterId(ProdReqObj.SubCostCenterObject.CostCenterId, this.ModuleCode, true, ProdReqObj.SubCostCenterObject.CostCenterObject.RegionCode),
+        this.ProductRequest.GetListByCostCenterId(ProdReqObj.SubCostCenterObject.CostCenterId, this.ModuleCode, true,
+          ProdReqObj.SubCostCenterObject.CostCenterObject? ProdReqObj.SubCostCenterObject.CostCenterObject.RegionCode:ProdReqObj.RegionCode),
         this.ProductRequest.GetCostCenterByRegion(ProdReqObj.RegionCode,
           ProdReqObj.ContractStackHolderObject ? ProdReqObj.ContractStackHolderObject.CostCenterId : null, this.ModuleCode, false)
       ]).subscribe((res: any) => {
@@ -5346,7 +5347,10 @@ export class ProductRequestPageComponent implements OnInit {
               this.HaveCommition =
               this.HaveDigitalSign = true;
             if (this.ProductRequestObject.RegionCode >= 1 && this.ProductRequestObject.RegionCode <= 22 &&
-              this.ProductRequestObject.SubCostCenterObject.CostCenterObject.CostCenterCode !== '09') { // خدمات شهری نباشد
+                (this.ProductRequestObject.SubCostCenterObject.CostCenterObject.CostCenterCode !== '09' ||
+                (this.ProductRequestObject.SubCostCenterObject.CostCenterObject.CostCenterCode == '09'
+                   && this.ProductRequestObject.ContractTypeCode && this.ProductRequestObject.ContractTypeCode == 4))
+            ) { // خدمات شهری نباشد
               this.HaveArticle18DigitalSign = true;
             }
             this.CheckPDFSignersInfo();

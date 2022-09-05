@@ -2415,6 +2415,7 @@ export class ProductRequestSuggestionComponent implements OnInit {
                   ItemNo: ++ItemNo,
                   PriceListPatternID: item.PriceListPatternID,
                   Qty: item.Qty,
+                  Coef: item.Coef,
                   Amount: item.Amount,
                   RelatedPriceListPatternID: item.RelatedPriceListPatternID ? item.RelatedPriceListPatternID : null,
                   EntityTypeItemIDList: EntityTypeItemIDList,

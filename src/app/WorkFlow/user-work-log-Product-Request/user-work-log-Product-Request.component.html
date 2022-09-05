@@ -20,7 +20,7 @@
                 <app-ng-select-virtual-scroll [multiple]="IsCollective"
                   style="display: inline-block;width: 58%; min-height: 25;" [NgSelectParams]="NgSelectRegionParams"
                   (selectedChange)="onChangeReigonObj($event)" [Items]="ReigonListSet">
-                </app-ng-select-virtual-scroll>                                         
+                </app-ng-select-virtual-scroll>
               </td>
               <td *ngIf="IsShowMultipeRegion" width="19%">
                 <span class="table-cell-Lable">واحد اجرایی</span>
@@ -32,7 +32,7 @@
                   (PrettyCheckBoxChange)="OnChangeCheckBoxValue($event,'Select22َArea')" title="انتخاب مناطق 22 گانه"
                   [isSelected]="Select22Area">
                 </app-custom-check-box>
-              </td>             
+              </td>
               <td width="19%">
                 <span class="table-cell-Lable">محل هزینه</span>
                 <app-ng-select-virtual-scroll (Open)="OnOpenNgSelect('ExeUnit')"
@@ -102,7 +102,8 @@
               <td width="19%">
                 <span class="table-cell-Lable">نوع درخواست</span>
                 <app-ng-select-virtual-scroll style="display: inline-block;width: 57%;"
-                  [NgSelectParams]="RequestTypesParams" [Items]="RequestTypes" [Disabled]="IsEstateSearch || IsRepSearch">
+                  [NgSelectParams]="RequestTypesParams" [Items]="RequestTypes"
+                  [Disabled]="IsEstateSearch || IsRepSearch">
                 </app-ng-select-virtual-scroll>
               </td>
               <td width="24%">
@@ -439,17 +440,17 @@
                   [NgSelectParams]="RenewedtenderParams" [Items]="RenewedtenderItems" [Disabled]="!Renewedtender">
                 </app-ng-select-virtual-scroll>
               </td>
-              <td width="25%" >
-                <span  class="table-cell-Lable">امضا دیجیتال</span>
+              <td width="25%">
+                <span class="table-cell-Lable">امضا دیجیتال</span>
                 <app-ng-select-virtual-scroll style="display: inline-block;width:60%;"
                   (Open)="OnOpenNgSelect('CommitionMember')" [NgSelectParams]="CommitionMemberParams"
                   [Items]="CommitionMemberItems" [multiple]="true" (doSearch)="CommitionMemberSearch($event)">
                 </app-ng-select-virtual-scroll>
               </td>
-              <td width="25%" >
-                <span class="table-cell-Lable" style="vertical-align: super" >حد معامله </span>
+              <td width="25%">
+                <span class="table-cell-Lable" style="vertical-align: super">حد معامله </span>
                 <app-ng-select-virtual-scroll style="display: inline-block;width: 56%;"
-                (Open)="OnOpenNgSelect('DealType')"   [NgSelectParams]="DealTypeParams" [Items]="DealTypeItems">
+                  (Open)="OnOpenNgSelect('DealType')" [NgSelectParams]="DealTypeParams" [Items]="DealTypeItems">
                 </app-ng-select-virtual-scroll>
             </tr>
             <tr *ngIf="ModuleCode === 2756">
@@ -460,8 +461,8 @@
               </td>
               <td width="25%">
                 <span style="vertical-align: super" class="table-cell-Lable">سال مالی تامین</span>
-                <app-ng-select-virtual-scroll style="display: inline-block;width: 60%;" [NgSelectParams]="ProvisionFinYearParams"
-                  [Items]="ProvisionFinYearItems" [multiple]="true">
+                <app-ng-select-virtual-scroll style="display: inline-block;width: 60%;"
+                  [NgSelectParams]="ProvisionFinYearParams" [Items]="ProvisionFinYearItems" [multiple]="true">
                 </app-ng-select-virtual-scroll>
               </td>
             </tr>
@@ -521,7 +522,8 @@
             <img width="15px" height="15px" src="assets/Icons/Search.png" />
             جستجو به خلاصه
           </button>
-          <button *ngIf="true" [disabled]="IsRepSearch"  title="در این جستجو به ازای هر مرحله ی قرارداد یک سطر نمایش داده می شود" type="submit"
+          <button *ngIf="true" [disabled]="IsRepSearch"
+            title="در این جستجو به ازای هر مرحله ی قرارداد یک سطر نمایش داده می شود" type="submit"
             (click)="partialSearch()" style="width: 150px;height: 30px;"
             class="select-general-for-lable btn-gray-border btn btn-primary btnGreen">
             <img width="15px" height="15px" src="assets/Icons/Search.png" />
@@ -548,7 +550,8 @@
   </div>
 </div>
 <div class="buttons-place" style="margin: unset;">
-  <button (click)="BtnClick()" *ngIf="!ShowIsCleared" [disabled]="!ClearedToViewFlow" id="btn4" class="btn btn-primary btnGreen">
+  <button (click)="BtnClick()" *ngIf="!ShowIsCleared" [disabled]="!ClearedToViewFlow" id="btn4"
+    class="btn btn-primary btnGreen">
     <img width="15px" height="15px" src="assets/Icons/show.png" />
     جزئیات گردش
   </button>
@@ -569,15 +572,17 @@
     class="btn btn-primary btnGreen">
     <img width="15px" height="15px" src="assets/Icons/Upload.png" />
     ارسال به کنترل پروژه</button> -->
-    <button *ngIf="!ShowIsHasContact"   [disabled]="!HasContract" (click)="BtnShowHasContract()" class="btn btn-primary btnGreen">
-      <img width="15px" height="15px" src="assets/Icons/show.png" />
-      درخواست های مرتبط
-    </button>
+  <button *ngIf="!ShowIsHasContact" [disabled]="!HasContract" (click)="BtnShowHasContract()"
+    class="btn btn-primary btnGreen">
+    <img width="15px" height="15px" src="assets/Icons/show.png" />
+    درخواست های مرتبط
+  </button>
   <button (click)="BtnShowLetters()" *ngIf="!ShowIsShowLetters" class="btn btn-primary btnGreen">
     <img width="15px" height="15px" src="assets/Icons/show.png" />
-   نامه های متصل به درخواست 
+    نامه های متصل به درخواست
   </button>
-  <button *ngIf="ModuleCode === 2793 && DisableRConnection" (click)="ResearcherDisconnect()" class="btn btn-primary btnGreen">
+  <button *ngIf="ModuleCode === 2793 && DisableRConnection" (click)="ResearcherDisconnect()"
+    class="btn btn-primary btnGreen">
     <img width="15px" height="15px" src="assets/Icons/delete.png" />
     قطع ارتباط پژوهشی
   </button>
@@ -586,20 +591,25 @@
     چاپ
   </button>
   <button *ngIf="ShowExternalService || ExternalServiceRole1253" (click)="OnCallExternalServiceClick()" id="btn2"
-  class="btn btn-primary btnGreen">
-  <img width="15px" height="15px" src="assets/Icons/Upload.png" /> ارسال به سامانه ها
-</button>
-<button *ngIf="ShowIsOver15" (click)="OnCallExternalClick()" id="btn2" class="btn btn-primary btnGreen">
-  <img width="15px" height="15px" src="assets/Icons/Upload.png" /> تایید مجوز 
-</button>
-<button (click)="onChangeContract()" id="btn5" class="btn btn-primary btnGreen" [disabled]="!IsAdmin">
-  <img width="15px" height="15px" src="assets/Icons/Upload.png" />
- تغییر وضعیت قرارداد
-</button>
-<button (click)="onReturnCancel()" id="btn5" class="btn btn-primary btnGreen">
-  <img width="15px" height="15px" src="assets/Icons/DisApprove.png" />
- بازگشت از ابطال درخواست
-</button>
+    class="btn btn-primary btnGreen">
+    <img width="15px" height="15px" src="assets/Icons/Upload.png" /> ارسال به سامانه ها
+  </button>
+
+  <button (click)="OnEditeClick()" id="btn2" class="btn btn-primary btnGreen">
+    <img width="15px" height="15px" src="assets/Icons/Upload.png" /> اصلاح اطلاعات
+  </button>
+
+  <!-- <button *ngIf="ShowIsOver15" (click)="OnCallExternalClick()" id="btn2" class="btn btn-primary btnGreen">
+    <img width="15px" height="15px" src="assets/Icons/Upload.png" /> تایید مجوز
+  </button> -->
+  <!-- <button (click)="onChangeContract()" id="btn5" class="btn btn-primary btnGreen" [disabled]="!IsAdmin">
+    <img width="15px" height="15px" src="assets/Icons/Upload.png" />
+    تغییر وضعیت قرارداد
+  </button> -->
+  <!-- <button (click)="onReturnCancel()" id="btn5" class="btn btn-primary btnGreen">
+    <img width="15px" height="15px" src="assets/Icons/DisApprove.png" />
+    بازگشت از ابطال درخواست
+  </button> -->
   <!-- <button *ngIf="ShowProductRequest || ShowProductRequestBtn" [disabled]="IsDisableShowProductRequest"
     (click)="BtnShowProductRequest()" class="btn btn-primary btnGreen">
     <img width="15px" height="15px" src="assets/Icons/show.png" />
@@ -617,7 +627,7 @@
     class="btn btn-primary btnGreen">
     <img width="15px" height="15px" src="assets/Icons/show.png" />
     تایید مجوز الحاقیه</button> -->
-    
+
   <!-- <button id="btnDel" class="btn btn-primary btnGreen" (click)="onDeleteclick()">
     <img width="15px" height="15px" src="assets/Icons/delete.png" />
     حذف
@@ -643,8 +653,7 @@
   [startTopPosition]="startTopPosition" [minHeightPixel]="type === 'message-box' ? '' : MinHeightPixel"
   [PopupType]="type" [HeightPercentWithMaxBtn]="type === 'message-box' ? '' : HeightPercentWithMaxBtn"
   [PopupParam]="type === 'message-box' ? alertMessageParams : paramObj" [HaveHeader]="HaveHeader"
-  [PixelHeight] = "PixelHeight ? PixelHeight : ''" 
-  [PixelWidth]="type === 'message-box'? '' : OverPixelWidth"
+  [PixelHeight]="PixelHeight ? PixelHeight : ''" [PixelWidth]="type === 'message-box'? '' : OverPixelWidth"
   [MainMaxwidthPixel]="type === 'message-box'? '' : OverPixelWidth" (popupclosed)="popupclosed($event)"
   (PopupOutPutParam)="type ==='message-box' ? MessageBoxAction($event) : getOutPutParam($event)">
 </app-over-popup>

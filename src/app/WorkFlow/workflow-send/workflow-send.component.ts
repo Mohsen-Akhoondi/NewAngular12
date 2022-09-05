@@ -529,7 +529,7 @@ export class WorkflowSendComponent implements OnInit {
         this.MainMinwidthPixel = 1215;
       }
       if (this.InputParam.CurrWorkFlow &&
-        (this.InputParam.CurrWorkFlow.WorkflowObjectCode === 28)){
+        (this.InputParam.CurrWorkFlow.WorkflowObjectCode === 28)) {
         this.PopUptype = 'contract-supervision';
         this.startLeftPosition = 50;
         //this.PercentWidth = 90;

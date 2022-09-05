@@ -6210,7 +6210,7 @@ export class Corporate2Component implements OnInit {
     if (this.btnConfirmName === 'عدم تایید') {
       this.ModuleViewTypeCode = 2;
     }
-    console.log('🚀 نوع نمایش فعالیت: ' , this.ModuleViewTypeCode);
+    console.log('🚀 نوع نمایش فعالیت: ', this.ModuleViewTypeCode);
     switch (this.ModuleViewTypeCode) {
       case 1:
         this.IsEditable = true;

@@ -217,7 +217,7 @@ export class ProductRequestInvestArchiveComponent implements OnInit {
   HasCommition: boolean = false;
   BaseShareValue;
   CopartnerShareValue;
-  EconomicProfit;
+  EconomicProfitAmount;
   ExtraModeBtn = false;
   ExtraMode = false;
   ProductRequestInvestID: any;
@@ -974,8 +974,6 @@ export class ProductRequestInvestArchiveComponent implements OnInit {
   }
 
   ViewTypeChange() {
-    console.log("this.ModuleViewTypeCode", this.ModuleViewTypeCode);
-
     switch (this.ModuleViewTypeCode) {
       case 1: //ثبت
         this.ExtraModeBtn = true;
@@ -1218,7 +1216,8 @@ export class ProductRequestInvestArchiveComponent implements OnInit {
     });
     this.ProductRequest.GetProductRequestInvest(this.CostFactorID).subscribe(res => {
       if (res) {
-        this.EconomicProfit = res.EconomicProfit;
+       
+        this.EconomicProfitAmount = res.EconomicProfit;
         this.BaseShareValue = res.BaseShareValue;
         this.ProductRequestInvestID = res.ProductRequestInvestID;
         if (this.ModuleViewTypeCode != 10) {
@@ -1918,12 +1917,11 @@ export class ProductRequestInvestArchiveComponent implements OnInit {
   }
 
   SaveExtraInfo() {
-
     const ProductRequestInvestObj = {
       ProductRequestInvestID: this.ProductRequestInvestID ? this.ProductRequestInvestID : -1,
       CostFactorID: this.CostFactorID,
       InvestTypeCode: this.InvestTypeParams.selectedObject ? this.InvestTypeParams.selectedObject : 3,
-      EconomicProfit: this.EconomicProfit ? this.EconomicProfit : null,
+      EconomicProfit: this.EconomicProfitAmount ? this.EconomicProfitAmount : null,
       BaseShareValue: this.BaseShareValue,
     };
     const RequestInvestUsageTypeList = [];
@@ -1943,8 +1941,8 @@ export class ProductRequestInvestArchiveComponent implements OnInit {
     });
   }
 
-  EconomicProfitChange(event) {
-    this.EconomicProfit = event;
+  EconomicProfitAmountChange(event) {
+    this.EconomicProfitAmount = event;
   }
 
 

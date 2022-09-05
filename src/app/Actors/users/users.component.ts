@@ -183,6 +183,7 @@ export class UsersComponent implements OnInit {
   PixelWidth: number;
   IsWFSendSms = true;
   ModuleCode;
+  HaveSave = false;
   // -------------------------------------------------------------------
 
   constructor(private UserDetails: UserSettingsService,
@@ -192,7 +193,8 @@ export class UsersComponent implements OnInit {
     private Region: RegionListService,
     private ProductRequest: ProductRequestService,
     private ContractList: ContractListService,
-    private route: ActivatedRoute) {
+    private route: ActivatedRoute,
+    ) {
     this.route.params.subscribe(params => {
       this.ModuleCode = +params['ModuleCode'];
     });
@@ -404,6 +406,19 @@ export class UsersComponent implements OnInit {
   }
 
   ngOnInit() {
+      this.UserDetails.GetModulOPByUser(this.ModuleCode).subscribe(res => {
+        res.forEach(node => {
+          switch (node.OperationCode) {
+            case 7:
+            case 16:
+              this.HaveSave = true;
+              break;
+            default:
+              break;
+          }
+        });
+
+      });
     this.UnitPatternUserRegion_rowData = [];
     this.UserCostCenter_rowData = [];
     this.Role_rowData = [];

@@ -67,9 +67,10 @@
       </tr>
       <tr>
         <td width="25%">
+          <span style="color: red;">*</span>
           <span class="table-cell-Lable">جدول</span>
           <app-ng-select-virtual-scroll style="display: inline-block;min-width: 75%" [NgSelectParams]="TablesParams"
-            [Items]="TablesDataList">
+            [Items]="TablesDataList" [CheckValidate]="CheckValidate">
           </app-ng-select-virtual-scroll>
         </td>
         <td width="25%">
@@ -99,9 +100,7 @@
   </div>
 </div>
 
-<!-- <app-over-popup *ngIf="btnclicked" [HaveMaxBtn]="HaveMaxBtn" [startLeftPosition]="startLeftPosition"
-  [startTopPosition]="startTopPosition" [minHeightPixel]="MinHeightPixel" [MainMaxwidthPixel]="MainMaxwidthPixel"
-  [PopupType]="type" [HeightPercentWithMaxBtn]="HeightPercentWithMaxBtn"
-  [PopupParam]="type === 'message-box' ? alertMessageParams : paramObj" [HaveHeader]="HaveHeader"
-  (popupclosed)="popupclosed($event)" (PopupOutPutParam)="getOutPutParam($event)">
-</app-over-popup> -->
+<app-over-popup *ngIf="btnclicked" [HaveMaxBtn]="HaveMaxBtn" [PopupType]="type" [PopupParam]="alertMessageParams"
+  [HaveHeader]="HaveHeader" [startLeftPosition]="startLeftPosition" [startTopPosition]="startTopPosition"
+  (popupclosed)="popupclosed($event)">
+</app-over-popup>

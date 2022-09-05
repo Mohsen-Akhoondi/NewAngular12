@@ -12,7 +12,7 @@ import { NumberInputComponentComponent } from 'src/app/Shared/CustomComponent/In
 import { NgSelectVirtualScrollComponent } from 'src/app/Shared/ng-select-virtual-scroll/ng-select-virtual-scroll.component';
 import { ProductRequestService } from 'src/app/Services/ProductRequest/ProductRequestService';
 import { RefreshServices } from 'src/app/Services/BaseService/RefreshServices';
-import { isNullOrUndefined, isUndefined } from 'util';
+import { isNullOrUndefined } from 'util';
 import { ServicePatternService } from 'src/app/Services/CRM/ServicePatternService';
 import { WorkflowService } from 'src/app/Services/WorkFlowService/WorkflowServices';
 import { CommonServices } from 'src/app/Services/BaseService/CommonServices';
@@ -219,15 +219,14 @@ export class ContractSupervisionComponent implements OnInit {
         headerName: 'ردیف',
         field: 'ItemNo',
         width: 50,
-        resizable: true
+        resizable: true,
       },
       {
-        headerName: 'ویژگی ',
+        headerName: 'ویژگی',
         field: 'EntitySubject',
         width: 150,
         resizable: true,
         editable: false,
-
       },
       {
         headerName: 'اهمیت وزنی',
@@ -237,17 +236,28 @@ export class ContractSupervisionComponent implements OnInit {
         editable: false,
       },
       {
-        headerName: 'درصد اعمال',
+        // به درخواست خانم شیرخورشیدی نمایش داده نشود
+        headerName: 'درصد پیمانکار',
         field: 'EntityItemSubject',
         width: 150,
-        editable: this.PopupParam.ModuleViewTypeCode === 3 ? false :
-                  this.PopupParam && !isNullOrUndefined(this.PopupParam.IsViewable) ? !this.PopupParam.IsViewable : true,
+        hide: true,
+        editable: (params) => {
+          if (this.PopupParam.ModuleViewTypeCode === 3) {
+            return false;
+          } else if (params.data.HasNoItem) {
+            return false;
+          } else if (this.PopupParam && this.PopupParam.IsViewable !== undefined && this.PopupParam.IsViewable !== null) {
+            return !this.PopupParam.IsViewable;
+          } else {
+            return true;
+          }
+        },
         resizable: true,
         cellEditorFramework: NgSelectVirtualScrollComponent,
         cellEditorParams: {
           Params: this.NgSelectProductEntityItemParams,
           Items: [],
-          Owner: this
+          Owner: this,
         },
         cellRenderer: 'SeRender',
         valueFormatter: function currencyFormatter(params) {
@@ -270,25 +280,126 @@ export class ContractSupervisionComponent implements OnInit {
         },
       },
       {
-        headerName: 'درصد ناظر',
-        field: 'Value',
+        // oldHeaderName: 'مقدار پیمانکار'
+        // به درخواست خانم شیرخورشیدی نام این ستون تغییر کرد
+        headerName: 'درصد پیمانکار',
+        field: 'ContractorValue',
         width: 150,
-        HaveThousand: true,
+        HaveThousand: false,
         resizable: true,
-        editable: true,
-        hide: this.PopupParam.ModuleViewTypeCode !== 3,
+        editable: (params) => {
+          if (this.PopupParam.ModuleViewTypeCode === 3) {
+            return false;
+          } else if (!params.data.HasNoItem) {
+            return false;
+          } else if (this.PopupParam && this.PopupParam.IsViewable !== undefined && this.PopupParam.IsViewable !== null) {
+            return !this.PopupParam.IsViewable;
+          } else {
+            return true;
+          }
+        },
         cellEditorFramework: NumberInputComponentComponent,
+        cellEditorParams: { IsFloat: true, MaxLength: 5, FloatMaxLength: 2 },
+        cellRenderer: 'SeRender',
+        valueFormatter: function currencyFormatter(params) {
+          if (params.value && parseFloat(params.value) <= 100) {
+            return params.value;
+          } else if (params.value && parseFloat(params.value) > 100) {
+            return 100;
+          } else {
+            return '';
+          }
+        },
+        valueSetter: (params) => {
+          if (params.newValue) {
+            // tslint:disable-next-line: radix
+            params.data.ContractorValue = params.newValue;
+          }
+        },
+      },
+      {
+        // به درخواست خانم شیرخورشیدی نمایش داده نشود
+        headerName: 'درصد ناظر',
+        field: 'SupervisorEntityItemSubject',
+        width: 120,
+        hide: true,
+        editable: (params) => {
+          if (this.PopupParam.ModuleViewTypeCode === 3 && params.data.HasNoItem) {
+            return false;
+          } else if (this.PopupParam && this.PopupParam.IsViewable !== undefined && this.PopupParam.IsViewable !== null) {
+            if (params.data.HasNoItem) {
+              return false;
+            } else {
+              return !this.PopupParam.IsViewable;
+            }
+          } else {
+            return true;
+          }
+        },
+        resizable: true,
+        cellEditorFramework: NgSelectVirtualScrollComponent,
+        cellEditorParams: {
+          Params: this.NgSelectProductEntityItemParams,
+          Items: [],
+          Owner: this,
+        },
         cellRenderer: 'SeRender',
         valueFormatter: function currencyFormatter(params) {
           if (params.value) {
+            return params.value.EntityItemSubject;
+          } else {
+            return '';
+          }
+        },
+        valueSetter: (params) => {
+          if (params.newValue && params.newValue.Subject) {
+            params.data.SupervisorEntityTypeItemID = params.newValue.EntityTypeItemID;
+            params.data.SupervisorEntityItemSubject = params.newValue.Subject;
+            return true;
+          } else {
+            params.data.EntityTypeItemID = null;
+            params.data.EntityItemSubject = '';
+            return false;
+          }
+        },
+      },
+      {
+        // oldHeaderName: 'مقدار ناظر'
+        // به درخواست خانم شیرخورشیدی نام این ستون تغییر کرد
+        headerName: 'درصد ناظر',
+        field: 'SupervisorValue',
+        width: 120,
+        HaveThousand: false,
+        resizable: true,
+        editable: (params) => {
+          if (this.PopupParam.ModuleViewTypeCode === 3 && params.data.HasNoItem) {
+            return true;
+          } else if (this.PopupParam && this.PopupParam.IsViewable !== undefined && this.PopupParam.IsViewable !== null) {
+            if (params.data.HasNoItem) {
+              return true;
+            } else {
+              return !this.PopupParam.IsViewable;
+            }
+          } else {
+            return true;
+          }
+        },
+        hide: this.PopupParam.ModuleViewTypeCode !== 3 && this.PopupParam.ModuleViewTypeCode !== 100000,
+        cellEditorFramework: NumberInputComponentComponent,
+        cellEditorParams: { IsFloat: true, MaxLength: 5, FloatMaxLength: 2 },
+        cellRenderer: 'SeRender',
+        valueFormatter: function currencyFormatter(params) {
+          if (params.value && parseFloat(params.value) <= 100) {
             return params.value;
+          } else if (params.value && parseFloat(params.value) > 100) {
+            return 100;
           } else {
             return '';
           }
         },
       },
     ];
-      }
+  }
 
   ngOnInit() {
     this.ContractSupervisionItemList = [];
@@ -303,6 +414,7 @@ export class ContractSupervisionComponent implements OnInit {
       if (this.PopupParam.ModuleViewTypeCode === 100000) {
         this.ModuleCode = 2654;
       }
+      console.log('🚀 ~ نوع نمایش فعالیت: ', this.ModuleViewTypeCode);
 
       if (this.CurrWorkFlow) {
         this.ReadyToConfirm = this.CurrWorkFlow.ReadyToConfirm;
@@ -316,6 +428,7 @@ export class ContractSupervisionComponent implements OnInit {
         this.MinimumPosting = this.CurrWorkFlow.MinimumPosting;
         this.ModuleCode = this.OrginalModuleCode = 2654;
         this.RegionCode = this.CurrWorkFlow.RegionCode;
+        this.PopupParam.SelectedContractID = this.CurrWorkFlow.ContractID;
       }
     }
 
@@ -441,7 +554,7 @@ export class ContractSupervisionComponent implements OnInit {
       this.ContractPayItemList.forEach(CPItem => {
         if (CPItem.CnrtSupervisionItemEntityItemList != null && CPItem.CnrtSupervisionItemEntityItemList.length > 0) {
           CPItem.CnrtSupervisionItemEntityItemList.forEach(CSIEntityItem => {
-            if (CSIEntityItem.EntityItemSubject) {
+            if (CSIEntityItem.EntityTypeItemID && CSIEntityItem.ContractorValue) {
               CPItem.HaveEntityItemSubject = true;
             }
           });
@@ -459,7 +572,7 @@ export class ContractSupervisionComponent implements OnInit {
 
 
     });
-    new Promise((StartedWFResolve, reject) => { 
+    new Promise((StartedWFResolve, reject) => {
       this.SetStartedWFInfo(StartedWFResolve);
     }).then(() => {
       this.ViewTypeChange();
@@ -496,7 +609,7 @@ export class ContractSupervisionComponent implements OnInit {
     if (ADate.FullDate !== '' && !this.EditModeInit) {
       this.ContractSupervisionDate = ADate.MDate;
       if (this.IsGreenSpaceDevAndMaint) {
-        this.SPService.GetServicePatternItemList(482, null).subscribe(res => {
+        this.SPService.GetServicePatternItemList(482, null, true).subscribe(res => {
           this.ContractPayItemList = res;
         });
       } else {
@@ -560,19 +673,22 @@ export class ContractSupervisionComponent implements OnInit {
         if (event.data.CnrtSupervisionItemEntityItemList != null && event.data.CnrtSupervisionItemEntityItemList.length > 0) {
           this.ProdReqEntList = event.data.CnrtSupervisionItemEntityItemList;
           this.ProdReqEntList.forEach(ProdReqEnt => {
-           ProdReqEnt.Value = ProdReqEnt.Value ? ProdReqEnt.Value : ProdReqEnt.EntityItemSubject ;
-            // tslint:disable-next-line: radix
-            if ((parseInt(ProdReqEnt.Value) === parseInt(ProdReqEnt.EntityItemSubject)) && this.PopupParam.ModuleViewTypeCode === 3) {
+            if (ProdReqEnt.SupervisorEntityTypeItemID &&
+              // tslint:disable-next-line: radix
+              (parseInt(ProdReqEnt.SupervisorEntityTypeItemID) === parseInt(ProdReqEnt.EntityItemID))
+              && this.PopupParam.ModuleViewTypeCode === 3) {
               ProdReqEnt.HaveEntityItemSubjectValue = true;
             }
-             });
+            if (ProdReqEnt.SupervisorValue &&
+              (parseFloat(ProdReqEnt.SupervisorValue) === parseFloat(ProdReqEnt.ContractorValue))
+              && this.PopupParam.ModuleViewTypeCode === 3) {
+              ProdReqEnt.HaveEntityItemSubjectValue = true;
+            }
+          });
         } else {
           this.ConSupervisionService.GetPREntityList(this.SelectedProductID).subscribe((res: any) => {
             if (res) {
               this.ProdReqEntList = res;
-              this.ProdReqEntList.forEach(PREntity => {
-                PREntity.Value = null;
-              });
             }
           });
         }
@@ -700,24 +816,22 @@ export class ContractSupervisionComponent implements OnInit {
     let ContractSupervisionItemList = [];
     let EntityTypeItemIDList = [];
     let CnrtSupervisionItemEntityList = [];
-    let keepGoing = true;
+
     this.gridApi.forEachNode(node => {
       if (this.IsGreenSpaceDevAndMaint) {
         this.PREntgridApi.stopEditing();
         if (node.data.CnrtSupervisionItemEntityItemList) {
           node.data.CnrtSupervisionItemEntityItemList.forEach(item => {
-            if (keepGoing) {
-              if (!isNullOrUndefined(item.EntityTypeItemID) && item.EntityTypeItemID > 0) {
-                const CnrtSupervisionItemEntityObj = {
-                  EntityTypeItemID: item.EntityTypeItemID,
-                  Value: item.Value,
-                };
-                CnrtSupervisionItemEntityList.push(CnrtSupervisionItemEntityObj);
-              } else {
-                // tslint:disable-next-line: max-line-length
-                this.ShowMessageBoxWithOkBtn('درصد اعمال را برای تمام ردیف های خدمت' + ' ' + '"' + node.data.ProductName + '"' + ' ' + 'وارد نمایید.');
-                keepGoing = false;
-              }
+            if (item.EntityTypeItemID !== null && item.EntityTypeItemID !== undefined
+              && item.ContractorValue !== null && item.ContractorValue !== undefined) {
+              const CnrtSupervisionItemEntityObj = {
+                EntityTypeItemID: item.EntityTypeItemID,
+                ContractorValue: item.ContractorValue,
+                // در ثبت اولیه مقدار پیمانکار در کقدار ناظر بشیند
+                SupervisorEntityTypeItemID: item.EntityTypeItemID,
+                SupervisorValue: item.ContractorValue,
+              };
+              CnrtSupervisionItemEntityList.push(CnrtSupervisionItemEntityObj);
             }
           });
         }
@@ -768,16 +882,16 @@ export class ContractSupervisionComponent implements OnInit {
       Note: this.Note,
     };
 
-    if (keepGoing) {
-      this.ConSupervisionService.SaveContractSupervision(ContractSupervisionObj,
-        ContractSupervisionItemList, this.IsGreenSpaceDevAndMaint).subscribe(res => {
-          this.ShowMessageBoxWithOkBtn('ثبت با موفقیت انجام شد');
-          this.ChangeDetection = false;
-          this.PopupParam.Mode = 'EditMode';
-          this.CnrtSupervisionID = res;
-          this.EditModeNgInit();
-        });
-    }
+    this.ConSupervisionService.SaveContractSupervision(ContractSupervisionObj,
+      ContractSupervisionItemList, this.IsGreenSpaceDevAndMaint).subscribe(res => {
+        this.ShowMessageBoxWithOkBtn('ثبت با موفقیت انجام شد');
+        this.BTNsShow = false;
+        this.ChangeDetection = false;
+        this.PopupParam.Mode = 'EditMode';
+        this.CnrtSupervisionID = res;
+        this.EditModeNgInit();
+      });
+
   }
 
   UpdateContractSupervision() {
@@ -785,25 +899,21 @@ export class ContractSupervisionComponent implements OnInit {
     let ContractSupervisionItemList = [];
     let EntityTypeItemIDList = [];
     let CnrtSupervisionItemEntityList = [];
-    let keepGoing = true;
     this.gridApi.forEachNode(node => {
       if (this.IsGreenSpaceDevAndMaint) {
         this.PREntgridApi.stopEditing();
         if (node.data.CnrtSupervisionItemEntityItemList) {
           node.data.CnrtSupervisionItemEntityItemList.forEach(item => {
-            if (keepGoing) {
-              if (!isNullOrUndefined(item.EntityTypeItemID) && item.EntityTypeItemID > 0) {
-                const CnrtSupervisionItemEntityObj = {
-                  EntityTypeItemID: item.EntityTypeItemID,
-                  Value: item.Value,
-                };
-                CnrtSupervisionItemEntityList.push(CnrtSupervisionItemEntityObj);
-
-              } else {
-                // tslint:disable-next-line: max-line-length
-                this.ShowMessageBoxWithOkBtn('درصد اعمال را برای تمام ردیف های خدمت' + ' ' + '"' + node.data.ProductName + '"' + ' ' + 'وارد نمایید.');
-                keepGoing = false;
-              }
+            if (item.EntityTypeItemID !== null && item.EntityTypeItemID !== undefined
+              && ((item.ContractorValue !== null && item.ContractorValue !== undefined)
+                || (item.SupervisorValue !== null && item.SupervisorValue !== undefined))) {
+              const CnrtSupervisionItemEntityObj = {
+                EntityTypeItemID: item.EntityTypeItemID,
+                ContractorValue: item.ContractorValue,
+                SupervisorEntityTypeItemID: item.SupervisorEntityTypeItemID,
+                SupervisorValue: item.SupervisorValue,
+              };
+              CnrtSupervisionItemEntityList.push(CnrtSupervisionItemEntityObj);
             }
           });
         }
@@ -855,21 +965,20 @@ export class ContractSupervisionComponent implements OnInit {
       Note: this.Note,
     };
 
-    if (keepGoing) {
-      this.ConSupervisionService.UpdateContractSupervision(ContractSupervisionObj,
-        ContractSupervisionItemList, this.IsGreenSpaceDevAndMaint)
-        .subscribe(res => {
-          this.ShowMessageBoxWithOkBtn('ثبت با موفقیت انجام شد');
-          this.ChangeDetection = false;
-          this.beforeProductID = null;
-          this.EditModeNgInit();
-        },
-          err => {
-            this.ShowMessageBoxWithOkBtn('ثبت با شکست مواجه شد');
-            this.ChangeDetection = true;
-          }
-        );
-    }
+    this.ConSupervisionService.UpdateContractSupervision(ContractSupervisionObj,
+      ContractSupervisionItemList, this.IsGreenSpaceDevAndMaint,
+      this.PopupParam.ModuleViewTypeCode !== 100000 && this.PopupParam.ModuleViewTypeCode !== 3 ? true : false)
+      .subscribe(res => {
+        this.ShowMessageBoxWithOkBtn('ثبت با موفقیت انجام شد');
+        this.ChangeDetection = false;
+        this.beforeProductID = null;
+        this.EditModeNgInit();
+      },
+        err => {
+          this.ShowMessageBoxWithOkBtn('ثبت با شکست مواجه شد');
+          this.ChangeDetection = true;
+        }
+      );
   }
 
   BtnArchiveClick() {
@@ -1243,8 +1352,8 @@ export class ContractSupervisionComponent implements OnInit {
   }
 
   onPREntcellEditingStarted(event) {
-    if (event.colDef && event.colDef.field === 'EntityItemSubject') {
-      this.ProductRequest.GetEntityTypeItemList(event.data.EntityTypeID, this.SelectedProductID, null, null)
+    if (event.colDef && event.colDef.field === 'EntityItemSubject' || event.colDef.field === 'SupervisorEntityItemSubject') {
+      this.ProductRequest.GetEntityTypeItemList(event.data.EntityTypeID, this.SelectedProductID, null, true)
         .subscribe(res => {
           this.RefreshCartable.RefreshItemsVirtualNgSelect({
             List: res,
@@ -1258,13 +1367,26 @@ export class ContractSupervisionComponent implements OnInit {
     let SumMultiple = 0;
     if (this.PREntgridApi) {
       this.PREntgridApi.forEachNodeAfterFilter(function (node) {
-        if (node.data.Value && ModuleViewTypeCode === 3) {
+        if (node.data.SupervisorValue && ModuleViewTypeCode === 3) {
           SumWeightedValue = SumWeightedValue + node.data.Weight;
-          SumMultiple = SumMultiple + (node.data.Value * node.data.Weight);
-        } else if (node.data.EntityItemSubject) {
+          if (node.data.SupervisorEntityItemSubject && !node.data.HasNoItem) {
+            // tslint:disable-next-line: radix
+            SumMultiple = SumMultiple + (parseInt(node.data.SupervisorEntityItemSubject) * node.data.Weight);
+          } else if (node.data.SupervisorValue && node.data.HasNoItem) {
+            SumMultiple = SumMultiple + (parseFloat(node.data.SupervisorValue) * node.data.Weight);
+          } else {
+            SumMultiple = SumMultiple + 0;
+          }
+        } else {
           SumWeightedValue = SumWeightedValue + node.data.Weight;
-          // tslint:disable-next-line: radix
-          SumMultiple = SumMultiple + (parseInt(node.data.EntityItemSubject) * node.data.Weight);
+          if (node.data.EntityItemSubject && !node.data.HasNoItem) {
+            // tslint:disable-next-line: radix
+            SumMultiple = SumMultiple + (parseFloat(node.data.EntityItemSubject) * node.data.Weight);
+          } else if (node.data.ContractorValue && node.data.HasNoItem) {
+            SumMultiple = SumMultiple + (parseFloat(node.data.ContractorValue) * node.data.Weight);
+          } else {
+            SumMultiple = SumMultiple + 0;
+          }
         }
       });
     }
@@ -1345,7 +1467,6 @@ export class ContractSupervisionComponent implements OnInit {
         this.ReadyToConfirm = 1;
         this.btnConfirmName = 'عدم تایید';
         this.btnConfirmIcon = 'cancel';
-        this.IsEditable = false;
         resolve(true);
       },
         err => {

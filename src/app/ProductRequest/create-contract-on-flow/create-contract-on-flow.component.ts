@@ -297,12 +297,12 @@ export class CreateContractOnFlowComponent implements OnInit {
     this.ContractLetterDate = ADate.MDate;
   }
   OnContractStartDateChange(ADate) {
-      this.StartDate = ADate.MDate;
-      if (this.StartDate && this.ProductRequestObject && this.ProductRequestObject.RelatedContractID === null && this.ModuleViewTypeCode != 800) {
-        // tslint:disable-next-line: max-line-length   
-        this.ContractList.GetEndDateByDuration(this.StartDate, this.ProductRequestObject.DurationDay, this.ProductRequestObject.DurationMonth, this.ProductRequestObject.DurationYear).subscribe(res => {
-          this.EndDate = res;
-        });     
+    this.StartDate = ADate.MDate;
+    if (this.StartDate && this.ProductRequestObject && this.ProductRequestObject.RelatedContractID === null && this.ModuleViewTypeCode != 800) {
+      // tslint:disable-next-line: max-line-length   
+      this.ContractList.GetEndDateByDuration(this.StartDate, this.ProductRequestObject.DurationDay, this.ProductRequestObject.DurationMonth, this.ProductRequestObject.DurationYear).subscribe(res => {
+        this.EndDate = res;
+      });
     }
   }
   OnContractEndDateChange(ADate) {
@@ -529,8 +529,9 @@ export class CreateContractOnFlowComponent implements OnInit {
       this.PRContractObject.ActualStartDate = this.PRContractObject.ActualStartDateString;
       this.PRContractObject.WarrantyDate = this.PRContractObject.WarrantyDateString;
     }
-
-    const LetterCode = this.ModuleViewTypeCode === 66 ? this.ContractLetterNo : null;
+    const LetterCode =
+      (this.ProductRequestObject && this.ProductRequestObject.RelatedContractID !== null) ?
+        this.ContractLetterNo : null;
     const OrderDate = (this.ModuleViewTypeCode === 66 || this.ModuleViewTypeCode === 100000) ? this.ContractLetterDate : null;
     if (CheckExceptions) {
       this.ContractList.GetFullSaveCostContractWithOrderExceptions(this.PRContractObject,

@@ -93,6 +93,7 @@ ContractSatusName = ' تحویل موقت ';
       this.NgSelectRegionParams.selectedObject = res[0].RegionCode;
     });
     this.ProductRequestTypeCode = this.ModuleCode == 3025 ? 3 : 
+                                  this.ModuleCode == 3101 ? 5 :
                                   this.ModuleCode == 3003 ? 1 : 4; // 63316
   }
 ///////////////////////////////////////////////////////////////

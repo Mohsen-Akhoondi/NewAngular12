@@ -25,7 +25,8 @@
           <td colspan="2">
             <span class="table-cell-Lable">تاریخ نظارت</span>
             <app-jalali-datepicker [WidthPC]="80" style="width: 100%;" [Required]="true"
-              [CurrMiladiDateValue]="ContractSupervisionDate" (Change)="OnContractMinutesDateChange($event)" [Disabled]="!IsEditable">
+              [CurrMiladiDateValue]="ContractSupervisionDate" (Change)="OnContractMinutesDateChange($event)"
+              [Disabled]="!IsEditable">
             </app-jalali-datepicker>
           </td>
         </tr>
@@ -33,7 +34,7 @@
           <td colspan="4">
             <span style="margin: 0;margin-left: 5px" class="table-cell-Lable">توضیحات</span>
             <input style="width: 94%;" class="form-control input-style" type="text" name="first" [(ngModel)]="Note"
-              value="{{ Note }}"  [disabled]="!IsEditable" />
+              value="{{ Note }}" [disabled]="!IsEditable" />
           </td>
         </tr>
       </table>
@@ -48,19 +49,21 @@
       <!--نگهداشت فضای سبز-->
       <div *ngIf="IsGreenSpaceDevAndMaint" style="overflow: auto; height: 84%; margin: 10px auto;">
         <div id="div1" class="box-dev" style="height: 96%; width: 50%; float: right; margin: 1px;">
-          <app-grid style="width: 100%" [IsEditable]="false" [columns]="columnDef1" [rowsData]="ContractPayItemList"
-            (GridReady)="onContractPayItemGridReady($event)" (RowClick)="RowClick($event)" [gridHeight]="92"
-            [defaultSelectedRowIndex]="0" [GridOptionsRowStyle]="GreenSpaceGridOptionsRowStyle">
-          </app-grid>
+          <div class="pro-div">
+            <app-grid style="width: 100%" [IsEditable]="false" [columns]="columnDef1" [rowsData]="ContractPayItemList"
+              (GridReady)="onContractPayItemGridReady($event)" (RowClick)="RowClick($event)" [gridHeight]="92"
+              [defaultSelectedRowIndex]="0" [GridOptionsRowStyle]="GreenSpaceGridOptionsRowStyle">
+            </app-grid>
+          </div>
         </div>
         <div id="div2" class="box-dev" style="height: 96%; width: 49%; float: left; margin: 1px;">
-          <div class = "ent-div">
+          <div class="ent-div">
             <app-grid style="width: 100%;" [columns]="ProdReqEntColDef" [rowsData]="ProdReqEntList" [IsEditable]="false"
-            [gridHeight]="89" (GridReady)="onProdReqEntGridReady($event)"
-            (CellValueChanged)="onProdReqEntCellValueChanged($event)" (FilterChanged)="OnFilterChanged()"
-            (RowDataChanged)="OnRowDataChanged()" (RowDataUpdated)="OnRowDataUpdated()"
-            (cellEditingStarted)="onPREntcellEditingStarted($event)" [GridOptionsRowStyle]="GridOptionsRowStyle">
-          </app-grid>
+              [gridHeight]="89" (GridReady)="onProdReqEntGridReady($event)"
+              (CellValueChanged)="onProdReqEntCellValueChanged($event)" (FilterChanged)="OnFilterChanged()"
+              (RowDataChanged)="OnRowDataChanged()" (RowDataUpdated)="OnRowDataUpdated()"
+              (cellEditingStarted)="onPREntcellEditingStarted($event)" [GridOptionsRowStyle]="GridOptionsRowStyle">
+            </app-grid>
           </div>
           <div class="avg-div">
             <table style="width: 100%">
@@ -78,8 +81,9 @@
     </div>
 
     <div style="margin: 5px;">
-      <div class="buttons-place" style="float: right;margin: auto; width: 54%;">
-        <button *ngIf="ModuleViewTypeCode !== 2" (click)="onSave()" id="btn2" class="btn btn-primary btnGreen" style="margin: 2px">
+      <div class="buttons-place" style="float: right;margin: auto; width: 50%;">
+        <button *ngIf="ModuleViewTypeCode !== 2 && IsEditable" (click)="onSave()" id="btn2"
+          class="btn btn-primary btnGreen" style="margin: 2px">
           <img width="15px" height="15px" src="assets/Icons/save.png" />
           ثبت
         </button>
@@ -88,25 +92,25 @@
           <img width="15px" height="15px" src="assets/Icons/TechnicalArchive.png" />
           مستندات
         </button>
-        
+
         <button (click)="close()" id="btn4" class="btn btn-primary btnGreen">
           <img width="15px" height="15px" src="assets/Icons/exit.png" />
           خروج
         </button>
       </div>
-  
-      <div *ngIf="true" class="buttons-place" style="float:left;margin: auto;" [style.width.%]="45.5">
-        <button [disabled]="BTNsShow" (click)="onConfirm()" id="btn2" class="btn btn-primary btnGreen"
+
+      <div *ngIf="true" class="buttons-place" style="float:left;margin: auto;" [style.width.%]="49">
+        <button [disabled]="BTNsShow || !IsEditable" (click)="onConfirm()" id="btn2" class="btn btn-primary btnGreen"
           style="margin: 2px;">
           <img width="15px" height="15px" src="assets/Icons/{{btnConfirmIcon}}.png" />
           {{btnConfirmName}}
         </button>
-        <button [disabled]="BTNsShow" (click)="onConfirmAndSend()" id="btn2" class="btn btn-primary btnGreen"
-          style="margin: 2px;">
+        <button [disabled]="BTNsShow || !IsEditable" (click)="onConfirmAndSend()" id="btn2"
+          class="btn btn-primary btnGreen" style="margin: 2px;">
           <img width="15px" height="15px" src="assets/Icons/Approve.png" />
           تایید و ارسال </button>
-        <button [disabled]="BTNsShow" (click)="onUnConfirmAndReturn()" id="btn2" class="btn btn-primary btnGreen"
-          style="margin: 2px;">
+        <button [disabled]="BTNsShow || !IsEditable" (click)="onUnConfirmAndReturn()" id="btn2"
+          class="btn btn-primary btnGreen" style="margin: 2px;">
           <img width="15px" height="15px" src="assets/Icons/DisApprove.png" />
           {{btnConfirmAndReturnName}} </button>
         <button [disabled]="BTNsShow" (click)="OnClickPrintFlow()" class="btn btn-primary btnGreen">

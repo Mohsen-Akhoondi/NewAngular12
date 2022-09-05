@@ -11,6 +11,7 @@ import { CommonService } from 'src/app/Services/CommonService/CommonService';
 })
 export class ShowHistoryComponent implements OnInit {
 
+  CheckValidate = false;
   columnDef;
   rowData = [];
   IsUpdate = true;
@@ -22,7 +23,8 @@ export class ShowHistoryComponent implements OnInit {
     selectedObject: null,
     loading: false,
     IsVirtualScroll: false,
-    IsDisabled: false
+    IsDisabled: false,
+    Required: true
   };
   TablesDataList;
   ObjectCode;
@@ -60,7 +62,15 @@ export class ShowHistoryComponent implements OnInit {
   PersonReqItems: any;
   FromDate;
   ToDate;
-  IsCorporate;
+  IsCorporate = false;
+  btnclicked = false;
+  HaveMaxBtn = false;
+  type = '';
+  alertMessageParams = { HaveOkBtn: true, message: '', HaveYesBtn: false, HaveNoBtn: false };
+  HaveHeader = false;
+  startLeftPosition;
+  startTopPosition;
+
   constructor(
     private common: CommonService,
     private Actor: ActorService,
@@ -77,26 +87,44 @@ export class ShowHistoryComponent implements OnInit {
         resizable: true
       },
       {
+        headerName: 'نام جدول',
+        field: 'TableName',
+        width: 120,
+        resizable: true
+      },
+      {
         headerName: 'نام فیلد',
-        field: 'PRCostCenterName',
+        field: 'ColumnName',
         width: 120,
         resizable: true
       },
       {
         headerName: 'مقدار قدیم',
-        field: 'PRCostCenterName',
+        field: 'OldValue',
         width: 120,
         resizable: true
       },
       {
         headerName: 'مقدار جدید',
-        field: 'PRCostCenterName',
+        field: 'NewValue',
         width: 120,
         resizable: true
       },
       {
         headerName: 'تاریخ',
-        field: 'PRCostCenterName',
+        field: 'PersianAuditDate',
+        width: 120,
+        resizable: true
+      },
+      {
+        headerName: 'نام شخص',
+        field: 'ActorName',
+        width: 120,
+        resizable: true
+      },
+      {
+        headerName: 'شناسه شی',
+        field: 'ObjectID',
         width: 120,
         resizable: true
       }
@@ -109,16 +137,53 @@ export class ShowHistoryComponent implements OnInit {
   }
 
   Btnclick() {
-    this.rowData = [];
+    if (!this.TablesParams.selectedObject) {
+      this.CheckValidate = true;
+      this.ShowMessageBoxWithOkBtn('جدول را انتخاب کنید');
+      return;
+    }
+    this.Actor.GetLogHistoryList(
+      this.IsUpdate,
+      this.FromDate,
+      this.ToDate,
+      this.IsCorporate,
+      this.NgSelectPersonReqParams.selectedObject,
+      this.TablesParams.selectedObject,
+      this.ObjectCode
+    ).subscribe(res => {
+      this.rowData = [];
+      this.rowData = res;
+    })
+
+  }
+
+  popupclosed(event) {
+    this.btnclicked = false;
+  }
+
+  ShowMessageBoxWithOkBtn(message) {
+    this.btnclicked = true;
+    this.type = 'message-box';
+    this.HaveHeader = true;
+    this.HaveMaxBtn = false;
+    this.startLeftPosition = 530;
+    this.startTopPosition = 200;
+    this.alertMessageParams.message = message;
+    this.alertMessageParams.HaveOkBtn = true;
+    this.alertMessageParams.HaveYesBtn = false;
+    this.alertMessageParams.HaveNoBtn = false;
   }
 
   RadioIsCorporateClick(event) {
     this.IsPerson = event;
+    this.IsCorporate = event;
   }
 
   RedioClick(event) {
+    this.TablesParams.selectedObject = null;
+    this.rowData = [];
     this.IsUpdate = event;
-    if(event === true) {
+    if (event === true) {
       this.columnDef = [
         {
           headerName: 'ردیف',
@@ -127,26 +192,44 @@ export class ShowHistoryComponent implements OnInit {
           resizable: true
         },
         {
+          headerName: 'نام جدول',
+          field: 'TableName',
+          width: 120,
+          resizable: true
+        },
+        {
           headerName: 'نام فیلد',
-          field: 'PRCostCenterName',
+          field: 'ColumnName',
           width: 120,
           resizable: true
         },
         {
           headerName: 'مقدار قدیم',
-          field: 'PRCostCenterName',
+          field: 'OldValue',
           width: 120,
           resizable: true
         },
         {
           headerName: 'مقدار جدید',
-          field: 'PRCostCenterName',
+          field: 'NewValue',
           width: 120,
           resizable: true
         },
         {
           headerName: 'تاریخ',
-          field: 'PRCostCenterName',
+          field: 'PersianAuditDate',
+          width: 120,
+          resizable: true
+        },
+        {
+          headerName: 'نام شخص',
+          field: 'ActorName',
+          width: 120,
+          resizable: true
+        },
+        {
+          headerName: 'شناسه شی',
+          field: 'ObjectID',
           width: 120,
           resizable: true
         }
@@ -160,14 +243,32 @@ export class ShowHistoryComponent implements OnInit {
           resizable: true
         },
         {
+          headerName: 'نام جدول',
+          field: 'TableName',
+          width: 120,
+          resizable: true
+        },
+        {
           headerName: 'مقدار',
-          field: 'PRCostCenterName',
+          field: 'OldValue',
           width: 120,
           resizable: true
         },
         {
           headerName: 'تاریخ',
-          field: 'PRCostCenterName',
+          field: 'PersianAuditDate',
+          width: 120,
+          resizable: true
+        },
+        {
+          headerName: 'نام شخص',
+          field: 'ActorName',
+          width: 120,
+          resizable: true
+        },
+        {
+          headerName: 'شناسه شی',
+          field: 'ObjectID',
           width: 120,
           resizable: true
         }
@@ -242,9 +343,9 @@ export class ShowHistoryComponent implements OnInit {
     });
   }
   OnFromDateChange(event) {
-    this.FromDate = event;
+    this.FromDate = event.MDate;
   }
   OnToDateChange(event) {
-    this.ToDate = event;
+    this.ToDate = event.MDate;
   }
 }

@@ -284,7 +284,7 @@ export class ContractSupervisionListComponent implements OnInit {
     this.isClicked = true;
     this.HaveMaxBtn = true;
     this.ContractMinutesPopupParam.SelectedCnrtSupervisionID = -1,
-      this.ContractMinutesPopupParam.PriceListPatternID = this.PriceListPatternID;
+    this.ContractMinutesPopupParam.PriceListPatternID = this.PriceListPatternID;
     this.ContractMinutesPopupParam.CostListFinYearCode = this.CostListFinYearCode;
     this.ContractMinutesPopupParam.PriceListTypeCode = this.PriceListTypeCode;
     this.ContractMinutesPopupParam.IsViewable = false;
@@ -325,6 +325,7 @@ export class ContractSupervisionListComponent implements OnInit {
           this.ContractMinutesPopupParam.IsViewable = isViewable;
           this.ContractMinutesPopupParam.BTNs = false;
           this.ContractMinutesPopupParam.RegionCode = this.SelectedRow.RegionCode;
+          this.ContractMinutesPopupParam.ModuleViewTypeCode = this.PopupParam.ModuleCode === 3071 ? 100000 : null;
           this.PopUpType = 'contract-supervision';
         }
       }

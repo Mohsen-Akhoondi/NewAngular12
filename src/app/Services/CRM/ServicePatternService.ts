@@ -14,10 +14,11 @@ export class ServicePatternService {
     return this.http.get(window.location.origin + '/Home/GetServicePatternChildren', { ServicePatternID });
   }
 
-  GetServicePatternItemList(ServicePatternID, PricelistTopicSearch = null) {
+  GetServicePatternItemList(ServicePatternID, PricelistTopicSearch = null, SetProperty: boolean = null) {
     return this.http.get(window.location.origin + '/Home/GetServicePatternItemList', {
       ServicePatternID: ServicePatternID,
-      PricelistTopicSearch
+      PricelistTopicSearch,
+      SetProperty
     });
   }
 

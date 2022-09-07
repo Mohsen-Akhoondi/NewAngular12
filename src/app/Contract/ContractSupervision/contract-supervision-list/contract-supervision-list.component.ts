@@ -306,7 +306,7 @@ export class ContractSupervisionListComponent implements OnInit {
         this.ContractMinutesPopupParam.CostListFinYearCode = this.CostListFinYearCode;
         this.ContractMinutesPopupParam.PriceListTypeCode = this.PriceListTypeCode;
         this.ContractMinutesPopupParam.IsViewable = isViewable;
-        this.ContractMinutesPopupParam.BTNs = false;
+        this.ContractMinutesPopupParam.BTNs = true;
         this.ContractMinutesPopupParam.RegionCode = this.SelectedRow.RegionCode;
         this.PopUpType = 'contract-supervision';
       } else { // اصلاح

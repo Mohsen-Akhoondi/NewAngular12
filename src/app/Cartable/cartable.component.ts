@@ -386,6 +386,13 @@ export class CartableComponent implements OnInit {
         resizable: true
       },
       {
+        headerName: 'واحد اجرایی',
+        field: 'RegionName',
+        width: 200,
+        resizable: true,
+        sortable: true
+      },
+      {
         headerName: 'نوع درخواست ',
         field: 'WorkflowTypeName',
         width: 120,
@@ -455,6 +462,13 @@ export class CartableComponent implements OnInit {
         resizable: true
       },
       {
+        headerName: 'واحد اجرایی',
+        field: 'RegionName',
+        width: 200,
+        resizable: true,
+        sortable: true
+      },
+      {
         headerName: 'نوع درخواست ',
         field: 'WorkflowTypeName',
         width: 120,
@@ -522,6 +536,13 @@ export class CartableComponent implements OnInit {
         field: 'IsIncomeStr',
         width: 120,
         resizable: true
+      },
+      {
+        headerName: 'واحد اجرایی',
+        field: 'RegionName',
+        width: 200,
+        resizable: true,
+        sortable: true
       },
       {
         headerName: 'نوع درخواست ',

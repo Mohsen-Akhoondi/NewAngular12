@@ -100,16 +100,16 @@
       </div>
 
       <div *ngIf="true" class="buttons-place" style="float:left;margin: auto;" [style.width.%]="49">
-        <button [disabled]="BTNsShow || !IsEditable" (click)="onConfirm()" id="btn2" class="btn btn-primary btnGreen"
+        <button [disabled]="BTNsShow" (click)="onConfirm()" id="btn2" class="btn btn-primary btnGreen"
           style="margin: 2px;">
           <img width="15px" height="15px" src="assets/Icons/{{btnConfirmIcon}}.png" />
           {{btnConfirmName}}
         </button>
-        <button [disabled]="BTNsShow || !IsEditable" (click)="onConfirmAndSend()" id="btn2"
+        <button [disabled]="BTNsShow" (click)="onConfirmAndSend()" id="btn2"
           class="btn btn-primary btnGreen" style="margin: 2px;">
           <img width="15px" height="15px" src="assets/Icons/Approve.png" />
           تایید و ارسال </button>
-        <button [disabled]="BTNsShow || !IsEditable" (click)="onUnConfirmAndReturn()" id="btn2"
+        <button [disabled]="BTNsShow" (click)="onUnConfirmAndReturn()" id="btn2"
           class="btn btn-primary btnGreen" style="margin: 2px;">
           <img width="15px" height="15px" src="assets/Icons/DisApprove.png" />
           {{btnConfirmAndReturnName}} </button>

@@ -288,7 +288,7 @@ export class ContractSupervisionComponent implements OnInit {
         HaveThousand: false,
         resizable: true,
         editable: (params) => {
-          if (this.PopupParam.ModuleViewTypeCode === 3) {
+          if (this.PopupParam.ModuleViewTypeCode === 3 || this.PopupParam.ModuleViewTypeCode === 2)  {
             return false;
           } else if (!params.data.HasNoItem) {
             return false;
@@ -374,6 +374,8 @@ export class ContractSupervisionComponent implements OnInit {
         editable: (params) => {
           if (this.PopupParam.ModuleViewTypeCode === 3 && params.data.HasNoItem) {
             return true;
+          } else if (this.PopupParam.ModuleViewTypeCode === 2) {
+            return false;
           } else if (this.PopupParam && this.PopupParam.IsViewable !== undefined && this.PopupParam.IsViewable !== null) {
             if (params.data.HasNoItem) {
               return true;
@@ -384,7 +386,9 @@ export class ContractSupervisionComponent implements OnInit {
             return true;
           }
         },
-        hide: this.PopupParam.ModuleViewTypeCode !== 3 && this.PopupParam.ModuleViewTypeCode !== 100000,
+        hide: (this.PopupParam.ModuleViewTypeCode === undefined
+          || this.PopupParam.ModuleViewTypeCode === null)
+          || this.PopupParam.ModuleViewTypeCode === 1,
         cellEditorFramework: NumberInputComponentComponent,
         cellEditorParams: { IsFloat: true, MaxLength: 5, FloatMaxLength: 2 },
         cellRenderer: 'SeRender',

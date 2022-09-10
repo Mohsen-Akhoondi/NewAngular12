@@ -19,35 +19,32 @@ export {TimeSelectComponent} from './time-select/time-select.component';
 export {MonthCalendarComponent} from './month-calendar/month-calendar.component';
 
 @NgModule({
-  providers: [
-    DomHelper,
-    UtilsService
-  ],
-  declarations: [
-    DatePickerComponent,
-    DatePickerDirective,
-    DayCalendarComponent,
-    MonthCalendarComponent,
-    CalendarNavComponent,
-    TimeSelectComponent,
-    DayTimeCalendarComponent,
-    //JalaliDatepickerComponent
-  ],
-  entryComponents: [
-    DatePickerComponent
-  ],
-  imports: [
-    CommonModule,
-    FormsModule
-  ],
-  exports: [
-    DatePickerComponent,
-    DatePickerDirective,
-    MonthCalendarComponent,
-    DayCalendarComponent,
-    TimeSelectComponent,
-    DayTimeCalendarComponent
-  ]
+    providers: [
+        DomHelper,
+        UtilsService
+    ],
+    declarations: [
+        DatePickerComponent,
+        DatePickerDirective,
+        DayCalendarComponent,
+        MonthCalendarComponent,
+        CalendarNavComponent,
+        TimeSelectComponent,
+        DayTimeCalendarComponent,
+        //JalaliDatepickerComponent
+    ],
+    imports: [
+        CommonModule,
+        FormsModule
+    ],
+    exports: [
+        DatePickerComponent,
+        DatePickerDirective,
+        MonthCalendarComponent,
+        DayCalendarComponent,
+        TimeSelectComponent,
+        DayTimeCalendarComponent
+    ]
 })
 export class DpDatePickerModule {
 }

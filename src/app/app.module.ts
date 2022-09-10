@@ -817,18 +817,6 @@ import { RouterModule } from '@angular/router';
     CommonServices,
     JalaliDatepickerComponent
   ],
-  entryComponents: [
-    NgSelectCellEditorComponent,
-    CheckboxFieldEditableComponent,
-    OverPopUpCellEditorComponent,
-    TemplateRendererComponent,
-    NumberFieldEditableComponent,
-    TreeSelectComponent,
-    CarTagComponent,
-    NgSelectVirtualScrollComponent,
-    JalaliDatepickerComponent,
-    NumberInputComponentComponent,
-  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

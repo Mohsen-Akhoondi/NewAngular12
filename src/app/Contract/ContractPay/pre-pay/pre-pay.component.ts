@@ -193,6 +193,7 @@ export class PrePayComponent implements OnInit {
     this.ModuleCode = this.ModuleCode ? this.ModuleCode : 2516;
     this.RegionCode = this.PopupParam.RegionCode;
     this.ShowContractorAmount = (this.RegionCode >= 0 && this.RegionCode < 23) ? true : false;
+    this.ContractOperationId = this.PopupParam.ContractOperationID;
 
     if (this.PopupParam.Mode === 'InsertMode') {
       this.InsertModeNgInit();

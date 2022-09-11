@@ -6,7 +6,7 @@ import { RegionListService } from 'src/app/Services/BaseService/RegionListServic
 import { ProductRequestService } from 'src/app/Services/ProductRequest/ProductRequestService';
 import { NgSelectVirtualScrollComponent } from 'src/app/Shared/ng-select-virtual-scroll/ng-select-virtual-scroll.component';
 import { RefreshServices } from 'src/app/Services/BaseService/RefreshServices';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { NgSelectCellEditorComponent } from 'src/app/Shared/NgSelectCellEditor/ng-select-cell-editor.component';
 import { ContractListService } from 'src/app/Services/BaseService/ContractListService';
 import { ActorService } from 'src/app/Services/BaseService/ActorService';
@@ -108,7 +108,7 @@ export class ProductRequestPageWithoutFlowComponent implements OnInit {
   i;
   CurrentSubCostCenterID;
   CheckValidate = false;
-  complexForm: FormGroup;
+  complexForm: UntypedFormGroup;
   PRCostRowData = [];
   IncrementTypeItems;
   EstateAssetRowData = [];

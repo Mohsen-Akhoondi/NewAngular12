@@ -41,7 +41,7 @@ import {
 } from '@angular/core';
 import {
   ControlValueAccessor,
-  FormControl,
+  UntypedFormControl,
   NG_VALIDATORS,
   NG_VALUE_ACCESSOR,
   ValidationErrors,
@@ -271,7 +271,7 @@ export class DatePickerComponent implements OnChanges,
   registerOnTouched(fn: any): void {
   }
 
-  validate(formControl: FormControl): ValidationErrors {
+  validate(formControl: UntypedFormControl): ValidationErrors {
     return this.validateFn(formControl.value);
   }
 

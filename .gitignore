@@ -37,3 +37,12 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+
+# Miscellaneous
+/.angular/cache
+.sass-cache/
+/connect.lock
+/coverage
+/libpeerconnection.log
+testem.log
+/typings

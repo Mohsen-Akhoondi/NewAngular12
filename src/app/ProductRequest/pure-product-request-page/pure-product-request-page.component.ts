@@ -8,7 +8,7 @@ import { INVVoucherGroupService } from 'src/app/Services/InventoryService/Basemo
 import { VWIncrementTypeService } from 'src/app/Services/InventoryService/BasemodulesService/VWIncrementTypeService';
 import { NgSelectVirtualScrollComponent } from 'src/app/Shared/ng-select-virtual-scroll/ng-select-virtual-scroll.component';
 import { RefreshServices } from 'src/app/Services/BaseService/RefreshServices';
-import { Validators, FormControl, FormGroup, FormBuilder } from '@angular/forms';
+import { Validators, FormControl, UntypedFormGroup, FormBuilder } from '@angular/forms';
 import { NgSelectCellEditorComponent } from 'src/app/Shared/NgSelectCellEditor/ng-select-cell-editor.component';
 import { ContractListService } from 'src/app/Services/BaseService/ContractListService';
 import { ActorService } from 'src/app/Services/BaseService/ActorService';
@@ -185,7 +185,7 @@ export class PureProductRequestPageComponent implements OnInit {
   i;
   CurrentSubCostCenterID;
   CheckValidate = false;
-  complexForm: FormGroup;
+  complexForm: UntypedFormGroup;
   PRCostRowData = [];
   AssetRowData = [];
   CustomerOrderItems;

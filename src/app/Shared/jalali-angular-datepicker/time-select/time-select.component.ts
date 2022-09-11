@@ -20,7 +20,7 @@ import {Moment} from 'jalali-moment';
 import {ITimeSelectConfig, ITimeSelectConfigInternal} from './time-select-config.model';
 import {
   ControlValueAccessor,
-  FormControl,
+  UntypedFormControl,
   NG_VALIDATORS,
   NG_VALUE_ACCESSOR,
   ValidationErrors,
@@ -163,7 +163,7 @@ export class TimeSelectComponent implements OnInit, OnChanges, ControlValueAcces
   registerOnTouched(fn: any): void {
   }
 
-  validate(formControl: FormControl): ValidationErrors | any {
+  validate(formControl: UntypedFormControl): ValidationErrors | any {
     if (this.minDate || this.maxDate || this.minTime || this.maxTime) {
       return this.validateFn(formControl.value);
     } else {

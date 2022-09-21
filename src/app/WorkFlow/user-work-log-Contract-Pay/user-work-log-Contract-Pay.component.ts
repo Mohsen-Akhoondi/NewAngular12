@@ -424,6 +424,20 @@ export class UserWorkLogContractPayComponent implements OnInit {
       ContractOperationID: 4
     },
   ];
+  AdjustmentTypeItems;
+  AdjustmentTypeParams = {
+    bindLabelProp: 'AdjustmentTypeName',
+    bindValueProp: 'AdjustmentTypeCode',
+    placeholder: '',
+    MinWidth: '155px',
+    selectedObject: null,
+    loading: false,
+    IsVirtualScroll: false,
+    IsDisabled: false,
+    Required: true,
+    type: 'order-type',
+  };
+  IsContractOperation4: boolean;
 
   ContractorTypeRadioParam: Array<RadioBoxModel> = [];
 
@@ -989,6 +1003,13 @@ export class UserWorkLogContractPayComponent implements OnInit {
           resizable: true
         },
         {
+          headerName: 'نوع تعدیل',
+          field: 'AdjustmentTypeName',
+          hide: !(this.IsContractOperation4 && this.NgSelectRegionParams.selectedObject == 220) ,
+          width: 120,
+          resizable: true
+        },
+        {
           headerName: 'موضوع قرارداد',
           field: 'Subject',
           width: 400,
@@ -1075,6 +1096,13 @@ export class UserWorkLogContractPayComponent implements OnInit {
           resizable: true
         },
         {
+          headerName: 'نوع تعدیل',
+          field: 'AdjustmentTypeName',
+          hide: !(this.IsContractOperation4 && this.NgSelectRegionParams.selectedObject == 220) ,
+          width: 120,
+          resizable: true
+        },
+        {
           headerName: 'موضوع',
           field: 'Subject',
           width: 600,
@@ -1107,7 +1135,8 @@ export class UserWorkLogContractPayComponent implements OnInit {
         ByDetail,                                     //  دکمه به ریز یا به سرجمع
         this.NgSelectContractorParams.selectedObject,  //  پیمانکار
         this.ContractOperation,
-        this.ContractPayTechnicalCode                        // نوع صورت وضعیت  60460
+        this.ContractPayTechnicalCode,                        // نوع صورت وضعیت  60460
+        this.AdjustmentTypeParams.selectedObject
       ).subscribe(res => {
         this.rowData = res;
       });   
@@ -1372,6 +1401,16 @@ export class UserWorkLogContractPayComponent implements OnInit {
   }
   OnChangeContractOperation(event) {
     this.ContractOperation = event;
+    if (this.ContractOperation == 4) {
+      this.IsContractOperation4 = true;
+      this.ContractPayDetails.GetAdjustmentType().subscribe(res => {
+        this.AdjustmentTypeItems = res;
+      });
+    } else {
+      this.AdjustmentTypeItems = null;
+      this.AdjustmentTypeParams.selectedObject = null;
+      this.IsContractOperation4 = false;
+    }
   }
   OnOpenContractEstimate() {
     this.type = 'PriceList_contract_estimate';

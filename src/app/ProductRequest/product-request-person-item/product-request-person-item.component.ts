@@ -143,7 +143,7 @@ export class ProductRequestPersonItemComponent implements OnInit {
           field: 'RoleName',
           cellEditorFramework: NgSelectCellEditorComponent,
           cellEditorParams: {
-            Items: this.ContractList.GetRolesListByRegion(this.PopupParam.RegionCode),
+            Items: this.ContractList.GetRolesListByRegion(this.PopupParam.RegionCode, this.PopupParam.OrginalModuleCode),
             bindLabelProp: 'RoleName',
             bindValueProp: 'RoleID'
           },

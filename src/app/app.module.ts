@@ -412,6 +412,7 @@ import { CustomerOrderSearchComponent } from './CRM/customer-order-search/custom
 import { CustomerProductRequestPageComponent } from './CRM/customer-product-request-page/customer-product-request-page.component';
 import { InventoryQtyPageComponent } from './CRM/inventory-qty-page/inventory-qty-page.component';
 import { RouterModule } from '@angular/router';
+import { ApprovalPriceIndexDetailComponent } from './ProductRequest/ProPosal/approval-price-index-detail/approval-price-index-detail.component';
 
 @NgModule({
   declarations: [
@@ -778,7 +779,8 @@ import { RouterModule } from '@angular/router';
     InventoryQtyPageComponent,
     CustomerProductRequestPageComponent,
     CfmWorkflowSendComponent,
-    CustomerFileComponent
+    CustomerFileComponent,
+    ApprovalPriceIndexDetailComponent
   ],
   imports: [
     AppRoutingModule,

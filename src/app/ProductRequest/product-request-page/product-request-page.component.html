@@ -87,11 +87,18 @@
           <td width="27%">
             <span class="table-cell-Lable">نوع درخواست معامله</span>
             <app-ng-select-virtual-scroll [Disabled]="IsNew ? (!IsEditable || IsInsert) : true"
-              style="display: inline-block;width: 68% !important;" class="select-general-for-lable"
+              style="display: inline-block;width: 37.5% !important;" class="select-general-for-lable"
               [CheckValidate]="CheckValidatePRType"
               [NgSelectParams]="PRTypeParams" [Items]="PRTypeItems" (selectedChange)="onChangePRType($event)"
              >
             </app-ng-select-virtual-scroll>
+            <span class="table-cell-Lable">توافقنامه</span>
+            <app-custom-check-box 
+            style="vertical-align: sub;" 
+            [configurationInfo]="CustomCheckBoxConfig1"
+            [isSelected]="IsChecked"
+            (PrettyCheckBoxChange)="OnCheckBoxChanged($event)">
+            </app-custom-check-box>
           </td>
           <td width="23%">
             <span class="table-cell-Lable">رسته</span>
@@ -223,17 +230,6 @@
               placeholder="{{CheckValidate && !BriefingReport && (ModuleViewTypeCode === 89 || (IsType114 && ModuleCode === 2730)) ? 'پر کردن مقدار این فیلد الزامیست': ''}}"
               [(ngModel)]="BriefingReport" name="BriefingReport" class="form-control input-style" rows="2"
               style="display: inline-block;height: 40px;width: 88.5%;" id="indicator-text_note"></textarea>
-          </td>
-        </tr>
-        <tr *ngIf="this.RegionParams.selectedObject == 200">
-          <td width="25%">
-            <span class="table-cell-Lable">توافقنامه</span>
-            <app-custom-check-box 
-            style="vertical-align: sub; margin-left: 58%;" 
-            [configurationInfo]="CustomCheckBoxConfig1"
-            [isSelected]="IsChecked"
-            (PrettyCheckBoxChange)="OnCheckBoxChanged($event)">
-            </app-custom-check-box>
           </td>
         </tr>
       </table>

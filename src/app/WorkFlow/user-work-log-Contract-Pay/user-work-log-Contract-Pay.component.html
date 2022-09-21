@@ -152,6 +152,12 @@
           <input  name="ContractPayTechnicalCode" style="width: 64%" class="form-control input-style" type="text"
            [(ngModel)]="ContractPayTechnicalCode" />
         </td>
+        <td *ngIf="this.NgSelectRegionParams.selectedObject == 220 && this.ContractOperationParams.selectedObject == 4" width="34%">
+          <span class="table-cell-Lable" style="margin-left: 5px;">نوع تعدیل</span>
+          <app-ng-select-virtual-scroll style="display: inline-block;width: 64.3%;" 
+            [NgSelectParams]="AdjustmentTypeParams" [Items]="AdjustmentTypeItems">
+          </app-ng-select-virtual-scroll>
+        </td>
       </tr>
     </table>
   </div>

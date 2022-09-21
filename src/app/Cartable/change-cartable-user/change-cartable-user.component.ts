@@ -868,11 +868,11 @@ export class ChangeCartableUserComponent implements OnInit {
         (res: any) => {
           this.ShowMessageBoxWithOkBtn('تایید با موفقيت انجام شد');
         });
-        // ,
-        // err => {
-        //   this.ShowMessageBoxWithOkBtn('تایید با خطا مواجه شد');
-        // })
-        // ;
+    // ,
+    // err => {
+    //   this.ShowMessageBoxWithOkBtn('تایید با خطا مواجه شد');
+    // })
+    // ;
   }
 
   onSelect() {
@@ -892,9 +892,50 @@ export class ChangeCartableUserComponent implements OnInit {
     }
   }
 
+  onCopySelect() {
+    this.ContractList.ConfirmChangeCartableUserCopy(this.UserID, this.UserID2,
+      this.RolesParams.selectedObject)
+      .subscribe(
+        (res: any) => {
+          this.ShowMessageBoxWithOkBtn('تایید با موفقيت انجام شد');
+        });
+    // ,
+    // err => {
+    //   this.ShowMessageBoxWithOkBtn('تایید با خطا مواجه شد');
+    // })
+    // ;
+
+  }
+
+  onCopy() {
+    if (this.UserID &&
+      ((!this.TypeContractor && this.NgSelectPersonParams.selectedObject) ||
+        (this.TypeContractor && this.NgSelectCorporateParams.selectedObject))) {
+      if (this.UserID2 &&
+        ((!this.TypeContractor2 && this.NgSelectPersonParams2.selectedObject) ||
+          (this.TypeContractor2 && this.NgSelectCorporateParams2.selectedObject))) {
+        this.ShowMessageBoxWithYesNoBtn('آیا مایل به کپی کارتابل می باشید؟');
+
+        this.BtnClickedName = 'IsConfirmChangeCartableUserCopy';
+
+      } else {
+        this.ShowMessageBoxWithOkBtn('کاربر گیرنده انتخاب نشده است.');
+      }
+    } else {
+      this.ShowMessageBoxWithOkBtn('کاربر فرستنده انتخاب نشده است.');
+    }
+
+
+  }
+
+
+
   MessageBoxAction(ActionResult) {
     if (this.BtnClickedName === 'IsConfirmCartableChange' && ActionResult === 'YES') {
       this.onClickSelect();
+    }
+    if (this.BtnClickedName === 'IsConfirmChangeCartableUserCopy' && ActionResult === 'YES') {
+      this.onCopySelect();
     }
   }
 
@@ -903,7 +944,7 @@ export class ChangeCartableUserComponent implements OnInit {
     let UserWorkListLst = [];
     let Counter = 1;
     this.UserWorkListData.forEach(element => {
-      if(this.FinalRoleList.includes(element.RoleID)){
+      if (this.FinalRoleList.includes(element.RoleID)) {
         element.ItemNo = Counter;
         UserWorkListLst.push(element);
         Counter = Counter + 1;

@@ -67,6 +67,12 @@
         </app-ng-select-virtual-scroll>
       </td>
       <td width=" 25%">
+        <div style="width: 95%;display: inline-block;text-align: right">
+            <span class="table-cell-Lable" style="margin: 0 ;margin-left: 5px">نمایش قراردادهای باطل شده</span>
+            <app-custom-check-box style="vertical-align: sub; " [configurationInfo]="CustomCheckBoxConfig1"
+              [isSelected]="ShowContractStatus10" (PrettyCheckBoxChange)="OnChangeCheckBoxValue1($event)">
+            </app-custom-check-box>
+        </div>
       </td>
     </tr>
   </table>

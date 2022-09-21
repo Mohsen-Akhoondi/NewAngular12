@@ -1,7 +1,4 @@
-/* 
- * Simple Script to install Dastine based on browser type.
- * Supported browsers are: Internet Explorer, FireFox, Chrome
- */
+//Simple Script to install Dastine based on browser type.
 !function(r,e){"object"==typeof exports&&"object"==typeof module?module.exports=e():"function"==typeof define&&define.amd?define([],e):"object"==typeof exports?exports.jsunicode=e():r.jsunicode=e()}(this,function(){return function(r){function e(t){if(n[t])return n[t].exports;var o=n[t]={exports:{},id:t,loaded:!1};return r[t].call(o.exports,o,o.exports,e),o.loaded=!0,o.exports}var n={};return e.m=r,e.c=n,e.p="",e(0)}([function(r,e,n){var t=n(1),o=n(6),i=n(8),u=n(9),a=n(4),d=n(5),c=n(2);t.register("UTF-8",u),t.register("UTF-16",i),t.register("UTF-16BE",i),t.register("UTF-16LE",i),t.register("UTF-32",o),t.register("UTF-32BE",o),t.register("UTF-32LE",o);var f=function(r,e){void 0===e&&(e="UTF-8");var n=t.encode(r,{encoding:e,byteWriter:"count",throwOnError:!0});return n},l=function(r,e,n,t){t=t||{},t.byteReaderOptions=t.byteReaderOptions||{},t.byteWriterOptions=t.byteWriterOptions||{};var o=a.get(e,t.byteReaderOptions),i=d.get(n,t.byteWriterOptions);o.begin(r);for(var u=o.read();null!==u;)i.write(u),u=o.read();return i.finish()};e.decode=t.decode,e.encode=t.encode,e.byteReader=a,e.byteWriter=d,e.convertBytes=l,e.countEncodedBytes=f,e.jsunicodeError=c},function(r,e,n){var t=n(2),o=n(3),i=n(4),u=n(5),a={},d=function(r,e){a[r]=e},c=function(r){return a[r]},f=function(r,e){for(var n=[],o=!1,i=null,u=function(r){if(e)throw new t(r);n.push(65533)},a=0;a<r.length;a++){var d=r.charCodeAt(a);d>65535||d<0?(u("String contains invalid character data"),o&&(n.push(65533),o=!1)):d<=55295||d>=57344?(o===!0&&(u("Unmatched surrogate pair in string"),o=!1),n.push(d)):o?(d<56320?u("Low surrogate value not valid"):n.push(65536+(i-55296<<10)+d-56320),o=!1):d>=56320?u("Unexpected high surrogate found"):(o=!0,i=d)}return o&&u("Unexpected end of string (unmatched surrogate pair)"),n},l=function(r,e){e=o({},{encoding:"UTF-8",byteWriter:"hex",throwOnError:!1},e||{}),e.byteWriterOptions=e.byteWriterOptions||{};var n=c(e.encoding);if(void 0===n)throw new t("Unrecognized encoding: "+e.encoding);var i=u.get(e.byteWriter,e.byteWriterOptions);if(void 0===i)throw new t("Unrecognized byte writer name: "+e.byteWriter);if(null===r||void 0===r)return r;var a=f(r,e.throwOnError);n.encode(a,i,e);var d=i.finish();return d},s=function(r,e){e=o({},{encoding:"UTF-8",byteReader:"hex",throwOnError:!1},e||{}),e.byteReaderOptions=e.byteReaderOptions||{};var n=c(e.encoding);if(void 0===n)throw new t("Unrecognized encoding: "+e.encoding);var u=i.get(e.byteReader,e.byteReaderOptions);if(void 0===u)throw new t("Unrecognized byte reader name: "+e.byteReader);if(null===r||void 0===r)return r;u.begin(r);var a=n.decode(u,e);return a};e.register=d,e.get=c,e.decode=s,e.encode=l},function(r,e){var n=function(r){var e=Error.call(this,r);this.name="jsunicodeException",this.message=e.message,this.stack=e.stack},t=function(){};t.prototype=Error.prototype,n.prototype=new t,r.exports=n},function(r,e){"use strict";var n=Object.prototype.hasOwnProperty,t=Object.prototype.toString,o=function(r){return"function"==typeof Array.isArray?Array.isArray(r):"[object Array]"===t.call(r)},i=function(r){if(!r||"[object Object]"!==t.call(r))return!1;var e=n.call(r,"constructor"),o=r.constructor&&r.constructor.prototype&&n.call(r.constructor.prototype,"isPrototypeOf");if(r.constructor&&!e&&!o)return!1;var i;for(i in r);return"undefined"==typeof i||n.call(r,i)};r.exports=function r(){var e,n,t,u,a,d,c=arguments[0],f=1,l=arguments.length,s=!1;for("boolean"==typeof c?(s=c,c=arguments[1]||{},f=2):("object"!=typeof c&&"function"!=typeof c||null==c)&&(c={});f<l;++f)if(e=arguments[f],null!=e)for(n in e)t=c[n],u=e[n],c!==u&&(s&&u&&(i(u)||(a=o(u)))?(a?(a=!1,d=t&&o(t)?t:[]):d=t&&i(t)?t:{},c[n]=r(s,d,u)):"undefined"!=typeof u&&(c[n]=u));return c}},function(r,e,n){var t=n(2),o={},i=function(r,e){o[r]=e};i("hex",function(){var r,e,n=function(n){if(r=n,e=0,n.length%2!==0)throw new t("Invalid hex string length")},o=function(){if(e>=r.length)return null;var n=parseInt(r.substring(e,e+2),16);if(isNaN(n))throw new t("Invalid hex byte");return e+=2,n};return{begin:n,read:o}});var u=function(){var r,e,n=function(n){r=n,e=0},t=function(){return e>=r.length?null:r[e++]};return{begin:n,read:t}};i("byteArray",u),i("Uint8Array",u);var a={A:0,B:1,C:2,D:3,E:4,F:5,G:6,H:7,I:8,J:9,K:10,L:11,M:12,N:13,O:14,P:15,Q:16,R:17,S:18,T:19,U:20,V:21,W:22,X:23,Y:24,Z:25,a:26,b:27,c:28,d:29,e:30,f:31,g:32,h:33,i:34,j:35,k:36,l:37,m:38,n:39,o:40,p:41,q:42,r:43,s:44,t:45,u:46,v:47,w:48,x:49,y:50,z:51,0:52,1:53,2:54,3:55,4:56,5:57,6:58,7:59,8:60,9:61,"+":62,"/":63};i("base64",function(){var r,e,n,o,i,u=function(u){if(u.length%4!==0)throw new t("base64 string length not divisible by 4 (padding is required)");r=u,o=[null,null,null],e=0,n=0,i=r.length/4*3},d=function(){if(e>=i)return null;if(e%3===0){var u=r.substr(n,4);n+=4;for(var d=[null,null,null,null],c=0;c<4;c++)if("="===u[c]){if(e+3<i||c<2||2===c&&"="!==u[3])throw new t("Unexpected padding character");i--,d[c]=null}else if(d[c]=a[u[c]],void 0===d[c])throw new t("Unrecognized base64 character");o[0]=(d[0]<<2)+((48&d[1])>>4),null!==d[2]&&(o[1]=((15&d[1])<<4)+((60&d[2])>>2)),null!==d[3]&&(o[2]=((3&d[2])<<6)+d[3])}var f=o[e%3];return e++,f};return{begin:u,read:d}});var d=function(r,e){var n=o[r];return"function"==typeof n?n(e):void 0===n?void 0:(n.options=e,n)},c=function(){return Object.keys(o)};e.register=i,e.get=d,e.list=c},function(r,e,n){var t={},o=n(3),i=n(2),u=function(r,e){t[r]=e};u("hex",function(r){var e=[];r=o({},{upperCase:!1},r);var n=function(n){if(0===n)e.push("00");else{var t=n.toString(16);t.length<2&&(t="0"+t),t=r.upperCase?t.toUpperCase():t.toLowerCase(),e.push(t)}},t=function(){return e.join("")};return{write:n,finish:t}}),u("byteArray",function(){var r=[],e=function(e){r.push(e)},n=function(){return r};return{write:e,finish:n}}),u("Uint8Array",function(){var r=[],e=function(e){r.push(e)},n=function(){return new Uint8Array(r)};return{write:e,finish:n}}),u("count",function(){var r=0,e=function(){r++},n=function(){return r};return{write:e,finish:n}});var a=["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z","0","1","2","3","4","5","6","7","8","9","+","/"];u("base64",function(){var r=[],e=null,n=null,t=function(t){null===e?e=t:null===n?n=t:(r.push(a[e>>2]),r.push(a[((3&e)<<4)+(n>>4)]),r.push(a[((15&n)<<2)+(t>>6)]),r.push(a[63&t]),e=null,n=null)},o=function(){return null!==e&&(null!==n?(r.push(a[e>>2]),r.push(a[((3&e)<<4)+(n>>4)]),r.push(a[(15&n)<<2]),r.push("=")):(r.push(a[e>>2]),r.push(a[(3&e)<<4]),r.push("=="))),r.join("")};return{write:t,finish:o}});var d=function(r,e){var n=t[r];if("function"==typeof n)n=n(e);else{if(void 0===n)return;n.options=e}return{write:function(r){if("number"!=typeof r||r<0||r>255)throw new i("Invalid byte");return n.write(r)},finish:n.finish}},c=function(){return Object.keys(t)};e.register=u,e.get=d,e.list=c},function(r,e,n){var t=n(7),o=function(r,e){var n=e.throwOnError,o=!1;("UTF-32LE"===e.encoding||e.isLittleEndian)&&(o=!0);for(var i=[],u=[r.read(),r.read(),r.read(),r.read()];null!==u[0];){null!==u[1]&&null!==u[2]&&null!==u[3]||i.push(t.errorString("Unexpected end of input",n));var a;a=o?(u[3]<<24)+(u[2]<<16)+(u[1]<<8)+u[0]:(u[0]<<24)+(u[1]<<16)+(u[2]<<8)+u[3],i.push(t.fromCodePoint(a)),u=[r.read(),r.read(),r.read(),r.read()]}return i.join("")},i=function(r,e,n){var t=!1;("UTF-32LE"===n.encoding||n.isLittleEndian)&&(t=!0);for(var o=0;o<r.length;o++){var i=r[o];t?(e.write(255&i),e.write((65280&i)>>8),e.write((16711680&i)>>16),e.write((4278190080&i)>>24)):(e.write((4278190080&i)>>24),e.write((16711680&i)>>16),e.write((65280&i)>>8),e.write(255&i))}};e.decode=o,e.encode=i},function(r,e,n){var t=n(2),o=function(r,e){var n;if(void 0===e){if(n=r,String.hasOwnProperty("fromCodePoint"))return String.fromCodePoint(n);if(n>=65536){var t=n-65536;return r=55296+(t>>10),e=56320+(1023&t),String.fromCharCode(r)+String.fromCharCode(e)}return String.fromCharCode(n)}return String.hasOwnProperty("fromCodePoint")?(n=65536+(r-55296<<10)+(e-56320),String.fromCodePoint(n)):String.fromCharCode(r)+String.fromCharCode(e)},i=function(r){return!(r>=55296&&r<=57343)&&!(r>1114111)},u=function(r,e){if(e===!0)throw new t(r);if(e===!1)return"�";throw new Error("throwOnError argument required")};e.fromCodePoint=o,e.errorString=u,e.validateCodePoint=i},function(r,e,n){var t=n(7),o=function(r,e){var n=e.throwOnError,o=!1;("UTF-16LE"===e.encoding||e.isLittleEndian)&&(o=!0);for(var i,u=[],a=r.read(),d=r.read(),c=null;null!==a;)null===d&&u.push(t.errorString("Odd number of bytes in byte stream (must be even for UTF-16)",n)),i=o?256*d+a:256*a+d,null!==c?(i<56320||i>57343?u.push(t.errorString("Surrogate code point not found when expected",n)):u.push(t.fromCodePoint(c,i)),c=null):i>=56320&&i<=57343?(u.push(t.errorString("Invalid code point (in high surrogate range)",n)),c=null):i>=55296&&i<=56319?c=i:(u.push(t.fromCodePoint(i)),c=null),a=r.read(),d=r.read();return null!==c&&u.push(t.errorString("High surrogate code point at end of byte stream (expected corresponding low surrogate code point)",n)),u.join("")},i=function(r,e,n){var t=!1;("UTF-16LE"===n.encoding||n.isLittleEndian)&&(t=!0);for(var o=function(r){t?(e.write(255&r),e.write((65280&r)>>8)):(e.write((65280&r)>>8),e.write(255&r))},i=0;i<r.length;i++){var u=r[i];if(u<65536)o(u);else{var a=u-65536,d=55296+(a>>10),c=56320+(1023&a);o(d),o(c)}}};e.decode=o,e.encode=i},function(r,e,n){var t=n(7),o=function(r,e){for(var n,o,i,u=[],a=r.read(),d=e.throwOnError,c=null;null!==a;){if(a<128)u.push(t.fromCodePoint(a)),c=null;else{192===(224&a)?(n=2,i=(31&a)<<6):224===(240&a)?(n=3,i=(15&a)<<12):240===(248&a)?(n=4,i=(7&a)<<18):u.push(t.errorString("Invalid leading byte",d));for(var f=n-1;f>0;f--)o=r.read(),null===o?u.push(t.errorString("Unexpected end of byte stream",d)):128!==(192&o)?u.push(t.errorString("Invalid continuation byte",d)):i+=o-128<<6*(f-1);t.validateCodePoint(i)?(u.push(t.fromCodePoint(i)),c=null):e.allowEncodedSurrogatePair&&null===c&&i>=55296&&i<=56319?c=i:e.allowEncodedSurrogatePair&&null!==c&&i>=56320&&i<=57343?(u.push(t.fromCodePoint(c,i)),c=null):(u.push(t.errorString("Invalid Unicode code point detected",d)),c=null)}a=r.read()}return e.allowEncodedSurrogatePair&&null!==c&&u.push(t.errorString("Unmatched encoded surrogate pair",d)),u.join("")},i=function(r,e){for(var n=0;n<r.length;n++){var t=r[n];t<128?e.write(t):t<2048?(e.write(192+(t>>6)),e.write(128+(63&t))):t<65536?(e.write(224+(t>>12)),e.write(128+(t>>6&63)),e.write(128+(63&t))):(e.write(240+(t>>18)),e.write(128+(t>>12&63)),e.write(128+(t>>6&63)),e.write(128+(63&t)))}};e.decode=o,e.encode=i}])});
 var TokenRemovalTimer;
 var TokenRemovalTimerWaitPeriod = 500;//millisecond
@@ -9,31 +6,16 @@ var RemovalEventRunning=false;
 var TokenInsertionTimer;
 var TokenInsertionTimerWaitPeriod = 500;//millisecond
 var InsertionEventRunning=false;
-var conn=false;
-var hostUrl = "ws://127.0.0.1:51356/dastine";
-
+var hostUrl = "wss://localhost.dastine.pki.co.ir:51357/dastine";
 var Dastine = {
 	isInstalled:false,
-	isBusy : false,
+	//isBusy : false,
 	socketConnection:null,
 	info:"undefined",
 	errorMessage:"DASTINE_NOT_INSTALLED",
+	version:"",
+	jsVersion:"5.8.17.0",
 	
-	
-	CheckUpdateCallBack:"",
-    CheckUpdate: function(callbackCheckUpdate) {
-		Dastine.CheckUpdateCallBack=callbackCheckUpdate;
-		var msg = {command: "CheckUpdate"};
-		msg["src"] = "dastine.js";
-		Dastine.TriggerDastineFunction(msg);		      
-    },
-	InstallUpdateCallBack:"",
-    InstallUpdate: function(callbackInstallUpdate) {
-		Dastine.InstallUpdateCallBack=callbackInstallUpdate;
-		var msg = {command: "InstallUpdate"};
-		msg["src"] = "dastine.js";
-		Dastine.TriggerDastineFunction(msg);		      
-    },
 	SelectCertificateFromWindowsByUICallBack:"",
     SelectCertificateFromWindowsByUI: function(issuer, keyUsages, callbackSelectCertificateFromWindowsByUI) {
 		Dastine.SelectCertificateFromWindowsByUICallBack=callbackSelectCertificateFromWindowsByUI;
@@ -47,6 +29,13 @@ var Dastine = {
     GetSelectedCertificate: function(callbackGetSelectedCertificate) {
 		Dastine.GetSelectedCertificateCallBack=callbackGetSelectedCertificate;
 		var msg = {command: "GetSelectedCertificate"};
+		msg["src"] = "dastine.js";
+		Dastine.TriggerDastineFunction(msg);	     
+    },
+	GetProviderNameCallBack:"",
+    GetProviderName: function(callbackGetProviderName) {
+		Dastine.GetProviderNameCallBack=callbackGetProviderName;
+		var msg = {command: "GetProviderName"};
 		msg["src"] = "dastine.js";
 		Dastine.TriggerDastineFunction(msg);	     
     },
@@ -102,6 +91,15 @@ var Dastine = {
 		msg["keyUsages"] = keyUsages;
 		Dastine.TriggerDastineFunction(msg);	    
 	},
+	SelectCertificateByThumbprintCallBack:"",
+    SelectCertificateByThumbprint: function(thumbprint, hashAlg, callbackSelectCertificateByThumbprint) {
+		Dastine.SelectCertificateByThumbprintCallBack=callbackSelectCertificateByThumbprint;
+		var msg = {command: "SelectCertificateByThumbprint"};
+		msg["src"] = "dastine.js";
+		msg["Thumbprint"] = thumbprint;
+		msg["hashAlg"] = hashAlg;
+		Dastine.TriggerDastineFunction(msg);	    
+	},
 	FindCertificateFromTokenCallBack:"",
     FindCertificateFromToken: function(issuer, keyUsages, callbackFindCertificateFromToken) {
 		Dastine.FindCertificateFromTokenCallBack=callbackFindCertificateFromToken;
@@ -128,6 +126,24 @@ var Dastine = {
 		msg["token"] = token;
 		Dastine.TriggerDastineFunction(msg);		
     },
+	GenerateKeyPairAndCertificateRequestWithSANSCallBack:"",
+    GenerateKeyPairAndCertificateRequestWithSANS: function(subjectDn, keyLen, token, upn,rfc822,dns,directory,uri,ip,id, callbackGenerateKeyPairAndCertificateRequestWithSANS) {
+		Dastine.GenerateKeyPairAndCertificateRequestWithSANSCallBack=callbackGenerateKeyPairAndCertificateRequestWithSANS;
+		var msg = {command: "GenerateKeyPairAndCertificateRequestWithSANS"};
+		msg["src"] = "dastine.js";
+		msg["subjectDn"] = subjectDn;
+		msg["keyLen"] = keyLen;
+		msg["token"] = token;
+		msg["upn"] = upn;
+		msg["rfc822"] = rfc822;
+		msg["dns"] = dns;
+		msg["directory"] = directory;
+		msg["uri"] = uri;
+		msg["ip"] = ip;
+		msg["id"] = id;
+		
+		Dastine.TriggerDastineFunction(msg);		
+    },
 	GenerateKeyPairAndCertificateRequestOnSelectedCertificateCallBack:"",
     GenerateKeyPairAndCertificateRequestOnSelectedCertificate: function(subjectDn, keyLen, token, callbackGenerateKeyPairAndCertificateRequestOnSelectedCertificate) {
 		Dastine.GenerateKeyPairAndCertificateRequestOnSelectedCertificateCallBack=callbackGenerateKeyPairAndCertificateRequestOnSelectedCertificate;
@@ -136,8 +152,7 @@ var Dastine = {
 		msg["subjectDn"] = subjectDn;
 		msg["keyLen"] = keyLen;
 		msg["token"] = token;
-		Dastine.TriggerDastineFunction(msg);
-		
+		Dastine.TriggerDastineFunction(msg);	
 	},
 	GenerateCertificateRequestBySelectedCertificateCallBack:"",
     GenerateCertificateRequestBySelectedCertificate: function(callbackGenerateCertificateRequestBySelectedCertificate) {
@@ -163,7 +178,6 @@ var Dastine = {
 		msg["src"] = "dastine.js";
 		msg["certificate"] = certificate;
 		Dastine.TriggerDastineFunction(msg);	
-	
     },
 	SignCallBack:"",
     Sign: function(data, hash, callbackSign) {
@@ -186,7 +200,6 @@ var Dastine = {
 			hash="SHA1";
 		msg["hash"] = hash;
 		Dastine.TriggerDastineFunction(msg);
-	
     },
 	CmsSignWithAttributesCallBack:"",
     CmsSignWithAttributes: function(data, AuthenticatedAttributes, UnAuthenticatedAttributes, callbackCmsSignWithAttributes) {
@@ -197,12 +210,19 @@ var Dastine = {
 		msg["AuthenticatedAttributes"] = AuthenticatedAttributes;
 		msg["UnAuthenticatedAttributes"] = UnAuthenticatedAttributes;
 		Dastine.TriggerDastineFunction(msg);
-	
     },
 	CmsDecryptCallBack:"",
     CmsDecrypt: function(cipher, callbackCmsDecrypt) {
 		Dastine.CmsDecryptCallBack=callbackCmsDecrypt;
 		var msg = {command: "CmsDecrypt"};
+		msg["src"] = "dastine.js";
+		msg["cipher"] = cipher;
+		Dastine.TriggerDastineFunction(msg);	    
+    },
+	DecryptCallBack:"",
+    Decrypt: function(cipher, callbackDecrypt) {
+		Dastine.DecryptCallBack=callbackDecrypt;
+		var msg = {command: "Decrypt"};
 		msg["src"] = "dastine.js";
 		msg["cipher"] = cipher;
 		Dastine.TriggerDastineFunction(msg);	    
@@ -412,27 +432,12 @@ var Dastine = {
 		msg["index"] = index;
 		Dastine.TriggerDastineFunction(msg);	    
 	},
-	OpenFingerPrintScannerCallBack:"",
-    OpenFingerPrintScanner: function(scannername, callbackOpenFingerPrintScanner) {
-		Dastine.OpenFingerPrintScannerCallBack=callbackOpenFingerPrintScanner;
-		var msg = {command: "OpenFingerPrintScanner"};
+	CaptureFingerPrintCallBack:"",
+    CaptureFingerPrint: function(scannername, callbackCaptureFingerPrint) {
+		Dastine.CaptureFingerPrintCallBack=callbackCaptureFingerPrint;
+		var msg = {command: "CaptureFingerPrint"};
 		msg["src"] = "dastine.js";
 		msg["scannername"] = scannername;
-		Dastine.TriggerDastineFunction(msg);	       
-	},
-	CaptureFingerPrintScannerCallBack:"",
-    CaptureFingerPrintScanner: function(imageformatname, callbackCaptureFingerPrintScanner) {
-		Dastine.CaptureFingerPrintScannerCallBack=callbackCaptureFingerPrintScanner;
-		var msg = {command: "CaptureFingerPrintScanner"};
-		msg["src"] = "dastine.js";
-		msg["imageformatname"] = imageformatname;
-		Dastine.TriggerDastineFunction(msg);	       
-	},
-	CloseFingerPrintScannerCallBack:"",
-    CloseFingerPrintScanner: function(callbackCloseFingerPrintScanner) {
-		Dastine.CloseFingerPrintScannerCallBack=callbackCloseFingerPrintScanner;
-		var msg = {command: "CloseFingerPrintScanner"};
-		msg["src"] = "dastine.js";
 		Dastine.TriggerDastineFunction(msg);	       
 	},
 	GetFingerPrintScannerSupportedDevicesCallBack:"",
@@ -442,87 +447,109 @@ var Dastine = {
 		msg["src"] = "dastine.js";
 		Dastine.TriggerDastineFunction(msg);	       
 	},
-	GetFingerPrintScannerDLLVersionCallBack:"",
-    GetFingerPrintScannerDLLVersion: function(callbackGetFingerPrintScannerDLLVersion) {
-		Dastine.GetFingerPrintScannerDLLVersionCallBack=callbackGetFingerPrintScannerDLLVersion;
-		var msg = {command: "GetFingerPrintScannerDLLVersion"};
+	CheckUpdateCallBack:"",
+    CheckUpdate: function(callbackCheckUpdate) {
+		Dastine.CheckUpdateCallBack=callbackCheckUpdate;
+		var msg = {command: "CheckUpdate"};
 		msg["src"] = "dastine.js";
-		Dastine.TriggerDastineFunction(msg);	       
-	},
-	GetFingerPrintScannerSupportedImageFormatCallBack:"",
-    GetFingerPrintScannerSupportedImageFormat: function(scannername, callbackGetFingerPrintScannerSupportedImageFormat) {
-		Dastine.GetFingerPrintScannerSupportedImageFormatCallBack=callbackGetFingerPrintScannerSupportedImageFormat;
-		var msg = {command: "GetFingerPrintScannerSupportedImageFormat"};
+		Dastine.TriggerDastineFunction(msg);		      
+    },
+	InstallUpdateCallBack:"",
+    InstallUpdate: function(callbackInstallUpdate) {
+		Dastine.InstallUpdateCallBack=callbackInstallUpdate;
+		var msg = {command: "InstallUpdate"};
 		msg["src"] = "dastine.js";
-		msg["scannername"] = scannername;
-		Dastine.TriggerDastineFunction(msg);	       
-	},
+		Dastine.TriggerDastineFunction(msg);		      
+    },
+	NIDGetFingerIndexCallBack:"",
+    NIDGetFingerIndex: function(cardReader,callbackNIDGetFingerIndex) {
+		Dastine.NIDGetFingerIndexCallBack=callbackNIDGetFingerIndex;
+		var msg = {command: "NIDGetFingerIndex"};
+		msg["cardReader"] = cardReader;
+		msg["src"] = "dastine.js";
+		Dastine.TriggerDastineFunction(msg);		      
+    },
+	NIDAuthenticateByPINCallBack:"",
+    NIDAuthenticateByPIN: function(cardReader,callbackNIDAuthenticateByPIN) {
+		Dastine.NIDAuthenticateByPINCallBack=callbackNIDAuthenticateByPIN;
+		var msg = {command: "NIDAuthenticateByPIN"};
+		msg["cardReader"] = cardReader;
+		msg["src"] = "dastine.js";
+		Dastine.TriggerDastineFunction(msg);		      
+    },
+	NIDAuthenticateByFingerUICallBack:"",
+    NIDAuthenticateByFingerUI: function(cardReader,callbackNIDAuthenticateByFingerUI) {
+		Dastine.NIDAuthenticateByFingerUICallBack=callbackNIDAuthenticateByFingerUI;
+		var msg = {command: "NIDAuthenticateByFingerUI"};
+		msg["cardReader"] = cardReader;
+		msg["src"] = "dastine.js";
+		Dastine.TriggerDastineFunction(msg);		      
+    },
+	NIDAuthenticateByFingerCallBack:"",
+    NIDAuthenticateByFinger: function(cardReader,index, imageData,imageWidth,imageHeight,imageResolution,callbackNIDAuthenticateByFinger) {
+		Dastine.NIDAuthenticateByFingerCallBack=callbackNIDAuthenticateByFinger;
+		var msg = {command: "NIDAuthenticateByFinger"};
+		msg["cardReader"] = cardReader;
+		msg["src"] = "dastine.js";
+		msg["index"] = index;
+		msg["imageData"] = imageData;
+		msg["imageWidth"] = imageWidth;
+		msg["imageHeight"] = imageHeight;
+		msg["imageResolution"] = imageResolution;
+		Dastine.TriggerDastineFunction(msg);		      
+    },
+	NIDSignCallBack:"",
+    NIDSign: function(cardReader,data,callbackNIDSign) {
+		Dastine.NIDSignCallBack=callbackNIDSign;
+		var msg = {command: "NIDSign"};
+		msg["cardReader"] = cardReader;
+		msg["data"] = data;
+		msg["src"] = "dastine.js";
+		Dastine.TriggerDastineFunction(msg);		      
+    },
+	NIDChangePINCallBack:"",
+    NIDChangePIN: function(cardReader,pinType,oldPIN,newPIN,callbackNIDChangePIN) {
+		Dastine.NIDChangePINCallBack=callbackNIDChangePIN;
+		var msg = {command: "NIDChangePIN"};
+		msg["cardReader"] = cardReader;
+		msg["pinType"] = pinType;
+		msg["oldPIN"] = oldPIN;
+		msg["newPIN"] = newPIN;
+		msg["src"] = "dastine.js";
+		Dastine.TriggerDastineFunction(msg);		      
+    },
+	NIDUnblockPINCallBack:"",
+    NIDUnblockPIN: function(cardReader,pinType,callbackNIDUnblockPIN) {
+		Dastine.NIDUnblockPINCallBack=callbackNIDUnblockPIN;
+		var msg = {command: "NIDUnblockPIN"};
+		msg["cardReader"] = cardReader;
+		msg["pinType"] = pinType;
+		msg["src"] = "dastine.js";
+		Dastine.TriggerDastineFunction(msg);		      
+    },
 	TriggerDastineFunction: function(msg)
 	{
 		try
 		{
-			/*if(Dastine.socketConnection == null )
+			if(Dastine.socketConnection.readyState == 1)
 			{
-				if(typeof sessionStorage.DastineId == 'undefined')
-				{	
-					var randomString = generateRandomString();
-					sessionStorage.setItem('DastineId', randomString); 
+				/*if(Dastine.isBusy == true)
+				{
+					console.log("Dastine is busy");
 				}
-				Dastine.info = sessionStorage.DastineId;
-				msg["info"] = Dastine.info;
-				//hostUrl = "ws://127.0.0.1:51356/dastine";
-				Dastine.socketConnection = new WebSocket(hostUrl);
-
-				Dastine.socketConnection.onmessage = Dastine.TriggerDastineOutput;
-				Dastine.socketConnection.onopen = function(e) {
-												
-												console.log('Socket opened to: ' + hostUrl);
-												if (Dastine.socketConnection.readyState == 1) {
-													Dastine.socketConnection.send(JSON.stringify(msg));
-													Dastine.DastineKeepAlive();
-												}else{
-													Dastine.isInstalled=false;
-													Dastine.errorMessage = "DASTINE_NOT_INSTALLED";
-												}												
-											};
-				Dastine.socketConnection.onerror=function(error){
-					hostUrlTest = "ws://127.0.0.1:51356/dastine";
-					var socketTest = new WebSocket(hostUrlTest);
-					socketTest.onopen = function(e) {
-						console.log('Test Socket opened to: ' + hostUrlTest);
-						Dastine.errorMessage = "DASTINE_PORTS_ARE_CLOSED";
-						socketTest.close();
-					}
-					socketTest.onerror = function(error) {
-						Dastine.isInstalled=false;
-						Dastine.errorMessage = "DASTINE_NOT_INSTALLED";
-					};
-
-				}
-				Dastine.socketConnection.onclose=function(event){
-					Dastine.isInstalled=false;
-					Dastine.errorMessage = "DASTINE_NOT_INSTALLED";
-				}
-				
-			}else
-			{*/
-		if(conn==true){
-			if(Dastine.isBusy == true)
-			{
-				console.log("Dastine is busy");
-			}
-			else
-			{
-				Dastine.isBusy = true;
+				else
+				{
+					Dastine.isBusy = true;
+					msg["info"] = Dastine.info;			
+					Dastine.socketConnection.send(JSON.stringify(msg));
+				}*/
 				msg["info"] = Dastine.info;			
 				Dastine.socketConnection.send(JSON.stringify(msg));
 			}
-
-		}
-		else{
-			setTimeout( function(){ Dastine.TriggerDastineFunction(msg)},100);
-		}
-			//}
+			else
+			{
+				setTimeout( function(){ Dastine.TriggerDastineFunction(msg)},100);
+			}
 		}
 		catch(e)
 		{
@@ -533,23 +560,11 @@ var Dastine = {
 	},
 	TriggerDastineOutput: function(event)
 	{
-		Dastine.isBusy = false;
+		//Dastine.isBusy = false;
 		var event = Dastine.CheckResult("", event.data);
 		if(event.data.command) {
 				switch (event.data.command) {
 
-					case "CheckUpdate":
-					if(Dastine.CheckUpdateCallBack)
-						Dastine.CheckUpdateCallBack(event);
-					else
-						console.log("Dastine method callback not set.");
-					break;
-					case "InstallUpdate":
-					if(Dastine.InstallUpdateCallBack)
-						Dastine.InstallUpdateCallBack(event);
-					else
-						console.log("Dastine method callback not set.");
-					break;
 					case "SelectCertificateFromWindowsByUI":
 						if(Dastine.SelectCertificateFromWindowsByUICallBack)
 						{
@@ -610,6 +625,16 @@ var Dastine = {
 						else
 							console.log("Dastine method callback not set.");
 						break;
+					case "SelectCertificateByThumbprint":
+						if(Dastine.SelectCertificateByThumbprintCallBack)
+						{
+							Dastine.SelectCertificateByThumbprintCallBack(event);
+							clearInterval(TokenRemovalTimer);
+							RemovalEventRunning=false;
+						}
+						else
+							console.log("Dastine method callback not set.");
+						break;
 					case "FindCertificateFromToken":
 						if(Dastine.FindCertificateFromTokenCallBack)
 						{
@@ -622,9 +647,7 @@ var Dastine = {
 							{
 								Dastine.FindCertificateFromTokenCallBack(event);
 							}
-
 						}
-							
 						else
 							console.log("Dastine method callback not set.");
 						break;
@@ -638,8 +661,6 @@ var Dastine = {
 						if(Dastine.CmsSignCallBack)
 						{
 							Dastine.CmsSignCallBack(event);
-							//Dastine.ListenForTokenRemovel();
-							//Dastine.SetTokenRemoveEventCallBack(event);
 						}
 						else
 							console.log("Dastine method callback not set.");
@@ -656,9 +677,21 @@ var Dastine = {
 						else
 							console.log("Dastine method callback not set.");
 						break;
+					case "Decrypt":
+						if(Dastine.DecryptCallBack)
+							Dastine.DecryptCallBack(event);
+						else
+							console.log("Dastine method callback not set.");
+						break;
 					case "GetSelectedCertificate":
 						if(Dastine.GetSelectedCertificateCallBack)
 							Dastine.GetSelectedCertificateCallBack(event);
+						else
+							console.log("Dastine method callback not set.");
+						break;
+					case "GetProviderName":
+						if(Dastine.GetProviderNameCallBack)
+							Dastine.GetProviderNameCallBack(event);
 						else
 							console.log("Dastine method callback not set.");
 						break;
@@ -671,6 +704,12 @@ var Dastine = {
 					case "GenerateKeyPairAndCertificateRequest":
 						if(Dastine.GenerateKeyPairAndCertificateRequestCallBack)
 							Dastine.GenerateKeyPairAndCertificateRequestCallBack(event);
+						else
+							console.log("Dastine method callback not set.");
+						break;
+					case "GenerateKeyPairAndCertificateRequestWithSANS":
+						if(Dastine.GenerateKeyPairAndCertificateRequestWithSANSCallBack)
+							Dastine.GenerateKeyPairAndCertificateRequestWithSANSCallBack(event);
 						else
 							console.log("Dastine method callback not set.");
 						break;
@@ -860,21 +899,9 @@ var Dastine = {
 						else
 							console.log("Dastine method callback not set.");
 						break;
-					case "OpenFingerPrintScanner":
-						if(Dastine.OpenFingerPrintScannerCallBack)
-							Dastine.OpenFingerPrintScannerCallBack(event);
-						else
-							console.log("Dastine method callback not set.");
-						break;
-					case "CaptureFingerPrintScanner":
-						if(Dastine.CaptureFingerPrintScannerCallBack)
-							Dastine.CaptureFingerPrintScannerCallBack(event);
-						else
-							console.log("Dastine method callback not set.");
-						break;
-					case "CloseFingerPrintScanner":
-						if(Dastine.CloseFingerPrintScannerCallBack)
-							Dastine.CloseFingerPrintScannerCallBack(event);
+					case "CaptureFingerPrint":
+						if(Dastine.CaptureFingerPrintCallBack)
+							Dastine.CaptureFingerPrintCallBack(event);
 						else
 							console.log("Dastine method callback not set.");
 						break;
@@ -884,15 +911,57 @@ var Dastine = {
 						else
 							console.log("Dastine method callback not set.");
 						break;
-					case "GetFingerPrintScannerDLLVersion":
-						if(Dastine.GetFingerPrintScannerDLLVersionCallBack)
-							Dastine.GetFingerPrintScannerDLLVersionCallBack(event);
+					case "CheckUpdate":
+						if(Dastine.CheckUpdateCallBack)
+							Dastine.CheckUpdateCallBack(event);
 						else
 							console.log("Dastine method callback not set.");
 						break;
-					case "GetFingerPrintScannerSupportedImageFormat":
-						if(Dastine.GetFingerPrintScannerSupportedImageFormatCallBack)
-							Dastine.GetFingerPrintScannerSupportedImageFormatCallBack(event);
+					case "InstallUpdate":
+						if(Dastine.InstallUpdateCallBack)
+							Dastine.InstallUpdateCallBack(event);
+						else
+							console.log("Dastine method callback not set.");
+						break;
+					case "NIDGetFingerIndex":
+						if(Dastine.NIDGetFingerIndexCallBack)
+							Dastine.NIDGetFingerIndexCallBack(event);
+						else
+							console.log("Dastine method callback not set.");
+						break;
+					case "NIDAuthenticateByPIN":
+						if(Dastine.NIDAuthenticateByPINCallBack)
+							Dastine.NIDAuthenticateByPINCallBack(event);
+						else
+							console.log("Dastine method callback not set.");
+						break;
+					case "NIDAuthenticateByFingerUI":
+						if(Dastine.NIDAuthenticateByFingerUICallBack)
+							Dastine.NIDAuthenticateByFingerUICallBack(event);
+						else
+							console.log("Dastine method callback not set.");
+						break;
+					case "NIDAuthenticateByFinger":
+						if(Dastine.NIDAuthenticateByFingerCallBack)
+							Dastine.NIDAuthenticateByFingerCallBack(event);
+						else
+							console.log("Dastine method callback not set.");
+						break;
+					case "NIDSign":
+						if(Dastine.NIDSignCallBack)
+							Dastine.NIDSignCallBack(event);
+						else
+							console.log("Dastine method callback not set.");
+						break;
+					case "NIDChangePIN":
+						if(Dastine.NIDChangePINCallBack)
+							Dastine.NIDChangePINCallBack(event);
+						else
+							console.log("Dastine method callback not set.");
+						break;
+					case "NIDUnblockPIN":
+						if(Dastine.NIDUnblockPINCallBack)
+							Dastine.NIDUnblockPINCallBack(event);
 						else
 							console.log("Dastine method callback not set.");
 						break;
@@ -923,10 +992,7 @@ var Dastine = {
 					default:
 						console.log("No such function in Dastine!.");
 				} 		
-			} //else {
-			   // console.log("No valid response for dastine.");
-		   // }
-		
+			} 
 	},
 	DastineKeepAlive: function() {
 		var msg = {command: "DastineIsAlive"};
@@ -934,13 +1000,8 @@ var Dastine = {
 		msg["info"] = Dastine.info;
 		if (Dastine.socketConnection.readyState == 1) {
 			Dastine.socketConnection.send(JSON.stringify(msg));
-			//console.log('send keep alive')
 			setTimeout("Dastine.DastineKeepAlive()", 60000);
-		}else{
-			Dastine.isInstalled=false;
-			Dastine.errorMessage = "DASTINE_NOT_INSTALLED";
-		}		
-        
+		}   
     },
 	isJSON: function(item) {
 		item = typeof item !== "string"
@@ -968,7 +1029,7 @@ var Dastine = {
 			var res = {command: message["command"]};	
 			res["Result"] = result;	
 			res["tab"] = message["tab"];	
-			var event = {src: "background.js"};	
+			var event= {src: "background.js"};	
 			event["data"] = res;
 			return event;
 		}
@@ -1119,6 +1180,30 @@ var DastineInstaller = {
 	createConnection : function() {
 		try
 		{
+			var os = BrowserDetector.OS;
+			var browser = BrowserDetector.browser;
+			
+			if (location.protocol == 'https:')
+				hostUrl = "wss://localhost.dastine.pki.co.ir:51357/dastine";
+			else
+				hostUrl = "ws://127.0.0.1:51356/dastine";
+			
+			var majorVersion = parseInt(BrowserDetector.version,10);
+			
+			if(os=="Windows") {
+				if(browser == "Firefox" && majorVersion < 10)
+					Dastine.errorMessage = "DASTINE_BROWSER_NOT_SUPPORTED";
+				else if(browser == "Chrome" && majorVersion < 15)
+					Dastine.errorMessage = "DASTINE_BROWSER_NOT_SUPPORTED";
+				else if(browser == "Explorer" && majorVersion < 10) 
+					Dastine.errorMessage = "DASTINE_BROWSER_NOT_SUPPORTED";
+				else if(browser == "Opera" && majorVersion < 12) 
+					Dastine.errorMessage = "DASTINE_BROWSER_NOT_SUPPORTED";
+				else if(browser == "Mozilla" && majorVersion < 11)
+					Dastine.errorMessage = "DASTINE_BROWSER_NOT_SUPPORTED";	
+			} 
+			
+			
 			if(Dastine.socketConnection == null )
 			{
 				if(typeof sessionStorage.DastineId == 'undefined')
@@ -1127,47 +1212,75 @@ var DastineInstaller = {
 					sessionStorage.setItem('DastineId', randomString); 
 				}
 				Dastine.info = sessionStorage.DastineId;
-				//msg["info"] = Dastine.info;
-
+				
 				Dastine.socketConnection = new WebSocket(hostUrl);
 
 				Dastine.socketConnection.onmessage = Dastine.TriggerDastineOutput;
 				Dastine.socketConnection.onopen = function(e) {
-												
-												console.log('Socket opened to: ' + hostUrl);
-												if (Dastine.socketConnection.readyState == 1) {
-													//Dastine.socketConnection.send(JSON.stringify(msg));
-													Dastine.DastineKeepAlive();
-													conn = true;
-												}else{
-													conn = false;
-													Dastine.isInstalled=false;
-													Dastine.errorMessage = "DASTINE_NOT_INSTALLED";
-												}												
-											};
-				Dastine.socketConnection.onerror=function(error){
-					hostUrlTest = "ws://127.0.0.1:51356/dastine";
-					var socketTest = new WebSocket(hostUrlTest);
-					socketTest.onopen = function(e) {
-						console.log('Test Socket opened to: ' + hostUrlTest);
-						Dastine.errorMessage = "DASTINE_PORTS_ARE_CLOSED";
-						socketTest.close();
+					console.log('Socket opened to: ' + hostUrl);
+					if (Dastine.socketConnection.readyState == 1) {
+						Dastine.DastineKeepAlive();
+						Dastine.SetConfig(DastineConfig.config+"<HostDownloadLink>"+DastineConfig.hostDownloadLink+"</HostDownloadLink>"+"<HostDownloadLinkAndroid>"+DastineConfig.hostDownloadLinkAndroid+"</HostDownloadLinkAndroid>", function(event) 
+						{
+							Dastine.GetVersion(function(event) {
+								Dastine.version = event.data.Result;											
+								if(os=='Windows'){
+									if(Dastine.version < DastineConfig.minVersion)	
+										Dastine.errorMessage = "DASTINE_VERSION_OUTDATED";		
+								}
+								else{
+									if(Dastine.version < DastineConfig.minVersionAndroid)
+										Dastine.errorMessage = "DASTINE_VERSION_OUTDATED";
+								}					
+							});
+						});				
 					}
-					socketTest.onerror = function(error) {
-						Dastine.isInstalled=false;
-						Dastine.errorMessage = "DASTINE_NOT_INSTALLED";
+					Dastine.isInstalled=true;
+				};
+				Dastine.socketConnection.onerror=function(error){	
+					hostUrl = "wss://local.dastine.pki.co.ir:51357/dastine";
+					Dastine.socketConnection = new WebSocket(hostUrl);
+					Dastine.socketConnection.onmessage = Dastine.TriggerDastineOutput;
+					Dastine.socketConnection.onopen = function(e) {
+						console.log('Socket opened to: ' + hostUrl);
+						if (Dastine.socketConnection.readyState == 1) {
+							Dastine.DastineKeepAlive();
+							Dastine.SetConfig(DastineConfig.config+"<HostDownloadLink>"+DastineConfig.hostDownloadLink+"</HostDownloadLink>"+"<HostDownloadLinkAndroid>"+DastineConfig.hostDownloadLinkAndroid+"</HostDownloadLinkAndroid>", function(event) 
+							{
+								Dastine.GetVersion(function(event) {
+									Dastine.version = event.data.Result;											
+									if(os=='Windows'){
+										if(Dastine.version < DastineConfig.minVersion)	
+											Dastine.errorMessage = "DASTINE_VERSION_OUTDATED";		
+									}
+									else{
+										if(Dastine.version < DastineConfig.minVersionAndroid)
+											Dastine.errorMessage = "DASTINE_VERSION_OUTDATED";
+									}					
+								});
+							});	
+							Dastine.isInstalled=true;					
+						}
 					};
-
+					Dastine.socketConnection.onerror=function(error){
+					
+						hostUrlTest = "ws://127.0.0.1:51356/dastine";
+						var socketTest = new WebSocket(hostUrlTest);
+						socketTest.onopen = function(e) {
+							console.log('Test Socket opened to: ' + hostUrlTest);
+							Dastine.errorMessage = "DASTINE_PORTS_ARE_CLOSED";
+							socketTest.close();
+						}
+						socketTest.onerror = function(error) {
+							Dastine.isInstalled=false;
+							Dastine.errorMessage = "DASTINE_NOT_INSTALLED";
+						};
+					}
 				}
 				Dastine.socketConnection.onclose=function(event){
 					Dastine.isInstalled=false;
 					Dastine.errorMessage = "DASTINE_NOT_INSTALLED";
 				}
-				
-			}else
-			{
-				//msg["info"] = Dastine.info;			
-				//Dastine.socketConnection.send(JSON.stringify(msg));
 			}
 		}
 		catch(e)
@@ -1175,142 +1288,9 @@ var DastineInstaller = {
 			Dastine.isInstalled=false;
 			Dastine.errorMessage = "DASTINE_NOT_INSTALLED";
 		}
-	},
-    //Link to plugin source for installing if needed
-    init: function() {
-		
-        var os = BrowserDetector.OS;
-		
-        var browser = BrowserDetector.browser;
-		
-		if (location.protocol == 'https:')
-		{
-			if(os=='Windows')			
-				hostUrl = "wss://local.dastine.pki.co.ir:51357/dastine";
-			else if(os=='Android')
-				hostUrl = "wss://local.dastine.pki.co.ir:51357/dastine";
-			else if(os=='Linux')
-				hostUrl = "wss://local.dastine.pki.co.ir:51357/dastine";
-			else
-				hostUrl = "wss://local.dastine.pki.co.ir:51357/dastine";
-		}
-		else
-		{
-			if(os=='Windows')			
-				hostUrl = "ws://local.dastine.pki.co.ir:51356/dastine";
-			else if(os=='Android')
-				hostUrl = "ws://local.dastine.pki.co.ir:51356/dastine";
-			else if(os=='Linux')
-				hostUrl = "ws://local.dastine.pki.co.ir:51356/dastine";
-			else
-				hostUrl = "ws://local.dastine.pki.co.ir:51356/dastine";
-		}
-		
-        var majorVersion = parseInt(BrowserDetector.version,10);
+	}
+};
 
-		
-        if(os=="Windows") {
-            if(browser == "Firefox" ) {
-                if(majorVersion >= 10) {
-					Dastine.isInstalled=true;	
-                } else {
-                    Dastine.isInstalled=false;
-                    Dastine.errorMessage = "DASTINE_BROWSER_NOT_SUPPORTED";
-                }
-            } else if(browser == "Chrome") {
-                if(majorVersion < 15) {
-                    Dastine.isInstalled=false;
-                    Dastine.errorMessage = "DASTINE_BROWSER_NOT_SUPPORTED";
-                }else{
-					Dastine.isInstalled=true;	
-				}	
-            } else if(browser == "Explorer") { 
-				if(majorVersion >= 10) {
-					Dastine.isInstalled=true;	
-				} else {
-					Dastine.isInstalled=false;
-					Dastine.errorMessage = "DASTINE_BROWSER_NOT_SUPPORTED";
-				}
-			}else if(browser == "Opera"){  
-				if(majorVersion < 12)
-				{
-					Dastine.isInstalled=false;
-					Dastine.errorMessage = "DASTINE_BROWSER_NOT_SUPPORTED";
-				}else{
-					Dastine.isInstalled=true;	
-				}
-			} else if(browser == "Mozilla"){  
-				if(majorVersion < 11)
-				{
-					Dastine.isInstalled=false;
-					Dastine.errorMessage = "DASTINE_BROWSER_NOT_SUPPORTED";
-				}else{
-					Dastine.isInstalled=true;	
-				}
-			}
-		} /*else {
-			Dastine.isInstalled=false;
-			Dastine.errorMessage = "DASTINE_OS_NOT_SUPPORTED";
-		}*/
-		try
-		{
-           var version = "";
-		   Dastine.GetVersion(function(event) {
-			   
-			   version = event.data.Result;											
-				//alert(version);
-				//alert(DastineConfig.minVersionAndroid);
-				if(os=='Windows')	
-				{
-				   if (version < DastineConfig.minVersion)
-				   {
-						Dastine.isInstalled=false;
-						Dastine.errorMessage = "DASTINE_VERSION_OUTDATED";
-				   }else
-						Dastine.isInstalled=true;
-				}else{
-				
-					if (version < DastineConfig.minVersionAndroid)
-				    {
-						Dastine.isInstalled=false;
-						Dastine.errorMessage = "DASTINE_VERSION_OUTDATED";
-				    }else
-						Dastine.isInstalled=true;
-				}
-				
-				
-						
-				if (Dastine.isInstalled)
-				{
-					Dastine.SetConfig(DastineConfig.config+"<HostDownloadLink>"+DastineConfig.hostDownloadLink+"</HostDownloadLink>"+"<HostDownloadLinkAndroid>"+DastineConfig.hostDownloadLinkAndroid+"</HostDownloadLinkAndroid>", function(event) {
-						if (typeof DastineInitializedCallback=== "function") 
-							DastineInitializedCallback();
-						//alert(event.data.Result);						
-					});
-				}			
-			});
-        }
-		catch(e)
-		{
-			Dastine.isInstalled=false;
-			Dastine.errorMessage = "DASTINE_NOT_INSTALLED";
-		}
-		//window.setTimeout(this.installFireFoxPlugin, 3000);		
-    }
-	};
-function addDastineEventListener(evt,func){
-    if ('addEventListener' in window){
-        window.addEventListener(evt,func, false);
-    } 
-}
-addDastineEventListener("message", function(event) {
-    if(event.source !== window) return;
-    if(event.data.src && (event.data.src === "background.js")) {
-        console.log("Page received: ");
-        console.log(event.data);
-		Dastine.TriggerDastineOutput(event);       
-    }
-}); 
 function generateRandomString() {
   var text = "";
   var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -1320,8 +1300,8 @@ function generateRandomString() {
 
   return text;
 }
-
-//setTimeout( function(){ DastineInstaller.createConnection()},10000);
-DastineInstaller.createConnection();
 BrowserDetector.init();
-DastineInstaller.init();
+//DastineInstaller.init();
+DastineInstaller.createConnection();
+
+

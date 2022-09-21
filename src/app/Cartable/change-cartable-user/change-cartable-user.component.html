@@ -127,9 +127,8 @@
   </div>
   <div class="main-form-body" style="display: inherit; height: 7%;">
     <span class="table-cell-Lable">نقش</span>
-    <app-ng-select-virtual-scroll style="display: inline-block;width: 94%;" class=""
-      [NgSelectParams]="RolesParams" (selectedChange)="onChangeRole($event)"
-      [Items]="roleItems" [multiple]="true">
+    <app-ng-select-virtual-scroll style="display: inline-block;width: 94%;" class="" [NgSelectParams]="RolesParams"
+      (selectedChange)="onChangeRole($event)" [Items]="roleItems" [multiple]="true">
     </app-ng-select-virtual-scroll>
   </div>
   <div class="main-form-body" style="display: inherit; height: 57%;">
@@ -139,7 +138,11 @@
   <div class="buttons-place" style="margin: unset; height: 7%;">
     <button (click)="onSelect()" [disabled]="!UserID" id="btnSelect" class="btn btn-primary btnGreen">
       <img width="15px" height="15px" src="assets/Icons/ok.png" />
-      تایید
+      انتقال
+    </button>
+    <button (click)="onCopy()" [disabled]="!UserID" id="btnSelect" class="btn btn-primary btnGreen">
+      <img width="15px" height="15px" src="assets/Icons/Copy.png" />
+      کپی
     </button>
     <button (click)="onClose()" id="btn4" class="btn btn-primary btnGreen">
       <img width="15px" height="15px" src="assets/Icons/exit.png" />
@@ -160,6 +163,6 @@
 </ng-template>
 <app-over-popup *ngIf="btnclicked" [PopupType]="type" [PopupParam]="alertMessageParams"
   (popupclosed)="popupclosed($event)" [HaveMaxBtn]="HaveMaxBtn" [HeightPercentWithMaxBtn]="HeightPercentWithMaxBtn"
-  (PopupOutPutParam)="type === 'message-box' ? MessageBoxAction($event) : getOutPutParam($event)" [startLeftPosition]="startLeftPosition"
-  [startTopPosition]="startTopPosition">
+  (PopupOutPutParam)="type === 'message-box' ? MessageBoxAction($event) : getOutPutParam($event)"
+  [startLeftPosition]="startLeftPosition" [startTopPosition]="startTopPosition">
 </app-over-popup>

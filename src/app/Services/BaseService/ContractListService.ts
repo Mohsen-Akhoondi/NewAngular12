@@ -729,7 +729,8 @@ export class ContractListService {
     FromProductRequestDate, // از تاريخ
     ToProductRequestDate, // تا تاريخ
     ModuleCode, // ماژول کد
-    SelectedPersonRoleID = null) {
+    SelectedPersonRoleID = null,
+    ShowContractStatus10 = true) {
     return this.http.get(window.location.origin + '/Contract/productRequestwfdetailSearch', {
       RegionCode,
       UnitPatternID,
@@ -740,7 +741,8 @@ export class ContractListService {
       FromProductRequestDate,
       ToProductRequestDate,
       ModuleCode,
-      SelectedPersonRoleID
+      SelectedPersonRoleID,
+      ShowContractStatus10
     });
   }
   GetContractPayPaging(PageNumber, PageSize, SearchTerm, SearchOption, CostFactorID) {
@@ -770,7 +772,8 @@ export class ContractListService {
     ByDetail: boolean,
     ContractorID: number = null,
     ContractOperation: number = null,
-    ContractPayTechnicalCode
+    ContractPayTechnicalCode,
+    AdjustmentTypeCode: number = null
 
   ) {
     return this.http.get(window.location.origin + '/ContractPay/ContractPaySearch', {
@@ -780,7 +783,7 @@ export class ContractListService {
       CostCenterID, SubCostCenterID,
       IsEndWF, HaveWF, FromStartEstimateDate, ToStartEstimateDate,
       FromEndEstimateDate, ToEndEstimateDate,
-      ToFinYear, ByDetail, ContractorID, ContractOperation, ContractPayTechnicalCode
+      ToFinYear, ByDetail, ContractorID, ContractOperation, ContractPayTechnicalCode, AdjustmentTypeCode
     });
   }
 
@@ -862,8 +865,8 @@ export class ContractListService {
     });
   }
 
-  GetRolesListByRegion(RegionCode) {
-    return this.http.get(window.location.origin + '/Home/GetRolesListByRegion', { RegionCode }, false);
+  GetRolesListByRegion(RegionCode, OrginalModuleCode?: any) {
+    return this.http.get(window.location.origin + '/Home/GetRolesListByRegion', { RegionCode, OrginalModuleCode }, false);
   }
   CallContractStatementService(ContractID) {
     return this.http.get(window.location.origin + '/Contract/CallContractStatementService', { ContractID });
@@ -1456,6 +1459,15 @@ export class ContractListService {
     return this.http.get(window.location.origin + '/Contract/GetPRRelation', {
       ContractID
     }, true);
+  }
+  ConfirmChangeCartableUserCopy(UserID: number,
+    DesUserID: number,
+    RolesList: any) {
+    return this.http.post(window.location.origin + '/Contract/ConfirmChangeCartableUserCopy', {
+      UserID,
+      DesUserID,
+      RolesList
+    });
   }
 }
 

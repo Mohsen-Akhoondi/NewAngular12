@@ -38,7 +38,7 @@
           </td>
         </tr>
       </table>
-
+      <!--نگهداشت فضای سبز نباشد-->
       <div class="box-grid grid" *ngIf="!IsGreenSpaceDevAndMaint">
         <app-grid style="width: 100%" [IsEditable]="IsEditable" [columns]="columnDef1" [rowsData]="ContractPayItemList"
           (GridReady)="onContractPayItemGridReady($event)" (CellValueChanged)="onCellValueChanged($event)"
@@ -46,7 +46,7 @@
         </app-grid>
       </div>
 
-      <!--نگهداشت فضای سبز-->
+      <!--نگهداشت فضای سبز باشد-->
       <div *ngIf="IsGreenSpaceDevAndMaint" style="overflow: auto; height: 84%; margin: 10px auto;">
         <div id="div1" class="box-dev" style="height: 96%; width: 50%; float: right; margin: 1px;">
           <div class="pro-div">
@@ -100,17 +100,17 @@
       </div>
 
       <div *ngIf="true" class="buttons-place" style="float:left;margin: auto;" [style.width.%]="49">
-        <button [disabled]="BTNsShow" (click)="onConfirm()" id="btn2" class="btn btn-primary btnGreen"
+        <button [disabled]="BTNsShow " (click)="onConfirm()" id="btn2" class="btn btn-primary btnGreen"
           style="margin: 2px;">
           <img width="15px" height="15px" src="assets/Icons/{{btnConfirmIcon}}.png" />
           {{btnConfirmName}}
         </button>
-        <button [disabled]="BTNsShow" (click)="onConfirmAndSend()" id="btn2"
-          class="btn btn-primary btnGreen" style="margin: 2px;">
+        <button [disabled]="BTNsShow " (click)="onConfirmAndSend()" id="btn2" class="btn btn-primary btnGreen"
+          style="margin: 2px;">
           <img width="15px" height="15px" src="assets/Icons/Approve.png" />
           تایید و ارسال </button>
-        <button [disabled]="BTNsShow" (click)="onUnConfirmAndReturn()" id="btn2"
-          class="btn btn-primary btnGreen" style="margin: 2px;">
+        <button [disabled]="BTNsShow " (click)="onUnConfirmAndReturn()" id="btn2" class="btn btn-primary btnGreen"
+          style="margin: 2px;">
           <img width="15px" height="15px" src="assets/Icons/DisApprove.png" />
           {{btnConfirmAndReturnName}} </button>
         <button [disabled]="BTNsShow" (click)="OnClickPrintFlow()" class="btn btn-primary btnGreen">

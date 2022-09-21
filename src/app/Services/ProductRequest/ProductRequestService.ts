@@ -2285,4 +2285,16 @@ export class ProductRequestService {
 
             });
     }
+    GetApprovalPriceIndexDetail(CostFactorID: number,
+        OrderCommitionID: number = null,
+        DeadLineDate: any = null,
+        CommitionDate: any = null) {
+        // tslint:disable-next-line: max-line-length
+        return this.http.get(window.location.origin + '/ProductRequest/GetApprovalPriceIndexDetail', {
+            CostFactorID,
+            OrderCommitionID,
+            DeadLineDate,
+            CommitionDate
+        });
+    }
 }

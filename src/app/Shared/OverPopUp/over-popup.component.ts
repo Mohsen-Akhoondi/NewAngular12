@@ -17,8 +17,8 @@ export class OverPopupComponent implements OnInit {
   @Input() zIndex = null;
   @Input() PopupType;
   @Input() PopupParam;
-  @Input() startLeftPosition;
-  @Input() startTopPosition;
+  @Input() startLeftPosition = 50;
+  @Input() startTopPosition = 10;
   @Input() minHeightPixel;
   @Input() MainMaxwidthPixel;
   @Input() MainMinwidthPixel;
@@ -46,7 +46,7 @@ export class OverPopupComponent implements OnInit {
     console.log(this.PopupType);
 
     if (!this.MainMaxwidthPixel) {
-      this.MainMaxwidthPixel = 1140;
+      this.MainMaxwidthPixel = 1240;
     }
 
     switch (this.PopupType) {

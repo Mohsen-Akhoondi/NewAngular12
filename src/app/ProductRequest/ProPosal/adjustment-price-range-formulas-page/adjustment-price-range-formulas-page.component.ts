@@ -45,6 +45,13 @@ export class AdjustmentPriceRangeFormulasPageComponent implements OnInit {
   PriceListTypeCode: any;
   DeadLineDate: any;
   CommitionDate: any;
+  HaveHeader: boolean;
+  PercentWidth: number;
+  PixelWidth: number;
+  MinHeightPixel: number;
+  PixelHeight: number;
+  paramObj;
+  HeightPercentWithMaxBtn: number;
 
   constructor(private ProductRequest: ProductRequestService,
     private User: UserSettingsService,
@@ -169,7 +176,17 @@ export class AdjustmentPriceRangeFormulasPageComponent implements OnInit {
     ];
   }
 
-  popupclosed() { }
+  popupclosed() { 
+    this.btnclicked = false;
+    this.type = '';
+    this.OverstartLeftPosition = null;
+    this.OverstartTopPosition = null;
+    this.HeightPercentWithMaxBtn = null;
+    this.PercentWidth = null;
+    this.PixelWidth = null;
+    this.MinHeightPixel = null;
+    this.PixelHeight = null;
+  }
 
   onGridReady(params: { api: any; }) {
     this.SbsApi = params.api;
@@ -178,5 +195,22 @@ export class AdjustmentPriceRangeFormulasPageComponent implements OnInit {
   onClose() {
     this.AdjustmentPriceRangeFormulaClosed.emit(true);
   }
-
+  onclick() {
+    this.type = 'approval-price-index-detail';
+    this.HaveHeader = true;
+    this.btnclicked = true;
+    this.OverstartLeftPosition = 108;
+    this.OverstartTopPosition = 45;
+    this.HeightPercentWithMaxBtn = 60;
+    this.PixelWidth = 1140;
+    this.MinHeightPixel = 200;
+    this.PixelHeight = 590;
+    this.paramObj = {
+      HeaderName: 'ریز ردیف های تطبیق یافته تجمیعی',
+      CostFactorID: this.ProductRequestObject.CostFactorID,
+      OrderCommitionID: this.PopupParam.OrderCommitionID,
+      DeadLineDate: this.DeadLineDate,
+      CommitionDate: this.CommitionDate,
+    };
+  }
 }

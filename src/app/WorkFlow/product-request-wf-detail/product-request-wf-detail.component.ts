@@ -231,8 +231,10 @@ export class ProductRequestWFDetailComponent implements OnInit {
   currentFromRequestObject: any;
   currentToRequestObject: any;
   CustomCheckBoxConfig: CustomCheckBoxModel = new CustomCheckBoxModel();
+  CustomCheckBoxConfig1: CustomCheckBoxModel = new CustomCheckBoxModel();
   IsAdmin = false;
   ShowIsOver15 = false;
+  ShowContractStatus10 = true;
   constructor(private router: Router,
     private Workflow: WorkflowService,
     private Region: RegionListService,
@@ -439,6 +441,10 @@ export class ProductRequestWFDetailComponent implements OnInit {
     this.CustomCheckBoxConfig.icon = 'fa fa-check';
     this.CustomCheckBoxConfig.styleCheckBox = 'pretty p-icon p-rotate';
     this.CustomCheckBoxConfig.AriaWidth = 20;
+    this.CustomCheckBoxConfig1.color = 'state p-primary';
+    this.CustomCheckBoxConfig1.icon = 'fa fa-check';
+    this.CustomCheckBoxConfig1.styleCheckBox = 'pretty p-icon p-rotate';
+    this.CustomCheckBoxConfig1.AriaWidth = 20;
     this.ShowIsOver15 = this.ModuleCode === 2793;
     this.getNewData();
     this.User.GetModulOPByUser(this.ModuleCode).subscribe(res => {
@@ -562,8 +568,9 @@ export class ProductRequestWFDetailComponent implements OnInit {
       this.FromProductRequestDate, // از تاریخ
       this.ToProductRequestDate, // تا تاریخ
       this.ModuleCode, // ماژول کد
-      this.NgSelectPersonRoleParams.selectedObject // کاربر گردش کار
-    ).subscribe(res => {
+      this.NgSelectPersonRoleParams.selectedObject, // کاربر گردش کار
+      this.ShowContractStatus10
+      ).subscribe(res => {
       this.rowData = res;
     });
   }
@@ -760,5 +767,8 @@ export class ProductRequestWFDetailComponent implements OnInit {
   }
   PersonRoleSelectedChange(event) {
     this.PersonRoleSelectedID = event;
+  }
+  OnChangeCheckBoxValue1(Ischeck) {
+        this.ShowContractStatus10 = Ischeck;
   }
 }

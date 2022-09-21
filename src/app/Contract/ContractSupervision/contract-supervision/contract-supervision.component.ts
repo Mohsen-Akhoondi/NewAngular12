@@ -288,7 +288,7 @@ export class ContractSupervisionComponent implements OnInit {
         HaveThousand: false,
         resizable: true,
         editable: (params) => {
-          if (this.PopupParam.ModuleViewTypeCode === 3 || this.PopupParam.ModuleViewTypeCode === 2)  {
+          if (this.PopupParam.ModuleViewTypeCode === 3 || this.PopupParam.ModuleViewTypeCode === 2) {
             return false;
           } else if (!params.data.HasNoItem) {
             return false;
@@ -1372,23 +1372,27 @@ export class ContractSupervisionComponent implements OnInit {
     if (this.PREntgridApi) {
       this.PREntgridApi.forEachNodeAfterFilter(function (node) {
         if (node.data.SupervisorValue && ModuleViewTypeCode === 3) {
-          SumWeightedValue = SumWeightedValue + node.data.Weight;
           if (node.data.SupervisorEntityItemSubject && !node.data.HasNoItem) {
+            SumWeightedValue = SumWeightedValue + node.data.Weight;
             // tslint:disable-next-line: radix
             SumMultiple = SumMultiple + (parseInt(node.data.SupervisorEntityItemSubject) * node.data.Weight);
           } else if (node.data.SupervisorValue && node.data.HasNoItem) {
+            SumWeightedValue = SumWeightedValue + node.data.Weight;
             SumMultiple = SumMultiple + (parseFloat(node.data.SupervisorValue) * node.data.Weight);
           } else {
+            SumWeightedValue = SumWeightedValue + 0;
             SumMultiple = SumMultiple + 0;
           }
         } else {
-          SumWeightedValue = SumWeightedValue + node.data.Weight;
           if (node.data.EntityItemSubject && !node.data.HasNoItem) {
+            SumWeightedValue = SumWeightedValue + node.data.Weight;
             // tslint:disable-next-line: radix
             SumMultiple = SumMultiple + (parseFloat(node.data.EntityItemSubject) * node.data.Weight);
           } else if (node.data.ContractorValue && node.data.HasNoItem) {
+            SumWeightedValue = SumWeightedValue + node.data.Weight;
             SumMultiple = SumMultiple + (parseFloat(node.data.ContractorValue) * node.data.Weight);
           } else {
+            SumWeightedValue = SumWeightedValue + 0;
             SumMultiple = SumMultiple + 0;
           }
         }

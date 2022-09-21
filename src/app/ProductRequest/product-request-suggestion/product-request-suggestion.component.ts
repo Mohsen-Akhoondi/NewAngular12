@@ -2793,7 +2793,8 @@ export class ProductRequestSuggestionComponent implements OnInit {
           PriceListTypeCode: this.PriceListTypeParams.selectedObject,
           CostListFinYearCode: this.PriceListTopicParams.selectedObject,
           PriceListTopicCode: this.selectedEstimateRow.data.PriceListNo,
-          ItemNo: this.selectedEstimateRow.data.ItemNo
+          ItemNo: this.selectedEstimateRow.data.ItemNo,
+          ModuleCode : this.ModuleCode
         };
       }
     }
